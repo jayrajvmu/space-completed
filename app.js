@@ -1,85 +1,46 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const db = require('./db/mysql');
-
-app.get('/', (req, res) => {
-	res.send('Welcome to JS!');
-});
+const logger = require('./middleware/logger');
+const axios = require('axios');
 
 app.listen(process.env.PORT, () => {
 	console.log(`Example app listening on port ${process.env.PORT}`);
-	console.log(process.env.ports);
 });
+
+// Middleware to log requests
+app.use(logger);
+
+// Body Parsing
+app.use(express.json());
 
 // All Routes for Rooms
 app.use('/rooms', require('./routes/api/rooms'));
 
+app.get('/', async (req, res) => {
+	let headersList = {
+		"Accept": "*/*",
+		"User-Agent": "Thunder Client (https://www.thunderclient.com)",
+		"Content-Type": "application/json" 
+	}
 
-// Add a Room
-app.post('/addRoom/:id', (req, res) => {
-	let room = { title: `Room ${req.params.id}`, description: `This is Room Number ${req.params.id}` };
-	let sql = 'INSERT INTO rooms SET ?';
-	let query = db.query(sql, room, (err, result, fields) => {
-		if (err) {
-			throw err;
-		}
-		console.log(result);
-		res.send(result);
-	});
+	let reqOptions = {
+		url: "http://localhost:5000/rooms",
+		method: "GET",
+		headers: headersList,
+	}
+
+	let apiResponse = await axios.request(reqOptions);
+
+	try {
+		res.send(apiResponse);
+	}
+	catch (err) {
+		res.send({success: false, message: err.message});
+	}
 });
 
-// View all Rooms
-app.get('/viewRooms', (req, res) => {
-	let sql = 'SELECT * FROM rooms';
-	let query = db.query(sql, (err, result, fields) => {
-		if (err) {
-			throw err;
-		}
-		console.log(result);
-		res.send(result);
-	});
-});
-
-// View a specific Room
-app.get('/viewRooms/:id', (req, res) => {
-	let sql = `SELECT * FROM rooms WHERE id=${req.params.id}`;
-	let query = db.query(sql, (err, result, fields) => {
-		if (err) {
-			throw err;
-		}
-		console.log(result);
-		res.send(result);
-	});
-});
-
-// Update a specific Room
-app.get('/updateRooms/:id', (req, res) => {
-	let sql = `UPDATE rooms SET title='Room ${req.params.id+1}' WHERE id=${req.params.id}`;
-	let query = db.query(sql, (err, result, fields) => {
-		if (err) {
-			throw err;
-		}
-		console.log(result);
-		res.send(result);
-	});
-});
-
-
-// Delete a specific Room
-app.get('/deleteRooms/:id', (req, res) => {
-	let sql = `DELETE FROM rooms WHERE id=${req.params.id}`;
-	let query = db.query(sql, (err, result, fields) => {
-		if (err) {
-			throw err;
-		}
-		console.log(result);
-		res.send(result);
-	});
-});
-
-
-// CRUD - REST --- Task: Move the DB APIs into proper routes as below into rooms.js
+// RESTful CRUD --- Task: Move the DB APIs into proper routes as below into rooms.js
 
 // GET /rooms    (View all rooms)
 // GET /rooms/1  (View Room 1)
