@@ -10,15 +10,17 @@
     <div id="wingEditContainer">
             <label for="tableId" name="tableId">Table ID :</label>
             <input type="text" name="" id="tableId">
-            <label for="seatNo" name="seatNo">Seat No :</label>
-            <input type="text" name="" id="seatNo">
+            <label for="seatCount" name="seatCount">Seat Count :</label>
+            <input type="text" name="" id="seatCount">
             <label for="adminCode" name="adminCode">Admin Code :</label>
             <input type="text" name="" id="adminCode">
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" onclick="updateTable()">
     </div>
     <div>
         <a href="./wing.html"><div id="goHome">Go Home</div></a>
         <div id="goBack">Go Back</div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/wingEdit.js"></script>
 </body>
 </html>
