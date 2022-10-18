@@ -13,6 +13,7 @@ app.get("/",(request,response)=>{
 app.get("/updated",(request,response)=>{
     fs.readFile('summa.json', function(err, data) {
         response.send(data);
+        console.log(response);
       });
 })
 app.put("/update",(request,response)=>{

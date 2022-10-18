@@ -2,6 +2,7 @@ function updateTable() {
     let tableId=document.getElementById("tableId");
     let seatCount = document.getElementById("seatCount");
     let adminCode = document.getElementById("adminCode");
+    let message= document.getElementById("message");
 
     let updateWSTable = {
         tValue: `${tableId.value}`,
@@ -20,8 +21,9 @@ function updateTable() {
                     console.log(err);
                 });
    axios.get('http://localhost:5500/updated').then(
-    e =>{
-        console.log(e.data);
+    response =>{
+        message.textContent = response.data.some;
+
     }
    )
 }
