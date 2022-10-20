@@ -1,0 +1,36 @@
+*,*::after,*::before{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+html{
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+    width: 100vw;    
+}
+#wingContainer{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    height:80vh;
+    width: 80vw;
+    background-color: antiquewhite;
+}
+#wingCreation{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    height:50vh;
+    width: 50vw;
+    font-size: large;
+}
+#message{
+    height:20vh;
+    width: 50vw;
+    text-align: center;
+}

@@ -22,8 +22,8 @@ function updateTable() {
                 });
    axios.get('http://localhost:5500/updated').then(
     response =>{
-        message.textContent = response.data.some;
-
+        message.textContent = response.data;
+        console.log(response.data);
     }
    )
 }
