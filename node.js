@@ -48,6 +48,23 @@ app.get("/creative",(request,response)=>{
     }
     response.send(a);
 })
+app.get("/bunker",(request,response)=>{
+    let o={
+        totalTable:2,
+        tableIds:[
+            {
+                tableName:"table5",
+                seat:8
+            },
+            {
+                tableName:"table6",
+                seat:6
+            }
+        ]
+        
+    }
+    response.send(o);
+})
 
 app.post("/wingGeneration",(request,response)=>{
     console.log(request.body);

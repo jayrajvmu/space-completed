@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Booking</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../css/userBooking.css">
 </head>
 
 <body>
@@ -25,14 +27,16 @@
                 </div>
             </div>
             <div id="wingStation">
-                <a href="#" aria-label="bunker"><div id="bunker">Bunker</div></a>
-                <a href="./creative.html" aria-label="creative"><div id="creative">Creative</div></a>
-                <a href="#" aria-label="boardRoom"><div id="boardRoom">Board Room</div></a>
-                <a href="#" aria-label="digital"><div id="digital">Digital</div></a>
+                <button onclick="creativeRoom()">creative</button>
+    <button onclick="bunkerRoom()"> bunker</button>
             </div>
 
         </div>
     </div>
+    <div class="container">
+        
+    </div>
+    <script src="../js/userBooking.js"></script>
 </body>
 
 </html>
