@@ -26,12 +26,16 @@
 .table,.row1,.row2{
     height:10vh;
     width:40vw;
+    text-align: center;
 }
 .table{
     /* border:1px solid red; */
     background-color: rgb(255, 251, 1);
     border-radius: .2em;
     height:20vh;
+    display: grid;
+    justify-items: center;
+    align-items: center;
 }
 .row1{
     display: grid;
@@ -50,4 +54,7 @@
     width:4vw;
     background-color: rgb(155, 236, 155);
     border-radius: .2em;
+    display: grid;
+    justify-items: center;
+    align-items: center;
 }

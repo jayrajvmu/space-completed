@@ -14,8 +14,7 @@ app.get("/",(request,response)=>{
 })
 app.get("/updated",(request,response)=>{
     fs.readFile('summa.json',"utf8", function(err, data) {
-        response.send(data);
-        console.log(data);
+        response.send("Successful");
       });
 })
 app.put("/update",(request,response)=>{
@@ -23,49 +22,261 @@ app.put("/update",(request,response)=>{
     response.send("successful")
 })
 
-app.get("/creative",(request,response)=>{
-    let a={
-        totalTable:4,
-        tableIds:[
-            {
-                tableName:"table1",
-                seat:11
-            },
-            {
-                tableName:"table2",
-                seat:2
-            },
-            {
-                tableName:"table3",
-                seat:1
-            },
-            {
-                tableName:"table4",
-                seat:3
-            }
-        ]
-        
-    }
-    response.send(a);
-})
-app.get("/bunker",(request,response)=>{
-    let o={
-        totalTable:2,
-        tableIds:[
-            {
-                tableName:"table5",
-                seat:8
-            },
-            {
-                tableName:"table6",
-                seat:6
-            }
-        ]
-        
-    }
-    response.send(o);
-})
 
+app.get("/cafe",(request,response)=>{
+    let s={
+        "id":1,
+        "name":"Digital",
+        "no_of_tables" : 3,
+        "no_of_seats" : 12,
+        "tables" : [
+            {
+                "id":1,
+                "name":"table-1",
+                "seats" : [
+                    {
+                        "id" : 1,
+                        "name":"seat-1"
+                    },
+                    {
+                        "id" : 2,
+                        "name":"seat-2"
+                    },
+                    {
+                        "id" : 3,
+                        "name":"seat-3"
+                    },
+                    {
+                        "id" : 4,
+                        "name":"seat-4"
+                    }
+                ]
+            },
+            {
+                "id":2,
+                "name":"table-2",
+                "seats" : [
+                    {
+                        "id" : 1,
+                        "name":"seat-1"
+                    },
+                    {
+                        "id" : 2,
+                        "name":"seat-2"
+                    },
+                    {
+                        "id" : 3,
+                        "name":"seat-3"
+                    },
+                    {
+                        "id" : 4,
+                        "name":"seat-4"
+                    }
+                ]
+            },
+            {
+                "id":1,
+                "name":"table-3",
+                "seats" : [
+                    {
+                        "id" : 1,
+                        "name":"seat-1"
+                    },
+                    {
+                        "id" : 2,
+                        "name":"seat-2"
+                    },
+                    {
+                        "id" : 3,
+                        "name":"seat-3"
+                    },
+                    {
+                        "id" : 4,
+                        "name":"seat-4"
+                    },
+                    {
+                        "id" : 5,
+                        "name":"seat-4"
+                    }
+                ]
+            }
+            
+        ]
+    }
+    response.send(s);
+});
+app.get("/bunker",(request,response)=>{
+    let s={
+        "id":1,
+        "name":"Digital",
+        "no_of_tables" : 3,
+        "no_of_seats" : 12,
+        "tables" : [
+            {
+                "id":1,
+                "name":"table-1",
+                "seats" : [
+                    {
+                        "id" : 1,
+                        "name":"seat-1"
+                    },
+                    {
+                        "id" : 2,
+                        "name":"seat-2"
+                    },
+                    {
+                        "id" : 3,
+                        "name":"seat-3"
+                    },
+                    {
+                        "id" : 4,
+                        "name":"seat-4"
+                    },
+                    {
+                        "id" : 5,
+                        "name":"seat-5"
+                    },
+                    {
+                        "id" : 6,
+                        "name":"seat-6"
+                    }
+                ]
+            },
+            {
+                "id":2,
+                "name":"table-2",
+                "seats" : [
+                    {
+                        "id" : 1,
+                        "name":"seat-1"
+                    },
+                    {
+                        "id" : 2,
+                        "name":"seat-2"
+                    },
+                    {
+                        "id" : 3,
+                        "name":"seat-3"
+                    },
+                    {
+                        "id" : 4,
+                        "name":"seat-4"
+                    }
+                ]
+            },
+            {
+                "id":1,
+                "name":"table-3",
+                "seats" : [
+                    {
+                        "id" : 1,
+                        "name":"seat-1"
+                    },
+                    {
+                        "id" : 2,
+                        "name":"seat-2"
+                    },
+                    {
+                        "id" : 3,
+                        "name":"seat-3"
+                    },
+                    {
+                        "id" : 4,
+                        "name":"seat-4"
+                    },
+                    {
+                        "id" : 5,
+                        "name":"seat-4"
+                    }
+                ]
+            }
+            
+        ]
+    }
+    response.send(s);
+});
+app.get("/creative",(request,response)=>{
+    let s={
+        "id":1,
+        "name":"Digital",
+        "no_of_tables" : 3,
+        "no_of_seats" : 12,
+        "tables" : [
+            {
+                "id":1,
+                "name":"table-1",
+                "seats" : [
+                    {
+                        "id" : 1,
+                        "name":"seat-1"
+                    },
+                    {
+                        "id" : 2,
+                        "name":"seat-2"
+                    },
+                    {
+                        "id" : 3,
+                        "name":"seat-3"
+                    },
+                    {
+                        "id" : 4,
+                        "name":"seat-4"
+                    }
+                ]
+            },
+            {
+                "id":2,
+                "name":"table-2",
+                "seats" : [
+                    {
+                        "id" : 1,
+                        "name":"seat-1"
+                    },
+                    {
+                        "id" : 2,
+                        "name":"seat-2"
+                    },
+                    {
+                        "id" : 3,
+                        "name":"seat-3"
+                    },
+                    {
+                        "id" : 4,
+                        "name":"seat-4"
+                    }
+                ]
+            },
+            {
+                "id":1,
+                "name":"table-3",
+                "seats" : [
+                    {
+                        "id" : 1,
+                        "name":"seat-1"
+                    },
+                    {
+                        "id" : 2,
+                        "name":"seat-2"
+                    },
+                    {
+                        "id" : 3,
+                        "name":"seat-3"
+                    },
+                    {
+                        "id" : 4,
+                        "name":"seat-4"
+                    },
+                    {
+                        "id" : 5,
+                        "name":"seat-4"
+                    }
+                ]
+            }
+            
+        ]
+    }
+    response.send(s);
+});
 app.post("/wingGeneration",(request,response)=>{
     console.log(request.body);
     let some = request.body;

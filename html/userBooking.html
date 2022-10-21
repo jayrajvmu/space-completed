@@ -26,9 +26,11 @@
                     <button>Search</button>
                 </div>
             </div>
+
             <div id="wingStation">
-                <button onclick="creativeRoom()">creative</button>
-    <button onclick="bunkerRoom()"> bunker</button>
+                <button onclick="creativeRoom(1)" value="1">creative</button>
+                <button onclick="bunkerRoom()" value="2"> bunker</button>
+                <button onclick="cafeRoom(this.value)" value="3"> cafe</button>
             </div>
 
         </div>
