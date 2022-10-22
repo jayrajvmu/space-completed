@@ -3,27 +3,40 @@ let seat = document.getElementsByClassName("seat");
         let row2 = document.getElementById("row2");
         let createTable;
         
+        axios.get("http://localhost:5500/wings").then((response)=>{
+            let wingNameData =response.data;
+            let wingData = wingNameData.wing_name;
+            wingGenerating(wingData)
+        })
+
+        function wingCreation(){ 
+           let wings = document.getElementById("wings");
+           let a = document.createElement("div");
+           a.classList.add("wingName")
+           wings.appendChild(a);
+           let b= document.createElement("div");
+           b.setAttribute("onclick","createRoom(event)")
+           b.classList.add("wing_name");
+           a.appendChild(b);
+           a.setAttribute("onclick","createRoom(event)")
+        }      
         
-        function cafeRoom() {
-            let container= document.querySelector(".container");
-            container.innerHTML="";
-            axios.get("http://localhost:5500/cafe").then((response)=>{
-            createTable = response.data;
-            wait();
-        } )
+        function wingGenerating(wingData){
+            for(i=0;i<wingData.length;i++){
+            wingCreation();
+            let wings = document.getElementById("wings");
+            let wing_name = document.getElementsByClassName("wing_name");
+            let wingName = document.getElementsByClassName("wingName")   
+            wing_name[i].textContent= wingData[i].name;
+            wingName[i].setAttribute("value",`${wingData[i].id}`);
+            wing_name[i].setAttribute("value",`${wingData[i].id}`)
+            
         }
-        function creativeRoom() {
-            let container= document.querySelector(".container");
-            container.innerHTML="";
-            axios.get("http://localhost:5500/creative").then((response)=>{
-            createTable = response.data;
-            wait();
-        } )
+
         }
-        function bunkerRoom(1) {
-            let container= document.querySelector(".container");
-            container.innerHTML="";
-            axios.get("http://localhost:5500/bunker").then((response)=>{
+        function createRoom(value) {
+            let nodeValue = value.target.attributes.value.nodeValue
+            axios.get(`http://localhost:5500/wings/${nodeValue}`).then((response)=>{
             createTable = response.data;
             wait();
         } )
@@ -32,22 +45,21 @@ let seat = document.getElementsByClassName("seat");
         
         
         function wait() {
+            let container= document.querySelector(".container");
+            container.innerHTML="";
             for(i=0;i<createTable.no_of_tables;i++){
             edo()
             let a = document.querySelectorAll(".container>div");
             a[i].setAttribute("id",`${createTable.tables[i].name}`);
             a[i].setAttribute("class","arrange");
-            console.log(a[i]);
-            console.log(a.length);
             vijay(i);
             nameProvider(i);
             }
-        }        
-
+        }  
+        
         
         function vijay(i) {
             let container = document.querySelectorAll(".container>div");
-            console.log(createTable.tables[i].seats.length);
             let a = document.createElement("div");
             a.setAttribute("class","seat");
             let row1= document.querySelector(`#${createTable.tables[i].name}> .row1`);

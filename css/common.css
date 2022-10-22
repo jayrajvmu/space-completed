@@ -1,0 +1,43 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;  
+}
+*:is(::after,::before){
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#spaceM_header{
+    background-color:  #28293E;
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+
+}
+#logo{
+    color:white;
+    font-size: 20px;
+    font-weight: 700;
+    display: grid;
+    justify-content: start;
+    justify-items: center;
+    align-items: center;
+}
+#logo>div{
+    padding: 20px;
+}
+nav{
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    align-items: center;
+    justify-items: center;
+    justify-content: end;
+}
+nav a{
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 20px;
+}

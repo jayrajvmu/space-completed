@@ -1,20 +1,19 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;  
-}
-*:is(::after,::before){
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
 .container{
-    border:4px solid red;
     display: grid;
     grid-template-columns: repeat(2,50%);
     justify-content: center;
     align-items: center;
     row-gap: 50px;
+}
+#wing_heading{
+    height:10vh;
+    width:100vw;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: 5px;
 }
 .arrange{
     display: grid;
@@ -30,8 +29,8 @@
 }
 .table{
     /* border:1px solid red; */
-    background-color: rgb(255, 251, 1);
-    border-radius: .2em;
+    background-color: rgba(0, 198, 195, 0.13);
+    border-radius: 1em;
     height:20vh;
     display: grid;
     justify-items: center;
@@ -52,9 +51,24 @@
     border:2px solid white;
     height:5vh;
     width:4vw;
-    background-color: rgb(155, 236, 155);
-    border-radius: .2em;
+    background-color:#12D348;
+    border-radius: .5em;
     display: grid;
     justify-items: center;
     align-items: center;
+}
+#wings{
+    display: grid;
+    grid-template-columns: repeat(4,auto);
+    
+}
+.wingName{
+    margin:20px;
+    height:15vh;
+    display:grid;
+    justify-items: center;
+    align-items: center;
+    color: white;
+    background-color: #00C6C3;
+    font-weight: bold;
 }

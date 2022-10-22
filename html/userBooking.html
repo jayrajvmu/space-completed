@@ -7,35 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Booking</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/userBooking.css">
 </head>
 
 <body>
-    <div id="userContainer">
-        <div>
-            <div id="wingSearch">
-                <div id="wingSection">
-                    <label for="wingLocate">Locate Your Wing</label>
-                    <select name="wingLocate" id="wingLocate">
-                        <option value="creative">creative</option>
-                        <option value="bunker">Bunker</option>
-                        <option value="boardRoom">Board Room</option>
-                    </select>
-                </div>
-                <div>
-                    <button>Search</button>
-                </div>
-            </div>
-
-            <div id="wingStation">
-                <button onclick="creativeRoom(1)" value="1">creative</button>
-                <button onclick="bunkerRoom()" value="2"> bunker</button>
-                <button onclick="cafeRoom(this.value)" value="3"> cafe</button>
-            </div>
-
-        </div>
+    <header id="spaceM_header">
+        <div id="logo"><div>Space - o</div> </div>
+        <nav>
+            <a href="#"><div id="dashboard">Dashboard</div></a>
+            <a href="#"><div id="profile">Profile</div></a>
+            <a href="#"><div id="logout">logout</div></a>
+        </nav>
+    </header>
+    <div id="wing_heading">
+       <div id="wing_heading_name"> Wings</div> 
     </div>
+    <div id="wings">
+        <!-- <div class="wingName"><div class="wing_name">Digital</div></div>        -->
+
+    </div>
+    
     <div class="container">
+        <!-- <div>
+            <div id="row1">
+                <div class="seat"></div>
+                <div class="seat"></div>
+            </div>
+        <div id="table">
+            <div class="tableName"></div>
+        </div>
+        <div id="row2">
+            <div class="seat"></div>
+            <div class="seat"></div>
+        </div>
+        </div> -->
         
     </div>
     <script src="../js/userBooking.js"></script>

@@ -1,5 +1,5 @@
-const express =require("express");
-const app =express();
+const express = require("express");
+const app = express();
 const cors = require("cors");
 const fs = require("fs");
 const axios = require("axios").default;
@@ -9,282 +9,172 @@ const port = 5500;
 
 app.use(cors());
 app.use(express.json());
-app.get("/",(request,response)=>{
+app.get("/", (request, response) => {
     response.send("hell world");
 })
-app.get("/updated",(request,response)=>{
-    fs.readFile('summa.json',"utf8", function(err, data) {
+app.get("/updated", (request, response) => {
+    fs.readFile('summa.json', "utf8", function (err, data) {
         response.send("Successful");
-      });
+    });
 })
-app.put("/update",(request,response)=>{
+app.put("/update", (request, response) => {
     console.log(request.body);
     response.send("successful")
 })
 
 
-app.get("/cafe",(request,response)=>{
-    let s={
-        "id":1,
-        "name":"Digital",
-        "no_of_tables" : 3,
-        "no_of_seats" : 12,
-        "tables" : [
+
+app.get("/wings", (request, response) => {
+    let wings = {
+        "wing_name": [
             {
-                "id":1,
-                "name":"table-1",
-                "seats" : [
+                "id": 1,
+                "name": "Digital"
+            }, {
+                "id": 2,
+                "name": "Creative"
+            }
+        ]
+    }
+    response.send(wings);
+})
+
+app.get("/wings/1", (request, response) => {
+    let s = {
+        "id": 1,
+        "name": "Digital",
+        "no_of_tables": 3,
+        "no_of_seats": 12,
+        "tables": [
+            {
+                "id": 1,
+                "name": "table-1",
+                "seats": [
                     {
-                        "id" : 1,
-                        "name":"seat-1"
+                        "id": 1,
+                        "name": "seat-1"
                     },
                     {
-                        "id" : 2,
-                        "name":"seat-2"
+                        "id": 2,
+                        "name": "seat-2"
                     },
                     {
-                        "id" : 3,
-                        "name":"seat-3"
+                        "id": 3,
+                        "name": "seat-3"
                     },
                     {
-                        "id" : 4,
-                        "name":"seat-4"
+                        "id": 4,
+                        "name": "seat-4"
                     }
                 ]
             },
             {
-                "id":2,
-                "name":"table-2",
-                "seats" : [
+                "id": 2,
+                "name": "table-2",
+                "seats": [
                     {
-                        "id" : 1,
-                        "name":"seat-1"
+                        "id": 1,
+                        "name": "seat-1"
                     },
                     {
-                        "id" : 2,
-                        "name":"seat-2"
+                        "id": 2,
+                        "name": "seat-2"
                     },
                     {
-                        "id" : 3,
-                        "name":"seat-3"
+                        "id": 3,
+                        "name": "seat-3"
                     },
                     {
-                        "id" : 4,
-                        "name":"seat-4"
+                        "id": 4,
+                        "name": "seat-4"
                     }
                 ]
             },
             {
-                "id":1,
-                "name":"table-3",
-                "seats" : [
+                "id": 1,
+                "name": "table-3",
+                "seats": [
                     {
-                        "id" : 1,
-                        "name":"seat-1"
+                        "id": 1,
+                        "name": "seat-1"
                     },
                     {
-                        "id" : 2,
-                        "name":"seat-2"
+                        "id": 2,
+                        "name": "seat-2"
                     },
                     {
-                        "id" : 3,
-                        "name":"seat-3"
+                        "id": 3,
+                        "name": "seat-3"
                     },
                     {
-                        "id" : 4,
-                        "name":"seat-4"
+                        "id": 4,
+                        "name": "seat-4"
                     },
                     {
-                        "id" : 5,
-                        "name":"seat-4"
+                        "id": 5,
+                        "name": "seat-4"
                     }
                 ]
             }
-            
+
         ]
     }
     response.send(s);
 });
-app.get("/bunker",(request,response)=>{
-    let s={
-        "id":1,
-        "name":"Digital",
-        "no_of_tables" : 3,
-        "no_of_seats" : 12,
-        "tables" : [
+
+app.get("/wings/2", (request, response) => {
+    let si = {
+        "id": 1,
+        "name": "Digital",
+        "no_of_tables": 2,
+        "no_of_seats": 8,
+        "tables": [
             {
-                "id":1,
-                "name":"table-1",
-                "seats" : [
+                "id": 1,
+                "name": "table-1",
+                "seats": [
                     {
-                        "id" : 1,
-                        "name":"seat-1"
+                        "id": 1,
+                        "name": "seat-1"
                     },
                     {
-                        "id" : 2,
-                        "name":"seat-2"
+                        "id": 2,
+                        "name": "seat-2"
                     },
                     {
-                        "id" : 3,
-                        "name":"seat-3"
+                        "id": 3,
+                        "name": "seat-3"
                     },
                     {
-                        "id" : 4,
-                        "name":"seat-4"
-                    },
-                    {
-                        "id" : 5,
-                        "name":"seat-5"
-                    },
-                    {
-                        "id" : 6,
-                        "name":"seat-6"
+                        "id": 4,
+                        "name": "seat-4"
                     }
                 ]
             },
             {
-                "id":2,
-                "name":"table-2",
-                "seats" : [
+                "id": 2,
+                "name": "table-2",
+                "seats": [
                     {
-                        "id" : 1,
-                        "name":"seat-1"
+                        "id": 1,
+                        "name": "seat-1"
                     },
                     {
-                        "id" : 2,
-                        "name":"seat-2"
+                        "id": 2,
+                        "name": "seat-2"
                     },
-                    {
-                        "id" : 3,
-                        "name":"seat-3"
-                    },
-                    {
-                        "id" : 4,
-                        "name":"seat-4"
-                    }
-                ]
-            },
-            {
-                "id":1,
-                "name":"table-3",
-                "seats" : [
-                    {
-                        "id" : 1,
-                        "name":"seat-1"
-                    },
-                    {
-                        "id" : 2,
-                        "name":"seat-2"
-                    },
-                    {
-                        "id" : 3,
-                        "name":"seat-3"
-                    },
-                    {
-                        "id" : 4,
-                        "name":"seat-4"
-                    },
-                    {
-                        "id" : 5,
-                        "name":"seat-4"
-                    }
                 ]
             }
-            
+
         ]
     }
-    response.send(s);
+    response.send(si);
 });
-app.get("/creative",(request,response)=>{
-    let s={
-        "id":1,
-        "name":"Digital",
-        "no_of_tables" : 3,
-        "no_of_seats" : 12,
-        "tables" : [
-            {
-                "id":1,
-                "name":"table-1",
-                "seats" : [
-                    {
-                        "id" : 1,
-                        "name":"seat-1"
-                    },
-                    {
-                        "id" : 2,
-                        "name":"seat-2"
-                    },
-                    {
-                        "id" : 3,
-                        "name":"seat-3"
-                    },
-                    {
-                        "id" : 4,
-                        "name":"seat-4"
-                    }
-                ]
-            },
-            {
-                "id":2,
-                "name":"table-2",
-                "seats" : [
-                    {
-                        "id" : 1,
-                        "name":"seat-1"
-                    },
-                    {
-                        "id" : 2,
-                        "name":"seat-2"
-                    },
-                    {
-                        "id" : 3,
-                        "name":"seat-3"
-                    },
-                    {
-                        "id" : 4,
-                        "name":"seat-4"
-                    }
-                ]
-            },
-            {
-                "id":1,
-                "name":"table-3",
-                "seats" : [
-                    {
-                        "id" : 1,
-                        "name":"seat-1"
-                    },
-                    {
-                        "id" : 2,
-                        "name":"seat-2"
-                    },
-                    {
-                        "id" : 3,
-                        "name":"seat-3"
-                    },
-                    {
-                        "id" : 4,
-                        "name":"seat-4"
-                    },
-                    {
-                        "id" : 5,
-                        "name":"seat-4"
-                    }
-                ]
-            }
-            
-        ]
-    }
-    response.send(s);
-});
-app.post("/wingGeneration",(request,response)=>{
-    console.log(request.body);
-    let some = request.body;
-    some1 = JSON.stringify(some);
-    console.log(some1);
+app.post("/wingGeneration", (request, response) => {
+    console.log(request.body);   
     response.send(request.body)
 })
 
-app.listen(port,()=>{
+app.listen(port, () => {
     console.log(`port successfully running in ${port}`);
 })

@@ -1,13 +1,12 @@
-#spaceManagement{
+#wingContainer{
     display: grid;
     justify-content: space-around;
     justify-items: center;
     align-items: center;
     height:50vh;
     margin:5vh;
-    /* border: 1px solid red; */
 }
-#spaceManagement>a{
+#wingContainer>a{
     text-decoration: none;
     background-color: #00C6C3;
     height: 20vh;
@@ -18,5 +17,4 @@
     color: white;
     font-weight: bold;
     font-size: 30px;
-
 }
