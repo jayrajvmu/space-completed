@@ -14,8 +14,38 @@
     width: 50vw;
     font-size: large;
 }
+#wingCreation>div{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
 #message{
     height:20vh;
     width: 75vw;
     text-align: center;
+}
+#wingCreation>button{
+    background-color: rgb(133, 175, 79);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    outline: none;
+    border: none;
+    width: 150px;
+    height:40px;
+    border-radius: 2vh;
+}
+#wingCreation>div{
+display: grid;
+height: 80px;
+justify-content: space-between;;
+}
+#wingCreation input[type=text]{
+    height:30px;
+    width: 300px;
+}
+#wingCreation input[type=number]{
+    height:30px;
+    width: 300px;
 }

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wing Edit</title>
     <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/wingEdit.css">
 </head>
 <body>
     <header id="spaceM_header">
@@ -17,16 +18,17 @@
         </nav>
     </header>
     <div id="wingEditContainer">
+        <div>
             <label for="tableId" name="tableId">Table ID :</label>
-            <input type="text" name="" id="tableId">
-            <label for="seatCount" name="seatCount">Seat Count :</label>
-            <input type="text" name="" id="seatCount">
-            <label for="adminCode" name="adminCode">Admin Code :</label>
-            <input type="text" name="" id="adminCode">
+            <input type="text" name="" id="tableId"></div>
+          <div>  <label for="seatCount" name="seatCount">Seat Count :</label>
+            <input type="text" name="" id="seatCount"></div>
+            <div>  <label for="adminCode" name="adminCode">Admin Code :</label>
+            <input type="text" name="" id="adminCode"></div>
             <input type="submit" value="Submit" onclick="updateTable()">
     </div>
     <div id="message"></div>
-    <div>
+    <div id="navGesture">
         <a href="./wing.html"><div id="goHome">Go Home</div></a>
         <div id="goBack">Go Back</div>
     </div>
