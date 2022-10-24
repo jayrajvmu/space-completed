@@ -163,6 +163,14 @@ app.get("/wings/2", (request, response) => {
                         "id": 2,
                         "name": "seat-2"
                     },
+                    {
+                        "id": 3,
+                        "name": "seat-3"
+                    },
+                    {
+                        "id": 4,
+                        "name": "seat-4"
+                    }
                 ]
             }
 

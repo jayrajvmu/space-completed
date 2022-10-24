@@ -15,6 +15,5 @@ function generatingWing() {
         tableGeneration.value="";
         wingGeneration.value="";
         message.innerHTML = "Success or Failure" ;
-
     })
 }

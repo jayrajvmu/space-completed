@@ -29,7 +29,14 @@ let seat = document.getElementsByClassName("seat");
             let wingName = document.getElementsByClassName("wingName")   
             wing_name[i].textContent= wingData[i].name;
             wingName[i].setAttribute("value",`${wingData[i].id}`);
-            wing_name[i].setAttribute("value",`${wingData[i].id}`)
+            wing_name[i].setAttribute("value",`${wingData[i].id}`);
+                console.log(wingName.length);
+                if(wingName.length>4){
+                    wings.style.gridTemplateColumns = `repeat(4,auto)`;
+                }
+                else{
+                    wings.style.gridTemplateColumns = `repeat(${wingName.length},auto)`;
+                }
             
         }
 
