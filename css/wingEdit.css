@@ -1,41 +1,27 @@
-#wingEditContainer{
+#wingButton{
     display: grid;
-    height:70vh;
-    width: 100vw;
-    justify-content:center;
-    justify-items: center;
-    align-items: center;
-}
-#wingEditContainer input{
-    /* min-height:10vh; */
-    height: 30px;
-    width:300px;
-}
-#wingEditContainer div{
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    /* border: 1px solid red; */
-    width: 300px;
-    height: 90px;
-    font-size:4vh;
-}
-#wingEditContainer>input[type=submit]{
-    background-color: rgb(133, 175, 79);
+    justify-content: center;
+    height:100vh;
     color: white;
-    font-size: 15px;
+    font-size: 5vh;
     font-weight: bold;
-    outline: none;
-    border: none;
-    width: 150px;
-    height:40px;
-    border-radius: 2vh;
-}
-#navGesture{
+    margin:20px;
+    align-items: center;
+}   
+#deleteWing{
     display: grid;
-    grid-template-columns: repeat(2,auto);
-    justify-content: space-around;
+    justify-items: center;
+    align-items: center;
+    background-color: #00C6C3;
+    height:20vh;
+    width:50vw
 }
-#message{
-    text-align: center;
+#addTable{
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    background-color: #00C6C3;
+    height:20vh;
+    
 }
+

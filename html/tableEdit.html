@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wing Edit</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/tableEdit.css">
+</head>
+<body>
+    <header id="spaceM_header">
+        <div id="logo"><div>Space - o</div> </div>
+        <nav>
+            <a href="#"><div id="dashboard">Dashboard</div></a>
+            <a href="#"><div id="profile">Profile</div></a>
+            <a href="#"><div id="logout">logout</div></a>
+        </nav>
+    </header>
+    <div id="wingEditContainer">
+        <div>
+            <label for="tableId" name="tableId">Table ID :</label>
+            <input type="text" name="" id="tableId"></div>
+          <div>  <label for="seatCount" name="seatCount">Seat Count :</label>
+            <input type="text" name="" id="seatCount"></div>
+            <div>  <label for="adminCode" name="adminCode">Admin Code :</label>
+            <input type="text" name="" id="adminCode"></div>
+            <input type="submit" value="Submit" onclick="updateTable()">
+    </div>
+    <div id="message"></div>
+    <div id="navGesture">
+        <a href="./wing.html"><div id="goHome">Go Home</div></a>
+        <div id="goBack">Go Back</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/wingEdit.js"></script>
+</body>
+</html>
