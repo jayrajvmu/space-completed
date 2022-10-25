@@ -1,7 +1,7 @@
 #wingEditContainer{
     display: grid;
     height:70vh;
-    width: 100vw;
+    width: 100%;
     justify-content:center;
     justify-items: center;
     align-items: center;
@@ -31,11 +31,7 @@
     height:40px;
     border-radius: 2vh;
 }
-#navGesture{
-    display: grid;
-    grid-template-columns: repeat(2,auto);
-    justify-content: space-around;
-}
+
 #message{
     text-align: center;
 }

@@ -1,19 +1,10 @@
 .container{
     display: grid;
+    width: 100%;
     grid-template-columns: repeat(2,50%);
     justify-content: center;
     align-items: center;
     row-gap: 50px;
-}
-#wing_heading{
-    height:10vh;
-    width:100vw;
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    font-size: 40px;
-    font-weight: bold;
-    letter-spacing: 5px;
 }
 .arrange{
     display: grid;
@@ -24,7 +15,7 @@
 }
 .table,.row1,.row2{
     height:10vh;
-    width:40vw;
+    width:30vw;
     text-align: center;
 }
 .table{
@@ -57,9 +48,10 @@
     justify-items: center;
     align-items: center;
 }
+
 #wings{
     display: grid;
-    /* grid-template-columns: repeat(4,auto); */
+    grid-template-columns: repeat(4,auto);
     
 }
 .wingName{
@@ -71,4 +63,5 @@
     color: white;
     background-color: #00C6C3;
     font-weight: bold;
+    border-radius: 2vh;
 }
