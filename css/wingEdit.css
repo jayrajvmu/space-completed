@@ -7,6 +7,7 @@
     font-weight: bold;
     margin:20px;
     align-items: center;
+    
 }   
 #deleteWing{
     display: grid;
@@ -14,7 +15,8 @@
     align-items: center;
     background-color: #00C6C3;
     height:20vh;
-    width:50vw
+    width:50vw;
+    
 }
 #addTable{
     display: grid;
@@ -25,3 +27,32 @@
     
 }
 
+.block{
+    display:block;
+}
+#wingDeleting{
+    display: none;
+}
+#wingDeleting>div{
+    display: grid;
+    color: black;
+    justify-items: center;
+    align-items: center;
+    height: 25vh;
+    
+}
+#wingDeleting>div>input{
+    height:40px;
+    width: 80%;
+    text-align: center;
+}
+#wingDeleting>div>button{
+    height:40px;
+    width: 60%;
+    background-color: greenyellow;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 2vw;
+}
