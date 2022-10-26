@@ -10,3 +10,13 @@ function openingWingDelete() {
         wingDeleting.style.display="none";
     }
 }
+function wingDelete(){
+    let wing_name_delete = document.getElementById("wing_name_delete");
+    let wingDeleting ={
+        'wing_name':`${wing_name_delete.value}`
+    }
+    // console.log(wingDeleting);
+    axios.delete("http://localhost:5500/wings/1",wingDeleting).then((response)=>{
+        console.log(response.data);
+    })
+}

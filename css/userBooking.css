@@ -65,3 +65,13 @@
     font-weight: bold;
     border-radius: 2vh;
 }
+#wing_title{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    background-color: rgba(0, 198, 195, 0.13);
+    color: black;
+    border-radius: 3vw;
+}

@@ -30,7 +30,7 @@ let seat = document.getElementsByClassName("seat");
             wing_name[i].textContent= wingData[i].name;
             wingName[i].setAttribute("value",`${wingData[i].id}`);
             wing_name[i].setAttribute("value",`${wingData[i].id}`);
-                console.log(wingName.length);
+                
                 if(wingName.length>4){
                     wings.style.gridTemplateColumns = `repeat(4,auto)`;
                 }
@@ -42,30 +42,34 @@ let seat = document.getElementsByClassName("seat");
 
         }
         function createRoom(value) {
-            let nodeValue = value.target.attributes.value.nodeValue
+            let nodeValue = value.target.attributes.value.nodeValue;
+            let wings = document.getElementById("wings");
             axios.get(`http://localhost:5500/wings/${nodeValue}`).then((response)=>{
             createTable = response.data;
-            wait();
+            creatingTable();
+            let wing_title = document.getElementById("wing_title");
+            wing_title.innerHTML=`<h1>${createTable.name}</h1>`;
+            wings.innerHTML="";
         } )
         }
        
         
         
-        function wait() {
+        function creatingTable() {
             let container= document.querySelector(".container");
             container.innerHTML="";
             for(i=0;i<createTable.no_of_tables;i++){
-            edo()
+            tableStructure()
             let a = document.querySelectorAll(".container>div");
             a[i].setAttribute("id",`${createTable.tables[i].name}`);
             a[i].setAttribute("class","arrange");
-            vijay(i);
+            tableLayout(i);
             nameProvider(i);
             }
         }  
         
         
-        function vijay(i) {
+        function tableLayout(i) {
             let container = document.querySelectorAll(".container>div");
             let a = document.createElement("div");
             a.setAttribute("class","seat");
@@ -84,7 +88,7 @@ let seat = document.getElementsByClassName("seat");
             
         }
         
-        function edo(){
+        function tableStructure(){
             let container = document.querySelector(".container");
             let a= document.createElement("div");            
             let b=document.createElement("div");

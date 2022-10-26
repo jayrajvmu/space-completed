@@ -8,7 +8,7 @@
     <title>Wing Edit</title>
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/wingEdit.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -62,7 +62,7 @@
                     <div>
                     <label for="wing_name_delete">Wing Name</label>
                     <input type="text" id="wing_name_delete">
-                    <button>Delete</button>
+                    <button onclick="wingDelete()">Delete</button>
                 </div>
                 </div>
                 <div id="addTable">

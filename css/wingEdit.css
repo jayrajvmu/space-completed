@@ -1,7 +1,7 @@
 #wingButton{
     display: grid;
     justify-content: center;
-    height:100vh;
+    height:80vh;
     color: white;
     font-size: 5vh;
     font-weight: bold;

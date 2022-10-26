@@ -125,7 +125,7 @@ app.get("/wings/1", (request, response) => {
 app.get("/wings/2", (request, response) => {
     let si = {
         "id": 1,
-        "name": "Digital",
+        "name": "Creative",
         "no_of_tables": 2,
         "no_of_seats": 8,
         "tables": [
@@ -183,6 +183,10 @@ app.post("/wingGeneration", (request, response) => {
     response.send(request.body)
 })
 
+app.delete("/wings/1",(request,response)=>{
+    console.log(request.body);
+    response.send(request.body)
+})
 app.listen(port, () => {
     console.log(`port successfully running in ${port}`);
 })
