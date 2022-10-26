@@ -1,0 +1,42 @@
+{
+    "wings" : [
+        {
+            "wing_name" :[
+                {
+                    "id":1,
+                    "name":"Digital",
+                    "no_of_tables" : 1,
+                    "no_of_seats" : 4,
+                    "tables" : [
+                        {
+                            "id":1,
+                            "name":"table-1",
+                            "seats" : [
+                                {
+                                    "id" : 1,
+                                    "name":"seat-1"
+                                },
+                                {
+                                    "id" : 2,
+                                    "name":"seat-2"
+                                },
+                                {
+                                    "id" : 3,
+                                    "name":"seat-3"
+                                },
+                                {
+                                    "id" : 4,
+                                    "name":"seat-4"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+
+onclick(this.value)
+
+<button value ="1" onclick=this.value)></buuton>
