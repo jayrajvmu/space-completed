@@ -83,11 +83,11 @@ app.get('/wings',(req,res) => {
 			throw err;
 		} 
 		if(result != '') {
-			res.json(result);
+			res.send({"wing_name":result});
 		}
-		else {
-    		res.send({success : false,message:"Wings not Active"});
-		}
+		// else {
+    	// 	res.send({success : false,message:"Wings not Active"});
+		// }
 	});	
 });
 
@@ -146,11 +146,13 @@ app.get('/wings/:id',(req,res) => {
 				}
 				
 				
-				var jsonData = '{"wings":[]}';
-				obj = JSON.parse(jsonData);
-				obj['wings'].push({"id":result[0].wing_ID,"Name":result[0].wing_Name,"Total_Tables":result[0].Total_table,"Total_Seats":result[0].Total_Seat,"tables":tables});
-				jsonData = JSON.stringify(obj);
-				res.send(jsonData);
+				//var jsonData = '{"wings":[]}';
+				var jsonData = [];
+				//obj = JSON.parse(jsonData);
+				//obj['wings'].push({"id":result[0].wing_ID,"Name":result[0].wing_Name,"Total_Tables":result[0].Total_table,"Total_Seats":result[0].Total_Seat,"tables":tables});
+				jsonData.push({"id":result[0].wing_ID,"name":result[0].wing_Name,"no_of_tables":result[0].Total_table,"no_of_seats":result[0].Total_Seat,"tables":tables});
+				//jsonData = JSON.stringify(obj);
+				res.send(jsonData[0]);
 
 			});
 		}
@@ -169,7 +171,7 @@ async function seatCreate(table_id,created_by,wing_name) {
 	const seat_count = 4;
 	for(let i = 1;i<=seat_count;i++) {
 		let wings_seats = {
-			name :"WS-Seat "+ incre,
+			name :"WS-Seat"+ incre,
 			table_id: table_id,
 			created_by:created_by,
 			created_at:created_at,
@@ -195,7 +197,7 @@ async function tableCreate(table_number,wing_id,created_by,wing_name,seat_count)
 	for(let i = 1;i<=table_number;i++) {
 		
 		let wings_tables = {
-			name : "WS "+i,
+			name : "WS"+i,
 			wing_id: wing_id,
 			created_by:created_by,
 			created_at:created_at,
@@ -218,7 +220,6 @@ app.post('/wings',(req,res) => {
      const is_active = 0;
 	 const created_at =  moment().format('YYYY/MM/DD h:mm:ss a');
 	 const tot_seats = req.body.wing_total_table * 4;
-
      let wings = { 
 			name: `${req.body.wing_name}`, 
 			total_tables: `${req.body.wing_total_table}`,
@@ -226,7 +227,8 @@ app.post('/wings',(req,res) => {
 			total_seats: tot_seats,
 			is_active:is_active,
 			created_at:created_at,
-			created_by:`${req.body.created_by}`,
+			created_by:1,
+			//created_by:`${req.body.created_by}`,
 		};
 	 let sql = 'INSERT INTO wings SET ?';
 	 let query = db.query(sql, wings, (err, result, fields) => {
