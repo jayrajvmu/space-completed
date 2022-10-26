@@ -34,6 +34,7 @@ app.get("/wings", (request, response) => {
                 "id": 2,
                 "name": "Creative"
             }
+            
         ]
     }
     response.send(wings);
@@ -180,12 +181,27 @@ app.get("/wings/2", (request, response) => {
 });
 app.post("/wingGeneration", (request, response) => {
     console.log(request.body);   
-    response.send(request.body)
+    response.send({
+        "success": true,
+        "message": "Successfully Added 1",
+        "data": {
+          "name": "Creative",
+          "total_tables": "3",
+          "total_seats": 12,
+          "is_active": 0,
+          "created_at": "2022/10/26 10:38:17 am",
+          "created_by": "1"
+        }
+      })
 })
 
-app.delete("/wings/1",(request,response)=>{
-    console.log(request.body);
-    response.send(request.body)
+app.delete("/wings/:id",(request,response)=>{
+    console.log(request.params);
+    response.send(
+        {
+            success:"Fail"
+        }
+    )
 })
 app.listen(port, () => {
     console.log(`port successfully running in ${port}`);

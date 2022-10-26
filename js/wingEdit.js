@@ -1,4 +1,5 @@
 
+
 function openingWingDelete() {
     let wingDeleting = document.getElementById("wingDeleting");
     let styling = window.getComputedStyle(wingDeleting, null);
@@ -10,13 +11,19 @@ function openingWingDelete() {
         wingDeleting.style.display="none";
     }
 }
+axios.get("http://localhost:5500/wings").then((response)=>{
+         let wingDelete = response.data
+         let wingDeleting = wingDelete.wing_name;
+         for(i=0;i<wingDelete.wing_name.length;i++){
+            // console.log(wingDelete.wing_name[i].name);
+            wing_name_delete.innerHTML+=`<option value="${i+1}">${wingDelete.wing_name[i].name}</option>`
+         }
+        })
 function wingDelete(){
     let wing_name_delete = document.getElementById("wing_name_delete");
-    let wingDeleting ={
-        'wing_name':`${wing_name_delete.value}`
-    }
-    // console.log(wingDeleting);
-    axios.delete("http://localhost:5500/wings/1",wingDeleting).then((response)=>{
+    console.log(wing_name_delete.value);   
+    
+    axios.delete(`http://localhost:5500/wings/${wing_name_delete.value}`).then((response)=>{
         console.log(response.data);
     })
 }

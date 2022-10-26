@@ -1,10 +1,13 @@
+
+
 function generatingWing() {
     let tableGeneration = document.getElementById("tableGeneration");
     let wingGeneration = document.getElementById("wingGeneration");
     
+    
     let generatingWings={
-        wing_name:`${tableGeneration.value}`,
-        wing_total_table:`${wingGeneration.value}`
+        wing_name:`${wingGeneration.value}`,
+        wing_total_table:`${tableGeneration.value}`
     }
     
     console.log(generatingWings);
@@ -14,6 +17,6 @@ function generatingWing() {
         let message = document.getElementById("message");
         tableGeneration.value="";
         wingGeneration.value="";
-        message.innerHTML = "Success or Failure" ;
+        message.innerHTML = response.data.message ;
     })
 }

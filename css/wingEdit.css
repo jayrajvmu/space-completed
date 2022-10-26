@@ -41,7 +41,7 @@
     height: 25vh;
     
 }
-#wingDeleting>div>input{
+#wingDeleting>div>select{
     height:40px;
     width: 80%;
     text-align: center;
