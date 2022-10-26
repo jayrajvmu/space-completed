@@ -51,7 +51,7 @@ let seat = document.getElementsByClassName("seat");
             wing_title.innerHTML=`<h1>${createTable.name}</h1>`;
             wings.innerHTML="";
         } )
-        }
+    }
        
         
         
