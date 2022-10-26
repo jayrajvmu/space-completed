@@ -1,0 +1,206 @@
+Req POST /wings
+{
+    "name": "South Wing",
+    "tables": 7,
+    "seats": 14,
+    "orientation": "horizontal"
+}
+Resp POST /wings
+{
+    "success": true,
+    "message": "Wing created successfully"
+}
+Req GET /wings
+{
+}
+Resp GET /wings/
+{
+    "success": true,
+    "wings": [
+        {
+            "name": "North Wing",
+            "id": 1,
+            "tables": [
+                {
+                    "id": 1,
+                    "name": "WT101",
+                    "orientation": 0,
+                    "seats": [
+                        {
+                            "name": "WS101",
+                            "id": 25
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "South Wing",
+            "id": 2,
+            "tables": [
+                {
+                    "id": 2,
+                    "name": "WT102",
+                    "orientation": 0,
+                    "seats": [
+                        {
+                            "name": "WS103",
+                            "id": 21
+                        }
+                    ]
+                }
+            ]
+        }
+    ]   
+}
+Req GET /wings/1
+{
+}
+Resp GET /wings/1
+{
+    "success": true,
+    "wings": [
+        {
+            "name": "North Wing",
+            "id": 1,
+            "tables": [
+                {
+                    "id": 1,
+                    "name": "WT101",
+                    "orientation": 0,
+                    "seats": [
+                        {
+                            "name": "WS101",
+                            "id": 25
+                        }
+                    ]
+                }
+            ]
+        }
+    ]   
+}
+Req POST /wings/1/availabilities
+{
+    "date": "22-10-2022",
+    "slot": "APAC",
+    "table_id": 1,
+    "seat_id": 25
+}
+Resp POST /wings/1/availabilities
+{
+    "success": true,
+    "availabilities": {
+        "tables": [
+            {
+                "id": 1,
+                "seats": [
+                    {
+                        "id": 25,
+                        "dates": [
+                            {
+                                "date": "22-10-2022",
+                                "slots": [
+                                    {
+                                        "name": "APAC",
+                                        "availability": "Green"
+                                    },
+                                    {
+                                        "name": "EMAE",
+                                        "availability": "Amber"
+                                    }
+                                ]
+                            },
+                            {
+                                "date": "23-10-2022",
+                                "slots": [
+                                    {
+                                        "name": "APAC",
+                                        "availability": "Amber"
+                                    },
+                                    {
+                                        "name": "EMAE",
+                                        "availability": "Red"
+                                    }
+                                ]
+                            }
+                        ]                           
+                    },
+                    {
+                        "id": 26,
+                        "dates": [
+                            {
+                                "date": "22-10-2022",
+                                "slots": [
+                                    {
+                                        "name": "APAC",
+                                        "availability": "Green"
+                                    },
+                                    {
+                                        "name": "EMAE",
+                                        "availability": "Amber"
+                                    }
+                                ]
+                            },
+                            {
+                                "date": "23-10-2022",
+                                "slots": [
+                                    {
+                                        "name": "APAC",
+                                        "availability": "Amber"
+                                    },
+                                    {
+                                        "name": "EMAE",
+                                        "availability": "Red"
+                                    }
+                                ]
+                            }
+                        ]                           
+                    },
+                ]
+            }
+        ]
+    }
+}
+Resp POST /wings/1/availabilities (for returning the availability of a single seat on a specific day for a single slot)
+{
+    "success": true,
+    "availabilities": {
+        "tables": [
+            {
+                "id": 1,
+                "seats": [
+                    {
+                        "id": 25,
+                        "dates": [
+                            {
+                                "date": "22-10-2022",
+                                "slots": [
+                                    {
+                                        "name": "APAC",
+                                        "availability": "Green"
+                                    }
+                                ]
+                            }
+                        ]                           
+                    },
+                ]
+            }
+        ]
+    }
+}
+Req POST /bookings
+{
+    "seat_id": 25,
+    "date": "2022-10-22",
+    "emp_id": "APL11001",
+    "slot": "APAC",
+    "made_by": "APL1101"
+}
+Res POST /bookings
+{
+    "success": true,
+    "message": "Booking successful"
+}
+//Sample sql
+LEFT JOIN booking ON booking.id=seats.id
+LEFT JOIN shift ON booking.shift_id=booking.id
