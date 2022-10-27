@@ -33,7 +33,7 @@ const bookedSeats = async () => {
           </div>
           <div class="form-submit">
             <button type="submit" class="button123" onclick="cancelData('${blog.id}')">Cancel Seat</button>
-            <button type="submit" class="button123" onclick="checkinUser('${blog.id}')">Check IN</button>
+            <button type="submit" class="button123" onclick="checkinUser('${blog.id}')">Check-in</button>
 
           </div>
         </div>
