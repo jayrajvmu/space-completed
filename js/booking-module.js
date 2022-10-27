@@ -1,3 +1,4 @@
+
 let seatItems = document.querySelectorAll(".seat-item");
 let modalContainer = document.querySelector("#modal-section");
 let closeBtn = document.querySelector("#close-btn");
@@ -5,9 +6,11 @@ let submitBtn = document.querySelector("#submit-btn");
 let cancelBookingBtn = document.querySelector("#cancel-booking");
 const overlay = document.getElementById("overlay");
 let message = document.querySelector("#message");
-// seatItems.forEach((item) => {
-//   item.addEventListener("click", () => setModal(item));
-// });
+
+
+seatItems.forEach((item) => {
+  item.onclick = ()=> setModal(item);
+});
 
 function setModal(seatItem) {
     console.log(seatItem);
@@ -19,9 +22,9 @@ function setModal(seatItem) {
   let deskValue = seatItem.textContent;
   deskInput.value = deskValue;
   // form submit function
-//   submitBtn.addEventListener("click", ()=>{
-//     postData(seatItem);
-//   });
+  submitBtn.onclick =  ()=>{
+    postData(seatItem);
+  };
 }
 function postData(seat) {
     console.log(seat);
@@ -44,11 +47,11 @@ function postData(seat) {
     console.log(response.data);
     if(response.status === 200){
       message.innerHTML =`<p class='${response.data.success}'>${response.data.message}</p>` ;
-    //   if(response.data.success){
-    //     setTimeout(()=>{
-    //       seatBooking(seat)
-    //     },2000);
-    //   }
+      if(response.data.success){
+        setTimeout(()=>{
+          seatBooking(seat)
+        },2000);
+      }
     }
   })
   .catch(error=>{
@@ -72,9 +75,9 @@ function seatBooking(seat) {
   modalContainer.classList.remove("show");
   overlay.classList.remove("active");
   message.innerHTML = "";
-  seatItems.forEach((item) => {
-    item.classList.remove("booked");
-  });
+  // seatItems.forEach((item) => {
+  //   item.classList.remove("booked");
+  // });
   seat.classList.add("booked");
 }
 
