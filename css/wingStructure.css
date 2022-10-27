@@ -79,14 +79,15 @@ justify-content: space-between;;
     width: 300px;
     text-align: center;
     font-size: 20px;
-    font-weight: bold;
 }
 #wingCreation input[type=number]{
     height:35px;
     width: 300px;
     text-align: center;
     font-size: 20px;
-    font-weight: bold;
+}
+input::placeholder{
+    text-align: center;
 }
 
 /**/
