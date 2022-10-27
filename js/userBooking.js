@@ -3,7 +3,7 @@ let seat = document.getElementsByClassName("seat");
         let row2 = document.getElementById("row2");
         let createTable;
         
-        axios.get("http://localhost:5500/wings").then((response)=>{
+        axios.get("http://localhost:5000/wings").then((response)=>{
             let wingNameData =response.data;
             let wingData = wingNameData.wing_name;
             wingGenerating(wingData)
@@ -44,7 +44,7 @@ let seat = document.getElementsByClassName("seat");
         function createRoom(value) {
             let nodeValue = value.target.attributes.value.nodeValue;
             let wings = document.getElementById("wings");
-            axios.get(`http://localhost:5500/wings/${nodeValue}`).then((response)=>{
+            axios.get(`http://localhost:5000/wings/${nodeValue}`).then((response)=>{
             createTable = response.data;
             creatingTable();
             let wing_title = document.getElementById("wing_title");

@@ -11,7 +11,7 @@ function generatingWing() {
     }
     
     console.log(generatingWings);
-    axios.post("http://localhost:5500/wingGeneration",generatingWings)
+    axios.post("http://localhost:5000/wings",generatingWings)
     .then(response =>{
         console.log(response.data);
         let message = document.getElementById("message1");
@@ -35,7 +35,7 @@ function openingWingDelete() {
         wingDeleting.style.display="none";
     }
 }
-axios.get("http://localhost:5500/wings").then((response)=>{
+axios.get("http://localhost:5000/wings").then((response)=>{
          let wingDelete = response.data
          let wingDeleting = wingDelete.wing_name;
          for(i=0;i<wingDelete.wing_name.length;i++){
@@ -47,7 +47,7 @@ function wingDelete(){
     let wing_name_delete = document.getElementById("wing_name_delete");
     console.log(wing_name_delete.value);   
     
-    axios.delete(`http://localhost:5500/wings/${wing_name_delete.value}`).then((response)=>{
+    axios.delete(`http://localhost:5000/wings/${wing_name_delete.value}`).then((response)=>{
         console.log(response.data);
     })
 }
@@ -65,7 +65,7 @@ function updateTable() {
         avalue: `${adminCode.value}`,
     }
     console.log(updateWSTable);
-    axios.put('http://localhost:5500/update', updateWSTable)
+    axios.put('http://localhost:5000/wings', updateWSTable)
                 .then(response => {
                     console.log(response.data)
                     tableId.value="";
@@ -75,7 +75,7 @@ function updateTable() {
                 .catch((err)=>{
                     console.log(err);
                 });
-   axios.get('http://localhost:5500/updated').then(
+   axios.get('http://localhost:5000/updated').then(
     response =>{
         message2.textContent = response.data;
         console.log(response.data);
