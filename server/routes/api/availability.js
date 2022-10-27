@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const connection = require('../../database/mysql');
+const connection = require('../../db/mysql');
 
 // request belongs to aavailability
 router.post('/wing/date', (request, response) => {

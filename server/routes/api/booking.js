@@ -202,6 +202,7 @@ router.get('/:id', (req, res) => {
 //cancel booking
 
 router.put('/:id', (req, res) => {
+    console.log(req.params.id);
     let updateSqlfromBooking = `UPDATE booking SET status = '2' WHERE id = '${req.params.id}' AND emp_id='${req.body.emp_id}'`;
     db.query(updateSqlfromBooking, (errupdate, resultupdate) => {
         if (errupdate) {
