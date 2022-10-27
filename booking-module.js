@@ -5,9 +5,10 @@ let submitBtn = document.querySelector("#submit-btn");
 let cancelBookingBtn = document.querySelector("#cancel-booking");
 const overlay = document.getElementById("overlay");
 let message = document.querySelector("#message");
-// seatItems.forEach((item) => {
-//   item.addEventListener("click", () => setModal(item));
-// });
+
+seatItems.forEach((item) => {
+  item.addEventListener("click", () => setModal(item));
+});
 
 function setModal(seatItem) {
     console.log(seatItem);
@@ -19,9 +20,9 @@ function setModal(seatItem) {
   let deskValue = seatItem.textContent;
   deskInput.value = deskValue;
   // form submit function
-//   submitBtn.addEventListener("click", ()=>{
-//     postData(seatItem);
-//   });
+  submitBtn.addEventListener("click", ()=>{
+    postData(seatItem);
+  });
 }
 function postData(seat) {
     console.log(seat);
