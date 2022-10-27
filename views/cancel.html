@@ -1,17 +1,14 @@
-<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Booking</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/booking.css" />
     <link rel="stylesheet" href="../css/common.css">
-    <link rel="stylesheet" href="../css/userBooking.css">
-</head>
 
-<body>
+  </head>
+  <body>
     <header id="userBooking_header">
         <div id="logo">
             <div>Space - o</div>
@@ -46,38 +43,30 @@
                 <a href="./booking.html">
                     <div>Booking</div>
                 </a>
-          
-            </nav>
+                   </nav>
         </div>
         <div id="container_right">
-            
-            <div id="wings">
-                <!-- <div class="wingName"><div class="wing_name">Digital</div></div>        -->
-        
-            </div>
-            <div id="wing_title">
-                
-            </div>
-            <div class="container">
-                <!-- <div>
-                    <div id="row1">
-                        <div class="seat"></div>
-                        <div class="seat"></div>
-                    </div>
-                <div id="table">
-                    <div class="tableName"></div>
-                </div>
-                <div id="row2">
-                    <div class="seat"></div>
-                    <div class="seat"></div>
-                </div>
-                </div> -->
-                
-            </div>
-            
+
+
+          <div class="booked-seats-section">
+            <div class="booked-seats_row"></div>
+          </div>
+
+
         </div>
     </div>
-    <script src="../js/userBooking.js"></script>
-</body>
 
+    <script src="../js/wing.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/cancel.js"></script>
+    <script>
+function cancelData(id) {
+axios.put(`http://localhost:5000/booking/${id}`, {'emp_id':1})
+    .then((response) =>{
+        console.log(response.data);
+    } );
+}
+    </script>
+  </body>
 </html>
