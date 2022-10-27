@@ -152,12 +152,15 @@ input::placeholder{
 #wingDeleting>div>button{
     height:40px;
     width: 60%;
-    background-color: greenyellow;
+    background-color: rgb(133, 175, 79);
     border: none;
     color: white;
     font-size: 16px;
     font-weight: bold;
     border-radius: 2vw;
+}
+#wingDeleting>div>button:hover{
+    background-color:rgb(252, 57, 57);
 }
 /**/
 #wingEditContainer{
