@@ -1,3 +1,6 @@
+body{
+    overflow-x: hidden;
+}
 #wingContainerM{
     display: grid;
     justify-content: space-around;
@@ -78,13 +81,13 @@ justify-content: space-between;;
     height:35px;
     width: 300px;
     text-align: center;
-    font-size: 20px;
+    /* font-size: 20px; */
 }
 #wingCreation input[type=number]{
     height:35px;
     width: 300px;
     text-align: center;
-    font-size: 20px;
+    /* font-size: 20px; */
 }
 input::placeholder{
     text-align: center;
@@ -109,6 +112,7 @@ input::placeholder{
     background-color: #00C6C3;
     height:20vh;
     width:50vw;
+    border-radius: 2vw;
     
 }
 
@@ -118,7 +122,7 @@ input::placeholder{
     align-items: center;
     background-color: #00C6C3;
     height:20vh;
-    
+    border-radius: 2vw;
 }
 
 .block{
@@ -136,10 +140,10 @@ input::placeholder{
     
 }
 #wingDeleting>div>select{
-    height:40px;
+    height:35px;
     width: 80%;
     text-align: center;
-    font-size: 2.5vh;
+    font-size: 20px;
 }
 #wing_name_delete>option{
     font-size: inherit;
@@ -166,7 +170,7 @@ input::placeholder{
 }
 #wingEditContainer input{
     /* min-height:10vh; */
-    height: 30px;
+    height: 35px;
     width:300px;
 }
 #wingEditContainer div{
