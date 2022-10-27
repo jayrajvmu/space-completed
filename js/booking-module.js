@@ -58,6 +58,7 @@ function postData(seat) {
     console.log(error);
   })
 }
+
 //close the modal
 closeBtn.addEventListener("click", closeModal);
 function closeModal() {
