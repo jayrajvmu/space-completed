@@ -64,10 +64,10 @@ router.post('/', (req, res) => {
                             });
                             //check user apply seat for same day
                             if (userDataisSame === 1) {
-                                res.json({ 'sucess': false, 'message': 'You already booked for the day' });
+                                res.json({ 'success': false, 'message': 'You already booked for the day' });
                             } 
                             else if(sameSlot===1){
-                                res.json({ 'sucess': false, 'message': `${req.body.desk_id} is alredy booked`});
+                                res.json({ 'success': false, 'message': `${req.body.desk_id} is alredy booked`});
                             }
                          
                             
@@ -89,7 +89,7 @@ router.post('/', (req, res) => {
                         });
                     }
                     else {
-                        res.json({ 'sucess': false, 'message': 'Timing Problem Not able to book seat', 'shifttime': shiftStartTime.toLocaleString(), 'maximum': maximumtimetobook.toLocaleString(), 'minimum': minimumtimetobook.toLocaleString(), 'now': now.toLocaleString() });
+                        res.json({ 'success': false, 'message': 'Timing Problem Not able to book seat', 'shifttime': shiftStartTime.toLocaleString(), 'maximum': maximumtimetobook.toLocaleString(), 'minimum': minimumtimetobook.toLocaleString(), 'now': now.toLocaleString() });
                     }
                 });
             }
@@ -147,10 +147,10 @@ router.post('/', (req, res) => {
                             });
                             //check user apply seat for same day
                             if (userDataisSame === 1) {
-                                res.json({ 'sucess': false, 'message': 'You already booked for the day' });
+                                res.json({ 'success': false, 'message': 'You already booked for the day' });
                             } 
                             else if(sameSlot===1){
-                                res.json({ 'sucess': false, 'message': `${req.body.desk_id} is alredy booked`});
+                                res.json({ 'success': false, 'message': `${req.body.desk_id} is alredy booked`});
                             }
                           else {
                                 //check user apply only 3 days in a week this is for advace booking
@@ -168,21 +168,21 @@ router.post('/', (req, res) => {
 
 
                                 } else {
-                                    res.json({ 'sucess': false, 'message': 'Only 3 days in a week' });
+                                    res.json({ 'success': false, 'message': 'Only 3 days in a week' });
                                 }
                             }
                         });
                     });
                     }
                     else {
-                        res.json({ 'sucess': false, 'message': 'Timing Problem Not able to book seat', 'userDate':advanceBookngDate.toDateString(),'maximum': maximumtimetobookadvance.toDateString(), 'minimum': minimumtimetobookadvance.toDateString() });
+                        res.json({ 'success': false, 'message': 'Timing Problem Not able to book seat', 'userDate':advanceBookngDate.toDateString(),'maximum': maximumtimetobookadvance.toDateString(), 'minimum': minimumtimetobookadvance.toDateString() });
                     }
              
             }
         });
     }
     else{
-        res.send({ 'sucess': false, 'message': 'fill the all fieleds' })
+        res.send({ 'success': false, 'message': 'fill the all fieleds' })
     }
 });
 
@@ -194,7 +194,7 @@ router.get('/:id', (req, res) => {
         if (errfetch) {
             throw errfetch;
         }
-        res.json({ 'sucess': true, 'message': 'fetched sucessfully', 'data': resultfetch });
+        res.json({ 'success': true, 'message': 'fetched successfully', 'data': resultfetch });
     });
 });
 
@@ -207,7 +207,7 @@ router.put('/:id', (req, res) => {
         if (errupdate) {
             throw errupdate;
         }
-        res.json({ 'sucess': true, 'message': 'Seat Cancelled sucessfully' });
+        res.json({ 'success': true, 'message': 'Seat Cancelled successfully' });
     });
 });
 
