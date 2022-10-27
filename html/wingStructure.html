@@ -28,7 +28,7 @@
     </header>
     <div id="container">
         <div id="container_left">
-
+            
             <div id="profile_view">
                 <div id="profile_pht"></div>
                 <div id="profile_name">T10151</div>
@@ -57,7 +57,7 @@
 
             <div id="wingContainerM">
                 <a href="#" onclick="viewWingCreation()">
-                    <div id="wingCreationM" > Wing Creation</div>
+                    <div id="wingCreationM"> Wing Creation</div>
                 </a>
                 <a href="#" onclick="viewwingEditModule()">
                     <div id="wingEdit"> Wing Edit</div>
@@ -66,61 +66,64 @@
                     <div id="tableEdit"> Table Edit</div>
                 </a>
             </div>
-            <div id="wingCreationModule">
-                <div id="wingContainer">
-                    <div id="wingCreation">
-                        <div><label for="wingGeneration">Wing Name</label>
-                            <input type="text" name="wingGeneration" id="wingGeneration">
+            <div id="viewModule">
+                <div id="wingCreationModule">
+                    <div id="wingContainer">
+                        <div id="wingCreation">
+                            <div><label for="wingGeneration">Wing Name</label>
+                                
+                                <input type="text" name="wingGeneration" id="wingGeneration" required>
+                            </div>
+                            <div>
+                                <label for="tableGeneration">No of Tables</label>
+                                <input type="number" name="tableGeneration" id="tableGeneration" required>
+                            </div>
+                            <button onclick="generatingWing()">Generate</button>
                         </div>
+                        <div id="message1">
+
+                        </div>
+                    </div>
+                </div>
+                <div id="wingEditModule">
+                    <div id="wingButton">
+                        <div id="deleteWing" onclick="openingWingDelete()">
+                            <div onclick="openingWingDelete()">
+                                Wing Delete
+                            </div>
+                        </div>
+                        <div id="wingDeleting">
+                            <div>
+                                <label for="wing_name_delete">Wing Name</label>
+                                <select name="wing_name_delete" id="wing_name_delete" required>
+                                    <option value="0">Select Wing</option>
+                                </select>
+                                <button onclick="wingDelete()">Delete</button>
+                            </div>
+                        </div>
+                        <div id="addTable">
+                            <div>Add Table</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tableEditModule">
+                    <div id="wingEditContainer">
                         <div>
-                            <label for="tableGeneration">No of Tables</label>
-                            <input type="number" name="tableGeneration" id="tableGeneration">
+                            <label for="tableId" name="tableId">Table ID :</label>
+                            <input type="text" name="" id="tableId" required>
                         </div>
-                        <button onclick="generatingWing()">Generate</button>
-                    </div>
-                    <div id="message1">
-
-                    </div>
-                </div>
-            </div>
-            <div id="wingEditModule">
-                <div id="wingButton">
-                    <div id="deleteWing" onclick="openingWingDelete()">
-                        <div onclick="openingWingDelete()">
-                            Wing Delete
+                        <div> <label for="seatCount" name="seatCount">Seat Count :</label>
+                            <input type="text" name="" id="seatCount" required>
                         </div>
-                    </div>
-                    <div id="wingDeleting">
-                        <div>
-                            <label for="wing_name_delete">Wing Name</label>
-                            <select name="wing_name_delete" id="wing_name_delete">
-                                <option value="0">Select Wing</option>
-                            </select>
-                            <button onclick="wingDelete()">Delete</button>
+                        <div> <label for="adminCode" name="adminCode">Admin Code :</label>
+                            <input type="text" name="" id="adminCode" required>
                         </div>
+                        <input type="submit" value="Submit" onclick="updateTable()">
                     </div>
-                    <div id="addTable">
-                        <div>Add Table</div>
-                    </div>
-                </div>
-            </div>
-            <div id="tableEditModule">
-                <div id="wingEditContainer">
-                    <div>
-                        <label for="tableId" name="tableId">Table ID :</label>
-                        <input type="text" name="" id="tableId">
-                    </div>
-                    <div> <label for="seatCount" name="seatCount">Seat Count :</label>
-                        <input type="text" name="" id="seatCount">
-                    </div>
-                    <div> <label for="adminCode" name="adminCode">Admin Code :</label>
-                        <input type="text" name="" id="adminCode">
-                    </div>
-                    <input type="submit" value="Submit" onclick="updateTable()">
-                </div>
-                <div id="message2"></div>
+                    <div id="message2"></div>
 
 
+                </div>
             </div>
         </div>
     </div>

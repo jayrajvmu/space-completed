@@ -60,6 +60,7 @@ header nav a{
     opacity: 1;
     font-weight: bold;
 }
+
 #profile_view{
     display: grid;
     justify-items: center;

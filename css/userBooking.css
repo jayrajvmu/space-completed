@@ -42,11 +42,13 @@
     border:2px solid white;
     height:5vh;
     width:4vw;
-    background-color:#12D348;
+    /* background-color:#12D348; */
     border-radius: .5em;
     display: grid;
     justify-items: center;
     align-items: center;
+    border: 2px solid #12D348;
+    cursor: pointer;
 }
 
 #wings{
@@ -71,7 +73,10 @@
     align-items: center;
     justify-items: center;
     text-align: center;
-    background-color: rgba(0, 198, 195, 0.13);
+    /* background-color: rgba(0, 198, 195, 0.13); */
     color: black;
-    border-radius: 3vw;
+    /* border-radius: 3vw; */
+    padding-bottom: 2vh;
+    border-bottom: 3px solid #28293E;
+    font-style: italic;
 }

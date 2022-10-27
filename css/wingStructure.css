@@ -7,6 +7,7 @@
     width: 100%;
     margin:5vh;
     grid-template-columns: repeat(3,auto);
+    
 }
 #wingContainerM>a{
     text-decoration: none;
@@ -20,6 +21,9 @@
     font-weight: bold;
     font-size: 20px;
     border-radius: 3vh;
+}
+#viewModule{
+    border-top: 3px solid #28293E;
 }
 /**/
 
@@ -106,6 +110,7 @@ justify-content: space-between;;
     width:50vw;
     
 }
+
 #addTable{
     display: grid;
     justify-items: center;
@@ -133,6 +138,11 @@ justify-content: space-between;;
     height:40px;
     width: 80%;
     text-align: center;
+    font-size: 2.5vh;
+}
+#wing_name_delete>option{
+    font-size: inherit;
+    padding: 3px;
 }
 #wingDeleting>div>button{
     height:40px;
