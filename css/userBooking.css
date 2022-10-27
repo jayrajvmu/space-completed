@@ -1,0 +1,82 @@
+.container{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2,50%);
+    justify-content: center;
+    align-items: center;
+    row-gap: 50px;
+}
+.arrange{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    /* justify-items:center; */
+    
+}
+.table,.row1,.row2{
+    height:10vh;
+    width:30vw;
+    text-align: center;
+}
+.table{
+    /* border:1px solid red; */
+    background-color: rgba(0, 198, 195, 0.13);
+    border-radius: 1em;
+    height:20vh;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+.row1{
+    display: grid;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    /* grid-template-columns: repeat(5,auto); */
+}
+.row2{
+    display: grid;
+    justify-content: space-evenly;
+    /* grid-template-columns: repeat(5,auto); */
+}
+.seat{
+    border:2px solid white;
+    height:5vh;
+    width:4vw;
+    /* background-color:#12D348; */
+    border-radius: .5em;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    border: 2px solid #12D348;
+    cursor: pointer;
+}
+
+#wings{
+    display: grid;
+    grid-template-columns: repeat(4,auto);
+    
+}
+.wingName{
+    margin:20px;
+    height:15vh;
+    display:grid;
+    justify-items: center;
+    align-items: center;
+    color: white;
+    background-color: #00C6C3;
+    font-weight: bold;
+    border-radius: 2vh;
+}
+#wing_title{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    /* background-color: rgba(0, 198, 195, 0.13); */
+    color: black;
+    /* border-radius: 3vw; */
+    padding-bottom: 2vh;
+    border-bottom: 3px solid #28293E;
+    font-style: italic;
+}
