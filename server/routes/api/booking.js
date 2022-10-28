@@ -220,7 +220,7 @@ router.put('/:id', (req, res) => {
 
 router.get('/user/empname', (req, res) => {
  
-    res.json({'sucess':"hi"});
+    res.json({'sucess':"How are you"});
     // let updateSqlfromBooking = `UPDATE booking SET status = '2' WHERE id = '${req.params.id}' AND emp_id='${req.body.emp_id}'`;
     // db.query(updateSqlfromBooking, (errupdate, resultupdate) => {
     //     if (errupdate) {
