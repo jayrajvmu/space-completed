@@ -3,6 +3,54 @@ const router = express.Router();
 const db = require('../../db/mysql');
 const moment = require('moment');
 
+//Add Seat For Table
+router.post('/addseat',(req,res) => {
+	let incre = 1;
+	const is_active = 0;
+	const created_at =  moment().format('YYYY/MM/DD h:mm:ss a');
+	let total_no_seats = req.body.total_no_seats;
+	let table_id = req.body.table_id;
+	let created_by = req.body.created_by;
+
+	for(let i = 1;i<=total_no_seats;i++) {
+		let wings_seats = {
+			name :"WS-Seat"+ incre,
+			table_id: table_id,
+			created_by:created_by,
+			created_at:created_at,
+			is_active:is_active,
+		};
+		incre = incre + 1;
+		let sql = 'INSERT INTO seats SET ?';
+		let query = db.query(sql, wings_seats, (err, result, fields) => {
+			if (err) {
+				res.send({"Success": false,"message":err});
+			}
+			res.send({"Success": true,"message":"Successfully Seats Added"});
+		});
+	}
+});
+
+//Delete Seat From Table
+router.delete('/deleteSeat',(req,res) => {
+
+	let table_id= req.body.table_id;
+	let seat_id = req.body.seat_id;
+	let created_by = req.body.created_by;
+	
+	var delete_seats = `UPDATE seats 
+						SET is_active = 1
+						WHERE id = ${seat_id} AND table_id = ${table_id}`;
+
+		let query_seat = db.query(delete_seats, (err, result_seat, fields) => {
+			if (err) {
+				//throw err;
+				res.send({"success":false,"message":"Something Went Wrong" + err});
+			}
+			res.send({"success":true,"message":"Successfully Seats Delete"});
+		});
+});
+
 
 
 //Edit And Update Wings Functionaltiy
@@ -203,7 +251,7 @@ router.get('/:id',(req,res) => {
 let incre = 1;
 //Seats Creations
 // 1 table consist of 4 seats(Chairs)
-async function seatCreate(table_id,created_by,wing_name) {
+async function seatCreate(table_id,created_by) {
 	const is_active = 0;
 	const created_at =  moment().format('YYYY/MM/DD h:mm:ss a');
 	const seat_count = 4;
