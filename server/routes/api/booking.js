@@ -218,9 +218,22 @@ router.put('/:id', (req, res) => {
 });
 
 
-router.get('/user/empname', (req, res) => {
+router.get('/user/name', (req, res) => {
  
-    res.json({'sucess':"How are you"});
+    let slectSqlfromRules = `SELECT * FROM users`;
+                db.query(slectSqlfromRules, (errUser, resultUser) => {
+                    if (errUser) {
+                        throw errUser;
+                    }
+                    let userArray=[];
+                 
+                    resultUser.forEach((element, index) => {
+                    
+                        userArray.push({id:`${element.id}`, emp_id:`${element.emp_id}`});
+                    });
+
+    res.json(userArray);
+});
     // let updateSqlfromBooking = `UPDATE booking SET status = '2' WHERE id = '${req.params.id}' AND emp_id='${req.body.emp_id}'`;
     // db.query(updateSqlfromBooking, (errupdate, resultupdate) => {
     //     if (errupdate) {
