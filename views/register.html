@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hogarth Wings</title>
+    <!-- <link rel="stylesheet" href="../css/registerpage.css"> -->
+
+
+
+    <style>
+
+
+body{
+    padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	font-family: 'Jost', sans-serif;
+
+    background-image: url("https://img.freepik.com/free-photo/flat-lay-office-desk-assortment-with-empty-screen-tablet_23-2148707960.jpg?w=2000") ;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.container{
+
+    top:50%;
+    left:50%;
+    position:absolute;
+    transform:translate(-50%,-50%)
+
+}
+
+.card{
+    /* padding: 34px 35px 192px 40px;
+    background: rgb(10 10 10);
+    border-radius: 10px;
+    height: 352px; */
+    padding: 10px 27px 217px 30px;
+    background: rgb(10 10 10);
+    border-radius: 10px;
+    height: 257px;
+
+
+}
+.control
+{
+    /* border: none;
+    background: transparent;
+    border-bottom: 1px solid white;
+    padding: 23px;
+    margin-bottom: 21px;
+    width: 200px;
+    color: white; */
+
+    /* border: none;
+    background: transparent;
+    border-bottom: 1px solid white;
+    padding: 25px;
+    margin-bottom: 16px;
+    width: 221px;
+    color: white; */
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid white;
+    padding: 16px;
+    margin-bottom: 9px;
+    width: 244px;
+    color: white;
+
+
+}
+
+
+#submit{
+
+
+   
+    border-radius: 20px;
+    padding: 10px 20px;
+    background: #1b74cb;
+    color: white;
+    margin-top: 33px;
+    font-size: medium;
+    border: none;
+    outline: none;
+    margin: left 50px;
+    width: 269px;
+    height: 40px;
+
+
+}
+
+a{
+
+    font-size: 15px;
+    color:whitesmoke;
+    padding: 15px;
+}
+ 
+#submit:hover{
+
+    background-color: rgb(249, 249, 253);
+    color: #0e0241;
+    cursor: pointer;
+    font-size: larger;
+
+}
+img{
+    
+    border-radius: 50%;
+    position: absolute;
+    margin-left: 138px;
+    margin-top: -39px;
+    position: fixed;
+
+}
+h2{
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+
+
+p{
+
+    color: rgb(255, 255, 255);
+}
+
+.footer{
+
+   
+    margin: 16px;
+}
+
+.labe{
+
+    color: white;
+    font-size: smaller;
+}
+
+#registration_page{
+
+    display: table-caption;
+    
+}
+
+.error{
+     
+    color: rgb(253, 252, 252);
+  font-size: smaller;
+  font-family: unset;
+}
+    </style>
+
+    
+</head>
+<body>
+      
+  
+<div class="container">
+
+
+<img src="https://media.glassdoor.com/sqll/806657/hogarth-worldwide-squarelogo-1424874040940.png" alt="" height="70" width="70">
+
+
+
+
+  <div class="card">
+    <h2>Hogarth WorldWide</h2>
+
+    <!-- view engine hbs -->
+<!--  -->
+    <!-- {{#if msg}} -->
+<!-- <p class="{{msg_type}}">{{msg}}</p>
+{{/if}} -->
+
+ <form action="/auth/register" method="post" id="registration_page">
+
+  <input type="text" name="employee" id="employee_id" placeholder="Employee ID" class="control"><br>
+
+<input type="email" name="email" id="email" placeholder="Email ID" class="control"><br>
+
+
+<input type="password" name="password" id="password" placeholder="Password" class="control"><br>
+
+<input type="password" name="cnfm_password" id="cnfm_password" class="control" placeholder="Confirm_Password"><br>
+
+
+
+
+<button type="submit" id="submit">Register Now</button>
+</form>
+
+<div class="footer">
+
+<label class="labe">Are you already member?</label>  <a href="/login">Login</a>
+</div>
+
+  </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+<!-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+<script src="sweetalert2.all.min.js"></script>
+
+
+<script>
+   
+   
+
+
+
+$(function() {
+   
+  //  $("#registration_page").validate({
+    $("form[id='registration_page']").validate({ 
+       rules: {
+           
+        employee:{
+               required:true,
+              
+           },
+           email: {
+            required: true,
+              email:true,
+           }, 
+           password: {
+            required: true,
+               minlength: 8
+           },
+           
+           cnfm_password: {
+               required: true,
+               equalTo: "#password"
+           },
+         
+       },
+       messages: {
+        employee:{
+               required:"Enter Employee ID",
+              
+           },
+        email: {
+            required: "Enter Email ID",
+        },
+           password: {
+               required: "Enter the Password ",
+              //  pwcheck: "Atlease 1 uppercase & 1 Numeric !",
+               minlength: "Min length should be 8 characters!"
+           },
+           cnfm_password: {
+               required: "Enter Confirm Password ",
+               equalTo: "Password Are not Match"
+           },
+
+//            submitHandler: function(form) {
+//                form.submit(
+
+
+//                 Swal.fire({
+//   position: 'top-end',
+//   icon: 'success',
+//   title: 'Registered Successfully',
+//   showConfirmButton: false,
+//   timer: 1500
+// })
+
+
+//                );
+//        },
+
+       }
+     
+      
+   });
+
+
+
+
+
+
+
+//    $.validator.addMethod("pwcheck", function (value) {
+// return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) && /[a-z]/.test(value) && /\d/.test(value) && /[A-Z]/.test(value);
+// });
+});
+</script>
+
+
+  
