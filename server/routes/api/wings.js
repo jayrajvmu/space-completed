@@ -51,8 +51,6 @@ router.delete('/deleteSeat',(req,res) => {
 		});
 });
 
-
-
 //Edit And Update Wings Functionaltiy
 router.post('/addtable',(req,res) => {
 	const is_active = 0;
