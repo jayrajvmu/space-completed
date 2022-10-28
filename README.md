@@ -71,10 +71,10 @@ Request Body Content in Json Format
     }
 
 #### Falied Output Json ####
-{
-    "success":false,
-    "message":"Somthing Went Worng"
-}
+    {
+        "success":false,
+        "message":"Somthing Went Worng"
+    }
 
 ## Wing Update Page ##
 In this page admin can Update Existing wing and view all wings details
@@ -259,7 +259,7 @@ In this page admin can View Wings in the Existing wing and view all wings detail
 
 ### View All Wings API ###
 Request hit (http://localhost:8000/wings)
-Method - GET 
+\nMethod - GET 
 
 ### Response Output Json Format ###
 #### Success Json ####
