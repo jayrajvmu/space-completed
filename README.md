@@ -16,7 +16,7 @@ This module deals with User/Admin Authentication proccess to access the web appl
 
 ### Login Page  ###
 In this Page Existing User can able to login using there Cerdentials like Username and Password 
-Page Form Consist of follwing fields and constrains
+Page Form Consist of follwing fields and constrains.
 
 1. Username - Varchar
 2. Password - Varchar
