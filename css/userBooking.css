@@ -19,13 +19,13 @@
     text-align: center;
 }
 .table{
-    /* border:1px solid red; */
     background-color: rgba(0, 198, 195, 0.13);
     border-radius: 1em;
     height:20vh;
     display: grid;
     justify-items: center;
     align-items: center;
+    border: 2px solid #12D348;
 }
 .row1{
     display: grid;
@@ -39,10 +39,10 @@
     /* grid-template-columns: repeat(5,auto); */
 }
 .seat{
-    border:2px solid white;
     height:5vh;
     width:4vw;
     /* background-color:#12D348; */
+    margin: 1px;
     border-radius: .5em;
     display: grid;
     justify-items: center;
