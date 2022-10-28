@@ -92,8 +92,7 @@ function seatBooking(seat) {
 }
 
 function userName(){
-  console.log('jo');
-  axios.get(`http://localhost:5000/booking/user/empname`)
+  axios.get(`http://localhost:5000/booking/user/name`)
     .then((response) =>{
         console.log(response.data);
     } );
