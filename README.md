@@ -281,8 +281,9 @@ Method - GET
     }
 
 #### Falied Output Json
-{
-    "success":false,
-    "message":"Somthing Went Worng"
-}
-
+```json
+    {
+        "success":false,
+        "message":"Somthing Went Worng"
+    }
+```
