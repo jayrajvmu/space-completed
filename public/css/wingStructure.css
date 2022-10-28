@@ -247,3 +247,84 @@ Wing List
 .wing-name{
     text-align: left;
 }
+
+/*Wing Modal*/
+.modal-container{
+    border: .1px solid #00C6C3;
+    width:350px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height:200px;
+    background-color:white;
+    border-radius: 2vh;
+    padding:10px;
+    display: none;
+}
+.modal-head
+{
+   display: grid;
+   grid-template-columns: 80% 10%;
+   justify-content: space-between; 
+   border-bottom: .1px solid #00C6C3;
+   padding-top: 10px;
+   padding-bottom: 10px;
+   align-items: center;
+   width: 100%;
+}
+#title{
+    padding-left: 10px;
+    font-size: 18px;
+}
+.modal-cls{
+    font-size: 20px;
+    border:3px solid #00C6C3;
+    text-align: center;
+    border-radius: 1vh;
+    font-weight: bold;
+    background-color: #00C6C3;
+    color: white;
+}
+.modal-cls:hover{
+    color:white;
+    background-color:red ;
+    border:3px solid aliceblue;
+}
+#warn-message{
+    padding-top: 15px;
+
+}
+.modal-btn{
+    display: grid;
+    grid-template-columns:20% 30% 10% 30%;
+    justify-content: end;
+    justify-items: center;
+    align-content:center;
+    position: absolute;
+    width: 100%;
+    bottom:20px;
+    right:0;
+    padding:20px;
+    padding-bottom: 0;
+    /* border:1px solid red; */
+}
+.modal-btn button{
+    margin-left: 20px;
+    height:40px;
+    width:100%;
+    margin-right:30px;
+    border-radius: 20px;
+    color:white;
+    background-color: #00C6C3;
+    border: white;
+    font-weight: bold;
+}
+.modal-btn>button:nth-of-type(1):hover{
+    background-color: green;
+}
+.modal-btn>button:nth-of-type(2):hover{
+    background-color: red;
+}

@@ -4,7 +4,7 @@ function generatingWing() {
     let tableGeneration = document.getElementById("tableGeneration");
     let wingGeneration = document.getElementById("wingGeneration");
     
-    if(+tableGeneration.value>1 && wingGeneration.value.length>3){
+    if(+tableGeneration.value>0 && wingGeneration.value.length>3){
         let generatingWings={
             wing_name:`${wingGeneration.value}`,
             wing_total_table:`${tableGeneration.value}`
@@ -241,3 +241,19 @@ function wingDeleting(event){
         getWings();
     })
 }
+function closeModal(){
+    let modalContainer = document.querySelector(".modal-container");
+    let message=title;
+    modalContainer.style.display="none";
+}
+function openModal(message) {
+    let modalContainer = document.querySelector(".modal-container");
+    let titleHeader = document.getElementById("title");
+    let warmMessage = document.getElementById("warn-message");
+    let getMessage=message;
+
+    modalContainer.style.display="block";
+    
+
+}
+// openModal();
