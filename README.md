@@ -259,7 +259,9 @@ In this page admin can View Wings in the Existing wing and view all wings detail
 
 ### View All Wings API ###
 Request hit (http://localhost:8000/wings)
-\nMethod - GET 
+
+
+Method - GET 
 
 ### Response Output Json Format ###
 #### Success Json ####
