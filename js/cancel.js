@@ -82,3 +82,10 @@ function checkinUser(id){
         alert(response.data.message)
     } );
   }
+
+  function cancelBookedSeat(id) {
+    axios.put(`http://localhost:5000/booking/${id}`, {'emp_id':1})
+        .then((response) =>{
+            console.log(response.data);
+        } );
+    }
