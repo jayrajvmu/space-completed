@@ -1,23 +1,16 @@
 {
-  "name": "node-tutorial",
-  "version": "1.0.0",
-  "description": "This a first node project",
-  "main": "app.js",
-  "scripts": {
-    "start": "node app",
-    "dev": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "John Pretto",
-  "license": "ISC",
   "dependencies": {
     "axios": "^1.1.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "moment": "^2.29.4",
-    "mysql": "^2.18.1",
-    "mysql-migrations": "^1.0.7"
+    "mysql": "^2.18.1"
+  },
+  "scripts": {
+    "start": "nodemon server/app",
+    "dev": "nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
