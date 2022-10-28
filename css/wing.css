@@ -7,7 +7,7 @@
     width: 90%;
     margin:5vh;
     /* border: 1px solid red; */
-    grid-template-columns: repeat(2,auto);
+    /* grid-template-columns: repeat(2,auto); */
 }
 #spaceManagement>a{
     text-decoration: none;
@@ -20,9 +20,9 @@
     font-weight: bold;
     font-size: 30px;
     border-radius: 20px;
+    color: #28293E;
     border: 10px solid #28293E;
 }
-#spaceManagement>a:hover{
-    
+#spaceManagement>a:hover{ 
     color:#00C6C3 ;
 }

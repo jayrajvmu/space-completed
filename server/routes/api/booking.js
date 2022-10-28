@@ -22,19 +22,24 @@ router.post('/', (req, res) => {
                         throw errRules;
                     }
 
+                    console.log(result[0].start_time);
+                    let shift_start_time = result[0].start_time.split(":");
+
                     let shiftStartTime = new Date(`${req.body.date}`);
-                    shiftStartTime.setHours(`${result[0].start_time}`);
-                    shiftStartTime.setMinutes(0);
+                    shiftStartTime.setHours(`${shift_start_time[0]}`);
+                    shiftStartTime.setMinutes(`${shift_start_time[1]}`);
 
                     let maximumtimetobook = new Date(`${req.body.date}`);
-                    maximumtimetobook.setHours(`${result[0].start_time - resultRules[0].maximum_booking_time}`);
-                    maximumtimetobook.setMinutes(0);
+                    maximumtimetobook.setHours(`${shift_start_time[0] - resultRules[0].maximum_booking_time}`);
+                    maximumtimetobook.setMinutes(`${shift_start_time[1]}`);
 
                     let minimumtimetobook = new Date(`${req.body.date}`);
-                    minimumtimetobook.setHours(`${result[0].start_time - resultRules[0].minimun_booking_time}`);
-                    minimumtimetobook.setMinutes(0);
+                    minimumtimetobook.setHours(`${shift_start_time[0] - resultRules[0].minimun_booking_time}`);
+                    minimumtimetobook.setMinutes(`${shift_start_time[1]}`);
 
                     let now = new Date();
+
+                    // res.json({ 'start': `${shiftStartTime.toLocaleString()}`, 'maximun':`${maximumtimetobook.toLocaleString()}`, 'minimum':`${minimumtimetobook.toLocaleString()}`});
                     //check booking time is not less than 6 and more than 48 hrs.
                     if ((now > minimumtimetobook) && (now < maximumtimetobook)) {
                         let slectSqlfromBooking = `SELECT * FROM booking WHERE status='1';`;
@@ -64,10 +69,10 @@ router.post('/', (req, res) => {
                             });
                             //check user apply seat for same day
                             if (userDataisSame === 1) {
-                                res.json({ 'sucess': false, 'message': 'You already booked for the day' });
+                                res.json({ 'success': false, 'message': 'You already booked for the day' });
                             } 
                             else if(sameSlot===1){
-                                res.json({ 'sucess': false, 'message': `${req.body.desk_id} is alredy booked`});
+                                res.json({ 'success': false, 'message': `${req.body.desk_id} is alredy booked`});
                             }
                          
                             
@@ -89,7 +94,7 @@ router.post('/', (req, res) => {
                         });
                     }
                     else {
-                        res.json({ 'sucess': false, 'message': 'Timing Problem Not able to book seat', 'shifttime': shiftStartTime.toLocaleString(), 'maximum': maximumtimetobook.toLocaleString(), 'minimum': minimumtimetobook.toLocaleString(), 'now': now.toLocaleString() });
+                        res.json({ 'success': false, 'message': 'Timing Problem Not able to book seat', 'shifttime': shiftStartTime.toLocaleString(), 'maximum': maximumtimetobook.toLocaleString(), 'minimum': minimumtimetobook.toLocaleString(), 'now': now.toLocaleString() });
                     }
                 });
             }
@@ -147,10 +152,10 @@ router.post('/', (req, res) => {
                             });
                             //check user apply seat for same day
                             if (userDataisSame === 1) {
-                                res.json({ 'sucess': false, 'message': 'You already booked for the day' });
+                                res.json({ 'success': false, 'message': 'You already booked for the day' });
                             } 
                             else if(sameSlot===1){
-                                res.json({ 'sucess': false, 'message': `${req.body.desk_id} is alredy booked`});
+                                res.json({ 'success': false, 'message': `${req.body.desk_id} is alredy booked`});
                             }
                           else {
                                 //check user apply only 3 days in a week this is for advace booking
@@ -168,21 +173,21 @@ router.post('/', (req, res) => {
 
 
                                 } else {
-                                    res.json({ 'sucess': false, 'message': 'Only 3 days in a week' });
+                                    res.json({ 'success': false, 'message': 'Only 3 days in a week' });
                                 }
                             }
                         });
                     });
                     }
                     else {
-                        res.json({ 'sucess': false, 'message': 'Timing Problem Not able to book seat', 'userDate':advanceBookngDate.toDateString(),'maximum': maximumtimetobookadvance.toDateString(), 'minimum': minimumtimetobookadvance.toDateString() });
+                        res.json({ 'success': false, 'message': 'Timing Problem Not able to book seat', 'userDate':advanceBookngDate.toDateString(),'maximum': maximumtimetobookadvance.toDateString(), 'minimum': minimumtimetobookadvance.toDateString() });
                     }
              
             }
         });
     }
     else{
-        res.send({ 'sucess': false, 'message': 'fill the all fieleds' })
+        res.send({ 'success': false, 'message': 'fill the all fieleds' })
     }
 });
 
@@ -194,7 +199,7 @@ router.get('/:id', (req, res) => {
         if (errfetch) {
             throw errfetch;
         }
-        res.json({ 'sucess': true, 'message': 'fetched sucessfully', 'data': resultfetch });
+        res.json({ 'success': true, 'message': 'fetched successfully', 'data': resultfetch });
     });
 });
 
@@ -202,13 +207,39 @@ router.get('/:id', (req, res) => {
 //cancel booking
 
 router.put('/:id', (req, res) => {
+    console.log(req.params.id);
     let updateSqlfromBooking = `UPDATE booking SET status = '2' WHERE id = '${req.params.id}' AND emp_id='${req.body.emp_id}'`;
     db.query(updateSqlfromBooking, (errupdate, resultupdate) => {
         if (errupdate) {
             throw errupdate;
         }
-        res.json({ 'sucess': true, 'message': 'Seat Cancelled sucessfully' });
+        res.json({ 'success': true, 'message': 'Seat Cancelled successfully' });
     });
 });
 
+
+router.get('/user/name', (req, res) => {
+ 
+    let slectSqlfromRules = `SELECT * FROM users`;
+                db.query(slectSqlfromRules, (errUser, resultUser) => {
+                    if (errUser) {
+                        throw errUser;
+                    }
+                    let userArray=[];
+                 
+                    resultUser.forEach((element, index) => {
+                    
+                        userArray.push({id:`${element.id}`, emp_id:`${element.emp_id}`});
+                    });
+
+    res.json(userArray);
+});
+    // let updateSqlfromBooking = `UPDATE booking SET status = '2' WHERE id = '${req.params.id}' AND emp_id='${req.body.emp_id}'`;
+    // db.query(updateSqlfromBooking, (errupdate, resultupdate) => {
+    //     if (errupdate) {
+    //         throw errupdate;
+    //     }
+    //     res.json({ 'success': true, 'message': 'Seat Cancelled successfully' });
+    // });
+});
 module.exports = router;

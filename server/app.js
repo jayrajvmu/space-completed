@@ -14,3 +14,4 @@ app.use('/', require('./middleware/logger'))
 app.use('/booking', require('./routes/api/booking'));
 app.use('/checkin', require('./routes/api/checkin'));
 app.use('/wings', require('./routes/api/wings'));
+app.use('/availability',require('./routes/api/availability'));
