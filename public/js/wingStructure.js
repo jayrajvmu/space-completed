@@ -42,33 +42,80 @@ function openingWingDelete() {
         wingDeleting.style.display="none";
     }
 }
-function getUpdatedWing(){
-    axios.get("http://localhost:5000/wings").then((response)=>{
-        let wingDelete = response.data
-        let wingDeleting = wingDelete.wing_name;
-        for(i=0;i<wingDelete.wing_name.length;i++){
-           // console.log(wingDelete.wing_name[i].name);
-           wing_name_delete.innerHTML+=`<option value="${wingDeleting[i].id}">${wingDelete.wing_name[i].name}</option>`
-        }
-       })
-}
-getUpdatedWing();
 
-function wingDelete(){
-    let wing_name_delete = document.getElementById("wing_name_delete");
-    console.log(wing_name_delete.value);   
-    if(wing_name_delete.value>0){
-        axios.delete(`http://localhost:5000/wings/${wing_name_delete.value}`).then((response)=>{
-        console.log(response.data);
-        wing_name_delete.innerHTML=`<option value="0">Select Wing</option>`;
-        getUpdatedWing();
-    })
+function viewTableEdit(){
+    let tableEditModule = document.getElementById("tableEditModule");
+    let wingEditModule = document.getElementById("wingEditModule");
+    let wingCreationModule = document.getElementById("wingCreationModule");
+    let styling = window.getComputedStyle(tableEditModule, null);
+    let displaying = styling.getPropertyValue("display");
+    if(displaying === "none"){
+        tableEditModule.style.display="block";
+        wingEditModule.style.display="none";
+        wingCreationModule.style.display="none";
     }
     else{
-        alert("Select The Wing")
+        tableEditModule.style.display="none";
+        
     }
-    
 }
+function viewwingEditModule(){
+    let tableEditModule = document.getElementById("tableEditModule");
+    let wingCreationModule = document.getElementById("wingCreationModule");
+    let wingEditModule = document.getElementById("wingEditModule");
+    let styling = window.getComputedStyle(wingEditModule, null);
+    let displaying = styling.getPropertyValue("display");
+    if(displaying === "none"){
+        wingEditModule.style.display="block";
+        wingCreationModule.style.display="none";
+        tableEditModule.style.display="none";
+    }
+    else{
+        wingEditModule.style.display="none";
+    }
+}
+function viewWingCreation(){
+    let tableEditModule = document.getElementById("tableEditModule");
+    let wingCreationModule = document.getElementById("wingCreationModule");
+    let wingEditModule = document.getElementById("wingEditModule");
+    let styling = window.getComputedStyle(wingCreationModule, null);
+    let displaying = styling.getPropertyValue("display");
+    if(displaying === "none"){
+        wingEditModule.style.display="none";
+        wingCreationModule.style.display="block";
+        tableEditModule.style.display="none";
+    }
+    else{
+        wingCreationModule.style.display="none";
+    }
+}
+// function getUpdatedWing(){
+//     axios.get("http://localhost:5000/wings").then((response)=>{
+//         let wingDelete = response.data
+//         let wingDeleting = wingDelete.wing_name;
+//         for(i=0;i<wingDelete.wing_name.length;i++){
+//            // console.log(wingDelete.wing_name[i].name);
+//            wing_name_delete.innerHTML+=`<option value="${wingDeleting[i].id}">${wingDelete.wing_name[i].name}</option>`
+//         }
+//        })
+// }
+// getUpdatedWing();
+
+// function wingDelete(){
+//     let wing_name_delete = document.getElementById("wing_name_delete");
+//     console.log(wing_name_delete.value);   
+//     if(wing_name_delete.value>0){
+//         axios.delete(`http://localhost:5000/wings/${wing_name_delete.value}`).then((response)=>{
+//         console.log(response.data);
+//         wing_name_delete.innerHTML=`<option value="0">Select Wing</option>`;
+//         getUpdatedWing();
+//     })
+//     }
+//     else{
+//         alert("Select The Wing")
+//     }
+    
+// }
 
 /** */
 function updateTable() {
@@ -119,47 +166,18 @@ function updateTable() {
     
 }
 
-function viewTableEdit(){
-    let tableEditModule = document.getElementById("tableEditModule");
-    let styling = window.getComputedStyle(tableEditModule, null);
-    let displaying = styling.getPropertyValue("display");
-    if(displaying === "none"){
-        tableEditModule.style.display="block";
-    }
-    else{
-        tableEditModule.style.display="none";
-    }
-}
-function viewWingCreation(){
-    let wingCreationModule = document.getElementById("wingCreationModule");
-    let styling = window.getComputedStyle(wingCreationModule, null);
-    let displaying = styling.getPropertyValue("display");
-    if(displaying === "none"){
-        wingCreationModule.style.display="block";
-    }
-    else{
-        wingCreationModule.style.display="none";
-    }
-}
-function viewwingEditModule(){
-    let wingEditModule = document.getElementById("wingEditModule");
-    let styling = window.getComputedStyle(wingEditModule, null);
-    let displaying = styling.getPropertyValue("display");
-    if(displaying === "none"){
-        wingEditModule.style.display="block";
-    }
-    else{
-        wingEditModule.style.display="none";
-    }
-}
+
+
+
 
 /** 
  * New Work
 */
-axios.get("http://localhost:5000/wings").then((response)=>{
+getWings();
+function getWings(){
+    axios.get("http://localhost:5000/wings").then((response)=>{
                                 
     let wingList = response.data.wing_name;
-    console.log(wingList); 
     for(i=0;i<wingList.length;i++){
     createWingList();
     let sno = document.getElementsByClassName("sno");
@@ -173,6 +191,8 @@ axios.get("http://localhost:5000/wings").then((response)=>{
 
 }
 })
+
+}
 function createWingList(){
     let wing_delete_list_body = document.getElementById("wing-delete-list-body");
 
@@ -194,6 +214,7 @@ function createWingList(){
     let f = document.createElement("button");
     e.appendChild(f);
     f.setAttribute("class","w-edit");
+    f.setAttribute("onclick","wingEditing(event)");
     let g = document.createTextNode("EDIT")
     f.appendChild(g);
     let h = document.createElement("div");
@@ -202,8 +223,21 @@ function createWingList(){
     let i = document.createElement("button")
     h.appendChild(i);
     i.setAttribute("class","w-del")
+    i.setAttribute("onclick","wingDeleting(event)");
     let j = document.createTextNode("DEL");
     i.appendChild(j);
+}
 
-
+function wingEditing(event){
+    console.dir(event.target.value);
+    
+}
+function wingDeleting(event){
+    let wingToDelete = event.target.value;
+    axios.delete(`http://localhost:5000/wings/${wingToDelete}`).then((response)=>{
+        console.log(response.data);
+        let wing_delete_list_body = document.getElementById("wing-delete-list-body");
+        wing_delete_list_body.innerHTML="";
+        getWings();
+    })
 }
