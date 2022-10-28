@@ -81,12 +81,4 @@ function checkinUser(id){
         console.log(response.data);
         alert(response.data.message)
     } );
-
-
-function checkinUser(id) {
-  axios.put(`http://localhost:5000/checkin/${id}`, { 'emp_id': 1 })
-    .then((response) => {
-      console.log(response.data);
-      setModal();
-    });
-}
+  }
