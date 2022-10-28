@@ -91,3 +91,11 @@ function seatBooking(seat) {
   seat.classList.add("booked");
 }
 
+function userName(){
+  console.log('jo');
+  axios.get(`http://localhost:5000/booking/user/empname`)
+    .then((response) =>{
+        console.log(response.data);
+    } );
+}
+
