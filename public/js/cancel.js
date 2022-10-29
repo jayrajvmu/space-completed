@@ -11,8 +11,13 @@ const bookedSeats = async () => {
     });
     console.log(response.data.data);
     let blogDatas = response.data.data;
-   
-    let html = blogDatas
+   let html;
+   if (blogDatas.length === 0) {
+    html = 'No data available'
+} 
+else{
+
+  html = blogDatas
       .map((blog) => {
         console.log(blog);
         
@@ -44,6 +49,10 @@ const bookedSeats = async () => {
         `;
       })
       .join("");
+
+
+}
+     
     blogRow.insertAdjacentHTML("afterbegin", html);
 
     //cancellation module starts//
