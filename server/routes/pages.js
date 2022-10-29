@@ -119,4 +119,8 @@ router.get("/seat", (req, res) => {
   res.sendFile(path.join(__dirname, "../../", "views", "seat.html"));
 });
 
+router.get("/seat-two", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../", "views", "seat-two.html"));
+});
+
 module.exports = router; //export the module

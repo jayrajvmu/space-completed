@@ -1,0 +1,45 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/seat.css" />
+  </head>
+  <body>
+    <div id="container_right">
+      <div class="opt">
+        <div class="Seat-container">
+          <label for="wing"> Select a WING:</label>
+          <select id="wing" placeholder="Select">
+            <option value="" disabled selected>Select</option>
+            <option value="Digital">Digital</option>
+            <option value="Creative">Creative</option>
+          </select>
+        </div>
+        <div class="date">
+          <label>Pick a date</label>
+          <input type="date" id="wdate" placeholder="Pick a Date" />
+        </div>
+      </div>
+      <div class="down">
+        <ul class="showcase">
+          <li>
+            <div class="seat"></div>
+            <small>Available</small>
+          </li>
+          <li>
+            <div class="seat selected"></div>
+            <small>Booked </small>
+          </li>
+          <li>
+            <div class="seat sold"></div>
+            <small>Occupied</small>
+          </li>
+        </ul>
+      </div>
+      <div class="container" id="cont"></div>
+    </div>
+    <script src="../js/seat-two.js"></script>
+  </body>
+</html>

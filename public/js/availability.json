@@ -1,0 +1,107 @@
+{
+  "availability": [
+    {
+      "wings": [
+        {
+          "wingid": 1,
+          "wingname": "Creative",
+          "tables": [
+            {
+              "tableid": 1,
+              "tableName": "WS1",
+              "seats": [
+                {
+                  "date": "2022-10-28T18:30:00.000Z",
+                  "seatsId": 1,
+                  "seatname": "WS-Seat1",
+                  "availability": null,
+                  "shift": "APAC"
+                },
+                {
+                  "date": "2022-10-29T18:30:00.000Z",
+                  "seatsId": 2,
+                  "seatname": "WS-Seat2",
+                  "availability": null,
+                  "shift": "APAC"
+                },
+                {
+                  "date": "2022-10-29T18:30:00.000Z",
+                  "seatsId": 3,
+                  "seatname": "WS-Seat3",
+                  "availability": null,
+                  "shift": "APAC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wingid": 2,
+          "wingname": "Creative",
+          "tables": [
+            {
+              "tableid": 1,
+              "tableName": "WS1",
+              "seats": [
+                {
+                  "date": "2022-10-28T18:30:00.000Z",
+                  "seatsId": 1,
+                  "seatname": "WS-Seat1",
+                  "availability": null,
+                  "shift": "APAC"
+                },
+                {
+                  "date": "2022-10-29T18:30:00.000Z",
+                  "seatsId": 2,
+                  "seatname": "WS-Seat2",
+                  "availability": null,
+                  "shift": "APAC"
+                },
+                {
+                  "date": "2022-10-29T18:30:00.000Z",
+                  "seatsId": 3,
+                  "seatname": "WS-Seat3",
+                  "availability": null,
+                  "shift": "APAC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wingid": 3,
+          "wingname": "Digital",
+          "tables": [
+            {
+              "tableid": 1,
+              "tableName": "WS1",
+              "seats": [
+                {
+                  "date": "2022-10-28T18:30:00.000Z",
+                  "seatsId": 1,
+                  "seatname": "WS-Seat1",
+                  "availability": null,
+                  "shift": "APAC"
+                },
+                {
+                  "date": "2022-10-29T18:30:00.000Z",
+                  "seatsId": 2,
+                  "seatname": "WS-Seat2",
+                  "availability": null,
+                  "shift": "APAC"
+                },
+                {
+                  "date": "2022-10-29T18:30:00.000Z",
+                  "seatsId": 3,
+                  "seatname": "WS-Seat3",
+                  "availability": null,
+                  "shift": "APAC"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
