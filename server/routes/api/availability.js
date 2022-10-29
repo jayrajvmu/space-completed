@@ -709,7 +709,7 @@ router.get("/dates", (request, response) => {
                     EmpName: "H150",
                   },
                   {
-                    date: "2022-10-29",
+                    date: "2022-10-31",
                     seatsId: 2,
                     seatname: "WS-Seat2",
                     availability: 1,

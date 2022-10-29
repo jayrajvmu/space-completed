@@ -24,7 +24,7 @@ filterByDate.addEventListener("change", filterProducts);
 //callback function
 function filterProducts() {
   let wingFilter = filterByWing.value.toLowerCase();
-  let dateFilter = filterByDate.value.toLowerCase();
+  let dateFilter = filterByDate.value;
 
   console.log(wingFilter);
   console.log(dateFilter);
@@ -32,30 +32,24 @@ function filterProducts() {
   let wings = grid.querySelectorAll(".wing");
   console.log(wings);
 
-  for (let i = 0; i < wings.length; i++) {
-    //* filter by wing name
-    // if (wings[i].classList.contains(`${wingFilter}`)) {
-    //   wings[i].style.display = "initial";
-    // } else {
-    //   wings[i].style.display = "none";
-    // }
+  //* filter by wing name
+  // for (let i = 0; i < wings.length; i++) {
+  //   if (wings[i].classList.contains(`${wingFilter}`)) {
+  //     wings[i].style.display = "initial";
+  //   } else {
+  //     wings[i].style.display = "none";
+  //   }
+  // }
 
-    //* filter by Date
-    let wingTable = document.querySelectorAll(".wing-table");
-    for (let j = 0; j < wingTable.length; j++) {
-      let dateItem = document.querySelectorAll(`${dateFilter}`);
-      console.log(dateItem);
+  //* filter by Date
+  let wingTables = document.querySelectorAll(".wing-table");
+  let dateElements = document.querySelectorAll(`.seat-date-${dateFilter}`);
 
-      // if (wingTable[j].classList.contains(`${dateFilter}`)) {
-      //   wingTable[j].style.display = "initial";
-      // } else {
-      //   wingTable[j].style.display = "none";
-      // }
-
-      // console.log(wingTable[j]);
-    }
-    console.log(wings[i]);
-  }
+  wingTables.forEach((wingTable) => {
+    dateElements.forEach((dateElement) => {
+      if(){}
+    });
+  });
 }
 
 // get value from the api create dynamic element
@@ -74,15 +68,15 @@ function addElement(appendIn, value, index) {
       let { tableName: tableName, seats: seats } = table;
 
       let tableDiv = document.createElement("div");
-      tableDiv.className = `table wing-table`;
+      tableDiv.className = `table wing-table table-${tableName}`;
       tableDiv.innerHTML = `
       <h2 class='table-name'> ${tableName} </h2>
-      <div class='table-col table-${tableName}-${tableIndex}'></div>
+      <div class='table-row table-${tableName}-${tableIndex}'></div>
       `;
       wingDiv.appendChild(tableDiv);
 
       seats.forEach((seat, seatIndex) => {
-        console.log(seat);
+        //console.log(seat);
         let {
           seatname: seatName,
           date: date,
@@ -93,6 +87,7 @@ function addElement(appendIn, value, index) {
         let tableColumn = document.querySelector(
           `.table-${tableName}-${tableIndex}`
         );
+
         let seatDiv = document.createElement("div");
         seatDiv.className = `chair seat-row-${seatIndex}`;
         seatDiv.innerHTML = `
@@ -106,4 +101,106 @@ function addElement(appendIn, value, index) {
       });
     });
   });
+
+  let seatItems = document.querySelectorAll(".chair");
+  let modalContainer = document.querySelector("#modal-section");
+  let closeBtn = document.querySelector("#close-btn");
+  let submitBtn = document.querySelector("#submit-btn");
+  let cancelBookingBtn = document.querySelector("#cancel-booking");
+  const overlay = document.getElementById("overlay");
+  let message = document.querySelector("#message");
+
+  seatItems.forEach((item) => {
+    item.onclick = () => setModal(item);
+  });
+
+  function setModal(seatItem) {
+    // open the modal
+    modalContainer.classList.add("show");
+    overlay.classList.add("active");
+
+    //  insert desk id
+    let deskInput = document.querySelector("#desk-id");
+
+    //getting the value of the seat name
+    let seatChildren = seatItem.children;
+    for (let node of seatChildren) {
+      let seatChlid = node.children;
+      for (let seatNextChild of seatChlid) {
+        if (seatNextChild.classList.contains("seat-name")) {
+          deskInput.value = seatNextChild.textContent;
+        }
+      }
+    }
+
+    // form submit function
+    submitBtn.onclick = () => {
+      postData(seatItem);
+    };
+  }
+
+  function postData(seat) {
+    //post endpoint
+    const postUrl = "http://localhost:5000/booking";
+    let desk_id = document.getElementById("desk-id").value;
+    let emp_id = document.getElementById("emp-id").value;
+    let date = document.getElementById("date").value;
+    let shift = document.getElementById("time").value;
+    const payload = {
+      desk_id: `${desk_id}`,
+      emp_id: `${emp_id}`,
+      date: `${date}`,
+      shift: `${shift}`,
+      booked_by: 1,
+      booking_type: 0,
+    };
+
+    axios
+      .post(postUrl, payload)
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        if (response.status === 200) {
+          message.innerHTML = `<p class='${response.data.success}'>${response.data.message}</p>`;
+          if (response.data.success) {
+            seatBooking(seat);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  //close the modal
+  closeBtn.addEventListener("click", closeModal);
+  function closeModal() {
+    modalContainer.classList.remove("show");
+    overlay.classList.remove("active");
+    //reset the input values
+    document.getElementById("desk-id").value = "";
+    document.getElementById("emp-id").value = "";
+    document.getElementById("date").value = "";
+    document.getElementById("time").value = "";
+    message.innerHTML = "";
+  }
+
+  function seatBooking(seat) {
+    // close the modal when the response is sent
+    modalContainer.classList.remove("show");
+    overlay.classList.remove("active");
+    message.innerHTML = "";
+
+    // seatItems.forEach((item) => {
+    //   item.classList.remove("booked");
+    // });
+
+    seat.classList.add("booked");
+  }
+
+  function userName() {
+    axios.get(`http://localhost:5000/booking/user/name`).then((response) => {
+      console.log(response.data);
+    });
+  }
 }
