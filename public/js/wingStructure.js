@@ -1,31 +1,70 @@
 
-
+let wing_to_delete;
 function generatingWing() {
     let tableGeneration = document.getElementById("tableGeneration");
     let wingGeneration = document.getElementById("wingGeneration");
     
     if(+tableGeneration.value>0 && wingGeneration.value.length>3){
-        let generatingWings={
-            wing_name:`${wingGeneration.value}`,
-            wing_total_table:`${tableGeneration.value}`
-        }
-        
-        console.log(generatingWings);
-        axios.post("http://localhost:5000/wings",generatingWings)
+        let message ="wc"
+        openModal(message); 
+    }
+    else{
+        alert(" Enter Correct Value")
+    }
+}
+
+function creatingWing(){
+    let tableGeneration = document.getElementById("tableGeneration");
+    let wingGeneration = document.getElementById("wingGeneration");
+    
+    let generatingWings={
+        wing_name:`${wingGeneration.value}`,
+        wing_total_table:`${tableGeneration.value}`
+    }
+    console.log(generatingWings);
+    axios.post("http://localhost:5000/wings",generatingWings)
         .then(response =>{
             console.log(response.data);
             let message = document.getElementById("message1");
             tableGeneration.value="";
             wingGeneration.value="";
             message1.innerHTML = response.data.message ;
+            closeModal();
+            let goOn = document.getElementById("go-on");
+            goOn.removeAttribute("onclick");
         })
-    }
-    else{
-        alert(" Enter Correct Value")
-    }
-    
 }
 
+
+function closeModal(){
+    let modalContainer = document.querySelector(".modal-container");
+    let message=title;
+    modalContainer.style.display="none";
+}
+function openModal(message) {
+    let modalContainer = document.querySelector(".modal-container");
+    let titleHeader = document.getElementById("title");
+    let warmMessage = document.getElementById("warn-message");
+    let getMessage=message;
+
+    modalContainer.style.display="block";
+    if(getMessage=="wc"){
+        // creatingWing(contents);
+        let goOn = document.getElementById("go-on");
+        goOn.setAttribute("onclick","creatingWing()");
+        
+    }
+    else if(getMessage=="wd"){
+        let goOn = document.getElementById("go-on");
+        goOn.setAttribute("onclick","deletingWing()");
+    }
+    else if(getMessage=="ut"){
+        let goOn = document.getElementById("go-on");
+        goOn.setAttribute("onclick","toUpdateTable()");
+    }
+
+}
+// openModal();
 
 
 /***/
@@ -126,30 +165,10 @@ function updateTable() {
 
 
     if(tableId.value){
-        if(seatCount.value){
+        if(seatCount.value>0){
             if(adminCode.value){
-                let updateWSTable = {
-                    tValue: `${tableId.value}`,
-                    sValue: `${seatCount.value}`,
-                    avalue: `${adminCode.value}`,
-                }
-                console.log(updateWSTable);
-                axios.put('http://localhost:5000/wings', updateWSTable)
-                            .then(response => {
-                                console.log(response.data)
-                                tableId.value="";
-                                seatCount.value="";
-                                adminCode.value="";
-                            })
-                            .catch((err)=>{
-                                console.log(err);
-                            });
-               axios.get('http://localhost:5000/updated').then(
-                response =>{
-                    message2.textContent = response.data;
-                    console.log(response.data);
-                }
-               )
+                let message ="ut"
+               openModal(message);
             }
             else{
                 alert("Enter Correct Pass Code")
@@ -166,7 +185,33 @@ function updateTable() {
     
 }
 
-
+function toUpdateTable(){
+    let updateWSTable = {
+        tValue: `${tableId.value}`,
+        sValue: `${seatCount.value}`,
+        avalue: `${adminCode.value}`,
+    }
+    console.log(updateWSTable);
+    axios.put('http://localhost:5000/wings', updateWSTable)
+                .then(response => {
+                    console.log(response.data)
+                    tableId.value="";
+                    seatCount.value="";
+                    adminCode.value="";
+                })
+                .catch((err)=>{
+                    console.log(err);
+                });
+   axios.get('http://localhost:5000/updated').then(
+    response =>{
+        message2.textContent = response.data;
+        console.log(response.data);
+    }
+   )
+    closeModal();
+    let goOn = document.getElementById("go-on");
+    goOn.removeAttribute("onclick");
+}
 
 
 
@@ -230,30 +275,22 @@ function createWingList(){
 
 function wingEditing(event){
     console.dir(event.target.value);
-    
 }
 function wingDeleting(event){
-    let wingToDelete = event.target.value;
-    axios.delete(`http://localhost:5000/wings/${wingToDelete}`).then((response)=>{
+    let message= "wd";
+    wing_to_delete = event.target.value;
+    openModal(message);
+}
+ 
+function deletingWing(){
+    console.log(wing_to_delete);
+    axios.delete(`http://localhost:5000/wings/${wing_to_delete}`).then((response)=>{
         console.log(response.data);
         let wing_delete_list_body = document.getElementById("wing-delete-list-body");
         wing_delete_list_body.innerHTML="";
         getWings();
+        closeModal();
+        let goOn = document.getElementById("go-on");
+        goOn.removeAttribute("onclick");
     })
 }
-function closeModal(){
-    let modalContainer = document.querySelector(".modal-container");
-    let message=title;
-    modalContainer.style.display="none";
-}
-function openModal(message) {
-    let modalContainer = document.querySelector(".modal-container");
-    let titleHeader = document.getElementById("title");
-    let warmMessage = document.getElementById("warn-message");
-    let getMessage=message;
-
-    modalContainer.style.display="block";
-    
-
-}
-// openModal();
