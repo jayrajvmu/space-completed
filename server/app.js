@@ -5,7 +5,6 @@ const app = express();
 const hbs = require("hbs");
 const cookieparser = require("cookie-parser");
 const { get } = require("http");
-
 const cors = require("cors");
 const axios = require("axios");
 const connection = require("./db/mysql");

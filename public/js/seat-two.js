@@ -1,6 +1,6 @@
 let fetchUrl = "http://127.0.0.1:5000/availability/wing/1";
 
-let grid = document.querySelector(".cont");
+let grid = document.querySelector("#cont");
 //let filterInput = document.getElementById("filterInput");
 let filterDropdown = document.getElementById("wing");
 
@@ -11,7 +11,7 @@ fetch(fetchUrl)
     // iterating products
     for (let value of data) {
       console.log(value);
-      //addElement(grid, value);
+      addElement(grid, value);
     }
   });
 
@@ -20,35 +20,62 @@ fetch(fetchUrl)
 //filterDropdown.addEventListener("change", filterProducts);
 
 // callback function
-function filterProducts() {
-  let filterValue = filterDropdown.value.toUpperCase();
-  let item = grid.querySelectorAll(".item");
+// function filterProducts() {
+//   let filterValue = filterDropdown.value.toUpperCase();
+//   let item = grid.querySelectorAll(".item");
 
-  for (let i = 0; i < item.length; i++) {
-    let span = item[i].querySelector(".category");
-    if (span.innerHTML.toUpperCase().indexOf(filterValue) > -1) {
-      item[i].style.display = "initial";
-    } else {
-      item[i].style.display = "none";
-    }
-  }
-}
+//   for (let i = 0; i < item.length; i++) {
+//     let span = item[i].querySelector(".category");
+//     if (span.innerHTML.toUpperCase().indexOf(filterValue) > -1) {
+//       item[i].style.display = "initial";
+//     } else {
+//       item[i].style.display = "none";
+//     }
+//   }
+// }
 
 // get value from the api create dynamic element
 function addElement(appendIn, value) {
-  let div = document.createElement("div");
-  div.className = "item justify-self-center";
+  let { wingname: wingName, tables: tables } = value;
 
-  let { image, title, category, price } = value;
+  console.log(wingName);
+  console.log(tables);
 
-  div.innerHTML = `
-      <img src="${image}" class="bg-cover img mx-auto" alt="img1">
-      <div class="text-center py-3 font-poppins">
-          <h1 class="text-lg title">${title}</h1>
-          <a href="#" class="block"><span class="text-sm text-red-400 category">${category}</span></a>
-          <span class="block py-3">$<span class="text-md">${price}</span></span>
-          <button class="border-2 px-8 py-1 bg-yellow-400 border rounded-md">Buy Now</button>
-      </div>
-`;
-  appendIn.appendChild(div);
+  let wingDiv = document.createElement("div");
+  wingDiv.className = `wing ${wingName}`;
+  appendIn.appendChild(wingDiv);
+
+  tables.map((table) => {
+    let { tableName: tableName, seats: seats } = table;
+
+    let tableDiv = document.createElement("div");
+    tableDiv.className = `table table-row `;
+    tableDiv.innerHTML = `
+    <h2 class='table-name'> ${tableName} </h2>
+    <div class='table-col'></div>
+    `;
+    wingDiv.appendChild(tableDiv);
+
+    seats.map((seat) => {
+      let {
+        seatname: seatName,
+        date: date,
+        shift: shift,
+        availability: availability,
+      } = seat;
+
+      let tableColumn = document.querySelector(".table-col");
+
+      let seatDiv = document.createElement("div");
+      seatDiv.className = "chair seat-row";
+      seatDiv.innerHTML = `
+      <div class='seat-col'>
+      <div class='seat-name'>${seatName}</div>
+      <div class='seat-date'>${date}</div>
+      <div class='seat-shift'>${shift}</div>
+      <div class='seat-availability'>${availability}</div> 
+      </div>`;
+      tableColumn.appendChild(seatDiv);
+    });
+  });
 }
