@@ -1,0 +1,126 @@
+{
+  "dates": [
+    {
+      "date": "30-10-22",
+      "wings": [
+        {
+          "wingid": 1,
+          "wingname": "Creative",
+          "tables": [
+            {
+              "tableid": 1,
+              "tableName": "WS1",
+              "seats": [
+                {
+                  "seatsId": 1,
+                  "seatname": "WS-Seat1",
+                  "availability": 1,
+                  "shift_id": 1,
+                  "shiftname": "APAC",
+                  "EmpName": "H150"
+                },
+                {
+                  "seatsId": 2,
+                  "seatname": "WS-Seat2",
+                  "availability": 1,
+                  "shift_id": 1,
+                  "shiftname": "APAC",
+                  "EmpName": "H151"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wingid": 2,
+          "wingname": "Digital",
+          "tables": [
+            {
+              "tableid": 1,
+              "tableName": "WS1",
+              "seats": [
+                {
+                  "seatsId": 1,
+                  "seatname": "WS-Seat1",
+                  "availability": 1,
+                  "shift_id": 1,
+                  "shiftname": "APAC",
+                  "EmpName": "H150"
+                },
+                {
+                  "seatsId": 2,
+                  "seatname": "WS-Seat2",
+                  "availability": 1,
+                  "shift_id": 1,
+                  "shiftname": "APAC",
+                  "EmpName": "H151"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "31-10-22",
+      "wings": [
+        {
+          "wingid": 1,
+          "wingname": "Creative",
+          "tables": [
+            {
+              "tableid": 1,
+              "tableName": "WS1",
+              "seats": [
+                {
+                  "seatsId": 1,
+                  "seatname": "WS-Seat1",
+                  "availability": 1,
+                  "shift_id": 1,
+                  "shiftname": "APAC",
+                  "EmpName": "H150"
+                },
+                {
+                  "seatsId": 2,
+                  "seatname": "WS-Seat2",
+                  "availability": 1,
+                  "shift_id": 1,
+                  "shiftname": "APAC",
+                  "EmpName": "H151"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wingid": 2,
+          "wingname": "Digital",
+          "tables": [
+            {
+              "tableid": 1,
+              "tableName": "WS1",
+              "seats": [
+                {
+                  "seatsId": 1,
+                  "seatname": "WS-Seat1",
+                  "availability": 1,
+                  "shift_id": 1,
+                  "shiftname": "APAC",
+                  "EmpName": "H150"
+                },
+                {
+                  "seatsId": 2,
+                  "seatname": "WS-Seat2",
+                  "availability": 1,
+                  "shift_id": 1,
+                  "shiftname": "APAC",
+                  "EmpName": "H151"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

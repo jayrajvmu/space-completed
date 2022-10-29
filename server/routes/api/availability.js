@@ -4,7 +4,7 @@ const router = express.Router();
 const connection = require("../../db/mysql");
 
 // request belongs to aavailability
-router.get("/wing", (request, response) => {
+router.post("/wing", (request, response) => {
   let sql = `SELECT wings.id AS wid, wings.name AS wname, tables.id AS tid, tables.name AS tname,
 			   seats.id AS sid, booking.status AS bstatus, booking.shift_id AS bshift, booking.date AS bdate,
 			   DATE_FORMAT(booking.date,'%Y-%m-%d') AS date, shift.shift_name AS sname
@@ -131,6 +131,7 @@ router.get("/wing", (request, response) => {
     // console.log(result.data);
   });
 });
+
 // work in this api route
 
 router.get("/wing/:id", (request, response) => {
@@ -284,7 +285,7 @@ router.get("/wing/:id", (request, response) => {
     obj["availability"].push({ wings: wings });
     jsonData = JSON.stringify(obj);
     response.status(200).send(jsonData);
-    response.send();
+    // response.send();
   });
 });
 
@@ -603,4 +604,132 @@ router.post("/wing/:id/:date/:shift", (request, response) => {
   });
 });
 
+router.get("/dates", (request, response) => {
+  response.json({
+    dates: [
+      {
+        date: "30-10-22",
+        wings: [
+          {
+            wingid: 1,
+            wingname: "Creative",
+            tables: [
+              {
+                tableid: 1,
+                tableName: "WS1",
+                seats: [
+                  {
+                    seatsId: 1,
+                    seatname: "WS-Seat1",
+                    availability: 1,
+                    shift_id: 1,
+                    shiftname: "APAC",
+                    EmpName: "H150",
+                  },
+                  {
+                    seatsId: 2,
+                    seatname: "WS-Seat2",
+                    availability: 1,
+                    shift_id: 1,
+                    shiftname: "APAC",
+                    EmpName: "H151",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            wingid: 2,
+            wingname: "Digital",
+            tables: [
+              {
+                tableid: 1,
+                tableName: "WS1",
+                seats: [
+                  {
+                    seatsId: 1,
+                    seatname: "WS-Seat1",
+                    availability: 1,
+                    shift_id: 1,
+                    shiftname: "APAC",
+                    EmpName: "H150",
+                  },
+                  {
+                    seatsId: 2,
+                    seatname: "WS-Seat2",
+                    availability: 1,
+                    shift_id: 1,
+                    shiftname: "APAC",
+                    EmpName: "H151",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        date: "31-10-22",
+        wings: [
+          {
+            wingid: 1,
+            wingname: "Creative",
+            tables: [
+              {
+                tableid: 1,
+                tableName: "WS1",
+                seats: [
+                  {
+                    seatsId: 1,
+                    seatname: "WS-Seat1",
+                    availability: 1,
+                    shift_id: 1,
+                    shiftname: "APAC",
+                    EmpName: "H150",
+                  },
+                  {
+                    seatsId: 2,
+                    seatname: "WS-Seat2",
+                    availability: 1,
+                    shift_id: 1,
+                    shiftname: "APAC",
+                    EmpName: "H151",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            wingid: 2,
+            wingname: "Digital",
+            tables: [
+              {
+                tableid: 1,
+                tableName: "WS1",
+                seats: [
+                  {
+                    seatsId: 1,
+                    seatname: "WS-Seat1",
+                    availability: 1,
+                    shift_id: 1,
+                    shiftname: "APAC",
+                    EmpName: "H150",
+                  },
+                  {
+                    seatsId: 2,
+                    seatname: "WS-Seat2",
+                    availability: 1,
+                    shift_id: 1,
+                    shiftname: "APAC",
+                    EmpName: "H151",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+});
 module.exports = router;
