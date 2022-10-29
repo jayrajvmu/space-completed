@@ -7,6 +7,7 @@ const db = require('../../db/mysql')
 
 router.post('/', (req, res) => {
     //fetch data from shift table
+    console.log(req.body.date);
     if ((req.body.emp_id) && (req.body.desk_id) && (req.body.date) && (req.body.shift) && (req.body.booked_by)) {
 
         let slectSqlfromShift = `SELECT * FROM shift WHERE id='${req.body.shift}';`;
@@ -209,7 +210,7 @@ router.get('/:id', (req, res) => {
 
 router.put('/:id', (req, res) => {
     console.log(req.params.id);
-    let updateSqlfromBooking = `UPDATE booking SET status = '2' WHERE id = '${req.params.id}' AND emp_id='${req.body.emp_id}'`;
+    let updateSqlfromBooking = `UPDATE booking SET status = '3' WHERE id = '${req.params.id}' AND emp_id='${req.body.emp_id}'`;
     db.query(updateSqlfromBooking, (errupdate, resultupdate) => {
         if (errupdate) {
             res.json({ 'success': false, 'message': `${errupdate}` });
