@@ -606,9 +606,8 @@ router.post("/wing/:id/:date/:shift", (request, response) => {
 
 router.get("/dates", (request, response) => {
   response.json({
-    dates: [
+    availability: [
       {
-        date: "30-10-22",
         wings: [
           {
             wingid: 1,
@@ -619,42 +618,16 @@ router.get("/dates", (request, response) => {
                 tableName: "WS1",
                 seats: [
                   {
+                    date: "2022-10-29",
                     seatsId: 1,
                     seatname: "WS-Seat1",
                     availability: 1,
                     shift_id: 1,
-                    shiftname: "APAC",
+                    shiftname: "APEX",
                     EmpName: "H150",
                   },
                   {
-                    seatsId: 2,
-                    seatname: "WS-Seat2",
-                    availability: 1,
-                    shift_id: 1,
-                    shiftname: "APAC",
-                    EmpName: "H151",
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            wingid: 2,
-            wingname: "Digital",
-            tables: [
-              {
-                tableid: 1,
-                tableName: "WS1",
-                seats: [
-                  {
-                    seatsId: 1,
-                    seatname: "WS-Seat1",
-                    availability: 1,
-                    shift_id: 1,
-                    shiftname: "APAC",
-                    EmpName: "H150",
-                  },
-                  {
+                    date: "2022-10-30",
                     seatsId: 2,
                     seatname: "WS-Seat2",
                     availability: 1,
@@ -669,45 +642,17 @@ router.get("/dates", (request, response) => {
         ],
       },
       {
-        date: "31-10-22",
         wings: [
           {
             wingid: 1,
-            wingname: "Creative",
-            tables: [
-              {
-                tableid: 1,
-                tableName: "WS1",
-                seats: [
-                  {
-                    seatsId: 1,
-                    seatname: "WS-Seat1",
-                    availability: 1,
-                    shift_id: 1,
-                    shiftname: "APAC",
-                    EmpName: "H150",
-                  },
-                  {
-                    seatsId: 2,
-                    seatname: "WS-Seat2",
-                    availability: 1,
-                    shift_id: 1,
-                    shiftname: "APAC",
-                    EmpName: "H151",
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            wingid: 2,
             wingname: "Digital",
             tables: [
               {
                 tableid: 1,
-                tableName: "WS1",
+                tableName: "WS2",
                 seats: [
                   {
+                    date: "2022-10-30",
                     seatsId: 1,
                     seatname: "WS-Seat1",
                     availability: 1,
@@ -716,11 +661,12 @@ router.get("/dates", (request, response) => {
                     EmpName: "H150",
                   },
                   {
+                    date: "2022-10-29",
                     seatsId: 2,
                     seatname: "WS-Seat2",
                     availability: 1,
                     shift_id: 1,
-                    shiftname: "APAC",
+                    shiftname: "APEX",
                     EmpName: "H151",
                   },
                 ],
