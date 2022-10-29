@@ -141,7 +141,7 @@ router.post('/', (req, res) => {
                                     if (req.body.emp_id == element.emp_id) {
                                         userDataisSame = 1;
                                     }
-                                    if (req.body.shift == element.seat_id) {
+                                    if (req.body.desk_id == element.seat_id) {
                                         sameSlot = 1
                                     }
                                 }
