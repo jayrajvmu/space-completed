@@ -336,7 +336,7 @@ in this page user will see the all booked seats for the user.
 every booked card will contain two button below mentioned.
 
 1.Cancel Seat.
-2.Check-in
+2.Check-in.
 
 #### Cancel Seat  ####
 User click the button one warning pop-up will be shown "you realy want to cancel the seat" after click the ok button seat will be cancelled.
