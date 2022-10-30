@@ -389,6 +389,10 @@ function createTableList(){
 }
 function deletingTable(event){
     console.log(event.target.value);
+    let deleteID = event.target.value;
+    axios.delete(`http://localhost:5000/wings/${wingId}/${deleteID})`).then((response)=>{
+        console.log(response.data);
+    })
 }
 function editingTable(event){
     console.log(event.target.value);
