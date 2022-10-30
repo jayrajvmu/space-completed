@@ -1,5 +1,8 @@
 
+
 let wing_to_delete;
+let edit_wing_name;
+
 function generatingWing() {
     let tableGeneration = document.getElementById("tableGeneration");
     let wingGeneration = document.getElementById("wingGeneration");
@@ -50,22 +53,50 @@ function openModal(message) {
     modalContainer.style.display="block";
     if(getMessage=="wc"){
         // creatingWing(contents);
+        titleHeader.textContent="Action Requied";
+        warmMessage.innerHTML="Are you Sure";
         let goOn = document.getElementById("go-on");
         goOn.setAttribute("onclick","creatingWing()");
         
     }
     else if(getMessage=="wd"){
+        titleHeader.textContent="Action Requied";
+        warmMessage.innerHTML="Are you Sure";
         let goOn = document.getElementById("go-on");
         goOn.setAttribute("onclick","deletingWing()");
     }
     else if(getMessage=="ut"){
+        titleHeader.textContent="Action Requied";
+        warmMessage.innerHTML="Are you Sure";
         let goOn = document.getElementById("go-on");
         goOn.setAttribute("onclick","toUpdateTable()");
     }
+    else if(getMessage=="we"){
+        let goOn = document.getElementById("go-on");
+        titleHeader.textContent="Wing Name";
+        warmMessage.innerHTML=`<input type="text" placeholder="Rename Wing Name" class="input-form">`;
+        goOn.setAttribute("onclick","toUpdateWing()");
+    }
 
 }
+function toUpdateWing(){
+    let renameWingName = document.querySelector(".input-form");
+    let renameWing={
+        "wing_id":`${edit_wing_name}`,
+        "wing_name": `${renameWingName.value}`
+      }
+    axios.put(`http://localhost:5000/wings/${edit_wing_name}`,renameWing).then((response)=>{
+        console.log(edit_wing_name);
+        console.log(response.data);
+    })
+    closeModal();
+}
 // openModal();
-
+function wingEditing(event){
+    let message ="we";
+    edit_wing_name=event.target.value;
+    openModal(message);
+}
 
 /***/
 
@@ -229,11 +260,12 @@ function getWings(){
     let wingName = document.getElementsByClassName("wing-name");
     let editBtn = document.getElementsByClassName("w-edit");
     let deleteBtn = document.getElementsByClassName("w-del");
+    let tableEdit = document.getElementsByClassName("table-edit")
     sno[i].textContent=i+1;
     wingName[i].textContent=wingList[i].name;
     editBtn[i].setAttribute("value",`${wingList[i].id}`);
     deleteBtn[i].setAttribute("value",`${wingList[i].id}`)
-
+    tableEdit[i].setAttribute("value",`${wingList[i].id}`);
 }
 })
 
@@ -271,11 +303,16 @@ function createWingList(){
     i.setAttribute("onclick","wingDeleting(event)");
     let j = document.createTextNode("DEL");
     i.appendChild(j);
+    let k = document.createElement("div");
+    k.setAttribute("class","table-edit");
+    k.setAttribute("onclick","viewTableEdit()")
+    a.appendChild(k);
+    let l = document.createTextNode("+");
+    k.appendChild(l);
+
 }
 
-function wingEditing(event){
-    console.dir(event.target.value);
-}
+
 function wingDeleting(event){
     let message= "wd";
     wing_to_delete = event.target.value;

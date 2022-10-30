@@ -7,23 +7,23 @@ body{
     justify-items: center;
     align-items: center;
     height:15vh;
-    width: 100%;
     margin:5vh;
-    grid-template-columns: repeat(3,auto);
+    grid-template-columns: 45% 45%;
+    /* border: 1px solid red; */
     
 }
 #wingContainerM>a{
     text-decoration: none;
     background-color: #00C6C3;
     height: 15vh;
-    width:20vw;
+    width:31vw;
     display: grid;
     justify-items: center;
     align-items: center;
     color: white;
     font-weight: bold;
     font-size: 20px;
-    border-radius: 3vh;
+    border-radius: 8vh;
 }
 #viewModule{
     border-top: 3px solid #28293E;
@@ -218,7 +218,7 @@ Wing List
 }
 #wing-delete-list-head{
     display: grid;
-    grid-template-columns: 10% 40% 30% 30%;
+    grid-template-columns: 10% 40% 30% 20% 10%;
     font-size: 1.2rem;
     border-bottom: 2px solid #28293E;
     padding-top :11px ;
@@ -246,6 +246,31 @@ Wing List
 }
 .wing-name{
     text-align: left;
+}
+.table-edit{
+    background-color: #00C6C3;
+    width:30px;
+    color: white;
+    border-radius:20px ;
+    cursor: pointer;
+}
+
+/*Table List*/
+#table-list{
+    display: grid;
+}
+#table-list-head{
+    display: grid;
+    grid-template-columns: 10% 40% 30% 20% 10%;
+    font-size: 1.2rem;
+    border-bottom: 2px solid #28293E;
+    padding-top :11px ;
+    padding-bottom :11px ;
+    text-align: center;
+}
+.table-list-edit{
+    display: grid;
+    grid-template-columns: auto auto;
 }
 
 /*Wing Modal*/
