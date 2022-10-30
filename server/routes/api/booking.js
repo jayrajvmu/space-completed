@@ -214,8 +214,13 @@ router.put('/:id', (req, res) => {
     db.query(updateSqlfromBooking, (errupdate, resultupdate) => {
         if (errupdate) {
             res.json({ 'success': false, 'message': `${errupdate}` });
+        }console.log(resultupdate.affectedRows);
+        if(resultupdate.affectedRows!=0){
+            res.json({ 'success': true, 'message': 'Seat Cancelled successfully' });
+
+        }else{
+            res.json({ 'success': false, 'message': 'No Booking Available' });
         }
-        res.json({ 'success': true, 'message': 'Seat Cancelled successfully' });
     });
 });
 
