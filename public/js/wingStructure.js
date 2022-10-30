@@ -1,7 +1,7 @@
 
-
 let wing_to_delete;
 let edit_wing_name;
+let wingId;
 
 function generatingWing() {
     let tableGeneration = document.getElementById("tableGeneration");
@@ -113,7 +113,7 @@ function openingWingDelete() {
     }
 }
 
-function viewTableEdit(){
+function viewTableEdit(event){
     let tableEditModule = document.getElementById("tableEditModule");
     let wingEditModule = document.getElementById("wingEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
@@ -128,6 +128,34 @@ function viewTableEdit(){
         tableEditModule.style.display="none";
         
     }
+    // console.dir(event.target.attributes.value.value);
+    let tableEvent = event.target.attributes.value.value;
+    wingId=event.target.attributes.value.value;
+    console.log(wingId);
+    axios.get(`http://localhost:5000/wings/${tableEvent}`).then((response)=>{
+        let tableList= response.data.tables;
+        console.log(tableList);
+        let table_lists_body= document.getElementById("table-lists-body");
+        table_lists_body.innerHTML="";
+        for(let i=0;i<tableList.length;i++){
+            createTableList();
+            let table_list_sno = document.getElementsByClassName("table-list-sno");
+            let table_name = document.getElementsByClassName("table-name");
+            let table_seats= document.getElementsByClassName("table-seats");
+            let t_edit= document.getElementsByClassName("t-edit");
+            let t_del= document.getElementsByClassName("t-del");
+            table_list_sno[i].textContent=i+1;
+            table_name[i].textContent=`${tableList[i].name}`;
+            table_seats[i].textContent=`${tableList[i].seats.length}`;
+            t_edit[i].setAttribute("value",`${tableList[i].id}`);
+            t_del[i].setAttribute("value",`${tableList[i].id}`);
+
+        }
+
+
+    })
+
+
 }
 function viewwingEditModule(){
     let tableEditModule = document.getElementById("tableEditModule");
@@ -143,6 +171,7 @@ function viewwingEditModule(){
     else{
         wingEditModule.style.display="none";
     }
+    
 }
 function viewWingCreation(){
     let tableEditModule = document.getElementById("tableEditModule");
@@ -305,13 +334,65 @@ function createWingList(){
     i.appendChild(j);
     let k = document.createElement("div");
     k.setAttribute("class","table-edit");
-    k.setAttribute("onclick","viewTableEdit()")
+    k.setAttribute("onclick","viewTableEdit(event)")
     a.appendChild(k);
     let l = document.createTextNode("+");
     k.appendChild(l);
 
 }
+function createTableList(){
+                                
+    let table_list_body= document.getElementById("table-lists-body");
+   let a = document.createElement("div");
+   table_list_body.appendChild(a);
+   a.setAttribute("class","table-list-names");
+   let b = document.createElement("div");
+   a.appendChild(b);
+   b.setAttribute("class","table-list-sno");
+   let c = document.createElement("div");
+   a.appendChild(c);
+   c.setAttribute("class","table-name");
+   let d = document.createElement("div");
+   a.appendChild(d);
+   d.setAttribute("class","table-seats");
+   let e = document.createElement("div");
+   a.appendChild(e);
+   e.setAttribute("class","table-list-edits");
+    let f = document.createElement("div");
+    e.appendChild(f);
+    f.setAttribute("class","edit-icon")
+    let g = document.createElement("button");
+    f.appendChild(g);
+    g.setAttribute("class","t-edit");
+    g.setAttribute("onclick","editingTable(event)");
+    let h = document.createElement("div");
+    e.appendChild(h);
+    h.setAttribute("class","edit-icon");
+    let i = document.createElement("button");
+    h.appendChild(i);
+    i.setAttribute("class","t-del");
+    i.setAttribute("onclick","deletingTable(event)");
+    let j = document.createTextNode("DEL");
+    i.appendChild(j);
+    let k = document.createTextNode("EDIT");
+    g.appendChild(k);
+//     <div class="table-list-names">
+//     <div class="table-list-sno">1</div>
+//     <div class="table-name">table1</div>
+//     <div class="table-seats">5</div>
+//     <div class="table-list-edits">
+//         <div class="edit-icon"><button class="t-edit">EDIT</button></div>
+//         <div class="edit-icon"><button class="t-del">DEL</button></div>
+//     </div>
 
+// </div>
+}
+function deletingTable(event){
+    console.log(event.target.value);
+}
+function editingTable(event){
+    console.log(event.target.value);
+}
 
 function wingDeleting(event){
     let message= "wd";
