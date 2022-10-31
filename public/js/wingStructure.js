@@ -2,6 +2,7 @@
 let wing_to_delete;
 let edit_wing_name;
 let wingId;
+let tableId;
 
 function generatingWing() {
     let tableGeneration = document.getElementById("tableGeneration");
@@ -44,6 +45,11 @@ function closeModal(){
     let message=title;
     modalContainer.style.display="none";
 }
+function seatEditing(event){
+    console.log(event.target.attributes.value.value);
+    tableId = event.target.attributes.value.value
+    openModal("seatEdit")
+}
 function openModal(message) {
     let modalContainer = document.querySelector(".modal-container");
     let titleHeader = document.getElementById("title");
@@ -77,6 +83,59 @@ function openModal(message) {
         warmMessage.innerHTML=`<input type="text" placeholder="Rename Wing Name" class="input-form">`;
         goOn.setAttribute("onclick","toUpdateWing()");
     }
+    else if(getMessage=="editTable"){
+        let goOn = document.getElementById("go-on");
+        titleHeader.textContent="Table Name";
+        warmMessage.innerHTML=`<input type="text" placeholder="Rename Table Name" class="table-input-form">`;
+        goOn.setAttribute("onclick","toUpdateTableName()");
+    }
+    else if(getMessage=="seatEdit"){
+        let goOn = document.getElementById("go-on");
+        titleHeader.textContent="Total Seats";
+        warmMessage.innerHTML=`<input type="number" placeholder="No. of Seats" class="table-input-form">`;
+        goOn.setAttribute("onclick","updatingSeats()");
+    }
+    else if(getMessage=="addTable"){
+        let goOn = document.getElementById("go-on");
+        titleHeader.textContent="Add Table";
+        warmMessage.innerHTML=`<input type="number" placeholder="No of Table" class="table-input-form">`;
+        goOn.setAttribute("onclick","addingTable()");
+    }
+
+}
+function addingTable(){
+    let newTable = document.querySelector(".table-input-form");
+    let table ={
+        "wing_id":`${wingId}`,
+        "wing_total_table":`${newTable.value}`
+    }
+    console.log(table);
+    closeModal();
+}
+function updatingSeats(){
+    let totalSeats = document.querySelector(".table-input-form");
+    let updating={
+        "wing_id":`${wingId}`,
+        "table_id":`${tableId}`,
+        "total_no_seats":`${totalSeats.value}`
+    }
+    console.log(updating);
+    closeModal();
+}
+function toUpdateTableName(){
+    console.log("vijay");
+    let renameTableName = document.querySelector(".table-input-form");
+    let renameTable={
+        "wing_id":`${wingId}`,
+        "table_id":`${tableId}`,
+        "table_name":`${renameTableName.value}`
+    }
+    console.log(renameTable);
+    axios.put(`http://localhost:5000/wings/${wingId}/${tableId}`,renameTable).then((response)=>{
+        console.log(edit_wing_name);
+        console.log(response.data);
+    })
+    closeModal();
 
 }
 function toUpdateWing(){
@@ -144,11 +203,13 @@ function viewTableEdit(event){
             let table_seats= document.getElementsByClassName("table-seats");
             let t_edit= document.getElementsByClassName("t-edit");
             let t_del= document.getElementsByClassName("t-del");
+            let seatEdit= document.getElementsByClassName("seat-edit");
             table_list_sno[i].textContent=i+1;
             table_name[i].textContent=`${tableList[i].name}`;
             table_seats[i].textContent=`${tableList[i].seats.length}`;
             t_edit[i].setAttribute("value",`${tableList[i].id}`);
             t_del[i].setAttribute("value",`${tableList[i].id}`);
+            seatEdit[i].setAttribute("value",`${tableList[i].id}`);
 
         }
 
@@ -274,7 +335,6 @@ function toUpdateTable(){
 }
 
 
-
 /** 
  * New Work
 */
@@ -376,6 +436,12 @@ function createTableList(){
     i.appendChild(j);
     let k = document.createTextNode("EDIT");
     g.appendChild(k);
+    let l = document.createElement("div");
+    a.appendChild(l);
+    l.setAttribute("class","seat-edit");
+    l.setAttribute("onclick","seatEditing(event)")
+    let m =document.createTextNode("+");
+    l.appendChild(m)
 //     <div class="table-list-names">
 //     <div class="table-list-sno">1</div>
 //     <div class="table-name">table1</div>
@@ -396,6 +462,9 @@ function deletingTable(event){
 }
 function editingTable(event){
     console.log(event.target.value);
+    tableId= event.target.value;
+    let message = "editTable"
+    openModal(message);
 }
 
 function wingDeleting(event){
@@ -415,4 +484,8 @@ function deletingWing(){
         let goOn = document.getElementById("go-on");
         goOn.removeAttribute("onclick");
     })
+}
+
+function addNewTable(){
+    openModal("addTable");
 }
