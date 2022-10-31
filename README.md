@@ -305,6 +305,7 @@ Method - GET
         "message":"Somthing Went Worng"
     }
 
+<<<<<<< Updated upstream
 ## Seat Booking ##  
 This is main module to book seats, in this module have two type bookings.
 
@@ -450,3 +451,101 @@ Method - PUT
     "success": false,
     "message": "Timing Problem",
     }
+
+Method - GET
+
+#### Sucess Response ####
+    {
+    "success": true,
+    "message": "User Cancelled successfully",
+    "data":[]
+    }
+
+#### Failed Response ####
+    {
+    "success": false,
+    "message": "Error Connection",
+    }
+
+### Check-in API ###
+Request hit (http://localhost:5000/checkin/:id) 
+
+ID- Booking ID
+Method - PUT
+
+#### Request ####
+    {
+    "emp_id": 1,
+    }
+#### Sucess Response ####
+    {
+    "success": true,
+    "message": "Chek-in successfully",
+    }
+
+#### Failed Response ####
+    {
+    "success": false,
+    "message": "Timing Problem",
+    }    
+
+## Seat Availability ##
+ This module deal with see all seat available and based on each booking an seats.
+
+### Seat Availabilities Page ###
+ In this page users can see, how many seats are available and used to booking a seats.
+ Users can see the all available seats belong to wings, date and shift.
+  1. Select a valuable wing
+  2. Select a booking date
+  3. Select a valuable shift
+### Seat Availability API ###
+   Request on seats availability based on wing.
+   {http://localhost:5000/availability/wing/1} 
+   Method : POST
+   Resquest body content 
+   ```
+   {
+    wingid: 1
+   }
+   ```
+### Response output ###     
+#### Sucess output JSON ####
+``` 
+{
+  "success": true,
+  "message": "Successfully get seats availability data"
+}
+```
+#### Failed output JSON ####
+```
+{
+  "success": false,
+  "message": "No data available"
+}
+```
+Request on seats availability based on wing, date and shift.
+   {http://localhost:5000/availability/wing/} 
+   Method : POST
+   Resquest body content 
+   ```
+   {
+    "wingid": 1,
+    "date": "2022-10-30",
+    "shift": "APAC"
+   }
+   ```
+### Response output ###     
+#### Sucess output JSON ####
+``` 
+{
+  "success": true,
+  "message": "Successfully get seats availability data"
+}
+```
+#### Failed output JSON ####
+```
+{
+  "success": false,
+  "message": "No data available"
+}
+```
