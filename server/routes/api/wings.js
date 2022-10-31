@@ -54,9 +54,6 @@ router.post('/updateSeat', (req,res) => {
 		});
 });
 
-
-
-
 //Add Seat For Table
 router.post('/addseat',(req,res) => {
 	let incre = 1;
@@ -88,7 +85,7 @@ router.post('/addseat',(req,res) => {
 //Delete Seat From Table
 router.delete('/deleteSeat',(req,res) => {
 
-	let table_id= req.body.table_id;
+	let table_id= req.body.table_id ;
 	let seat_id = req.body.seat_id;
 	let created_by = req.body.created_by;
 	
