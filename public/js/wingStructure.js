@@ -92,10 +92,25 @@ function openModal(message) {
     else if(getMessage=="seatEdit"){
         let goOn = document.getElementById("go-on");
         titleHeader.textContent="Total Seats";
-        warmMessage.innerHTML=`<input type="text" placeholder="No. of Seats" class="table-input-form">`;
+        warmMessage.innerHTML=`<input type="number" placeholder="No. of Seats" class="table-input-form">`;
         goOn.setAttribute("onclick","updatingSeats()");
     }
+    else if(getMessage=="addTable"){
+        let goOn = document.getElementById("go-on");
+        titleHeader.textContent="Add Table";
+        warmMessage.innerHTML=`<input type="number" placeholder="No of Table" class="table-input-form">`;
+        goOn.setAttribute("onclick","addingTable()");
+    }
 
+}
+function addingTable(){
+    let newTable = document.querySelector(".table-input-form");
+    let table ={
+        "wing_id":`${wingId}`,
+        "wing_total_table":`${newTable.value}`
+    }
+    console.log(table);
+    closeModal();
 }
 function updatingSeats(){
     let totalSeats = document.querySelector(".table-input-form");
@@ -469,4 +484,8 @@ function deletingWing(){
         let goOn = document.getElementById("go-on");
         goOn.removeAttribute("onclick");
     })
+}
+
+function addNewTable(){
+    openModal("addTable");
 }
