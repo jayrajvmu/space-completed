@@ -62,7 +62,7 @@ body{
     font-weight: bold;
 }
 #wingCreation>button{
-    background-color: rgb(133, 175, 79);
+    background-color: #00C6C3;
     color: white;
     font-size: 15px;
     font-weight: bold;
@@ -186,7 +186,7 @@ input::placeholder{
     font-size:4vh;
 }
 #wingEditContainer>input[type=submit]{
-    background-color: rgb(133, 175, 79);
+    background-color: #00C6C3;
     color: white;
     font-size: 15px;
     font-weight: bold;
