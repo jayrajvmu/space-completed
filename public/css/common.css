@@ -57,6 +57,7 @@ header nav a{
 #container_left{
     border-radius: 2vw;
     background-color: #28293E;
+    /* background-color: #0034c4; */
     opacity: 1;
     font-weight: bold;
 }

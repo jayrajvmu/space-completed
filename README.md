@@ -371,3 +371,148 @@ Method - GET
         "message": "Something Went Worng"
     }
 
+## Seat Booking ##  
+This is main module to book seats, in this module have two type bookings.
+
+We add lot of logic for this module.
+
+1.User can not book more than one seat for the day.
+2.User can not book more than one shift for the day.
+
+1. Regular Booking.
+2. Advance Booking.
+
+#### Regular Booking  ####
+1.User can book seats before 48 hours and before 6 hours of actual shift.
+2.User can book seats for next two days.
+
+#### Advance Booking ####
+1.User can only 3 seats for a week, week will be calculate form the current date.
+
+### Booking Page  ###
+Request hit (http://localhost:5500/booking.html)
+
+User can select wing, date and perticular shift, we will show the available seat in the perticular wing, user click the green color available seat and fill the employee id and book the seat.
+
+### My Booking Page  ###
+Request hit (http://localhost:5500/cancel.html)
+
+in this page user will see the all booked seats for the user.
+
+every booked card will contain two button below mentioned.
+
+1.Cancel Seat.
+2.Check-in.
+
+#### Cancel Seat  ####
+User click the button one warning pop-up will be shown "you realy want to cancel the seat" after click the ok button seat will be cancelled.
+
+in this button no other logic added.
+
+#### Check-in  ####
+in this button we add some logic, user can check in the seat after the shift start time and maximum 30 minitues otherwise we show error timing problem you can not check-in the perticular seat.
+
+
+### Booking API ###
+Request hit (http://localhost:5000/booking) 
+
+Method - POST
+
+#### Request ####
+    {
+    "desk_id": 1,
+    "emp_id": 1,
+    "date": 2022-10-30,
+    "shift": 1,
+    "booked_by": 1,
+    "booking_type": 0
+    }
+
+#### Sucess Response ####
+    {
+    "success": true,
+    "message": "1 seat booked successfully",
+    }
+
+#### Failed Response ####
+    {
+    "success": false,
+    "message": "You already booked for the day",
+    }
+
+### View Booking API ###
+Request hit (http://localhost:5000/booking/:id) 
+
+ID- Employee ID
+Method - GET
+
+#### Sucess Response ####
+    {
+    "success": true,
+    "message": "fetched successfully",
+    "data":[]
+    }
+
+#### Failed Response ####
+    {
+    "success": false,
+    "message": "No data available",
+    }
+
+### Cancel Booking API ###
+Request hit (http://localhost:5000/booking/:id) 
+
+ID- Booking ID
+Method - PUT
+
+#### Sucess Response ####
+    {
+    "success": true,
+    "message": "Seat Cancelled successfully",
+    }
+
+#### Failed Response ####
+    {
+    "success": false,
+    "message": "No Booking Available",
+    }
+
+### Get User Names API ###
+Request hit (http://localhost:5000/booking/user/name) 
+
+Method - GET
+
+#### Sucess Response ####
+    {
+    "success": true,
+    "message": "User Cancelled successfully",
+    "data":[]
+    }
+
+#### Failed Response ####
+    {
+    "success": false,
+    "message": "Error Connection",
+    }
+
+### Check-in API ###
+Request hit (http://localhost:5000/checkin/:id) 
+
+ID- Booking ID
+Method - PUT
+
+#### Request ####
+    {
+    "emp_id": 1,
+    }
+#### Sucess Response ####
+    {
+    "success": true,
+    "message": "Chek-in successfully",
+    }
+
+#### Failed Response ####
+    {
+    "success": false,
+    "message": "Timing Problem",
+    }
