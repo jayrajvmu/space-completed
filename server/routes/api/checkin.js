@@ -36,7 +36,7 @@ if(resultbook[0].date.toLocaleDateString()==now.toLocaleDateString()){
                 GraceTime.setMinutes(30);
 console.log(GraceTime.toLocaleDateString());
                 if(GraceTime>now){
-   let updateSqlfromBooking = `UPDATE booking SET status = '3' WHERE id = '${req.params.id}' AND emp_id='${req.body.emp_id}' AND status='1'`;
+   let updateSqlfromBooking = `UPDATE booking SET status = '2' WHERE id = '${req.params.id}' AND emp_id='${req.body.emp_id}' AND status='1'`;
         db.query(updateSqlfromBooking, (errupdate, resultupdate) => {
             if (errupdate) {
                 throw errupdate;

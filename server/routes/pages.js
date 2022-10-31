@@ -107,21 +107,21 @@ router.post(
     // console.log("user_id",req)
     // console.log("user_token",user_token)
 
-    res.redirect("/login");
-  }
-);
-
 router.get("/booking", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../", "views", "booking.html"));
-});
-
-router.get("/seat", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../", "views", "seat.html"));
-});
-
-router.get("/seat-two", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../", "views", "seat-two.html"));
-});
+    res.sendFile(path.join(__dirname, "../../", "views", "booking.html"));
+  });
+  
+  router.get("/seat", (req, res) => {
+    res.sendFile(path.join(__dirname, "../../", "views", "seat.html"));
+  });
+  
+  router.get("/seat-two", (req, res) => {
+    res.sendFile(path.join(__dirname, "../../", "views", "seat-two.html"));
+  });
+  
+  router.get("/test", (req, res) => {
+    res.sendFile(path.join(__dirname, "../../", "views", "test.html"));
+  });
 
 router.get("/test", (req, res) => {
   res.sendFile(path.join(__dirname, "../../", "views", "test.html"));

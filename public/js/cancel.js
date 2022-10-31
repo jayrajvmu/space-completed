@@ -10,10 +10,16 @@ const bookedSeats = async () => {
       },
     });
     console.log(response.data.data);
-    let blogDatas = response.data.data;
-    let html = blogDatas
+    let html;
+    if (blogDatas.length === 0) {
+     html = 'No data available'
+ } 
+ else{
+ 
+   html = blogDatas
       .map((blog) => {
         console.log(blog);
+        
         return `
         <div class="booked-seats_col">
         <div class="booked-seats_container">
@@ -73,7 +79,7 @@ const bookedSeats = async () => {
     console.log(error);
   }
 };
-console.log(bookedSeats());
+bookedSeats();
 
 function checkinUser(id){
   axios.put(`http://localhost:5000/checkin/${id}`, {'emp_id':1})

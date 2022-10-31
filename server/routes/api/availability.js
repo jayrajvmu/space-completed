@@ -372,13 +372,11 @@ router.post("/wing/:id/:date", (request, response) => {
       // console.log(com_seat_status[b]);
     }
 
-    //console.log(com_seat_id);
-    //console.log(com_seat_status);
-    //console.log(comavail);
-
-    wing_id = wing_id.filter((item, index) => wing_id.indexOf(item) === index);
-    wing_data = wing_data.filter(
-      (item, index) => wing_data.indexOf(item) === index
+    tables_id = tables_id.filter(
+      (item, index) => tables_id.indexOf(item) === index
+    );
+    tables_data = tables_data.filter(
+      (item, index) => tables_data.indexOf(item) === index
     );
 
     tables_id = tables_id.filter(
@@ -395,34 +393,20 @@ router.post("/wing/:id/:date", (request, response) => {
       (item, index) => seats_data.indexOf(item) === index
     );
 
-    booking_id = booking_id.filter(
-      (item, index) => booking_id.indexOf(item) === index
-    );
-    console.log(booking_id);
-
-    for (let k = 0; k < wing_id.length; k++) {
-      for (let l = 0; l < tables_id.length; l++) {
-        for (let h = 0; h < seats_id.length; h++) {
-          if (tables_data[l].tableId == seats_data[h].tableId) {
-            seats.push({
-              date:
-                seats_data[h].date != null ? seats_data[h].date : `${currdate}`,
-              seatsId: seats_data[h].seatsId,
-              seatname: seats_data[h].seatname,
-              availability:
-                seats_data[h].availability != null
-                  ? seats_data[h].availability
-                  : 0,
-              shift_id: seats_data[h].bshift,
-              shiftname: seats_data[h].shift,
-              EmpName: seats_data[h].empname,
-            });
-          }
+    for (k = 0; k < wing_id.length; k++) {
+      for (l = 0; l < tables_id.length; l++) {
+        for (h = 0; h < seats_id.length; h++) {
+          seats.push({
+            date: seats_data[h].date,
+            seatsId: seats_data[h].seatsId,
+            seatname: seats_data[h].seatname,
+            availability: seats_data[h].availability,
+            shift: seats_data[h].shift,
+          });
         }
         tables.push({
           tableid: tables_data[l].tableId,
           tableName: tables_data[l].tablename,
-          seats: seats,
         });
         seats = [];
       }
@@ -438,7 +422,7 @@ router.post("/wing/:id/:date", (request, response) => {
     obj = JSON.parse(jsonData);
     obj["availability"].push({ wings: wings });
     jsonData = JSON.stringify(obj);
-    response.status(200).send(jsonData);
+    response.status(200).send(result);
     response.send();
 
     // res.send(result);
@@ -446,7 +430,7 @@ router.post("/wing/:id/:date", (request, response) => {
   });
 });
 
-router.post("/wing/:id/:date/:shift", (request, response) => {
+router.get("/wing/:id", (request, response) => {
   let sql = `SELECT wings.id AS wid, wings.name AS wname, tables.id AS tid, 
 			   tables.name AS tname, seats.id AS seatid, seats.name AS seatname, 
 			   booking.shift_id AS bkshift, DATE_FORMAT(booking.date,'%Y-%m-%d') AS date, booking.id AS bid,
@@ -454,12 +438,8 @@ router.post("/wing/:id/:date/:shift", (request, response) => {
 			   From wings  
 			   LEFT JOIN tables ON wings.id=tables.wing_id
 			   RIGHT JOIN seats ON tables.id=seats.table_id
-			   RIGHT JOIN booking ON seats.id=booking.seat_id 
-			   RIGHT JOIN shift ON shift.id=booking.shift_id 
-			   RIGHT JOIN users ON booking.emp_id=users.id 
-			   WHERE wings.id=${request.params.id} AND
-			   booking.date IN (SELECT booking.date FROM booking WHERE date="${request.body.date}") AND
-			   shift.shift_name IN (SELECT shift.shift_name FROM shift WHERE shift_name="${request.body.shift}")`;
+			   RIGHT JOIN booking ON seats.id=booking.seat_id
+			   LEFT JOIN shift ON shift.id=booking.shift_id WHERE wings.id=${request.params.id}`;
   let query = connection.query(sql, (err, result, fields) => {
     if (err) {
       throw err;
@@ -474,8 +454,8 @@ router.post("/wing/:id/:date/:shift", (request, response) => {
     let seats_id = [];
     let seats_data = [];
 
-    let booking_id = [];
-    let booking_data = [];
+    let com_seat_id = [];
+    let com_seat_status = [];
     //Mapping Elements
     let tables = [];
     let seats = [];
@@ -488,56 +468,19 @@ router.post("/wing/:id/:date/:shift", (request, response) => {
       tables_id.push(result[j].tid);
       seats_id.push(result[j].seatid);
 
+      com_seat_id.push(result[j].bseat);
+      console.log(result[j].bseat);
+      com_seat_status.push(result[j].status);
+      console.log(result[j].bstatus);
       tables_data.push({ tableId: result[j].tid, tablename: result[j].tname });
       seats_data.push({
         date: result[j].date,
         seatsId: result[j].seatid,
         seatname: result[j].seatname,
-        bshift: result[j].bkshift,
-        availability: result[j].bstatus,
-        shift: result[j].sname,
-        empname: result[j].empname,
-        tableId: result[j].tid,
+        availability: result[j].status,
+        shift: result[j].shiftname,
       });
-
-      booking_id.push({ bookid: result[j].bid });
-      booking_data.push({ bookseat: result[j].bseat });
     }
-    let com_seat_id = [];
-    let com_seat_status = [];
-    let comavail = [];
-    let dates = new Date();
-    let currdate = dates.toISOString().substring(0, 10);
-    console.log(currdate);
-
-    for (a = 0; a < result.length; a++) {
-      com_seat_id.push(result[a].bseat);
-      com_seat_status.push(result[a].bstatus);
-      console.log(result[a].bseat);
-      console.log(result[a].bstatus);
-    }
-    for (b = 0; b < com_seat_id.length; b++) {
-      if (com_seat_status[b] == 1) {
-        comavail.push(1);
-        console.log("amber" + 1);
-      }
-
-      if (com_seat_status[b] == 2) {
-        console.log("red" + 2);
-        comavail.push(2);
-      }
-
-      // console.log(com_seat_status[b]);
-    }
-
-    //console.log(com_seat_id);
-    //console.log(com_seat_status);
-    //console.log(comavail);
-
-    wing_id = wing_id.filter((item, index) => wing_id.indexOf(item) === index);
-    wing_data = wing_data.filter(
-      (item, index) => wing_data.indexOf(item) === index
-    );
 
     tables_id = tables_id.filter(
       (item, index) => tables_id.indexOf(item) === index
@@ -553,43 +496,30 @@ router.post("/wing/:id/:date/:shift", (request, response) => {
       (item, index) => seats_data.indexOf(item) === index
     );
 
-    booking_id = booking_id.filter(
-      (item, index) => booking_id.indexOf(item) === index
-    );
-    console.log(booking_id);
-
-    for (let k = 0; k < wing_id.length; k++) {
-      for (let l = 0; l < tables_id.length; l++) {
-        for (let h = 0; h < seats_id.length; h++) {
-          if (tables_data[l].tableId == seats_data[h].tableId) {
-            seats.push({
-              date:
-                seats_data[h].date != null ? seats_data[h].date : `${currdate}`,
-              seatsId: seats_data[h].seatsId,
-              seatname: seats_data[h].seatname,
-              availability:
-                seats_data[h].availability != null
-                  ? seats_data[h].availability
-                  : 0,
-              shift_id: seats_data[h].bshift,
-              shiftname: seats_data[h].shift,
-              EmpName: seats_data[h].empname,
-            });
-          }
+    for (k = 0; k < wing_id.length; k++) {
+      for (l = 0; l < tables_id.length; l++) {
+        for (h = 0; h < seats_id.length; h++) {
+          seats.push({
+            date: seats_data[h].date,
+            seatsId: seats_data[h].seatsId,
+            seatname: seats_data[h].seatname,
+            availability: seats_data[h].availability,
+            shift: seats_data[h].shift,
+          });
         }
         tables.push({
           tableid: tables_data[l].tableId,
           tableName: tables_data[l].tablename,
           seats: seats,
         });
-        seats = [];
+        //seats = [];
       }
       wings.push({
         wingid: wing_data[k].wingid,
         wingname: wing_data[k].wingname,
         tables: tables,
       });
-      tables = [];
+      //tables = [];
     }
 
     let jsonData = '{"availability":[]}';
@@ -597,7 +527,7 @@ router.post("/wing/:id/:date/:shift", (request, response) => {
     obj["availability"].push({ wings: wings });
     jsonData = JSON.stringify(obj);
     response.status(200).send(jsonData);
-    response.send();
+    // response.send();
 
     // res.send(result);
     // console.log(result.data);
@@ -621,10 +551,11 @@ router.get("/dates", (request, response) => {
                     date: "2022-10-29",
                     seatsId: 1,
                     seatname: "WS-Seat1",
-                    availability: 1,
+                    availability: 2,
                     shift_id: 1,
                     shiftname: "APEX",
                     EmpName: "H150",
+                    empId: 8,
                   },
                   {
                     date: "2022-10-30",
@@ -634,6 +565,7 @@ router.get("/dates", (request, response) => {
                     shift_id: 1,
                     shiftname: "APAC",
                     EmpName: "H151",
+                    empId: 7,
                   },
                 ],
               },
@@ -643,21 +575,23 @@ router.get("/dates", (request, response) => {
                 seats: [
                   {
                     date: "2022-10-29",
-                    seatsId: 1,
+                    seatsId: 3,
                     seatname: "WS-Seat1",
-                    availability: 1,
+                    availability: 2,
                     shift_id: 1,
                     shiftname: "APEX",
                     EmpName: "H150",
+                    empId: 6,
                   },
                   {
                     date: "2022-10-30",
-                    seatsId: 2,
+                    seatsId: 4,
                     seatname: "WS-Seat2",
-                    availability: 1,
+                    availability: 3,
                     shift_id: 1,
                     shiftname: "APAC",
                     EmpName: "H151",
+                    empId: 5,
                   },
                 ],
               },
@@ -667,21 +601,23 @@ router.get("/dates", (request, response) => {
                 seats: [
                   {
                     date: "2022-10-29",
-                    seatsId: 1,
+                    seatsId: 5,
                     seatname: "WS-Seat1",
                     availability: 1,
                     shift_id: 1,
                     shiftname: "APEX",
                     EmpName: "H150",
+                    empId: 4,
                   },
                   {
                     date: "2022-10-30",
-                    seatsId: 2,
+                    seatsId: 6,
                     seatname: "WS-Seat2",
-                    availability: 1,
+                    availability: 3,
                     shift_id: 1,
                     shiftname: "APAC",
                     EmpName: "H151",
+                    empId: 3,
                   },
                 ],
               },
@@ -701,21 +637,23 @@ router.get("/dates", (request, response) => {
                 seats: [
                   {
                     date: "2022-10-30",
-                    seatsId: 1,
+                    seatsId: 7,
                     seatname: "WS-Seat1",
                     availability: 1,
                     shift_id: 1,
                     shiftname: "APAC",
                     EmpName: "H150",
+                    empId: 1,
                   },
                   {
                     date: "2022-10-31",
-                    seatsId: 2,
+                    seatsId: 8,
                     seatname: "WS-Seat2",
                     availability: 1,
                     shift_id: 1,
                     shiftname: "APEX",
                     EmpName: "H151",
+                    empId: 1,
                   },
                 ],
               },
@@ -726,4 +664,5 @@ router.get("/dates", (request, response) => {
     ],
   });
 });
+
 module.exports = router;

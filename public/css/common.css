@@ -53,11 +53,12 @@ header nav a {
   height: 100vh;
   margin: 15px;
 }
-#container_left {
-  border-radius: 2vw;
-  background-color: #28293e;
-  opacity: 1;
-  font-weight: bold;
+#container_left{
+    border-radius: 2vw;
+    background-color: #28293E;
+    /* background-color: #0034c4; */
+    opacity: 1;
+    font-weight: bold;
 }
 
 #profile_view {

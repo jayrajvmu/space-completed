@@ -37,7 +37,8 @@
   .seat-item.booked {
     background: var(--booked);
   }
-  .modal-section {
+  .modal-section,
+  .modal-section-occupied {
     position: fixed;
     top: 3em;
     left: 50%;
@@ -53,7 +54,8 @@
     max-height: 500px;
     overflow: auto;
   }
-  .modal-section.show {
+  .modal-section.show,
+  .modal-section-occupied.show {
     -webkit-transform: translateX(-50%) scale(1);
             transform: translateX(-50%) scale(1);
   }
@@ -81,7 +83,7 @@
   .modal-body {
     padding: 15px 1rem 25px;
   }
-  #overlay {
+  .overlay {
     position: fixed;
     opacity: 0;
     -webkit-transition: 200ms ease-in-out;
@@ -93,7 +95,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     pointer-events: none;
   }
-  #overlay.active {
+  .overlay.active {
     opacity: 1;
     pointer-events: all;
   }
