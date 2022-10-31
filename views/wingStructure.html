@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wing Structuring</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../public/css/common.css">
+    <link rel="stylesheet" href="../public/css/wingStructure.css">
+    <link rel="stylesheet" href="../css/test.css">
+</head>
+
+<body>
+    <header id="userBooking_header">
+        <div id="logo">
+            <div>Space - o</div>
+        </div>
+        <nav>
+            <!-- <a href="#"><div id="dashboard">Dashboard</div></a> -->
+            <a href="#">
+                <div id="profile">Profile</div>
+            </a>
+            <a href="#">
+                <div id="logout">Logout</div>
+            </a>
+        </nav>
+    </header>
+    <div id="container">
+        <div id="container_left">
+
+            <div id="profile_view">
+                <div id="profile_pht"></div>
+                <div id="profile_name">T10151</div>
+            </div>
+            <nav id="side_bar">
+                <a href="./wing.html">
+                    <div id="dashboard">DashBoard</div>
+                </a>
+                <a href="./wingStructure.html">
+                    <div id="wing_creation">Wings Creation</div>
+                </a>
+                <a href="./userBooking.html">
+                    <div id="wingEdit">Wings</div>
+                </a>
+                <a href="./booking.html">
+                    <div>Booking</div>
+                </a>
+                <a href="./seat.html">
+                    <div id="">Seat Avalilability</div>
+                </a>
+            </nav>
+        </div>
+        <div id="container_right">
+
+
+
+            <div id="wingContainerM">
+                <a href="#" onclick="viewWingCreation()">
+                    <div id="wingCreationM"> Wing Creation</div>
+                </a>
+                <a href="#" onclick="viewwingEditModule()">
+                    <div id="wingEdit"> Wing Edit</div>
+                </a>
+                <!-- <a href="#" onclick="viewTableEdit()">
+                    <div id="tableEdit"> Table Edit</div>
+                </a> -->
+            </div>
+
+            <div id="viewModule">
+                <div id="wingCreationModule">
+                    <div id="wingContainer">
+                        <div id="wingCreation">
+                            <div><label for="wingGeneration">Wing Name</label>
+
+                                <input type="text" name="wingGeneration" id="wingGeneration" placeholder="Ex. Digital"
+                                    required>
+                            </div>
+                            <div>
+                                <label for="tableGeneration">No of Tables</label>
+                                <input type="number" name="tableGeneration" id="tableGeneration" placeholder="Ex. 4"
+                                    required>
+                            </div>
+                            <button onclick="generatingWing()">Generate</button>
+                        </div>
+                        <div id="message1">
+
+                        </div>
+                    </div>
+                </div>
+                <div id="wingEditModule">
+                    <!-- <div id="wingButton">
+                        <div id="deleteWing" onclick="openingWingDelete()">
+                            <div onclick="openingWingDelete()">
+                                Wing Delete
+                            </div>
+                        </div>
+                        <div id="wingDeleting">
+                            <div>
+                                <label for="wing_name_delete">Wing Name</label>
+                                <select name="wing_name_delete" id="wing_name_delete" required>
+                                    <option value="0">Select Wing</option>
+                                </select>
+                                <button onclick="wingDelete()">Delete</button>
+                            </div>
+                        </div>
+                        <div id="addTable">
+                            <div>Add Table</div>
+                        </div>
+                    </div> -->
+                    <div id="wing-delete-list">
+                        <div id="wing-delete-list-head">
+                            <div class="wing-delete-list-sno">#</div>
+                            <div class="wing-name-list-head">
+                                Wings
+                            </div>
+                            <div class="wing-name-list-edit">
+                                <div class="edit-icon">Edit</div>
+                                <div class="delete-icon">Delete</div>
+                            </div>
+
+                        </div>
+                        <div id="wing-delete-list-body">
+                            <!-- <div class="wing-delete-list-names">
+                                <div class="sno">1</div>
+                                <div class="wing-name">
+                                    Wings
+                                </div>
+                                <div class="wing-edit">
+                                    <div class="edit-icon"><button class="w-edit">EDIT</button></div>
+                                    <div class="edit-icon"><button class="w-del">DEL</button></div>
+                                </div>
+                            </div> -->
+
+                        </div>
+                        <script>
+
+
+                        </script>
+
+                    </div>
+                </div>
+                <div id="tableEditModule">
+                    <div id="table-list">
+                        <div id="table-list-head">
+                            <div id="table-list-sno">#</div>
+                            <div class="table-name-list-head">
+                                Tables
+                            </div>
+                            <div id="total-seat">
+                                Seats
+                            </div>
+                            <div id="table-list-edit">
+                                <div class="edit-icon">Edit</div>
+                                <div class="delete-icon">Delete</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="table-lists">
+                        <div id="table-lists-body">
+                            <!-- <div class="table-list-names">
+                                <div class="table-list-sno">1</div>
+                                <div class="table-name">table1</div>
+                                <div class="table-seats">5</div>
+                                <div class="table-list-edits">
+                                    <div class="edit-icon"><button class="t-edit">EDIT</button></div>
+                                    <div class="edit-icon"><button class="t-del">DEL</button></div>
+                                </div>
+
+                            </div> -->
+                        </div>
+                        <div id="add-table">
+                            <div class="add-table-icon" onclick="addNewTable()">+</div>
+                        </div>
+                    </div>
+                    <!-- <div id="wingEditContainer">
+                        <div>
+                            <label for="tableId" name="tableId">Table ID :</label>
+                            <input type="text" name="" id="tableId" placeholder="Ex. WS-1" required>
+                        </div>
+                        <div> <label for="seatCount" name="seatCount">Seat Count :</label>
+                            <input type="text" name="" id="seatCount" placeholder="Ex. 4" required>
+                        </div>
+                        <div> <label for="adminCode" name="adminCode">Admin Code :</label>
+                            <input type="text" name="" id="adminCode" placeholder="" required>
+                        </div>
+                        <input type="submit" value="Submit" onclick="updateTable()">
+                    </div>
+                    <div id="message2"></div> -->
+
+
+                </div>
+
+            </div>
+
+        </div>
+        <div id="modal-section">
+            <!-- <div class="modal-container">
+                <div class="modal-head">
+                    <div id="title" >Action Required</div>
+                    <button class="modal-cls" onclick="closeModal()">x</button>
+                </div>
+                <div class="modal-body">
+                    <p id="warn-message">
+                        Are you Sure you want to delete?
+                    </p>
+                </div>
+                <div class="modal-btn">
+                    <p></p>
+                    <button id="cancel" onclick="closeModal()">cancel</button>
+                    <p></p>
+                    <button id="go-on">ok</button>
+                </div>
+                
+            </div> -->
+            <div class="modal-container">
+                <div class="modal-head">
+                    <div id="title">Action Required</div>
+                    <button class="modal-cls" onclick="closeModal()">x</button>
+                </div>
+                <div class="modal-body">
+                    <p id="warn-message">
+                        Are you Sure ?
+                    </p>
+                </div>
+                <div class="modal-btn">
+                    <p></p>
+                    <button id="cancel" onclick="closeModal()">cancel</button>
+                    <p></p>
+                    <button id="go-on">ok</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="../public/js/wingStructure.js"></script>
+</body>
+
+</html>
