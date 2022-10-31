@@ -141,13 +141,21 @@ router.post('/reset-password/:id/:token',userController.updateuser_pass,(req,res
 
 })
 
-
-
-router.get('/seat',(req,res) =>
-{
-    res.sendFile(path.join(__dirname,"../../","views","seat.html"));
-})
-
+router.get("/booking", (req, res) => {
+    res.sendFile(path.join(__dirname, "../../", "views", "booking.html"));
+  });
+  
+  router.get("/seat", (req, res) => {
+    res.sendFile(path.join(__dirname, "../../", "views", "seat.html"));
+  });
+  
+  router.get("/seat-two", (req, res) => {
+    res.sendFile(path.join(__dirname, "../../", "views", "seat-two.html"));
+  });
+  
+  router.get("/test", (req, res) => {
+    res.sendFile(path.join(__dirname, "../../", "views", "test.html"));
+  });
 
 
 module.exports=router; //export the module
