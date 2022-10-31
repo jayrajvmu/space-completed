@@ -524,12 +524,12 @@ Method - PUT
 }
 ```
 Request on seats availability based on wing, date and shift.
-   {http://localhost:5000/availability/wing/} 
+   {http://localhost:5000/availability/} 
    Method : POST
    Resquest body content 
    ```
    {
-    "wingid": 1,
+    "wing": 1,
     "date": "2022-10-30",
     "shift": "APAC"
    }
