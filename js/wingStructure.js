@@ -152,3 +152,58 @@ function viewwingEditModule(){
         wingEditModule.style.display="none";
     }
 }
+
+/** 
+ * New Work
+*/
+axios.get("http://localhost:5000/wings").then((response)=>{
+                                
+    let wingList = response.data.wing_name;
+    console.log(wingList); 
+    for(i=0;i<wingList.length;i++){
+    createWingList();
+    let sno = document.getElementsByClassName("sno");
+    let wingName = document.getElementsByClassName("wing-name");
+    let editBtn = document.getElementsByClassName("w-edit");
+    let deleteBtn = document.getElementsByClassName("w-del");
+    sno[i].textContent=i+1;
+    wingName[i].textContent=wingList[i].name;
+    editBtn[i].setAttribute("value",`${wingList[i].id}`);
+    deleteBtn[i].setAttribute("value",`${wingList[i].id}`)
+
+}
+})
+function createWingList(){
+    let wing_delete_list_body = document.getElementById("wing-delete-list-body");
+
+    let a = document.createElement("div");
+    wing_delete_list_body.appendChild(a);
+    a.setAttribute("class","wing-delete-list-names");
+    let b = document.createElement("div");
+    a.appendChild(b);
+    b.setAttribute("class","sno");
+    let c = document.createElement("div");
+    a.appendChild(c);
+    c.setAttribute("class","wing-name");
+    let d = document.createElement("div");
+    a.appendChild(d);
+    d.setAttribute("class","wing-edit");
+    let e = document.createElement("div");
+    d.appendChild(e);
+    e.setAttribute("class","edit-icon");
+    let f = document.createElement("button");
+    e.appendChild(f);
+    f.setAttribute("class","w-edit");
+    let g = document.createTextNode("EDIT")
+    f.appendChild(g);
+    let h = document.createElement("div");
+    d.appendChild(h);
+    h.setAttribute("class","edit-icon");
+    let i = document.createElement("button")
+    h.appendChild(i);
+    i.setAttribute("class","w-del")
+    let j = document.createTextNode("DEL");
+    i.appendChild(j);
+
+
+}
