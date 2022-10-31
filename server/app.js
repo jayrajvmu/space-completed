@@ -9,6 +9,9 @@ const cors = require("cors");
 const axios = require("axios");
 const connection = require("./db/mysql");
 
+// set the view engine to ejs
+app.set("view engine", "ejs");
+
 app.use("/", express.static(path.join(__dirname, "../public")));
 
 app.use(cookieparser());
