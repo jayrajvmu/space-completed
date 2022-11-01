@@ -21,42 +21,42 @@ const bookedSeats = async () => {
       html = blogDatas
         .map((blog) => {
           console.log(blog);
-
           return `
-    <div class="booked-seats_col">
-      <div class="booked-seats_container">
-        <div class="booked-seats_details">
-          <div class="booked-seats_input">Desk Id :</div>
-          <div class="booked-seats_value">${blog.seat_id}</div>
-        </div>
-        <div class="booked-seats_details">
-          <div class="booked-seats_input">Employee Id :</div>
-          <div class="booked-seats_value">${blog.emp_id}</div>  
-        </div>
-        <div class="booked-seats_details">
-          <div class="booked-seats_input">Booked Date :</div>
-          <div class="booked-seats_value">${new Date(
+            <div class="booked-seats_col">
+              <div class="booked-seats_container">
+                <div class="booked-seats_details">
+                  <div class="booked-seats_input">Desk Id :</div>
+                  <div class="booked-seats_value">${blog.seat_id}</div>
+                </div>
+                <div class="booked-seats_details">
+                  <div class="booked-seats_input">Employee Id :</div>
+                  <div class="booked-seats_value">${blog.emp_id}</div>  
+                </div>
+                <div class="booked-seats_details">
+                  <div class="booked-seats_input">Booked Date :</div>
+                  <div class="booked-seats_value">${new Date(
             blog.date
           ).toLocaleDateString()}</div>
-        </div>
-        <div class="booked-seats_details">
-          <div class="booked-seats_input">Shift :</div>
-          <div class="booked-seats_value">${blog.shift_id}</div>
-        </div>
-        <div class="form-submit cancellation-btns">         
-          <button  class="confirmCancel" onclick="setCancellationModal('${
+                </div>
+                <div class="booked-seats_details">
+                  <div class="booked-seats_input">Shift :</div>
+                  <div class="booked-seats_value">${blog.shift_id}</div>
+                </div>
+                <div class="form-submit cancellation-btns">         
+                  <button  class="confirmCancel" onclick="setCancellationModal('${
             blog.id
-          }','${blog.emp_id}')">Cancel Seat</button>
-          <button  class="checkInBtn"  onclick="checkinUser('${blog.id}','${
+            }','${blog.emp_id}')">Cancel Seat</button>
+                  <button  class="checkInBtn"  onclick="checkinUser('${blog.id}','${
             blog.emp_id
-          }')">Check-in</button>        
-      </div>
-    </div> `;
+            }')">Check-in</button>        
+              </div>
+            </div> `;
         })
         .join("");
     }
-
     blogRow.insertAdjacentHTML("afterbegin", html);
+    //blogRow.appendChild(html);
+
   } catch (error) {
     console.log(error);
   }
