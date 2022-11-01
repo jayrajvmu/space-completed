@@ -17,7 +17,7 @@ router.post('/', (req, res) => {
             res.json({ 'success': false, 'message': `${errtable}` });
         }
 let shiftName;
-        let slectSqlfromShift = ` SELECT * FROM shift WHERE id='${req.body.shift}';`;
+        let slectSqlfromShift = `SELECT * FROM shift WHERE id='${req.body.shift}';`;
     connection.query(slectSqlfromShift, (errshift, resultshift) => {
         if (errtable) {
             res.json({ 'success': false, 'message': `${errtable}` });
@@ -27,7 +27,7 @@ let shiftName;
         }
         console.log(shiftName);
         });
-        let slectSqlfromBooking = ` SELECT * FROM booking         
+        let slectSqlfromBooking = `SELECT *, users.email_id AS empname FROM booking LEFT JOIN users ON users.id=booking.emp_id        
         WHERE date='${req.body.date}' AND shift_id='${req.body.shift}' AND status=1 OR status=2`;
         connection.query(slectSqlfromBooking, (errbook, resultbook) => {
         if (errbook) {
@@ -51,7 +51,8 @@ let shiftName;
             resultbook.forEach((elementbook)=>{
                 if(elementbook.seat_id==element.id){
                     table_data.push({TableID: `${element.tableID}`});
-                    seat_data.push({seatid: `${element.id}`, seatable: `${element.tseats}`, Availablity: `${elementbook.status}`,SeatName: `${element.seatName}`, 
+                    seat_data.push({seatid: `${element.id}`, seatable: `${element.tseats}`,
+					Availablity: `${elementbook.status}`,SeatName: `${element.seatName}`, empname:`${elementbook.empname}`, 
                     Date: `${req.body.date}`, ShiftID:`${req.body.shift}`, ShiftName:`${shiftName}`});
                     wings.push({ id: `${element.id}`, TableName: `${element.tableName}`, TableID: `${element.tableID}`, Availablity: `${elementbook.status}`,SeatName: `${element.seatName}`, Date: `${req.body.date}`, ShiftID:`${req.body.shift}`, ShiftName:`${shiftName}` });
                 checkData=1;
@@ -60,8 +61,9 @@ let shiftName;
             if(checkData!=1){
                 wings.push({ id: `${element.id}`, TableName: `${element.tableName}`, TableID: `${element.tableID}` , Availablity: 0, SeatName: `${element.seatName}`, Date: `${req.body.date}`, ShiftID:`${req.body.shift}`,ShiftName:`${shiftName}`});
                 table_data.push({TableID: `${element.tableID}`});
-                seat_data.push({seatid: `${element.id}`, seatable: `${element.tseats}`, Availablity: 0,SeatName: `${element.seatName}`, 
-                Date: `${req.body.date}`, ShiftID:`${req.body.shift}`, ShiftName:`${shiftName}`});
+                seat_data.push({seatid: `${element.id}`, seatable: `${element.tseats}`, 
+				Availablity: 0,SeatName: `${element.seatName}`, empname:'', 
+    			Date: `${req.body.date}`, ShiftID:`${req.body.shift}`, ShiftName:`${shiftName}`});
             }
             checkData=0;  
         }
@@ -74,7 +76,7 @@ let shiftName;
             for(j=0;j<seat_data.length;j++){
                 if(tableid[i] == seat_data[j].seatable){
                     seats.push({"seatid":seat_data[j].seatid,"seatname":seat_data[j].SeatName, "availability": seat_data[j].Availablity,
-                    "date": seat_data[j].Date, "shiftID": seat_data[j].shiftID, "shiftname": seat_data[j].ShiftName});
+                    "date": seat_data[j].Date, "shiftID": seat_data[j].shiftID, "shiftname": seat_data[j].ShiftName, "Empname":seat_data[j].empname});
                 }
             }
             tables.push({"tableid" : tableid[i], "seats":seats});

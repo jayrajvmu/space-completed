@@ -499,32 +499,9 @@ Method - PUT
   2. Select a booking date
   3. Select a valuable shift
 ### Seat Availability API ###
-   Request on seats availability based on wing.
-   {http://localhost:5000/availability/wing/1} 
-   Method : POST
-   Resquest body content 
-   ```
-   {
-    wingid: 1
-   }
-   ```
-### Response output ###     
-#### Sucess output JSON ####
-``` 
-{
-  "success": true,
-  "message": "Successfully get seats availability data"
-}
-```
-#### Failed output JSON ####
-```
-{
-  "success": false,
-  "message": "No data available"
-}
-```
+
 Request on seats availability based on wing, date and shift.
-   {http://localhost:5000/availability/wing/} 
+   {http://localhost:5000/availability/} 
    Method : POST
    Resquest body content 
    ```
