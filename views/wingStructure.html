@@ -7,9 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <link rel="stylesheet" href="../public/css/nav.css" />
-  <link rel="stylesheet" href="../public/css/wingStructure.css">
-  <link rel="stylesheet" href="../css/test.css">
+  <link rel="stylesheet" href="../css/nav.css" />
+  <link rel="stylesheet" href="../css/wingStructure.css">
 </head>
 
 <body>
@@ -63,7 +62,7 @@
       <div class="middle-sidebar">
         <ul class="sidebar-list">
           <li class="sidebar-list-item active">
-            <a href="./wing.html" class="sidebar-link">
+            <a href="./wing" class="sidebar-link">
               <svg class="sidebar-icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
                 <g>
                   <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path>
@@ -85,7 +84,7 @@
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="./userBooking.html" class="sidebar-link">
+            <a href="./userBooking" class="sidebar-link">
               <svg class="sidebar-icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
                 <g>
                   <path d="M19 9H2v2h17V9zm0-4H2v2h17V5zM2 15h13v-2H2v2zm15-2v6l5-3-5-3z"></path>
@@ -105,7 +104,7 @@
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="#" class="sidebar-link">
+            <a href="./seat" class="sidebar-link">
               <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="sidebar-icon">
                 <g>
                   <path
@@ -115,7 +114,19 @@
               </svg>
               <div class="hidden-sidebar">Seat Availability</div>
             </a>
-          </li>     
+          </li>  
+          <li class="sidebar-list-item">
+            <a href="./booking" class="sidebar-link">
+              <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="sidebar-icon">
+                <g>
+                  <path
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z">
+                  </path>
+                </g>
+              </svg>
+              <div class="hidden-sidebar">Seat Booking</div>
+            </a>
+          </li>    
           
         </ul>
       </div>
@@ -289,7 +300,7 @@
       sidebar.classList.toggle("open");
     });
   </script>
-  <script src="../public/js/wingStructure.js"></script>
+  <script src="../js/wingStructure.js"></script>
 </body>
 
 </html>
