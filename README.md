@@ -506,7 +506,7 @@ Request on seats availability based on wing, date and shift.
    Resquest body content 
    ```
    {
-    "wingid": 1,
+    "wing": 1,
     "date": "2022-10-30",
     "shift": "APAC"
    }
