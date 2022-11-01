@@ -17,13 +17,13 @@ const bookedSeats = async () => {
     let blogDatas = response.data.data;
     let html;
     if (blogDatas.length === 0) {
-      html = "No Seats Booking";
+      blogRow.innerHTML = "<p class='no-booking'>No Seats Booking</p>";
     } else {
       html = blogDatas
         .map((blog) => {
           console.log(blog);
           blogRow.innerHTML += `
-            <div class="booked-seats_col">
+            <div class="booked-seats_col" id="blog-${blog.id}">
               <div class="booked-seats_container">
                 <div class="booked-seats_details">
                   <div class="booked-seats_input">Desk Id </div>
@@ -82,6 +82,7 @@ closeBtnCancellation.addEventListener("click", closeCancellationModal);
 cancellationFailureBtn.addEventListener("click", closeCancellationModal);
 
 function closeCancellationModal() {
+  message.innerHTML = "";
   cancellationModal.classList.remove("show");
   overlayCancellation.classList.remove("active");
 }
@@ -100,6 +101,8 @@ function cancelBookedSeat(id, empId) {
           setTimeout(() => {
             closeCancellationModal();
           }, 1500);
+          let blogId = document.querySelector(`#blog-${userId}`);
+          blogId.remove();
         }
       }
     })

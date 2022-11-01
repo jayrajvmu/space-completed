@@ -55,3 +55,11 @@
   color: white;
   text-align: center;
 }
+.no-booking {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
