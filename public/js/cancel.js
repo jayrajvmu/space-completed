@@ -44,10 +44,11 @@ const bookedSeats = async () => {
           
 
 
-        <button type="submit" class="button123" bookingid='${
-          blog.id
-        }'   >Cancel Seat</button>
+
           
+        <button type="submit" bookingid="">Cancel Seat</button>
+
+
         <button type="submit" class="button1234"  onclick="checkinUser('${
           blog.id
         }')">Check-in</button>
