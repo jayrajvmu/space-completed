@@ -55,7 +55,7 @@ router.put('/updateSeat', (req,res) => {
 });
 
 //Add Seat For Table
-router.post('/addseat',(req,res) => {
+router.put('/addseat',(req,res) => {
 	let incre = 1;
 	const is_active = 0;
 	const created_at =  moment().format('YYYY/MM/DD h:mm:ss a');
