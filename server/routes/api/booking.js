@@ -78,7 +78,6 @@ router.post('/', (req, res) => {
                             //check user apply only 3 days in a week this is for advace booking
                             else {
 
-
                                 let userData = { emp_id: `${req.body.emp_id}`, seat_id: `${req.body.desk_id}`, date: `${req.body.date}`, shift_id: `${1}`, status: `1`, booked_by: `${1}`, booking_type:`${req.body.booking_type}` };
                                 let sql = 'INSERT INTO booking SET ?';
                                 db.query(sql, userData, (errinsert, resultinsert, fields) => {
@@ -199,6 +198,7 @@ router.get('/:id', (req, res) => {
         if (errfetch) {
             res.json({ 'success': false, 'message': `${errfetch}` });
         }
+        console.log(resultfetch);
         res.json({ 'success': true, 'message': 'fetched successfully', 'data': resultfetch });
     });
 });

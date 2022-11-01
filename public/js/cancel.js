@@ -36,7 +36,7 @@ const bookedSeats = async () => {
         <div class="booked-seats_details">
           <div class="booked-seats_input">Booked Date :</div>
           <div class="booked-seats_value">${
-            new Date(blog.date).toISOString().split("T")[0]
+            new Date(blog.date).toLocaleDateString()
           }</div>
         </div>
         <div class="booked-seats_details">
