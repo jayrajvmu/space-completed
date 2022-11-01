@@ -23,7 +23,7 @@ const bookedSeats = async () => {
           console.log(blog);
 
           return `
-      <div class="booked-seats_col">
+    <div class="booked-seats_col">
       <div class="booked-seats_container">
         <div class="booked-seats_details">
           <div class="booked-seats_input">Desk Id :</div>
@@ -43,42 +43,15 @@ const bookedSeats = async () => {
           <div class="booked-seats_input">Shift :</div>
           <div class="booked-seats_value">${blog.shift_id}</div>
         </div>
-        <div class="form-submit">
-          
-
-<button  class="confirmCancel" onclick="setCancellationModal('${blog.id}','${
+        <div class="form-submit">         
+          <button  class="confirmCancel" onclick="setCancellationModal('${
+            blog.id
+          }','${blog.emp_id}')">Cancel Seat</button>
+          <button  class="button1234"  onclick="checkinUser('${blog.id}','${
             blog.emp_id
-          }')">Cancel Seat</button>
-
-        <button  class="button1234"  onclick="checkinUser('${blog.id}','${
-            blog.emp_id
-          }')">Check-in</button>
-        
-          <div class="modal-section modal " class="modal-section1">
-          <div class="modal-container">
-            <div class="modal-header">
-              <div class="title">Book the Seat</div>
-            </div>
-          </div>
-          <div class="modal-body">
-            <div id="seatbooking-form">
-              <div class="form-input">
-                <label for="desk-id">To cancel the booking seat </label>
-                
-                 <button   > OK </button> 
-      <button id="close-btn" >no</button>
-              </div>
-              </div>
-            <div id="message"></div>
-          </div>
-        </div>
-        <div id="overlay"></div>
-
-
-        </div>
+          }')">Check-in</button>        
       </div>
-    </div>
-      `;
+    </div> `;
         })
         .join("");
     }
@@ -115,9 +88,11 @@ function closeCancellationModal() {
 }
 
 function cancelBookedSeat(id, empId) {
-  console.log(empId);
+  let userId = +id;
+  let userEmpId = +empId;
+
   axios
-    .put(`http://localhost:5000/booking/${id}`, { emp_id: empId })
+    .put(`http://localhost:5000/booking/${userId}`, { emp_id: userEmpId })
     .then((response) => {
       console.log(response.data);
       if (response.status === 200) {
@@ -135,11 +110,13 @@ function cancelBookedSeat(id, empId) {
 }
 
 function checkinUser(id, empId) {
-  cancellationModal.classList.add("show");
-  overlayCancellation.classList.add("active");
+  let userId = +id;
+  let userEmpId = +empId;
+  // cancellationModal.classList.add("show");
+  // overlayCancellation.classList.add("active");
 
   axios
-    .put(`http://localhost:5000/checkin/${id}`, { emp_id: empId })
+    .put(`http://localhost:5000/checkin/${userId}`, { emp_id: userEmpId })
     .then((response) => {
       console.log(response.data);
       if (response.status === 200) {
