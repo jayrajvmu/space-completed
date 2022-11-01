@@ -139,6 +139,7 @@ function toUpdateTableName() {
         console.log(response.data);
     })
     closeModal();
+    window.reload();
 
 }
 function toUpdateWing() {
@@ -158,11 +159,7 @@ function toUpdateWing() {
                 console.log(response.data);
             })
             closeModal();
-
-
-
-
-
+            getWings();
 
         }
         else {
@@ -365,7 +362,8 @@ function toUpdateTable() {
 getWings();
 function getWings() {
     axios.get("http://localhost:5000/wings").then((response) => {
-
+        let wing_delete_list_body = document.getElementById("wing-delete-list-body");
+        wing_delete_list_body.innerHTML="";
         let wingList = response.data.wing_name;
         for (i = 0; i < wingList.length; i++) {
             createWingList();
@@ -384,6 +382,7 @@ function getWings() {
 
 }
 function createWingList() {
+    
     let wing_delete_list_body = document.getElementById("wing-delete-list-body");
 
     let a = document.createElement("div");
