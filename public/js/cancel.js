@@ -135,10 +135,19 @@ function cancelBookedSeat(id, empId) {
 }
 
 function checkinUser(id, empId) {
+  cancellationModal.classList.add("show");
+  overlayCancellation.classList.add("active");
   axios
-    .put(`http://localhost:5000/checkin/${id}`, { emp_id: 1 })
+    .put(`http://localhost:5000/checkin/${id}`, { emp_id: empId })
     .then((response) => {
       console.log(response.data);
-      alert(response.data.message);
+      if (response.status === 200) {
+        message.innerHTML = `<p class='${response.data.success}'>${response.data.message}</p>`;
+        if (response.data.success) {
+          setTimeout(() => {
+            closeCancellationModal();
+          }, 1500);
+        }
+      }
     });
 }
