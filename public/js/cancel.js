@@ -35,9 +35,9 @@ const bookedSeats = async () => {
         </div>
         <div class="booked-seats_details">
           <div class="booked-seats_input">Booked Date :</div>
-          <div class="booked-seats_value">${
-            new Date(blog.date).toLocaleDateString()
-          }</div>
+          <div class="booked-seats_value">${new Date(
+            blog.date
+          ).toLocaleDateString()}</div>
         </div>
         <div class="booked-seats_details">
           <div class="booked-seats_input">Shift :</div>
@@ -137,6 +137,7 @@ function cancelBookedSeat(id, empId) {
 function checkinUser(id, empId) {
   cancellationModal.classList.add("show");
   overlayCancellation.classList.add("active");
+
   axios
     .put(`http://localhost:5000/checkin/${id}`, { emp_id: empId })
     .then((response) => {
