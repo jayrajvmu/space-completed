@@ -39,6 +39,7 @@ body{
     background: rgb(50,50,50);
     border-radius: 10px;
     height: 352px;
+    display: table-caption;
 
 
 }
@@ -152,13 +153,15 @@ form{
       <div class="card">
         
         <h2>Hogarth Security</h2>
-    
-    <form action="/reset-password_link" method="post" id="reset_link">
+        <span id="backend_error" class="error"></span><br>
+<!--     
+    <form action="/reset-password_link" method="post" id="reset_link"> -->
 
         <input type="email" name="email" id="email" placeholder="Email or Employee ID" class="control"><br>
+        <span id="email_error" class="error"></span>
 
-        <button type="submit" id="submit">Send Link Now</button>
-    </form>
+        <button type="botton" id="submit">Send Link Now</button>
+    <!-- </form> -->
       </div>
 </div>
 
@@ -168,29 +171,9 @@ form{
 
 
 <!-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script> -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script> -->
 <!-- <script src="sweetalert2.all.min.js"></script> -->
 
-
-<script>
-$(function() {
-   
-  //  $("#registration_page").validate({
-    $("form[id='reset_link']").validate({ 
-       rules: {
-           
-        email:{
-               required:true,
-           }, 
-       },
-       messages: {
-
-        email:{
-               required:"Enter Email Id",
-           },
-
-       }
-   });
-});
-</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="../js/auth_password_link.js"></script>

@@ -3,7 +3,8 @@ const express=require("express");
 const router=express.Router()  //for mentioning express route module
 //use the controller to manage the routes and middleware
 const userController=require('../../controllers/users')
-
+// const cors = require('cors');
+//  const axios = require('axios');
 const path = require("path");
 
 //initial landing page
@@ -58,7 +59,6 @@ router.get("/dash",userController.isLoggedIn,(req,res)=>
 //userController.isLoggedIn middleware 
 router.get("/home",userController.isLoggedIn,(req,res)=>
 {
-
     // console.log(req.name)
     // res.render("home")
 
@@ -67,7 +67,7 @@ router.get("/home",userController.isLoggedIn,(req,res)=>
     {
 //if available render the home
         // res.render('home',{user :req.user});
-        res.sendFile(path.join(__dirname,"../../","views","home.html"));
+        res.sendFile(path.join(__dirname,"../../","views","wing.html"));
 
 
     }
@@ -108,26 +108,54 @@ router.post('/reset-password_link',userController.passwordlink,(req,res) =>
 
 console.log('routeded')
 // res.render('info_about_resetpass')
+// res.sendFile(path.join(__dirname,"../../","views","info_about_resetpass.html"));
+
+})
+
+router.get('/info_about_resetpass',(req,res) =>
+{
+
+console.log('info_about_resetpass')
+// res.render('info_about_resetpass')
 res.sendFile(path.join(__dirname,"../../","views","info_about_resetpass.html"));
 
 })
 
+router.get('/invalid_user',(req,res) =>
+{
+
+console.log('invalid_user')
+// res.render('info_about_resetpass')
+res.sendFile(path.join(__dirname,"../../","views","usernotfound.html"));
+
+})
+
+
+router.get('/forgotpassword_page',(req,res) =>
+{
+
+console.log('forgotpassword_page')
+// res.render('info_about_resetpass')
+res.sendFile(path.join(__dirname,"../../","views","forgotpassword.html"));
+
+})
+
+
+
 router.get('/reset-password/:id/:token',userController.identifyuser,(req,res) =>
 {
  
-
     const user_id=req.params.id;
     const user_token=req.params.token;
     console.log("user_idcheck",user_id)
     console.log("user_tokencheck",user_token)
 
 // res.render('forgotpassword')
-res.sendFile(path.join(__dirname,"../../","views","forgotpassword.html"));
 
 })
 
 
-router.post('/reset-password/:id/:token',userController.updateuser_pass,(req,res) =>
+router.put('/reset-password/:id/:token',userController.updateuser_pass,(req,res) =>
 {
  
 // console.log('posr')
@@ -137,25 +165,47 @@ router.post('/reset-password/:id/:token',userController.updateuser_pass,(req,res
     // console.log("user_token",user_token)
     
 
-    res.redirect('/login')
+    // res.redirect('/login')
 
 })
 
-router.get("/booking", (req, res) => {
-    res.sendFile(path.join(__dirname, "../../", "views", "booking.html"));
-  });
-  
-  router.get("/seat", (req, res) => {
-    res.sendFile(path.join(__dirname, "../../", "views", "seat.html"));
-  });
-  
-  router.get("/seat-two", (req, res) => {
-    res.sendFile(path.join(__dirname, "../../", "views", "seat-two.html"));
-  });
-  
-  router.get("/test", (req, res) => {
-    res.sendFile(path.join(__dirname, "../../", "views", "test.html"));
-  });
+
+
+router.get('/seat',(req,res) =>
+{
+    res.sendFile(path.join(__dirname,"../../","views","seat.html"));
+})
+
+router.get('/booking',(req,res) =>
+{
+    res.sendFile(path.join(__dirname,"../../","views","booking.html"));
+})
+
+router.get('/userBooking',(req,res) =>
+{
+    res.sendFile(path.join(__dirname,"../../","views","userBooking.html"));
+})
+
+router.get('/booking',(req,res) =>
+{
+    res.sendFile(path.join(__dirname,"../../","views","booking.html"));
+})
+router.get('/wingStructure',(req,res) =>
+{
+    res.sendFile(path.join(__dirname,"../../","views","wingStructure.html"));
+})
+
+router.get('/cancel',(req,res) =>
+{
+    res.sendFile(path.join(__dirname,"../../","views","cancel.html"));
+})
+
+
+
+
+
+
+
 
 
 module.exports=router; //export the module
