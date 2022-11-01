@@ -12,6 +12,11 @@ let nd;
 let nid;
 let nsd;
 
+let popupDate = document.getElementById("popupDate");
+popupDate.value = currentDate;
+
+// popupDate.value = currentDate;
+
 cdate.addEventListener("change", (event) => {
   let dd = event.target.value;
   nd = dd;
