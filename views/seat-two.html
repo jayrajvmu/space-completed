@@ -10,29 +10,45 @@
       .seat-col {
         display: none;
       }
+
       .table {
         width: 15em;
         position: relative;
       }
+
       .table-name {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
       }
+
       .chair {
         width: 2em;
         height: 2em;
         cursor: pointer;
       }
+
       .booked {
         background: orange;
       }
+
       .occupied {
         background: red;
       }
+
+      .form-input-radio-btns {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 1em;
+      }
+
+      .form-radio-btn input {
+        margin-right: 2px;
+      }
     </style>
   </head>
+
   <body>
     <div id="container_right">
       <div class="opt">
@@ -77,6 +93,18 @@
         </div>
         <div class="modal-body">
           <div id="seatbooking-form">
+            <div class="form-input">
+              <div class="form-input-radio-btns">
+                <div class="form-radio-btn">
+                  <input type="radio" name="bookingType" value="0" />
+                  Normal
+                </div>
+                <div class="form-radio-btn">
+                  <input type="radio" name="bookingType" value="1" />
+                  Advanced
+                </div>
+              </div>
+            </div>
             <div class="form-input">
               <label for="desk-id"> Desk Id </label>
               <input type="text" id="desk-id" name="deskId" data-seat-id />
