@@ -96,8 +96,8 @@ function addElement(appendIn, value, index) {
         availability == 3
           ? (availabilityClass = "occupied")
           : availability == 2
-          ? (availabilityClass = "booked")
-          : (availabilityClass = "available");
+            ? (availabilityClass = "booked")
+            : (availabilityClass = "available");
 
         let tableColumn = document.querySelector(
           `.table-${tableName}-${tableIndex}`
@@ -203,6 +203,7 @@ function postData(seat) {
   let emp_id = document.getElementById("emp-id").dataset.empRefId;
   let date = document.getElementById("date").value;
   let shift = document.getElementById("time").value;
+  let bookingType = +(document.querySelector('input[name="bookingType"]:checked').value);
 
   const payload = {
     desk_id: `${desk_id}`,
@@ -210,7 +211,7 @@ function postData(seat) {
     date: `${date}`,
     shift: `${shift}`,
     booked_by: 1,
-    booking_type: 0,
+    booking_type: `${bookingType}`,
   };
 
   console.log(payload);
