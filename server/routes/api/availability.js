@@ -1,217 +1,130 @@
 const express = require("express");
+const { isDate } = require("moment/moment");
 const router = express.Router();
 const connection = require("../../db/mysql");
 
-// request belongs to aavailability
-router.post("/wing/date", (request, response) => {
-  let sql = `SELECT wings.id AS wid, wings.name AS wname, tables.id AS tid, 
-			   tables.name AS tname, seats.id AS seatid, seats.name AS seatname, 
-			   booking.shift_id AS bkshift, booking.status AS status,
-			   shift.shift_name AS shiftname 
-			   From wings  
-			   LEFT	JOIN tables ON tables.id=tables.wing_id
-			   RIGHT JOIN seats ON seats.table_id=seats.id
-			   RIGHT JOIN booking ON booking.seat_id=seats.id
-			   LEFT JOIN shift ON shift.id=booking.shift_id WHERE booking.date=${request.params.date}`;
-  let query = connection.query(sql, (err, result, fields) => {
-    if (err) {
-      throw err;
+router.post("/", (req, res) => {
+  let slectSqlfromTable = `SELECT seats.id, wings.name AS wingName, tables.id AS tableID, 
+  tables.name AS tableName, wing_id, seats.name AS seatName, seats.table_id AS tseats
+  FROM wings
+  INNER JOIN tables ON wings.id=tables.wing_id
+  INNER JOIN seats ON tables.id=seats.table_id WHERE wing_id='${req.body.wing}'`;
+  connection.query(slectSqlfromTable, (errtable, resulttable) => {
+    if (errtable) {
+      res.json({ success: false, message: `${errtable}` });
     }
-    console.log(result.length);
-
-    let wing_id = [];
-    let wing_data = [];
-
-    let tables_id = [];
-    let tables_data = [];
-
-    let seats_id = [];
-    let seats_data = [];
-
-    //Mapping Elements
-    let tables = [];
-    let seats = [];
-    let wings = [];
-
-    for (let j = 0; j < result.length; j++) {
-      wing_id.push(result[j].wid);
-      wing_data.push({ wingid: result[j].wid, wingname: result[j].wname });
-
-      tables_id.push(result[j].tid);
-      seats_id.push(result[j].seatid);
-
-      tables_data.push({ tableId: result[j].tid, tablename: result[j].tname });
-      seats_data.push({
-        date: result[j].date,
-        seatsId: result[j].seatid,
-        seatname: result[j].seatname,
-        availability: result[j].status,
-        shift: result[j].shiftname,
-      });
-    }
-
-    wing_id = wing_id.filter((item, index) => wing_id.indexOf(item) === index);
-    wing_data = wing_data.filter(
-      (item, index) => wing_data.indexOf(item) === index
-    );
-
-    tables_id = tables_id.filter(
-      (item, index) => tables_id.indexOf(item) === index
-    );
-    tables_data = tables_data.filter(
-      (item, index) => tables_data.indexOf(item) === index
-    );
-
-    seats_id = seats_id.filter(
-      (item, index) => seats_id.indexOf(item) === index
-    );
-    seats_data = seats_data.filter(
-      (item, index) => seats_data.indexOf(item) === index
-    );
-
-    for (k = 0; k < wing_id.length; k++) {
-      for (l = 0; l < tables_id.length; l++) {
-        for (h = 0; h < seats_id.length; h++) {
-          seats.push({
-            date: seats_data[h].date,
-            seatsId: seats_data[h].seatsId,
-            seatname: seats_data[h].seatname,
-            availability: seats_data[h].availability,
-            shift: seats_data[h].shift,
+    let shiftName;
+    let slectSqlfromShift = ` SELECT * FROM shift WHERE id='${req.body.shift}';`;
+    connection.query(slectSqlfromShift, (errshift, resultshift) => {
+      if (errtable) {
+        res.json({ success: false, message: `${errtable}` });
+      }
+      for (i = 0; i < resultshift.length; i++) {
+        shiftName = resultshift[i].shift_name;
+      }
+      console.log(shiftName);
+    });
+    let slectSqlfromBooking = ` SELECT * FROM booking         
+      WHERE date='${req.body.date}' AND shift_id='${req.body.shift}' AND status=1 OR status=2`;
+    connection.query(slectSqlfromBooking, (errbook, resultbook) => {
+      if (errbook) {
+        res.json({ success: false, message: `${errbook}` });
+      }
+      let result = [];
+      let table_data = [];
+      let table_id = [];
+      let seat_data = [];
+      let seat_id = [];
+      let checkData = 0;
+      let tableid;
+      let tabledata;
+      let wings = [];
+      let tables = [];
+      let seats = [];
+      resulttable.forEach((element) => {
+        console.log(element.tseats);
+        table_id.push(element.tableID);
+        if (element.tableID == element.tseats) {
+          resultbook.forEach((elementbook) => {
+            if (elementbook.seat_id == element.id) {
+              table_data.push({ TableID: `${element.tableID}` });
+              seat_data.push({
+                seatid: `${element.id}`,
+                seatable: `${element.tseats}`,
+                Availablity: `${elementbook.status}`,
+                SeatName: `${element.seatName}`,
+                Date: `${req.body.date}`,
+                ShiftID: `${req.body.shift}`,
+                ShiftName: `${shiftName}`,
+              });
+              wings.push({
+                id: `${element.id}`,
+                TableName: `${element.tableName}`,
+                TableID: `${element.tableID}`,
+                Availablity: `${elementbook.status}`,
+                SeatName: `${element.seatName}`,
+                Date: `${req.body.date}`,
+                ShiftID: `${req.body.shift}`,
+                ShiftName: `${shiftName}`,
+              });
+              checkData = 1;
+            }
           });
+          if (checkData != 1) {
+            wings.push({
+              id: `${element.id}`,
+              TableName: `${element.tableName}`,
+              TableID: `${element.tableID}`,
+              Availablity: 0,
+              SeatName: `${element.seatName}`,
+              Date: `${req.body.date}`,
+              ShiftID: `${req.body.shift}`,
+              ShiftName: `${shiftName}`,
+            });
+            table_data.push({ TableID: `${element.tableID}` });
+            seat_data.push({
+              seatid: `${element.id}`,
+              seatable: `${element.tseats}`,
+              Availablity: 0,
+              SeatName: `${element.seatName}`,
+              Date: `${req.body.date}`,
+              ShiftID: `${req.body.shift}`,
+              ShiftName: `${shiftName}`,
+            });
+          }
+          checkData = 0;
         }
-        tables.push({
-          tableid: tables_data[l].tableId,
-          tableName: tables_data[l].tablename,
-        });
+      });
+      tableid = table_id.filter(
+        (item, index) => table_id.indexOf(item) === index
+      );
+      tabledata = table_data.filter(
+        (item, index) => table_data.indexOf(item) === index
+      );
+      console.log(tabledata);
+      console.log(tableid);
+      for (i = 0; i < tableid.length; i++) {
+        for (j = 0; j < seat_data.length; j++) {
+          if (tableid[i] == seat_data[j].seatable) {
+            seats.push({
+              seatid: seat_data[j].seatid,
+              seatname: seat_data[j].SeatName,
+              availability: seat_data[j].Availablity,
+              date: seat_data[j].Date,
+              shiftID: seat_data[j].shiftID,
+              shiftname: seat_data[j].ShiftName,
+            });
+          }
+        }
+        tables.push({ tableid: tableid[i], seats: seats });
         seats = [];
       }
-      wings.push({
-        wingid: wing_data[k].wingid,
-        wingname: wing_data[k].wingname,
-        tables: tables,
+      res.send({
+        sucess: true,
+        message: `Successfully get seats availability data`,
+        wings: tables,
       });
-      tables = [];
-    }
-
-    let jsonData = '{"availability":[]}';
-    obj = JSON.parse(jsonData);
-    obj["availability"].push({ wings: wings });
-    jsonData = JSON.stringify(obj);
-    response.status(200).send(result);
-    response.send();
-
-    // res.send(result);
-    // console.log(result.data);
-  });
-});
-
-router.get("/wing/:id", (request, response) => {
-  let sql = `SELECT wings.id AS wid, wings.name AS wname, tables.id AS tid, 
-			   tables.name AS tname, seats.id AS seatid, seats.name AS seatname, 
-			   booking.shift_id AS bkshift, seats.booked_status AS status, booking.date AS date,
-			   shift.shift_name AS shiftname, booking.seat_id AS bseat, booking.status AS bstatus
-			   From wings  
-			   LEFT JOIN tables ON wings.id=tables.wing_id
-			   RIGHT JOIN seats ON tables.id=seats.table_id
-			   RIGHT JOIN booking ON seats.id=booking.seat_id
-			   LEFT JOIN shift ON shift.id=booking.shift_id WHERE wings.id=${request.params.id}`;
-  let query = connection.query(sql, (err, result, fields) => {
-    if (err) {
-      throw err;
-    }
-
-    let wing_id = [];
-    let wing_data = [];
-
-    let tables_id = [];
-    let tables_data = [];
-
-    let seats_id = [];
-    let seats_data = [];
-
-    let com_seat_id = [];
-    let com_seat_status = [];
-    //Mapping Elements
-    let tables = [];
-    let seats = [];
-    let wings = [];
-
-    for (let j = 0; j < result.length; j++) {
-      wing_id.push(result[j].wid);
-      wing_data.push({ wingid: result[j].wid, wingname: result[j].wname });
-
-      tables_id.push(result[j].tid);
-      seats_id.push(result[j].seatid);
-
-      com_seat_id.push(result[j].bseat);
-      console.log(result[j].bseat);
-      com_seat_status.push(result[j].status);
-      console.log(result[j].bstatus);
-      tables_data.push({ tableId: result[j].tid, tablename: result[j].tname });
-      seats_data.push({
-        date: result[j].date,
-        seatsId: result[j].seatid,
-        seatname: result[j].seatname,
-        availability: result[j].status,
-        shift: result[j].shiftname,
-      });
-    }
-
-    wing_id = wing_id.filter((item, index) => wing_id.indexOf(item) === index);
-    wing_data = wing_data.filter(
-      (item, index) => wing_data.indexOf(item) === index
-    );
-
-    tables_id = tables_id.filter(
-      (item, index) => tables_id.indexOf(item) === index
-    );
-    tables_data = tables_data.filter(
-      (item, index) => tables_data.indexOf(item) === index
-    );
-
-    seats_id = seats_id.filter(
-      (item, index) => seats_id.indexOf(item) === index
-    );
-    seats_data = seats_data.filter(
-      (item, index) => seats_data.indexOf(item) === index
-    );
-
-    for (k = 0; k < wing_id.length; k++) {
-      for (l = 0; l < tables_id.length; l++) {
-        for (h = 0; h < seats_id.length; h++) {
-          seats.push({
-            date: seats_data[h].date,
-            seatsId: seats_data[h].seatsId,
-            seatname: seats_data[h].seatname,
-            availability: seats_data[h].availability,
-            shift: seats_data[h].shift,
-          });
-        }
-        tables.push({
-          tableid: tables_data[l].tableId,
-          tableName: tables_data[l].tablename,
-          seats: seats,
-        });
-        //seats = [];
-      }
-      wings.push({
-        wingid: wing_data[k].wingid,
-        wingname: wing_data[k].wingname,
-        tables: tables,
-      });
-      //tables = [];
-    }
-
-    let jsonData = '{"availability":[]}';
-    obj = JSON.parse(jsonData);
-    obj["availability"].push({ wings: wings });
-    jsonData = JSON.stringify(obj);
-    response.status(200).send(jsonData);
-    // response.send();
-
-    // res.send(result);
-    // console.log(result.data);
+    });
   });
 });
 
