@@ -115,11 +115,14 @@ function addingTable() {
 function updatingSeats() {
     let totalSeats = document.querySelector(".table-input-form");
     let updating = {
-        "wing_id": `${wingId}`,
         "table_id": `${tableId}`,
-        "total_no_seats": `${totalSeats.value}`
+        "total_no_seats": `${totalSeats.value}`,
+        "created_by": 1
     }
     console.log(updating);
+    axios.put("http://localhost:5000/wings/addseat",updating).then((response)=>{
+        console.log(response.data);
+    })
     closeModal();
 }
 function toUpdateTableName() {
