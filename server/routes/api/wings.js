@@ -5,7 +5,7 @@ const moment = require('moment');
 
 
 //Update Wing Details
-router.post('/updateWing', (req,res) => {
+router.put('/updateWing', (req,res) => {
 	let wing_id = req.body.wing_id;
 	let wing_name = req.body.wing_name;
 	let updated_at =  moment().format('YYYY/MM/DD h:mm:ss a');
@@ -21,7 +21,7 @@ router.post('/updateWing', (req,res) => {
 });
 
 //Update Table In Wing Details
-router.post('/updateTable', (req,res) => {
+router.put('/updateTable', (req,res) => {
 	let wing_id = req.body.wing_id;
 	let table_id = req.body.table_id;
 	let table_name = req.body.table_name;
@@ -38,7 +38,7 @@ router.post('/updateTable', (req,res) => {
 });
 
 //Update Seat In Table Details
-router.post('/updateSeat', (req,res) => {
+router.put('/updateSeat', (req,res) => {
 	let table_id = req.body.table_id;
 	let seat_name = req.body.seat_name;
 	let seat_id = req.body.seat_id;
@@ -117,11 +117,10 @@ router.post('/addtable',(req,res) => {
 });
 
 //Delete Tables in Wing
-router.delete('/deletetable',(req,res) => {
+router.delete('/deletetable/:wing_id/:table_id',(req,res) => {
 
-	let table_id= req.body.table_id;
-	let wing_id = req.body.wing_id;
-	let created_by = req.body.created_by;
+	let table_id= req.params.table_id;
+	let wing_id = req.params.wing_id;
 
 	var tables_is_active = `UPDATE tables 
 							SET is_active = 1
