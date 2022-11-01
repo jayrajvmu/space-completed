@@ -48,3 +48,10 @@
   display: flex;
   gap: 1.3em;
 }
+
+#signin-message .signIn-success {
+  background: #00c6c3;
+  padding: 3px;
+  color: white;
+  text-align: center;
+}
