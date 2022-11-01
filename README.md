@@ -43,16 +43,16 @@ Create wing form Consists of Follwing fields and constrains
 2. Total number of Tables - Integer
 3. Created By - Integer
 
-## Wings Creation API ##
-Request hit (http://localhost:8000/wings) 
+### Wings Creation API ###
+Request hit (http://localhost:5000/wings) 
 
 Method - POST
 
 Request Body Content in Json Format 
     {
-    "wing_name":"Informations",
-    "wing_total_table": 3,
-    "created_by": 1
+        "wing_name": "Informations",
+        "wing_total_table": 3,
+        "created_by": 1
     } 
 
 ### Response Output Json Format ###
@@ -71,13 +71,14 @@ Request Body Content in Json Format
             }
     }
 
-#### Falied Output Json ####
+#### Failed Json ####
     {
-        "success":false,
-        "message":"Somthing Went Worng"
+        "success": false,
+        "message": "Something Went Worng"
     }
 
-## Wing Update Page ##
+### Wings Update Page ###
+ Wing Update Page ##
 In this page admin can Update Existing wing and view all wings details
 Update wing form Consists of Follwing fields and constrains 
 
@@ -85,7 +86,7 @@ Update wing form Consists of Follwing fields and constrains
 2. Wing ID - Integer
 
 ### Wings Update API ###
-Request hit (http://localhost:8000/wings/1)
+Request hit (http://localhost:5000/wings/1)
 
 Method - POST 
 
@@ -100,27 +101,23 @@ Request Body Content in Json Format
     {
         "success": true,
         "message": "Successfully Updated",
-        "data": 
-            {
-                "name": "Informations",
-            }
     }
 
-#### Falied Output Json ####
+#### Failed Output Json ####
 {
-    "success":false,
-    "message":"Somthing Went Worng"
+    "success": false,
+    "message": "Something Went Worng"
 }
 
 
 
-## Wing Delete Page ##
+### Wing Delete Page ###
 In this page admin can Delete Existing wing and view all wings details
 Delete wing form Consists of Follwing fields and constrains 
 1. Wing ID - Integer
 
-### Wings Update API ###
-Request hit (http://localhost:8000/wings/1)
+### Wings Delete API ###
+Request hit (http://localhost:5000/wings/1)
 
 Method - DELETE 
 
@@ -136,14 +133,14 @@ Request Body Content in Json Format
         "message": "Successfully Deleted",
     }
 
-#### Falied Output Json ####
+#### Failed Json ####
 {
-    "success":false,
-    "message":"Somthing Went Worng"
+    "success": false,
+    "message": "Something Went Worng"
 }
 
 
-## Wing Add Tables Page ##
+### Wing Add Tables Page ###
 In this page admin can Add Table in the  Existing wing and view all wings Tables details
 Add Tables form Consists of Follwing fields and constrains 
 
@@ -151,13 +148,13 @@ Add Tables form Consists of Follwing fields and constrains
 3. Total no of Table - Integer
 
 ### Wings Add Tables API ###
-Request hit (http://localhost:8000/wings/addtable)
+Request hit (http://localhost:5000/wings/addtable)
 
 Method - POST 
 
 Request Body Content in Json Format 
     {
-        "wing_id":2,
+        "wing_id": 2,
         "wing_total_table": 5,
         "created_by": 1
     }
@@ -168,13 +165,47 @@ Request Body Content in Json Format
         "message": "Successfully Table is Added",
     }
 
-#### Falied Output Json ####
+#### Failed Json ####
 {
-    "success":false,
-    "message":"Somthing Went Worng"
+    "success": false,
+    "message": "Something Went Worng"
 }
 
-## Wing Delete Tables Page ##
+
+### Wings Update Table Page ###
+ Wing Update Table Page ##
+In this page admin can Update Existing wing Table and view all wings details
+Update wing form Consists of Follwing fields and constrains 
+
+1. Table Id - Integer
+2. Table Name - String
+
+### Update Table API ###
+Request hit (http://localhost:5000/wings/updateTable)
+
+Method - POST 
+
+Request Body Content in Json Format 
+    {
+        "wing_id": 1,
+        "table_id": 1,
+        "table_name": "WS_Digital_Tables"
+    }
+
+### Response Output Json Format ###
+#### Success Json ####
+    {
+        "success": true,
+        "message": "Successfully Updated",
+    }
+
+#### Failed Output Json ####
+{
+    "success": false,
+    "message": "Something Went Worng"
+}
+
+### Wing Delete Tables Page ###
 In this page admin can Delete Table in the Existing wing and view all wings Tables details
 Delete Table form Consists of Follwing fields and constrains 
 
@@ -183,13 +214,13 @@ Delete Table form Consists of Follwing fields and constrains
 3. Total no of Table - Integer
 
 ### Wings Delete Tables API ###
-Request hit (http://localhost:8000/wings/deletetable)
+Request hit (http://localhost:5000/wings/deletetable)
 
 Method - DELETE 
 
 Request Body Content in Json Format 
     {
-        "wing_id":2,
+        "wing_id": 2,
         "table_id": 7,
         "created_by": 1
     }
@@ -200,14 +231,14 @@ Request Body Content in Json Format
         "message": "Successfully Table is Deleted",
     }
 
-#### Falied Output Json ####
+#### Failed Json ####
 {
-    "success":false,
-    "message":"Somthing Went Worng"
+    "success": false,
+    "message": "Something Went Worng"
 }
 
 
-## Wing Add Seat Page ##
+### Wing Add Seat Page ###
 In this page admin can Add Seats in the Existing wing Table and view all wings Seat details
 Add Seats form Consists of Follwing fields and constrains 
 
@@ -215,13 +246,13 @@ Add Seats form Consists of Follwing fields and constrains
 2. Total no of Seats - Integer
 
 ### Wings Add Seat API ###
-Request hit (http://localhost:8000/wings/addseat)
+Request hit (http://localhost:5000/wings/addseat)
 
 Method - POST 
 
 Request Body Content in Json Format 
     {
-        "table_id":2,
+        "table_id": 2,
         "total_no_seats": 5,
         "created_by": 1
     }
@@ -232,14 +263,49 @@ Request Body Content in Json Format
         "message": "Successfully Seats Added",
     }
 
-#### Falied Output Json ####
+#### Failed Json ####
 {
     "success":false,
-    "message":"Somthing Went Worng"
+    "message":"Something Went Worng"
 }
 
 
-## Wing Delete Seat Page ##
+
+### Wings Update Seat API ###
+ Wing Seat Table Page ##
+In this page admin can Update Existing wing Seat and view all wings details
+Update wing form Consists of Follwing fields and constrains 
+
+1. Seat Id - Integer
+2. Seat Name - String
+3. Table ID - Integer
+
+### Update Table ###
+Request hit (http://localhost:5000/wings/updateSeat)
+
+Method - POST 
+
+Request Body Content in Json Format 
+    {
+        "table_id": 1,
+        "seat_id":1,
+        "seat_name": "Digital_seat"
+    }
+### Response Output Json Format ###
+#### Success Json ####
+    {
+        "Success": true,
+        "message": "Successfully Seat is Updated"
+    }
+
+#### Failed Output Json ####
+{
+    "success": false,
+    "message": "Something Went Worng"
+}
+
+
+### Wing Delete Seat Page ###
 In this page admin can Delete Seats in the Existing wing Table and view all wings Seat details
 Delete Seat form Consists of Follwing fields and constrains 
 
@@ -247,13 +313,13 @@ Delete Seat form Consists of Follwing fields and constrains
 2. Seat ID - Integer
 
 ### Wings Delete Seat API ###
-Request hit (http://localhost:8000/wings/deleteSeat)
+Request hit (http://localhost:5000/wings/deleteSeat)
 
 Method - DELETE 
 
 Request Body Content in Json Format 
     {
-        "table_id":2,
+        "table_id": 2,
         "seat_id": 7,
         "created_by": 1
     }
@@ -264,19 +330,19 @@ Request Body Content in Json Format
         "message": "Successfully Seats Deleted",
     }
 
-#### Falied Output Json ####
+#### Failed Json ####
 {
-    "success":false,
-    "message":"Somthing Went Worng"
+        "success":false,
+        "message":"Something Went Worng"
 }
 
 
 
-## View All Wings Page ##
+### View All Wings Page ###
 In this page admin can View Wings in the Existing wing and view all wings details.
 
 ### View All Wings API ###
-Request hit (http://localhost:8000/wings)
+Request hit (http://localhost:5000/wings)
 
 Method - GET 
 
@@ -285,24 +351,24 @@ Method - GET
     {
         "wing_name": [
             {
-            "id": 1,
-            "name": "digital"
+                "id": 1,
+                "name": "digital"
             },
             {
-            "id": 2,
-            "name": "print"
+                "id": 2,
+                "name": "print"
             },
             {
-            "id": 3,
-            "name": "Informations"
+                "id": 3,
+                "name": "Informations"
             }
         ]
     }
 
-#### Falied Output Json ####
+#### Failed Json ####
     {
-        "success":false,
-        "message":"Somthing Went Worng"
+        "success": false,
+        "message": "Something Went Worng"
     }
 
 <<<<<<< Updated upstream

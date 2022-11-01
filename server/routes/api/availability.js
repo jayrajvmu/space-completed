@@ -88,4 +88,127 @@ let shiftName;
 });
 
 
+router.get("/dates", (request, response) => {
+	response.json({
+	  availability: [
+		{
+		  wings: [
+			{
+			  wingid: 1,
+			  wingname: "Creative",
+			  tables: [
+				{
+				  tableid: 1,
+				  tableName: "WS1",
+				  seats: [
+					{
+					  date: "2022-10-29",
+					  seatsId: 1,
+					  seatname: "WS-Seat1",
+					  availability: 1,
+					  shift_id: 1,
+					  shiftname: "APEX",
+					  EmpName: "H150",
+					},
+					{
+					  date: "2022-10-30",
+					  seatsId: 2,
+					  seatname: "WS-Seat2",
+					  availability: 1,
+					  shift_id: 1,
+					  shiftname: "APAC",
+					  EmpName: "H151",
+					},
+				  ],
+				},
+				{
+				  tableid: 1,
+				  tableName: "WS2",
+				  seats: [
+					{
+					  date: "2022-10-29",
+					  seatsId: 1,
+					  seatname: "WS-Seat1",
+					  availability: 1,
+					  shift_id: 1,
+					  shiftname: "APEX",
+					  EmpName: "H150",
+					},
+					{
+					  date: "2022-10-30",
+					  seatsId: 2,
+					  seatname: "WS-Seat2",
+					  availability: 1,
+					  shift_id: 1,
+					  shiftname: "APAC",
+					  EmpName: "H151",
+					},
+				  ],
+				},
+				{
+				  tableid: 1,
+				  tableName: "WS3",
+				  seats: [
+					{
+					  date: "2022-10-29",
+					  seatsId: 1,
+					  seatname: "WS-Seat1",
+					  availability: 1,
+					  shift_id: 1,
+					  shiftname: "APEX",
+					  EmpName: "H150",
+					},
+					{
+					  date: "2022-10-30",
+					  seatsId: 2,
+					  seatname: "WS-Seat2",
+					  availability: 1,
+					  shift_id: 1,
+					  shiftname: "APAC",
+					  EmpName: "H151",
+					},
+				  ],
+				},
+			  ],
+			},
+		  ],
+		},
+		{
+		  wings: [
+			{
+			  wingid: 2,
+			  wingname: "Digital",
+			  tables: [
+				{
+				  tableid: 1,
+				  tableName: "WS4",
+				  seats: [
+					{
+					  date: "2022-10-30",
+					  seatsId: 1,
+					  seatname: "WS-Seat1",
+					  availability: 1,
+					  shift_id: 1,
+					  shiftname: "APAC",
+					  EmpName: "H150",
+					},
+					{
+					  date: "2022-10-31",
+					  seatsId: 2,
+					  seatname: "WS-Seat2",
+					  availability: 1,
+					  shift_id: 1,
+					  shiftname: "APEX",
+					  EmpName: "H151",
+					},
+				  ],
+				},
+			  ],
+			},
+		  ],
+		},
+	  ],
+	});
+  });
+
 module.exports = router;
