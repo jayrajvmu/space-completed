@@ -244,7 +244,7 @@ router.get('/:id',(req,res) => {
 				FROM 
 				wings
 				LEFT JOIN tables ON wings.id = tables.wing_id
-				WHERE wings.id = ${req.params.id} AND wings.is_active = 0  ORDER BY tables.id ASC`;
+				WHERE wings.id = ${req.params.id} AND wings.is_active = 0 AND tables.is_active = 0  ORDER BY tables.id ASC`;
 
 		let query = db.query(sql,(err, result, fields) => {
 		if (err) {
@@ -372,8 +372,9 @@ router.post('/',(req,res) => {
 	 	}
 		//Primary Id of Wing Master Table(db)
 		const wing_master_id = result.insertId;
-	 	res.status(200).send({success : true,message:"Successfully Added "+ result.insertId,data:wings});
-		 //tableCreate(wings.total_tables,wing_master_id,wings.created_by,wings.name,tot_seats);
+	 	//res.status(200).send({success : true,message:"Successfully Added "+ result.insertId,data:wings});
+		 res.status(200).send({success : true,message:"Successfully Wing is Created"}); 
+		//tableCreate(wings.total_tables,wing_master_id,wings.created_by,wings.name,tot_seats);
 		 tableCreate(wings.total_tables,wing_master_id,wings.created_by);
 
 	 });
