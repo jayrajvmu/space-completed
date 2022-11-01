@@ -219,3 +219,12 @@ body {
 #message p.false {
   border: 2px solid red;
 }
+.form-input-radio-btns {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1em;
+}
+
+.form-radio-btn input {
+  margin-right: 2px;
+}
