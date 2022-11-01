@@ -44,7 +44,6 @@ function display(nd, nid, nsd) {
     .then((res) => {
       console.log(res);
       $("#cont").empty();
-
       let colTable = res.data.wings;
       console.log(colTable);
       colTable.map((item) => {
@@ -64,5 +63,8 @@ function display(nd, nid, nsd) {
           }
         });
       });
+    })
+    .catch((error) => {
+      console.log(error);
     });
 }

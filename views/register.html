@@ -13,6 +13,7 @@
 
 
 body{
+    overflow: hidden;
     padding: 0;
 	display: flex;
 	justify-content: center;
@@ -40,11 +41,11 @@ body{
     background: rgb(10 10 10);
     border-radius: 10px;
     height: 352px; */
-    padding: 10px 27px 217px 30px;
+    padding: 29px 9px 241px 8px;
     background: rgb(10 10 10);
     border-radius: 10px;
     height: 257px;
-
+    display: table-caption;
 
 }
 .control
@@ -112,9 +113,10 @@ a{
 }
 img{
     
+  
     border-radius: 50%;
     position: absolute;
-    margin-left: 138px;
+    margin-left: 112px;
     margin-top: -39px;
     position: fixed;
 
@@ -155,13 +157,179 @@ p{
   font-size: smaller;
   font-family: unset;
 }
+
+
+
+/* alert
+ */
+
+
+ 
+
+*{
+    margin: 0;
+    padding: 0;
+    user-select: none;  
+    /* box-sizing: border-box; */
+    font-family: 'poppins',sans-serif;
+}
+
+.alert{
+    overflow: hidden;
+    background: #055e32;
+    padding: 14px 40px 14px 5px;
+    /* max-width: 420px; */
+    width: 228px;
+    position: absolute;
+    right: 0px;
+    top: 10px;
+    border-radius: 4px;
+    border-left: 8px solid #262624;
+    opacity: 0;
+    pointer-events: none;
+
+}
+.alert.showAlert{
+
+    opacity: 1;
+    pointer-events: auto;
+}
+.alert .fa-thumbs-o-up{
+
+    color: #dbedda;
+    font-size: 15px;
+}
+.alert .msg{
+
+    padding: 0 20px;
+    font-size:13px;
+    color:#ffffff;
+
+}
+
+.alert .close-btn{
+cursor: pointer;
+    position: absolute;
+    right: 0px;
+    top: 50px;
+    transform: translate(-50%);
+    background: #ffd080;
+    padding :20px 18px;
+
+}
+
+.close-btn .fa-times{
+
+    color: #ce8500;
+    font-size:22px;
+    line-height: 40px;
+
+}  
+.close-btn:hover{
+    background: #ffc766;
+}
+
+
+.alert.show{
+
+    animation: show_slide 1s ease forwards;
+
+}
+.alert.hide
+{
+
+    animation: hide_slide 1s ease forwards;
+}
+
+
+@keyframes show_slide{
+
+  
+
+    0%{
+
+transform: translateX(100%);
+}
+
+40%{
+
+transform: translateX(-10%);
+}
+
+80%{
+
+transform: translateX(0%);
+}
+
+100%{
+
+transform: translateX(10px);
+}
+
+}
+
+/* .alert.show{
+
+animation: hide _slide 1s ease forwards;
+
+} */
+
+
+@keyframes hide_slide{
+
+  
+
+0%{
+
+transform: translateX(10px);
+}
+
+40%{
+
+transform: translateX(0%);
+}
+
+80%{
+
+transform: translateX(-10%);
+}
+
+100%{
+
+transform: translateX(100%);
+}
+
+}
+
+
+
+
+
+
+
+
+
+
     </style>
 
-    
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-      
+     
   
+
+ <div class="alert">
+
+
+    <i class="fa fa-thumbs-o-up" style="font-size:36px"></i>
+    <span class="msg">Registered Successfully</span>
+    <span class="color-btn"></span>
+    <span class="fas fa-times"></span>
+
+    
+  </div>
+
+
 <div class="container">
 
 
@@ -172,29 +340,33 @@ p{
 
   <div class="card">
     <h2>Hogarth WorldWide</h2>
-
+    <span id="backend_error" class="error"></span><br>
     <!-- view engine hbs -->
 <!--  -->
     <!-- {{#if msg}} -->
 <!-- <p class="{{msg_type}}">{{msg}}</p>
 {{/if}} -->
 
- <form action="/auth/register" method="post" id="registration_page">
+
 
   <input type="text" name="employee" id="employee_id" placeholder="Employee ID" class="control"><br>
+  <span id="empid_error" class="error"></span><br>
 
 <input type="email" name="email" id="email" placeholder="Email ID" class="control"><br>
+<span id="email_error" class="error"></span><br>
 
 
 <input type="password" name="password" id="password" placeholder="Password" class="control"><br>
+<span id="pass_error" class="error"></span><br>
 
-<input type="password" name="cnfm_password" id="cnfm_password" class="control" placeholder="Confirm_Password"><br>
+<input type="password" name="cnfm_password" id="cnfm_password" class="control" placeholder="Confirm Password"><br>
+<span id="cnfm-pass_error" class="error"></span><br>
 
 
 
 
-<button type="submit" id="submit">Register Now</button>
-</form>
+<button type="button" id="submit">Register Now</button>
+
 
 <div class="footer">
 
@@ -208,95 +380,7 @@ p{
 </html>
 
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-
-<!-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script> -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
-<script src="sweetalert2.all.min.js"></script>
-
-
-<script>
-   
-   
-
-
-
-$(function() {
-   
-  //  $("#registration_page").validate({
-    $("form[id='registration_page']").validate({ 
-       rules: {
-           
-        employee:{
-               required:true,
-              
-           },
-           email: {
-            required: true,
-              email:true,
-           }, 
-           password: {
-            required: true,
-               minlength: 8
-           },
-           
-           cnfm_password: {
-               required: true,
-               equalTo: "#password"
-           },
-         
-       },
-       messages: {
-        employee:{
-               required:"Enter Employee ID",
-              
-           },
-        email: {
-            required: "Enter Email ID",
-        },
-           password: {
-               required: "Enter the Password ",
-              //  pwcheck: "Atlease 1 uppercase & 1 Numeric !",
-               minlength: "Min length should be 8 characters!"
-           },
-           cnfm_password: {
-               required: "Enter Confirm Password ",
-               equalTo: "Password Are not Match"
-           },
-
-//            submitHandler: function(form) {
-//                form.submit(
-
-
-//                 Swal.fire({
-//   position: 'top-end',
-//   icon: 'success',
-//   title: 'Registered Successfully',
-//   showConfirmButton: false,
-//   timer: 1500
-// })
-
-
-//                );
-//        },
-
-       }
-     
-      
-   });
-
-
-
-
-
-
-
-//    $.validator.addMethod("pwcheck", function (value) {
-// return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) && /[a-z]/.test(value) && /\d/.test(value) && /[A-Z]/.test(value);
-// });
-});
-</script>
-
-
-  
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script> 
+<script src="../js/auth_registation.js"></script>
