@@ -7,7 +7,6 @@ const db = require('../../db/mysql')
 
 router.post('/', (req, res) => {
     //fetch data from shift table
-    console.log(req.body.date);
     if ((req.body.emp_id) && (req.body.desk_id) && (req.body.date) && (req.body.shift) && (req.body.booked_by)) {
 
         let slectSqlfromShift = `SELECT * FROM shift WHERE id='${req.body.shift}';`;
@@ -23,7 +22,6 @@ router.post('/', (req, res) => {
                         res.json({ 'success': false, 'message': `${errRules}` });
                     }
 
-                    console.log(result[0].start_time);
                     let shift_start_time = result[0].start_time.split(":");
 
                     let shiftStartTime = new Date(`${req.body.date}`);
@@ -209,12 +207,11 @@ router.get('/:id', (req, res) => {
 //cancel booking
 
 router.put('/:id', (req, res) => {
-    console.log(req.params.id);
     let updateSqlfromBooking = `UPDATE booking SET status = '3' WHERE id = '${req.params.id}' AND emp_id='${req.body.emp_id}'`;
     db.query(updateSqlfromBooking, (errupdate, resultupdate) => {
         if (errupdate) {
             res.json({ 'success': false, 'message': `${errupdate}` });
-        }console.log(resultupdate.affectedRows);
+        }
         if(resultupdate.affectedRows!=0){
             res.json({ 'success': true, 'message': 'Seat Cancelled successfully' });
 
