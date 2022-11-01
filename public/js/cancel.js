@@ -1,6 +1,6 @@
 let blogRow = document.querySelector(".booked-seats_row");
 let message = document.querySelector("#message");
-const bookedSeatsUrl = "http://localhost:5000/booking/1";
+const bookedSeatsUrl = "http://localhost:5000/booking/2";
 
 const bookedSeats = async () => {
   try {
@@ -11,15 +11,15 @@ const bookedSeats = async () => {
     });
     console.log(response.data.data);
     let blogDatas = response.data.data;
-    let html ;
+    let html;
     if (blogDatas.length === 0) {
-      html = 'No Seats Booking'
-  } else{
-    html = blogDatas
-    .map((blog) => {
-      console.log(blog);
-      
-      return `
+      html = "No Seats Booking";
+    } else {
+      html = blogDatas
+        .map((blog) => {
+          console.log(blog);
+
+          return `
       <div class="booked-seats_col">
       <div class="booked-seats_container">
         <div class="booked-seats_details">
@@ -32,7 +32,9 @@ const bookedSeats = async () => {
         </div>
         <div class="booked-seats_details">
           <div class="booked-seats_input">Booked Date :</div>
-          <div class="booked-seats_value">${new Date(blog.date).toISOString().split('T')[0]}</div>
+          <div class="booked-seats_value">${
+            new Date(blog.date).toISOString().split("T")[0]
+          }</div>
         </div>
         <div class="booked-seats_details">
           <div class="booked-seats_input">Shift :</div>
@@ -42,9 +44,15 @@ const bookedSeats = async () => {
           
 
 
-        <button type="submit" class="button123" bookingid='${blog.id}'   >Cancel Seat</button>
-          
 
+          
+        <button type="submit" bookingid="">Cancel Seat</button>
+
+
+        <button type="submit" class="button1234"  onclick="checkinUser('${
+          blog.id
+        }')">Check-in</button>
+        
           <div class="modal-section modal " class="modal-section1">
           <div class="modal-container">
             <div class="modal-header">
@@ -66,31 +74,14 @@ const bookedSeats = async () => {
         <div id="overlay"></div>
 
 
-
-
-
-
-
-
-
-
-
-        
-
-
-
-      
- <button type="submit" class="button1234"  onclick="checkinUser('${blog.id}')">Check-in</button>
         </div>
       </div>
     </div>
       `;
-    })
-    .join("");
+        })
+        .join("");
+    }
 
-  }
-   
-    
     blogRow.insertAdjacentHTML("afterbegin", html);
 
     //cancellation module starts//
@@ -100,47 +91,42 @@ const bookedSeats = async () => {
 
     cancelItems.forEach((item) => {
       item.addEventListener("click", () => setModal(item));
-      
     });
 
     function setModal(item) {
-      cancelBookedSeat(item.getAttribute("bookingid"))
-      
+      cancelBookedSeat(item.getAttribute("bookingid"));
+
       modalContainer.classList.add("show");
       overlay.classList.add("active");
-
-      
     }
-
 
     //close the modal
     closeBtn.addEventListener("click", closeModal);
     function closeModal() {
       modalContainer.classList.remove("show");
       overlay.classList.remove("active");
-
     }
-    
+
     //cancellation module ends //
-
-
   } catch (error) {
     console.log(error);
   }
 };
 bookedSeats();
 
-function checkinUser(id){
-  axios.put(`http://localhost:5000/checkin/${id}`, {'emp_id':1})
-    .then((response) =>{
-        console.log(response.data);
-        alert(response.data.message)
-    } );
-  }
+function checkinUser(id) {
+  axios
+    .put(`http://localhost:5000/checkin/${id}`, { emp_id: 1 })
+    .then((response) => {
+      console.log(response.data);
+      alert(response.data.message);
+    });
+}
 
-  function cancelBookedSeat(id) {
-    axios.put(`http://localhost:5000/booking/${id}`,{'emp_id':1} )
-        .then((response) =>{
-            console.log(response.data);
-        } );
-    }
+function cancelBookedSeat(id) {
+  axios
+    .put(`http://localhost:5000/booking/${id}`, { emp_id: 1 })
+    .then((response) => {
+      console.log(response.data);
+    });
+}

@@ -217,8 +217,7 @@ function postData(seat) {
 
   console.log(payload);
 
-  axios
-    .post(postUrl, payload)
+  axios.post(postUrl, payload)
     .then((response) => {
       // console.log(response);
       // console.log(response.data);
