@@ -112,7 +112,7 @@ function addingTable() {
     }
     console.log(table);
     closeModal();
-    axios.post("http://localhost:5000/wings/addtable",).then((response)=>{
+    axios.post("http://localhost:5000/wings/addtable",table).then((response)=>{
         console.log(response.data);
     })
     rearrangeTableList();
