@@ -1,6 +1,9 @@
 let blogRow = document.querySelector(".booked-seats_row");
-let message = document.querySelector("#message");
+let message = document.querySelector("#cancelMessage");
 const bookedSeatsUrl = "http://localhost:5000/booking/2";
+
+let cancellationModal = document.getElementById("modal-section-cancellation");
+let overlayCancellation = document.getElementById("overlay-cancellation");
 
 const bookedSeats = async () => {
   try {
@@ -43,15 +46,13 @@ const bookedSeats = async () => {
         <div class="form-submit">
           
 
+<button  class="confirmCancel" onclick="setCancellationModal('${blog.id}','${
+            blog.emp_id
+          }')">Cancel Seat</button>
 
-
-          
-        <button type="submit" bookingid="">Cancel Seat</button>
-
-
-        <button type="submit" class="button1234"  onclick="checkinUser('${
-          blog.id
-        }')">Check-in</button>
+        <button  class="button1234"  onclick="checkinUser('${blog.id}','${
+            blog.emp_id
+          }')">Check-in</button>
         
           <div class="modal-section modal " class="modal-section1">
           <div class="modal-container">
@@ -83,50 +84,61 @@ const bookedSeats = async () => {
     }
 
     blogRow.insertAdjacentHTML("afterbegin", html);
-
-    //cancellation module starts//
-    let cancelItems = document.querySelectorAll(".button123");
-    let modalContainer = document.querySelector(".modal-section1");
-    let closeBtn = document.querySelector("#close-btn");
-
-    cancelItems.forEach((item) => {
-      item.addEventListener("click", () => setModal(item));
-    });
-
-    function setModal(item) {
-      cancelBookedSeat(item.getAttribute("bookingid"));
-
-      modalContainer.classList.add("show");
-      overlay.classList.add("active");
-    }
-
-    //close the modal
-    closeBtn.addEventListener("click", closeModal);
-    function closeModal() {
-      modalContainer.classList.remove("show");
-      overlay.classList.remove("active");
-    }
-
-    //cancellation module ends //
   } catch (error) {
     console.log(error);
   }
 };
+
 bookedSeats();
 
-function checkinUser(id) {
+let closeBtnCancellation = document.querySelector("#close-btn-cancellation");
+let cancellationSucessBtn = document.querySelector("#confirm-success");
+let cancellationFailureBtn = document.querySelector("#confirm-failure");
+
+function setCancellationModal(cancellationId, cancellationEmpId) {
+  // open the modal
+  cancellationModal.classList.add("show");
+  overlayCancellation.classList.add("active");
+
+  cancellationSucessBtn.addEventListener("click", () => {
+    cancelBookedSeat(cancellationId, cancellationEmpId);
+  });
+}
+
+//close the modal
+closeBtnCancellation.addEventListener("click", closeCancellationModal);
+cancellationFailureBtn.addEventListener("click", closeCancellationModal);
+
+function closeCancellationModal() {
+  cancellationModal.classList.remove("show");
+  overlayCancellation.classList.remove("active");
+}
+
+function cancelBookedSeat(id, empId) {
+  console.log(empId);
+  axios
+    .put(`http://localhost:5000/booking/${id}`, { emp_id: empId })
+    .then((response) => {
+      console.log(response.data);
+      if (response.status === 200) {
+        message.innerHTML = `<p class='${response.data.success}'>${response.data.message}</p>`;
+        if (response.data.success) {
+          setTimeout(() => {
+            closeCancellationModal();
+          }, 1500);
+        }
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+function checkinUser(id, empId) {
   axios
     .put(`http://localhost:5000/checkin/${id}`, { emp_id: 1 })
     .then((response) => {
       console.log(response.data);
       alert(response.data.message);
-    });
-}
-
-function cancelBookedSeat(id) {
-  axios
-    .put(`http://localhost:5000/booking/${id}`, { emp_id: 1 })
-    .then((response) => {
-      console.log(response.data);
     });
 }
