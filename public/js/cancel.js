@@ -10,58 +10,106 @@ const bookedSeats = async () => {
       },
     });
     console.log(response.data.data);
-    let html;
+    let blogDatas = response.data.data;
+    let html ;
     if (blogDatas.length === 0) {
-     html = 'No data available'
- } 
- else{
- 
-   html = blogDatas
-      .map((blog) => {
-        console.log(blog);
-        
-        return `
-        <div class="booked-seats_col">
-        <div class="booked-seats_container">
-          <div class="booked-seats_details">
-            <div class="booked-seats_input">Desk Id :</div>
-            <div class="booked-seats_value">${blog.seat_id}</div>
+      html = 'No Seats Booking'
+  } else{
+    html = blogDatas
+    .map((blog) => {
+      console.log(blog);
+      
+      return `
+      <div class="booked-seats_col">
+      <div class="booked-seats_container">
+        <div class="booked-seats_details">
+          <div class="booked-seats_input">Desk Id :</div>
+          <div class="booked-seats_value">${blog.seat_id}</div>
+        </div>
+        <div class="booked-seats_details">
+          <div class="booked-seats_input">Employee Id :</div>
+          <div class="booked-seats_value">${blog.emp_id}</div>  
+        </div>
+        <div class="booked-seats_details">
+          <div class="booked-seats_input">Booked Date :</div>
+          <div class="booked-seats_value">${new Date(blog.date).toISOString().split('T')[0]}</div>
+        </div>
+        <div class="booked-seats_details">
+          <div class="booked-seats_input">Shift :</div>
+          <div class="booked-seats_value">${blog.shift_id}</div>
+        </div>
+        <div class="form-submit">
+          
+
+
+        <button type="submit" class="button123" bookingid='${blog.id}'   >Cancel Seat</button>
+          
+
+          <div class="modal-section modal " class="modal-section1">
+          <div class="modal-container">
+            <div class="modal-header">
+              <div class="title">Book the Seat</div>
+            </div>
           </div>
-          <div class="booked-seats_details">
-            <div class="booked-seats_input">Employee Id :</div>
-            <div class="booked-seats_value">${blog.emp_id}</div>  
-          </div>
-          <div class="booked-seats_details">
-            <div class="booked-seats_input">Booked Date :</div>
-            <div class="booked-seats_value">${new Date(blog.date).toISOString().split('T')[0]}</div>
-          </div>
-          <div class="booked-seats_details">
-            <div class="booked-seats_input">Shift :</div>
-            <div class="booked-seats_value">${blog.shift_id}</div>
-          </div>
-          <div class="form-submit">
-            <button type="submit" class="button123" onclick="cancelBookedSeat('${blog.id}')">Cancel Seat</button>
-            <button type="submit" class="button1234"  onclick="checkinUser('${blog.id}')">Check-in</button>
+          <div class="modal-body">
+            <div id="seatbooking-form">
+              <div class="form-input">
+                <label for="desk-id">To cancel the booking seat </label>
+                
+                 <button   > OK </button> 
+      <button id="close-btn" >no</button>
+              </div>
+              </div>
+            <div id="message"></div>
           </div>
         </div>
+        <div id="overlay"></div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+      
+ <button type="submit" class="button1234"  onclick="checkinUser('${blog.id}')">Check-in</button>
+        </div>
       </div>
-        `;
-      })
-      .join("");
+    </div>
+      `;
+    })
+    .join("");
+
+  }
+   
+    
     blogRow.insertAdjacentHTML("afterbegin", html);
 
     //cancellation module starts//
     let cancelItems = document.querySelectorAll(".button123");
-    let modalContainer = document.querySelector("#modal-section");
+    let modalContainer = document.querySelector(".modal-section1");
     let closeBtn = document.querySelector("#close-btn");
 
     cancelItems.forEach((item) => {
-      item.addEventListener("click", () => setModal());
+      item.addEventListener("click", () => setModal(item));
+      
     });
 
-    function setModal() {
+    function setModal(item) {
+      cancelBookedSeat(item.getAttribute("bookingid"))
+      
       modalContainer.classList.add("show");
       overlay.classList.add("active");
+
+      
     }
 
 
@@ -72,6 +120,7 @@ const bookedSeats = async () => {
       overlay.classList.remove("active");
 
     }
+    
     //cancellation module ends //
 
 
@@ -90,7 +139,7 @@ function checkinUser(id){
   }
 
   function cancelBookedSeat(id) {
-    axios.put(`http://localhost:5000/booking/${id}`, {'emp_id':1})
+    axios.put(`http://localhost:5000/booking/${id}`,{'emp_id':1} )
         .then((response) =>{
             console.log(response.data);
         } );
