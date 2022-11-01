@@ -121,7 +121,7 @@ router.get("/seat", (req, res) => {
 });
 
 router.get("/seat-two", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../", "views", "seat-two"));
+  res.sendFile(path.join(__dirname, "../../", "views", "seat-two.html"));
 });
 
 router.get("/test", (req, res) => {
