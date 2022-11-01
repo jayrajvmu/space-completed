@@ -207,16 +207,16 @@ body {
   flex: 1;
   font-size: 0.9rem;
 }
-#message p {
+.message p {
   padding: 5px;
   margin-top: 1em;
   font-size: 13px;
   font-weight: 500;
 }
-#message p.true {
+.message p.true {
   border: 2px solid green;
 }
-#message p.false {
+.message p.false {
   border: 2px solid red;
 }
 .form-input-radio-btns {

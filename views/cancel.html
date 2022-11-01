@@ -6,6 +6,11 @@
     <title>Document</title>
     <link rel="stylesheet" href="../css/booking.css" />
     <link rel="stylesheet" href="../css/common.css" />
+    <style>
+      .confirmation-btns {
+        margin-top: 1em;
+      }
+    </style>
   </head>
 
   <body>
@@ -56,13 +61,16 @@
     <div class="modal-section modal" id="modal-section-cancellation">
       <div class="modal-container">
         <div class="modal-header">
-          <div class="title">Book the Seat</div>
+          <div class="title">Cancel the Seat</div>
           <button id="close-btn-cancellation" class="close-btn">×</button>
         </div>
         <div class="modal-body">
           <p>Do you want to cancel the seat?</p>
-          <button class="button1234">Yes</button>
-          <button class="button1234">No</button>
+          <div class="form-submit confirmation-btns">
+            <button id="confirm-success">Yes</button>
+            <button id="confirm-failure">No</button>
+          </div>
+          <p id="cancelMessage" class="message"></p>
         </div>
       </div>
     </div>
@@ -70,7 +78,7 @@
     <!-- Cancellation popup ends -->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../js/wing.js"></script>
+    <!-- <script src="../js/wing.js"></script> -->
     <script src="../js/cancel.js"></script>
   </body>
 </html>

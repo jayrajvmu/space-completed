@@ -234,11 +234,13 @@ function setOccupiedModal() {
   occupiedModal.classList.add("show");
   overlayOccupied.classList.add("active");
 }
+
 //close the modal
 closeBtnOccupied.addEventListener("click", closeOccupiedModal);
 function closeOccupiedModal() {
   occupiedModal.classList.remove("show");
   overlayOccupied.classList.remove("active");
 }
+
 /* occupied modal starts */
 // Display current Date
