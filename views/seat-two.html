@@ -1,167 +1,172 @@
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/seat.css" />
+    <link rel="stylesheet" href="../css/booking.css" />
+    <style>
+      .seat-col {
+        display: none;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <link rel="stylesheet" href="../css/seat.css" />
-  <link rel="stylesheet" href="../css/booking.css" />
-  <style>
-    .seat-col {
-      display: none;
-    }
+      .table {
+        width: 15em;
+        position: relative;
+      }
 
-    .table {
-      width: 15em;
-      position: relative;
-    }
+      .table-name {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
 
-    .table-name {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
+      .chair {
+        width: 2em;
+        height: 2em;
+        cursor: pointer;
+      }
 
-    .chair {
-      width: 2em;
-      height: 2em;
-      cursor: pointer;
-    }
+      .booked {
+        background: orange;
+      }
 
-    .booked {
-      background: orange;
-    }
+      .occupied {
+        background: red;
+      }
 
-    .occupied {
-      background: red;
-    }
+      .form-input-radio-btns {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 1em;
+      }
 
-    .form-input-radio-btns {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 1em;
-    }
+      .form-radio-btn input {
+        margin-right: 2px;
+      }
+    </style>
+  </head>
 
-    .form-radio-btn input {
-      margin-right: 2px;
-    }
-  </style>
-</head>
-
-<body>
-  <div id="container_right">
-    <div class="opt">
-      <div class="Seat-container">
-        <label for="wing"> Select a WING:</label>
-        <select id="wing" placeholder="Select">
-          <option value="" disabled selected>Select</option>
-          <option value="Digital">Digital</option>
-          <option value="Creative">Creative</option>
-        </select>
+  <body>
+    <div id="container_right">
+      <div class="opt">
+        <div class="Seat-container">
+          <label for="wing"> Select a WING:</label>
+          <select id="wing" placeholder="Select">
+            <option value="" disabled selected>Select</option>
+            <option value="Digital">Digital</option>
+            <option value="Creative">Creative</option>
+          </select>
+        </div>
+        <div class="date">
+          <label>Pick a date</label>
+          <input type="date" id="filter-date" placeholder="Pick a Date" />
+        </div>
       </div>
-      <div class="date">
-        <label>Pick a date</label>
-        <input type="date" id="filter-date" placeholder="Pick a Date" />
+      <div class="down">
+        <ul class="showcase">
+          <li>
+            <div class="seat"></div>
+            <small>Available</small>
+          </li>
+          <li>
+            <div class="seat selected"></div>
+            <small>Booked </small>
+          </li>
+          <li>
+            <div class="seat sold"></div>
+            <small>Occupied</small>
+          </li>
+        </ul>
       </div>
+      <div class="container" id="cont"></div>
     </div>
-    <div class="down">
-      <ul class="showcase">
-        <li>
-          <div class="seat"></div>
-          <small>Available</small>
-        </li>
-        <li>
-          <div class="seat selected"></div>
-          <small>Booked </small>
-        </li>
-        <li>
-          <div class="seat sold"></div>
-          <small>Occupied</small>
-        </li>
-      </ul>
-    </div>
-    <div class="container" id="cont"></div>
-  </div>
 
-  <!-- available popup starts -->
-  <div class="modal-section modal" id="modal-section-available">
-    <div class="modal-container">
-      <div class="modal-header">
-        <div class="title">Book the Seat</div>
-        <button id="close-btn" class="close-btn">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div id="seatbooking-form">
-          <div class="form-input">
-            <div class="form-input-radio-btns">
-              <div class="form-radio-btn">
-                <input type="radio" name="bookingType" value="0">
-                Normal
-              </div>
-              <div class="form-radio-btn">
-                <input type="radio" name="bookingType" value="1">
-                Advanced
+    <!-- available popup starts -->
+    <div class="modal-section modal" id="modal-section-available">
+      <div class="modal-container">
+        <div class="modal-header">
+          <div class="title">Book the Seat</div>
+          <button id="close-btn" class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div id="seatbooking-form">
+            <div class="form-input">
+              <div class="form-input-radio-btns">
+                <div class="form-radio-btn">
+                  <input type="radio" name="bookingType" value="0" />
+                  Normal
+                </div>
+                <div class="form-radio-btn">
+                  <input type="radio" name="bookingType" value="1" />
+                  Advanced
+                </div>
               </div>
             </div>
+            <div class="form-input">
+              <label for="desk-id"> Desk Id </label>
+              <input type="text" id="desk-id" name="deskId" data-seat-id />
+            </div>
+            <div class="form-input">
+              <label for="emp-id"> Emp Id <span>*</span></label>
+              <input
+                type="text"
+                list="empIds"
+                name="browser"
+                id="emp-id"
+                name="empId"
+                data-emp-ref-id
+              />
+              <datalist id="empIds">
+                <option value="T10148" employeeId="1"></option>
+                <option value="T10149" employeeId="2"></option>
+                <option value="T10150" employeeId="3"></option>
+                <option value="T10151" employeeId="4"></option>
+                <option value="T10152" employeeId="5"></option>
+              </datalist>
+            </div>
+            <div class="form-input">
+              <label for="date"> Choose Date <span>*</span></label>
+              <input type="date" id="date" name="date" />
+            </div>
+            <div class="form-input">
+              <label for="time"> Chooose Time<span>*</span> </label>
+              <select name="time" id="time">
+                <option value="select" selected disabled>Select</option>
+                <option value="1">APAC</option>
+                <option value="2">APEX</option>
+              </select>
+            </div>
+            <div class="form-submit">
+              <button type="submit" id="submit-btn">Book Now</button>
+            </div>
           </div>
-          <div class="form-input">
-            <label for="desk-id"> Desk Id </label>
-            <input type="text" id="desk-id" name="deskId" data-seat-id />
-          </div>
-          <div class="form-input">
-            <label for="emp-id"> Emp Id <span>*</span></label>
-            <input type="text" list="empIds" name="browser" id="emp-id" name="empId" data-emp-ref-id />
-            <datalist id="empIds">
-              <option value="T10148" employeeId="1"></option>
-              <option value="T10149" employeeId="2"></option>
-              <option value="T10150" employeeId="3"></option>
-              <option value="T10151" employeeId="4"></option>
-              <option value="T10152" employeeId="5"></option>
-            </datalist>
-          </div>
-          <div class="form-input">
-            <label for="date"> Choose Date <span>*</span></label>
-            <input type="date" id="date" name="date" />
-          </div>
-          <div class="form-input">
-            <label for="time"> Chooose Time<span>*</span> </label>
-            <select name="time" id="time">
-              <option value="select" selected disabled>Select</option>
-              <option value="1">APAC</option>
-              <option value="2">APEX</option>
-            </select>
-          </div>
-          <div class="form-submit">
-            <button type="submit" id="submit-btn">Book Now</button>
-          </div>
+          <div id="message"></div>
         </div>
-        <div id="message"></div>
       </div>
     </div>
-  </div>
-  <div id="overlay" class="overlay"></div>
-  <!-- available popup ends -->
+    <div id="overlay" class="overlay"></div>
+    <!-- available popup ends -->
 
-  <!-- occupied popup starts -->
-  <div class="modal-section modal" id="modal-section-occupied">
-    <div class="modal-container">
-      <div class="modal-header">
-        <div class="title">Book the Seat</div>
-        <button id="close-btn-occupied" class="close-btn">&times;</button>
-      </div>
-      <div class="modal-body">
-        <p>This seat is already occupied</p>
+    <!-- occupied popup starts -->
+    <div class="modal-section modal" id="modal-section-occupied">
+      <div class="modal-container">
+        <div class="modal-header">
+          <div class="title">Book the Seat</div>
+          <button id="close-btn-occupied" class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>This seat is already occupied</p>
+        </div>
       </div>
     </div>
-  </div>
-  <div id="overlay-occupied" class="overlay"></div>
-  <!-- occupied popup ends -->
+    <div id="overlay-occupied" class="overlay"></div>
+    <!-- occupied popup ends -->
 
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="../js/seat-two.js"></script>
-</body>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../js/seat-two.js"></script>
+  </body>
 </html>
