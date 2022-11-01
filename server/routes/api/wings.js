@@ -4,6 +4,8 @@ const db = require('../../db/mysql');
 const moment = require('moment');
 
 
+//Small changes
+
 //Update Wing Details
 router.put('/updateWing', (req,res) => {
 	let wing_id = req.body.wing_id;
