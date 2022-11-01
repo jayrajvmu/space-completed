@@ -48,7 +48,10 @@ const bookedSeats = async () => {
           blog.id
         }'   >Cancel Seat</button>
           
-
+        <button type="submit" class="button1234"  onclick="checkinUser('${
+          blog.id
+        }')">Check-in</button>
+        
           <div class="modal-section modal " class="modal-section1">
           <div class="modal-container">
             <div class="modal-header">
@@ -69,9 +72,7 @@ const bookedSeats = async () => {
         </div>
         <div id="overlay"></div>
 
- <button type="submit" class="button1234"  onclick="checkinUser('${
-   blog.id
- }')">Check-in</button>
+
         </div>
       </div>
     </div>
