@@ -280,6 +280,7 @@ function closeOccupiedModal() {
   occupiedModal.classList.remove("show");
   overlayOccupied.classList.remove("active");
 }
+
 /* occupied modal starts */
 
 // Display current Date
