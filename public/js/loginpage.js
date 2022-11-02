@@ -1,9 +1,37 @@
 
+//  $('div').removeClass('alert');
 // let email = document.getElementById("email");
 // let password = document.getElementById("password");
 
 // console.log(email,password)
 
+$('.alert').addClass("hide")
+let output={}
+    if(window.location.search){
+      let queryParams = new URLSearchParams(window.location.search);
+   
+      let isredirect = queryParams.get("isredirect");
+   
+       if(isredirect){
+
+        $('.alert').removeClass("hide")
+    
+        $('.alert').addClass("show")
+        $('.alert').addClass("showAlert")
+   setTimeout(function(){
+   
+     $('.alert').addClass("hide")
+     $('.alert').removeClass("show")
+   
+   
+   },5000);
+  
+       }
+     
+
+
+     
+    }
 
 document.getElementById("submit").onclick = function()
 
@@ -32,14 +60,14 @@ document.getElementById("submit").onclick = function()
         return;
     }
  
-    else if(pwd.length < 6|| pwd.length > 16)
-    {
-        // document.getElementById("email_error").remove()
-        // document.getElementById("email_error").innerHTML()
+    // else if(pwd.length < 6|| pwd.length > 16)
+    // {
+    //     // document.getElementById("email_error").remove()
+    //     // document.getElementById("email_error").innerHTML()
    
-        document.getElementById("pass_error").innerHTML='Password min and max length is 6';
-        return;
-    }
+    //     document.getElementById("pass_error").innerHTML='Password min and max length is 6';
+    //     return;
+    // }
 //     else
 //     {
 //         document.getElementById("pass_error").remove()
@@ -126,4 +154,3 @@ axios.post(postUrl, input)
 //     document.getElementById("email").value="";
 //     document.getElementById("pwd1").value="";
 // }	
-
