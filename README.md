@@ -6,15 +6,15 @@ Agenda of this project is to avoid seats availability issues in office for all e
 - [Modules](#heading)
   * [Authentication](#Authentication)
   * [Wings](#Wings)
-    - [Wings]
+    - [Wings](#Wings)
         + [Wing Create](#wings-creation-page)
         + [Wing Update](#wings-update-page)
         + [Wing Delete](#wing-delete-page)
-     - [Tables]
+     - [Tables](#wing-add-tables-page)
         + [Add Tables](#wing-add-tables-page)
         + [Update Table](#wings-update-table-page)
         + [Delete Table](#wing-delete-tables-page)
-    - [Seats]
+    - [Seats](#wing-add-seat-page)
         + [Add Seats](#wing-add-seat-page)
         + [Update Seat](#wings-update-seat-api)
         + [Delete Seat](#wing-delete-seat-page)
