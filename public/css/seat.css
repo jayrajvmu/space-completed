@@ -16,50 +16,50 @@
 .table {
   width: 35%;
   height: 130px;
-  margin: 35px;
+  margin: 40px;
   box-sizing: border-box;
   display: grid;
   min-width: 20px;
   border-radius: 20px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4,1fr);
   position: relative;
-  border: 2px solid #12d348;
+  border: 2px solid #12D348;
   background-color: rgba(0, 198, 195, 0.13);
 }
 .chair:nth-child(1) {
   position: absolute;
   left: 31px;
-  top: -11px;
+  top: -13px;
   transform: translateY(-100%);
 }
 .chair:nth-child(2) {
   position: absolute;
   right: 37px;
-  top: -11px;
+  top: -13px;
   transform: translateY(-100%);
 }
 .chair:nth-child(3) {
   position: absolute;
   left: 32px;
-  bottom: -60px;
+  bottom: -63px;
   transform: translateY(-100%);
 }
 .chair:nth-child(4) {
   position: absolute;
-  right: 117px;
-  bottom: 92px;
+  right: 37px;
+  bottom: -63px;
   transform: translateY(-100%);
 }
 .chair:nth-child(5) {
   position: absolute;
-  right: 37px;
-  bottom: -60px;
+  right: 111px;
+  bottom: -63px;
   transform: translateY(-100%);
 }
 .chair:nth-child(6) {
   position: absolute;
-  right: 117px;
-  bottom: -61px;
+  right: 112px;
+  bottom: 94px;
   transform: translateY(-100%);
 }
 .chair:nth-child(7) {
@@ -75,7 +75,7 @@
   border: 2px solid red;
 }
 .booked {
-  border: 2px solid orange;
+ border: 2px solid orange;
 }
 a {
   color: white;
@@ -228,7 +228,7 @@ a {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  background-color: #12d348;
+ background-color: #12D348;
 }
 .Check:hover {
   color: white;
