@@ -80,13 +80,13 @@ function openModal(message) {
     else if (getMessage == "we") {
         let goOn = document.getElementById("go-on");
         titleHeader.textContent = "Wing Name";
-        warmMessage.innerHTML = `<input type="text" placeholder="Rename Wing Name" class="input-form">`;
+        warmMessage.innerHTML = `<input type="text" placeholder="Rename Wing" class="input-form">`;
         goOn.setAttribute("onclick", "toUpdateWing()");
     }
     else if (getMessage == "editTable") {
         let goOn = document.getElementById("go-on");
         titleHeader.textContent = "Table Name";
-        warmMessage.innerHTML = `<input type="text" placeholder="Rename Table Name" class="table-input-form">`;
+        warmMessage.innerHTML = `<input type="text" placeholder="Rename Table" class="table-input-form">`;
         goOn.setAttribute("onclick", "toUpdateTableName()");
     }
     else if (getMessage == "seatEdit") {
