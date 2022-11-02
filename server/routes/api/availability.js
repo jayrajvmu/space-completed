@@ -24,12 +24,14 @@ router.post("/", (req, res) => {
       }
       console.log(shiftName);
     });
+    console.log(req.body.date);
     let slectSqlfromBooking = ` SELECT * FROM booking         
-      WHERE date='${req.body.date}' AND shift_id='${req.body.shift}' AND status=1 OR status=2`;
+      WHERE date='${req.body.date}' AND shift_id='${req.body.shift}' AND (status=1 OR status=2)`;
     connection.query(slectSqlfromBooking, (errbook, resultbook) => {
       if (errbook) {
         res.json({ success: false, message: `${errbook}` });
       }
+      console.log(resultbook);
       let result = [];
       let table_data = [];
       let table_id = [];
