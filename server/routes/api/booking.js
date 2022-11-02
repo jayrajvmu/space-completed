@@ -193,12 +193,12 @@ router.post('/', (req, res) => {
 
 //fetch data from booking table for booked status view
 router.get('/:id', (req, res) => {
-    let slectSqlfromBooking = `SELECT * FROM booking WHERE emp_id='${req.params.id}'AND status='1' OR status='2';`;
+    let slectSqlfromBooking = `SELECT * FROM booking WHERE emp_id='${req.params.id}'AND status='1'`;
     db.query(slectSqlfromBooking, (errfetch, resultfetch) => {
         if (errfetch) {
             res.json({ 'success': false, 'message': `${errfetch}` });
         }
-        console.log(resultfetch);
+
         res.json({ 'success': true, 'message': 'fetched successfully', 'data': resultfetch });
     });
 });
