@@ -71,7 +71,7 @@ router.post('/', (req, res) => {
                                 res.json({ 'success': false, 'message': 'You already booked for the day' });
                             }
                             else if (sameSlot === 1) {
-                                res.json({ 'success': false, 'message': `${req.body.desk_id} is alredy booked` });
+                                res.json({ 'success': false, 'message': `Unable to make booking for #${req.body.desk_id} Slot, Please try a different slot` });
                             }
 
 
@@ -84,7 +84,7 @@ router.post('/', (req, res) => {
                                     if (errinsert) {
                                         res.json({ 'success': false, 'message': `${errinsert}` });
                                     }
-                                    res.json({ 'success': true, 'message': `${req.body.desk_id} Booked Successfully` });
+                                    res.json({ 'success': true, 'message': `Seat #${req.body.desk_id} Booked Successfully` });
                                 });
 
                             }
@@ -92,7 +92,7 @@ router.post('/', (req, res) => {
                         });
                     }
                     else {
-                        res.json({ 'success': false, 'message': 'Timing Problem Not able to book seat', 'shifttime': shiftStartTime.toLocaleString(), 'maximum': maximumtimetobook.toLocaleString(), 'minimum': minimumtimetobook.toLocaleString(), 'now': now.toLocaleString() });
+                        res.json({ 'success': false, 'message': 'Unable to make booking for this day. Please try a different day'});
                     }
                 });
             }
@@ -152,7 +152,7 @@ router.post('/', (req, res) => {
                                 res.json({ 'success': false, 'message': 'You already booked for the day' });
                             }
                             else if (sameSlot === 1) {
-                                res.json({ 'success': false, 'message': `${req.body.desk_id} is alredy booked` });
+                                res.json({ 'success': false, 'message': `Unable to make booking for #${req.body.desk_id} Slot, Please try a different slot` });
                             }
                             else {
                                 //check user apply only 3 days in a week this is for advace booking
@@ -164,13 +164,13 @@ router.post('/', (req, res) => {
                                         if (errinsert) {
                                             res.json({ 'success': false, 'message': `${errinsert}` });
                                         }
-                                        res.json({ 'success': true, 'message': `${req.body.desk_id} Booked Successfully` });
+                                        res.json({ 'success': true, 'message': `Seat #${req.body.desk_id} Booked Successfully` });
                                     });
 
 
 
                                 } else {
-                                    res.json({ 'success': false, 'message': 'Only 3 days in a week' });
+                                    res.json({ 'success': false, 'message': 'Unable to make booking, Only 3 bookings in a week' });
                                 }
                             }
                         });
@@ -178,7 +178,7 @@ router.post('/', (req, res) => {
                 }
            
                 else {
-                    res.json({ 'success': false, 'message': 'Timing Problem Not able to book seat', 'userDate': advanceBookngDate.toDateString(), 'maximum': maximumtimetobookadvance.toDateString(), 'minimum': minimumtimetobookadvance.toDateString() });
+                    res.json({ 'success': false, 'message': 'Unable to make booking for this day. Please try a different day'});
                 }
             });
 
@@ -213,7 +213,7 @@ router.put('/:id', (req, res) => {
             res.json({ 'success': false, 'message': `${errupdate}` });
         }
         if(resultupdate.affectedRows!=0){
-            res.json({ 'success': true, 'message': 'Seat Cancelled successfully' });
+            res.json({ 'success': true, 'message': `Booking Id # ${req.params.id} cancelled successfully`});
 
         }else{
             res.json({ 'success': false, 'message': 'No Booking Available' });
@@ -235,8 +235,8 @@ router.get('/user/name', (req, res) => {
 
             userArray.push({ id: `${element.id}`, emp_id: `${element.emp_id}` });
         });
-
-        res.json(userArray);
+        res.json({ 'success': true, 'message': `User data fetched successfuly`, 'data': userArray });
+  
     });
 
 });
