@@ -148,6 +148,8 @@ a {
 .sidebar .profile-logo > img {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .middle-sidebar {
@@ -191,7 +193,7 @@ a {
 }
 
 .sidebar-list .hidden-sidebar {
-  margin-left: 1.5rem;
+  margin-left: 1.2rem;
   white-space: nowrap;
 }
 
