@@ -127,7 +127,7 @@ router.post("/", (req, res) => {
   });
 });
 
-router.get('/wing', (req, res) => {
+router.get('/wings', (req, res) => {
 
     let slectSqlfromWings = `SELECT * FROM wings`;
     connection.query(slectSqlfromWings, (err, resultWing) => {
@@ -145,7 +145,7 @@ router.get('/wing', (req, res) => {
 
 });
 
-router.get('/shift', (req, res) => {
+router.get('/shifts', (req, res) => {
 
     let slectSqlfromShift = `SELECT * FROM shift`;
     connection.query(slectSqlfromShift, (err, resultShift) => {

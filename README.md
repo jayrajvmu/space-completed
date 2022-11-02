@@ -561,6 +561,42 @@ Method - PUT
   2. Select a booking date
   3. Select a valuable shift
 ### Seat Availability API ###
+Get all wings name 
+    {http://localhost:5000/availability/wings}
+    Method : GET
+### Response output ###  
+#### Sucess output JSON ####
+``` 
+{
+  "success": true,
+  "message": "Successfully get seats availability data"
+}
+```
+#### Failed output JSON ####
+```
+{
+  "success": false,
+  "message": "No data available"
+}
+```
+Get all wings name 
+    {http://localhost:5000/availability/shifts}
+    Method : GET
+### Response output ###  
+#### Sucess output JSON ####
+``` 
+{
+  "success": true,
+  "message": "Successfully get seats availability data"
+}
+```
+#### Failed output JSON ####
+```
+{
+  "success": false,
+  "message": "No data available"
+}
+```
 
 Request on seats availability based on wing, date and shift.
    {http://localhost:5000/availability/} 
@@ -588,8 +624,3 @@ Request on seats availability based on wing, date and shift.
   "message": "No data available"
 }
 ```
-=======
-        "success": false,
-        "message": "Timing Problem",
-    }
->>>>>>> 04e507a981d900ff4a96daa670755ee16da7c19d
