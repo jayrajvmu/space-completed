@@ -4,8 +4,8 @@ This Project Deals with the web applications for employee and admin can book and
 Agenda of this project is to avoid seats availability issues in office for all employee's
 ## TOC ##
 
-- [Heading](#heading)
-  * [Sub-heading](#sub-heading)
+- [Modules](#heading)
+  * [Authentication](#Authentication)
     + [Sub-sub-heading](#sub-sub-heading)
 - [Heading](#heading-1)
   * [Sub-heading](#sub-heading-1)
