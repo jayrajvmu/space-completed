@@ -394,10 +394,12 @@ We add lot of logic for this module.
 2. Advance Booking.
 
 #### Regular Booking ####
+
 1.User can book seats before 48 hours and before 6 hours of actual shift.
 2.User can book seats for next two days.
 
 #### Advance Booking ####
+
 1.User can only 3 seats for a week, week will be calculate form the current date.
 
 ### Booking Page ###
@@ -442,13 +444,13 @@ Method - POST
 #### Success Response ####
     {
         "success": true,
-        "message": "1 seat booked successfully",
+        "message": "Seat # Booked Successfully",
     }
 
 #### Failed Response ####
     {
         "success": false,
-        "message": "You already booked for the day",
+        "message": "Unable to make booking for this day. Please try a different day",
     }
 
 ### View Booking API ###
