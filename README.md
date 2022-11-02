@@ -2,19 +2,19 @@
 This Project Deals with the web applications for employee and admin can book and pre-book seat for the day/shift job timing basics work in office.
 
 Agenda of this project is to avoid seats availability issues in office for all employee's
-## TOC ##
+## Table of Content ##
 - [Modules](#heading)
   * [Authentication](#Authentication)
   * [Wings](#Wings)
-    - [Wings](#)
+    - [Wings]
         + [Wing Create](#wings-creation-page)
         + [Wing Update](#wings-update-page)
         + [Wing Delete](#wing-delete-page)
-     - [Tables](#)
+     - [Tables]
         + [Add Tables](#wing-add-tables-page)
         + [Update Table](#wings-update-table-page)
         + [Delete Table](#wing-delete-tables-page)
-    - [Seats](#)
+    - [Seats]
         + [Add Seats](#wing-add-seat-page)
         + [Update Seat](#wings-update-seat-api)
         + [Delete Seat](#wing-delete-seat-page)
