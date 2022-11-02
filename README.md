@@ -3,20 +3,24 @@ This Project Deals with the web applications for employee and admin can book and
 
 Agenda of this project is to avoid seats availability issues in office for all employee's
 ## TOC ##
-
 - [Modules](#heading)
   * [Authentication](#Authentication)
   * [Wings](#Wings)
+    - [Wings](#)
+        + [Wing Create](#wings-creation-page)
+        + [Wing Update](#wings-update-page)
+        + [Wing Delete](#wing-delete-page)
+     - [Tables](#)
+        + [Add Tables](#wing-add-tables-page)
+        + [Update Table](#wings-update-table-page)
+        + [Delete Table](#wing-delete-tables-page)
+    - [Seats](#)
+        + [Add Seats](#wing-add-seat-page)
+        + [Update Seat](#wings-update-seat-api)
+        + [Delete Seat](#wing-delete-seat-page)
   * [Seat-availability](#Seat-availability)
   * [Bookings](#seat-booking)
 
-
-- [Heading](#heading-1)
-  * [Sub-heading](#sub-heading-1)
-    + [Sub-sub-heading](#sub-sub-heading-1)
-- [Heading](#heading-2)
-  * [Sub-heading](#sub-heading-2)
-    + [Sub-sub-heading](#sub-sub-heading-2)
 ## Modules ##
 The applications is split into the following modules
 
