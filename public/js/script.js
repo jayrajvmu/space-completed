@@ -11,7 +11,6 @@ let cButton = document.getElementById("check");
 let nd;
 let nid;
 let nsd;
-
 cdate.addEventListener("change", (event) => {
   let dd = event.target.value;
   nd = dd;
@@ -33,7 +32,6 @@ cshift.addEventListener("change", (event) => {
 cButton.addEventListener("click", () => {
   display(nd, nid, nsd);
 });
-
 function display(nd, nid, nsd) {
   axios
     .post(`http://localhost:5000/availability/`, {
@@ -44,6 +42,7 @@ function display(nd, nid, nsd) {
     .then((res) => {
       console.log(res);
       $("#cont").empty();
+
       let colTable = res.data.wings;
       console.log(colTable);
       colTable.map((item) => {
@@ -55,7 +54,7 @@ function display(nd, nid, nsd) {
               `#table-${item.tableid}`
             ).innerHTML += `<div class="chair" id=${seat.seatid} ></div>`;
           }
-          var list = document.getElementById(`${seat.seatsId}`);
+          var list = document.getElementById(`${seat.seatid}`);
           if (seat.availability == "1") {
             list.classList.add("booked");
           } else if (seat.availability == "2") {

@@ -7,7 +7,6 @@ const db = require('../../db/mysql')
 
 router.post('/', (req, res) => {
     //fetch data from shift table
-    console.log(req.body.date);
     if ((req.body.emp_id) && (req.body.desk_id) && (req.body.date) && (req.body.shift) && (req.body.booked_by)) {
 
         let slectSqlfromShift = `SELECT * FROM shift WHERE id='${req.body.shift}';`;
@@ -23,7 +22,6 @@ router.post('/', (req, res) => {
                         res.json({ 'success': false, 'message': `${errRules}` });
                     }
 
-                    console.log(result[0].start_time);
                     let shift_start_time = result[0].start_time.split(":");
 
                     let shiftStartTime = new Date(`${req.body.date}`);
@@ -73,13 +71,12 @@ router.post('/', (req, res) => {
                                 res.json({ 'success': false, 'message': 'You already booked for the day' });
                             }
                             else if (sameSlot === 1) {
-                                res.json({ 'success': false, 'message': `${req.body.desk_id} is alredy booked` });
+                                res.json({ 'success': false, 'message': `Unable to make booking for #${req.body.desk_id} Slot, Please try a different slot` });
                             }
 
 
                             //check user apply only 3 days in a week this is for advace booking
                             else {
-
 
                                 let userData = { emp_id: `${req.body.emp_id}`, seat_id: `${req.body.desk_id}`, date: `${req.body.date}`, shift_id: `${1}`, status: `1`, booked_by: `${1}`, booking_type:`${req.body.booking_type}` };
                                 let sql = 'INSERT INTO booking SET ?';
@@ -87,7 +84,7 @@ router.post('/', (req, res) => {
                                     if (errinsert) {
                                         res.json({ 'success': false, 'message': `${errinsert}` });
                                     }
-                                    res.json({ 'success': true, 'message': `${req.body.desk_id} Booked Successfully` });
+                                    res.json({ 'success': true, 'message': `Seat #${req.body.desk_id} Booked Successfully` });
                                 });
 
                             }
@@ -95,7 +92,7 @@ router.post('/', (req, res) => {
                         });
                     }
                     else {
-                        res.json({ 'success': false, 'message': 'Timing Problem Not able to book seat', 'shifttime': shiftStartTime.toLocaleString(), 'maximum': maximumtimetobook.toLocaleString(), 'minimum': minimumtimetobook.toLocaleString(), 'now': now.toLocaleString() });
+                        res.json({ 'success': false, 'message': 'Unable to make booking for this day. Please try a different day'});
                     }
                 });
             }
@@ -155,7 +152,7 @@ router.post('/', (req, res) => {
                                 res.json({ 'success': false, 'message': 'You already booked for the day' });
                             }
                             else if (sameSlot === 1) {
-                                res.json({ 'success': false, 'message': `${req.body.desk_id} is alredy booked` });
+                                res.json({ 'success': false, 'message': `Unable to make booking for #${req.body.desk_id} Slot, Please try a different slot` });
                             }
                             else {
                                 //check user apply only 3 days in a week this is for advace booking
@@ -167,13 +164,13 @@ router.post('/', (req, res) => {
                                         if (errinsert) {
                                             res.json({ 'success': false, 'message': `${errinsert}` });
                                         }
-                                        res.json({ 'success': true, 'message': `${req.body.desk_id} Booked Successfully` });
+                                        res.json({ 'success': true, 'message': `Seat #${req.body.desk_id} Booked Successfully` });
                                     });
 
 
 
                                 } else {
-                                    res.json({ 'success': false, 'message': 'Only 3 days in a week' });
+                                    res.json({ 'success': false, 'message': 'Unable to make booking, Only 3 bookings in a week' });
                                 }
                             }
                         });
@@ -181,7 +178,7 @@ router.post('/', (req, res) => {
                 }
            
                 else {
-                    res.json({ 'success': false, 'message': 'Timing Problem Not able to book seat', 'userDate': advanceBookngDate.toDateString(), 'maximum': maximumtimetobookadvance.toDateString(), 'minimum': minimumtimetobookadvance.toDateString() });
+                    res.json({ 'success': false, 'message': 'Unable to make booking for this day. Please try a different day'});
                 }
             });
 
@@ -196,11 +193,12 @@ router.post('/', (req, res) => {
 
 //fetch data from booking table for booked status view
 router.get('/:id', (req, res) => {
-    let slectSqlfromBooking = `SELECT * FROM booking WHERE emp_id='${req.params.id}'AND status='1';`;
+    let slectSqlfromBooking = `SELECT * FROM booking WHERE emp_id='${req.params.id}'AND status='1'`;
     db.query(slectSqlfromBooking, (errfetch, resultfetch) => {
         if (errfetch) {
             res.json({ 'success': false, 'message': `${errfetch}` });
         }
+
         res.json({ 'success': true, 'message': 'fetched successfully', 'data': resultfetch });
     });
 });
@@ -209,14 +207,13 @@ router.get('/:id', (req, res) => {
 //cancel booking
 
 router.put('/:id', (req, res) => {
-    console.log(req.params.id);
     let updateSqlfromBooking = `UPDATE booking SET status = '3' WHERE id = '${req.params.id}' AND emp_id='${req.body.emp_id}'`;
     db.query(updateSqlfromBooking, (errupdate, resultupdate) => {
         if (errupdate) {
             res.json({ 'success': false, 'message': `${errupdate}` });
-        }console.log(resultupdate.affectedRows);
+        }
         if(resultupdate.affectedRows!=0){
-            res.json({ 'success': true, 'message': 'Seat Cancelled successfully' });
+            res.json({ 'success': true, 'message': `Booking Id # ${req.params.id} cancelled successfully`});
 
         }else{
             res.json({ 'success': false, 'message': 'No Booking Available' });
@@ -238,8 +235,8 @@ router.get('/user/name', (req, res) => {
 
             userArray.push({ id: `${element.id}`, emp_id: `${element.emp_id}` });
         });
-
-        res.json(userArray);
+        res.json({ 'success': true, 'message': `User data fetched successfuly`, 'data': userArray });
+  
     });
 
 });

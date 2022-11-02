@@ -19,6 +19,7 @@ router.post('/', (req, res) => {
 let shiftName;
         let slectSqlfromShift = `SELECT * FROM shift WHERE id='${req.body.shift}';`;
     connection.query(slectSqlfromShift, (errshift, resultshift) => {
+<<<<<<< HEAD
         if (errtable) {
             res.json({ 'success': false, 'message': `${errtable}` });
         }
@@ -64,6 +65,62 @@ let shiftName;
                 seat_data.push({seatid: `${element.id}`, seatable: `${element.tseats}`, 
 				Availablity: 0,SeatName: `${element.seatName}`, empname:'', 
     			Date: `${req.body.date}`, ShiftID:`${req.body.shift}`, ShiftName:`${shiftName}`});
+=======
+      if (errtable) {
+        res.json({ success: false, message: `${errtable}` });
+      }
+      for (i = 0; i < resultshift.length; i++) {
+        shiftName = resultshift[i].shift_name;
+      }
+      console.log(shiftName);
+    });
+    console.log(req.body.date);
+    let slectSqlfromBooking = ` SELECT * FROM booking         
+      WHERE date='${req.body.date}' AND shift_id='${req.body.shift}' AND (status=1 OR status=2)`;
+    connection.query(slectSqlfromBooking, (errbook, resultbook) => {
+      if (errbook) {
+        res.json({ success: false, message: `${errbook}` });
+      }
+      console.log(resultbook);
+      let result = [];
+      let table_data = [];
+      let table_id = [];
+      let seat_data = [];
+      let seat_id = [];
+      let checkData = 0;
+      let tableid;
+      let tabledata;
+      let wings = [];
+      let tables = [];
+      let seats = [];
+      resulttable.forEach((element) => {
+        console.log(element.tseats);
+        table_id.push(element.tableID);
+        if (element.tableID == element.tseats) {
+          resultbook.forEach((elementbook) => {
+            if (elementbook.seat_id == element.id) {
+              table_data.push({ TableID: `${element.tableID}` });
+              seat_data.push({
+                seatid: `${element.id}`,
+                seatable: `${element.tseats}`,
+                Availablity: `${elementbook.status}`,
+                SeatName: `${element.seatName}`,
+                Date: `${req.body.date}`,
+                ShiftID: `${req.body.shift}`,
+                ShiftName: `${shiftName}`,
+              });
+              wings.push({
+                id: `${element.id}`,
+                TableName: `${element.tableName}`,
+                TableID: `${element.tableID}`,
+                Availablity: `${elementbook.status}`,
+                SeatName: `${element.seatName}`,
+                Date: `${req.body.date}`,
+                ShiftID: `${req.body.shift}`,
+                ShiftName: `${shiftName}`,
+              });
+              checkData = 1;
+>>>>>>> 04e507a981d900ff4a96daa670755ee16da7c19d
             }
             checkData=0;  
         }

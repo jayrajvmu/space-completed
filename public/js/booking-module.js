@@ -47,6 +47,7 @@ function display(nd, nid, nsd) {
     .then((res) => {
       console.log(res);
       $("#cont").empty();
+
       let colTable = res.data.wings;
       console.log(colTable);
       colTable.map((item) => {
@@ -58,7 +59,7 @@ function display(nd, nid, nsd) {
               `#table-${item.tableid}`
             ).innerHTML += `<div class="chair" id=${seat.seatid} ></div>`;
           }
-          var list = document.getElementById(`${seat.seatsId}`);
+          var list = document.getElementById(`${seat.seatid}`);
           if (seat.availability == "1") {
             list.classList.add("booked");
           } else if (seat.availability == "2") {
@@ -67,12 +68,12 @@ function display(nd, nid, nsd) {
         });
       });
     })
-    .then(bookingModule)
+    .then(() => {
+      bookingModule();
+    })
     .catch((error) => {
       console.log(error);
     });
-
-  //booking moudle starts
 }
 
 // booking module functinality
@@ -234,11 +235,13 @@ function setOccupiedModal() {
   occupiedModal.classList.add("show");
   overlayOccupied.classList.add("active");
 }
+
 //close the modal
 closeBtnOccupied.addEventListener("click", closeOccupiedModal);
 function closeOccupiedModal() {
   occupiedModal.classList.remove("show");
   overlayOccupied.classList.remove("active");
 }
+
 /* occupied modal starts */
 // Display current Date
