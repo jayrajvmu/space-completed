@@ -199,7 +199,7 @@ router.get('/:id', (req, res) => {
             res.json({ 'success': false, 'message': `${errfetch}` });
         }
 
-        res.json({ 'success': true, 'message': 'fetched successfully', 'data': resultfetch });
+        res.json({ 'success': true, 'message': 'Booking data fetched successfully', 'data': resultfetch });
     });
 });
 

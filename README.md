@@ -444,7 +444,7 @@ Method - POST
 #### Success Response ####
     {
         "success": true,
-        "message": "Seat # Booked Successfully",
+        "message": "Seat #1 Booked Successfully",
     }
 
 #### Failed Response ####
@@ -462,7 +462,7 @@ Method - GET
 #### Success Response ####
     {
         "success": true,
-        "message": "fetched successfully",
+        "message": "Booking data fetched successfully",
         "data":[]
     }
 
@@ -481,7 +481,7 @@ Method - PUT
 #### Success Response ####
     {
         "success": true,
-        "message": "Seat Cancelled successfully",
+        "message": "Booking Id #1 cancelled successfully",
     }
 
 #### Failed Response ####
@@ -498,7 +498,7 @@ Method - GET
 #### Success Response ####
     {
         "success": true,
-        "message": "User Cancelled successfully",
+        "message": "User data fetched successfully",
         "data":[]
     }
 
@@ -521,11 +521,11 @@ Method - PUT
 #### Success Response ####
     {
         "success": true,
-        "message": "Check-In successfully",
+        "message": "Booking Id #1, check-in successfully",
     }
 
 #### Failed Response ####
     {
         "success": false,
-        "message": "Timing Problem",
+        "message": "Unable to check-in this seat. Please try again later",
     }
