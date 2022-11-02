@@ -45,7 +45,12 @@ if(userDate.toLocaleDateString()==now.toLocaleDateString()){
             if (errupdate) {
                 throw errupdate;
             }
-            res.json({ 'sucess': true, 'message': `Booking Id #${req.params.id}, check-in successfully`});
+            if(resultupdate.affectedRows!=0){
+                res.json({ 'sucess': true, 'message': `Booking Id #${req.params.id}, check-in successfully`});
+    
+            }else{
+                res.json({ 'success': false, 'message': 'No Booking Available' });
+            }
         });
                 }
                 else{
