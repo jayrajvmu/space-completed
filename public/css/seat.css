@@ -3,18 +3,11 @@
   height: 25px;
   background-color: green;
   margin: 10px;
-  position: relative;
-  top: -36px;
-  left: 70px;
-  flex-wrap: wrap;
   border-radius: 5px;
-  align-self: stretch;
-  border: 2px solid black;
 }
 .dude {
   display: none;
 }
-
 .chair:hover + .dude {
   display: block;
   color: red;
@@ -22,37 +15,68 @@
 .table {
   width: 35%;
   height: 130px;
-  background: rgba(159, 244, 249, 0.904);
-  margin: 30px;
+  margin: 33px;
   box-sizing: border-box;
-  display: flex;
-  /* justify-content: flex-start; */
+  display: grid;
   min-width: 20px;
   border-radius: 20px;
-  /* justify-content: space-evenly; */
-  border: 1px solid black;
-}
-
-.chair:nth-child(3) {
+  grid-template-columns: repeat(4, 1fr);
   position: relative;
-  left: -80px;
-  top: 120px;
+  border: 2px solid #12d348;
+}
+.chair:nth-child(1) {
+  position: absolute;
+  left: 31px;
+  top: -11px;
+  transform: translateY(-100%);
+}
+.chair:nth-child(2) {
+  position: absolute;
+  right: 37px;
+  top: -11px;
+  transform: translateY(-100%);
+}
+.chair:nth-child(3) {
+  position: absolute;
+  left: 32px;
+  bottom: -60px;
+  transform: translateY(-100%);
 }
 .chair:nth-child(4) {
-  position: relative;
-  top: 120px;
-  left: -80px;
+  position: absolute;
+  right: 117px;
+  bottom: 92px;
+  transform: translateY(-100%);
 }
-
+.chair:nth-child(5) {
+  position: absolute;
+  right: 37px;
+  bottom: -60px;
+  transform: translateY(-100%);
+}
+.chair:nth-child(6) {
+  position: absolute;
+  right: 117px;
+  bottom: -61px;
+  transform: translateY(-100%);
+}
+.chair:nth-child(7) {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  transform: translateY(-100%);
+}
 .available {
   background-color: green;
+  border: 2px solid #12d348;
 }
 .danger {
   background-color: red;
+  border: 2px solid red;
 }
-
 .booked {
   background-color: orange;
+  border: 2px solid orange;
 }
 a {
   color: white;
@@ -76,15 +100,12 @@ a {
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
 }
-
 .seat.selected {
   background-color: orange;
 }
-
 .seat.sold {
   background-color: rgb(250, 8, 8);
 }
-
 .showcase {
   margin: 40px;
   margin-right: auto;
@@ -97,7 +118,6 @@ a {
   align-self: flex-end;
   font-weight: bold;
 }
-
 .showcase li {
   display: flex;
   align-items: center;
@@ -107,11 +127,9 @@ a {
 .showcase li small {
   margin-left: 2px;
 }
-
 .Seat-container {
   margin: 0 0;
 }
-
 .Seat-container select {
   background-color: #fff;
   border: 3px solid black;
@@ -123,7 +141,6 @@ a {
   -webkit-appearance: none;
   appearance: none;
 }
-
 .opt {
   display: flex;
   /* width: 900px; */
@@ -157,11 +174,9 @@ a {
   justify-content: center;
   align-items: center;
 }
-
 .Slot {
   margin: 0 0;
 }
-
 .Slot select {
   background-color: #fff;
   border: 3px solid black;
@@ -173,7 +188,6 @@ a {
   -webkit-appearance: none;
   appearance: none;
 }
-
 .popuptext {
   visibility: visible;
   position: relative;
@@ -197,7 +211,6 @@ a {
     opacity: 1;
   }
 }
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -206,7 +219,6 @@ a {
     opacity: 1;
   }
 }
-
 .Check {
   background-color: #fff;
   border: 3px solid black;
@@ -220,5 +232,5 @@ a {
 }
 
 .Check:hover {
-  color: red;
+  color: blue;
 }
