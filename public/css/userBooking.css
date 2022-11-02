@@ -70,6 +70,7 @@
     background-color: #00C6C3;
     font-weight: bold;
     border-radius: 2vh;
+    cursor: pointer;
 }
 #wing_title{
     display: grid;
