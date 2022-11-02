@@ -13,11 +13,12 @@ let nid;
 let nsd;
 
 let popupDate = document.getElementById("popupDate");
-popupDate.value = currentDate;
+let shiftTime = document.getElementById("time");
 
 cdate.addEventListener("change", (event) => {
   let dd = event.target.value;
   nd = dd;
+  popupDate.value = nd;
   console.log(nd);
 });
 
@@ -30,7 +31,8 @@ cwing.addEventListener("change", (event) => {
 cshift.addEventListener("change", (event) => {
   let sd = event.target.value;
   nsd = sd;
-  console.log(nid);
+  shiftTime.value = nsd;
+  // console.log(`shift is  ${nsd}`);
 });
 
 cButton.addEventListener("click", () => {
