@@ -16,9 +16,9 @@ router.put('/updateWing', (req,res) => {
 	var sql = `UPDATE wings SET name = '${wing_name}' , updated_by = ${updated_by} , updated_at = '${updated_at}'  WHERE id = ${wing_id}`;		
 	let query = db.query(sql, (err, result, fields) => {
 			if (err) {
-				res.send({"Success": false,"message":"Something Went Wrong Try Again Later"});
+				res.send({"Success": false,"message":"Something Went Wrong. Try Again Later."});
 			}
-			res.send({"Success": true,"message":"Successfully Wing is Updated"});
+			res.send({"Success": true,"message":"The Wing is updated successfully."});
 		});
 });
 
@@ -33,9 +33,9 @@ router.put('/updateTable', (req,res) => {
 	var sql = `UPDATE tables SET name = '${table_name}' WHERE id = ${table_id} AND wing_id = ${wing_id}`;		
 	let query = db.query(sql, (err, result, fields) => {
 			if (err) {
-				res.send({"Success": false,"message":"Something Went Wrong Try Again Later"});
+				res.send({"Success": false,"message":"Something Went Wrong. Try Again Later."});
 			}
-			res.send({"Success": true,"message":"Successfully Table is Updated"});
+			res.send({"Success": true,"message":"The Table is updated successfully."});
 		});
 });
 
@@ -50,9 +50,9 @@ router.put('/updateSeat', (req,res) => {
 	var sql = `UPDATE seats SET name = '${seat_name}' WHERE id = ${seat_id} AND table_id = ${table_id}`;		
 	let query = db.query(sql, (err, result, fields) => {
 			if (err) {
-				res.send({"Success": false,"message":"Something Went Wrong Try Again Later"});
+				res.send({"Success": false,"message":"Something Went Wrong. Try Again Later."});
 			}
-			res.send({"Success": true,"message":"Successfully Seat is Updated"});
+			res.send({"Success": true,"message":"The Seat is updated successfully."});
 		});
 });
 
@@ -77,11 +77,11 @@ router.put('/addseat',(req,res) => {
 		let sql = 'INSERT INTO seats SET ?';
 		let query = db.query(sql, wings_seats, (err, result, fields) => {
 			if (err) {
-				res.send({"Success": false,"message":"Something Went Wrong Try Again Later"});
+				res.send({"Success": false,"message":"Something Went Wrong. Try Again Later."});
 			}
-			res.send({"Success": true,"message":"Successfully Seats Added"});
 		});
 	}
+	res.send({"Success": true,"message":"Seats have been successfully added."});
 });
 
 //Delete Seat From Table
@@ -98,9 +98,9 @@ router.delete('/deleteSeat',(req,res) => {
 		let query_seat = db.query(delete_seats, (err, result_seat, fields) => {
 			if (err) {
 				//throw err;
-				res.send({"success":false,"message":"Something Went Wrong Try Again Later"});
+				res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 			}
-			res.send({"success":true,"message":"Successfully Seats Delete"});
+			res.send({"success":true,"message":"Seats were deleted successfully."});
 		});
 });
 
@@ -115,7 +115,7 @@ router.post('/addtable',(req,res) => {
 	let created_by = req.body.created_by;
 
 	tableCreate(wing_total_table,wing_id,created_by);
-	res.send({"success":true,"message":"Successfully Added"});
+	res.send({"success":true,"message":"Tables were successfully added."});
 });
 
 //Delete Tables in Wing
@@ -138,9 +138,9 @@ router.delete('/deletetable/:wing_id/:table_id',(req,res) => {
 		let query_seat = db.query(delete_seats, (err, result_seat, fields) => {
 			if (err) {
 				//throw err;
-				res.send({"success":false,"message":"Something Went Wrong Try Again Later"});
+				res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 			}
-			res.send({"success":true,"message":"Successfully Table Delete"});
+			res.send({"success":true,"message":"Table were deleted successfully."});
 		});
 	});
 });
@@ -154,9 +154,9 @@ router.post('/tableSetting',(req,res) => {
 	let query = db.query(tableSet, table_data, (err, result, fields) => {
 		if (err) {
 			//throw err;
-			res.send({"success":false,"message":"Something Went Wrong Try Again Later"});
+			res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 		}
-		res.send({"success":true,"message":"Successfully Added"});
+		res.send({"success":true,"message":"Table Settings were Successfully Added."});
 	});
 });
  
@@ -178,11 +178,11 @@ router.delete('/:id',(req,res) => {
 		  
 	let query = db.query(wings_is_active, (err, result, fields) => {
 		if (err) {
-			res.send({"success":false,"message":"Something Went Wrong Try Again Later"});
+			res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 		}
 		let query_table = db.query(select_tables_id, (err, result_id, fields) => {
 			if (err) {
-				res.send({"success":false,"message":"Something Went Wrong Try Again Later"});
+				res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 			}
 			for(x=0;x<result_id.length;x++) {
 				table_id.push(result_id[x].id);
@@ -200,16 +200,16 @@ router.delete('/:id',(req,res) => {
 
 					let query_seat = db.query(wing_seat, (err, result_seat, fields) => {
 						if (err) {
-							res.send({"success":false,"message":"Something Went Wrong Try Again Later"})
+							res.send({"success":false,"message":"Something Went Wrong. Try Again Later."})
 						}
 					});
 				}
 				else {
-					res.send({"success" : false,"message":"Wing is not Active"});
+					res.send({"success" : false,"message":"The Wing is not in use."});
 				}
 			});
 		});
-			res.send({"success" : true,"message":"Wing Deleted Successfully"});
+			res.send({"success" : true,"message":"Wing were deleted successfully."});
 	});
 });
 
@@ -218,14 +218,11 @@ router.get('/',(req,res) => {
 	let getWings = 'SELECT id,name FROM wings WHERE is_active = 0';
 	let query = db.query(getWings, (err, result, fields) => {
 		if (err) {
-			res.send({"success":false,"message":"Something Went Wrong Try Again Later"});
+			res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 		} 
 		if(result != '') {
 			res.send({"wing_name":result});
 		}
-		// else {
-    	// 	res.send({success : false,message:"Wings not Active"});
-		// }
 	});	
 });
 
@@ -269,7 +266,7 @@ router.get('/:id',(req,res) => {
 
 			let query1 = db.query(sql1,(err, result1, fields) => {
 				if (err) {
-					res.send({"success":false,"message":"Something Went Wrong Try Again Later"});
+					res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 				}
 				
 				for(i = 0;i<result.length;i++) {
@@ -281,19 +278,13 @@ router.get('/:id',(req,res) => {
 					tables.push({"id":result[i].table_ID,"name":result[i].table_name,"seats":seats});
 					seats = [];
 				}
-				
-				//var jsonData = '{"wings":[]}';
 				var jsonData = [];
-				//obj = JSON.parse(jsonData);
-				//obj['wings'].push({"id":result[0].wing_ID,"Name":result[0].wing_Name,"Total_Tables":result[0].Total_table,"Total_Seats":result[0].Total_Seat,"tables":tables});
 				jsonData.push({"id":result[0].wing_ID,"name":result[0].wing_Name,"no_of_tables":tables_id.length,"no_of_seats":result1.length,"tables":tables});
-				//jsonData = JSON.stringify(obj);
 				res.send(jsonData[0]);
-
 			});
 		}
 		else {
-			res.send({"success":false,"message":"Something Went Wrong Try Again Later"});
+			res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 		}
 	});
 });
@@ -316,7 +307,7 @@ async function seatCreate(table_id,created_by) {
 		let sql = 'INSERT INTO seats SET ?';
 		let query = db.query(sql, wings_seats, (err, result, fields) => {
 			if (err) {
-				res.send({"success":false,"message":"Something Went Wrong Try Again Later"});
+				res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 			}
 		});
 		incre = incre + 1;
@@ -340,7 +331,7 @@ async function tableCreate(table_number,wing_id,created_by) {
 		let sql = 'INSERT INTO tables SET ?';
 		let query = db.query(sql, wings_tables, (err, result, fields) => {
 			if (err) {
-				res.send({"success":false,"message":"Something Went Wrong Try Again Later"});
+				res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 			}
 			var names = wings_tables.name;
 			seatCreate(result.insertId,wings_tables.created_by,names);
@@ -368,12 +359,12 @@ router.post('/',(req,res) => {
 	 let query = db.query(sql, wings, (err, result, fields) => {
 	 	if (err) {
         	//res.status(400).send(err);
-			res.send({"success":false,"message":"Something Went Wrong Try Again Later"});
+			res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 	 	}
 		//Primary Id of Wing Master Table(db)
 		const wing_master_id = result.insertId;
 	 	//res.status(200).send({success : true,message:"Successfully Added "+ result.insertId,data:wings});
-		 res.status(200).send({success : true,message:"Successfully Wing is Created"}); 
+		 res.status(200).send({success : true,message:"Wing is created successfully."}); 
 		//tableCreate(wings.total_tables,wing_master_id,wings.created_by,wings.name,tot_seats);
 		 tableCreate(wings.total_tables,wing_master_id,wings.created_by);
 
