@@ -22,7 +22,7 @@ Agenda of this project is to avoid seats availability issues in office for all e
   * [Bookings](#seat-booking)
 
 ## Modules ##
-The applications is split into the following modules
+The applications is split into the following modules.
 
 1. Authentication
 2. Wings
