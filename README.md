@@ -7,8 +7,8 @@ Agenda of this project is to avoid seats availability issues in office for all e
 - [Modules](#heading)
   * [Authentication](#Authentication)
   * [Wings](#Wings)
-  * [Seat_availability](#Seat_availability)
-  * [Bookings](#Bookings)
+  * [Seat-availability](#Seat-availability)
+  * [Bookings](#seat-booking)
 
 
 - [Heading](#heading-1)
