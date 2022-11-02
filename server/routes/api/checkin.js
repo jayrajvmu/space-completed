@@ -45,11 +45,16 @@ if(userDate.toLocaleDateString()==now.toLocaleDateString()){
             if (errupdate) {
                 throw errupdate;
             }
-            res.json({ 'sucess': true, 'message': 'Check in successfully'});
+            if(resultupdate.affectedRows!=0){
+                res.json({ 'sucess': true, 'message': `Booking Id #${req.params.id}, check-in successfully`});
+    
+            }else{
+                res.json({ 'success': false, 'message': 'No Booking Available' });
+            }
         });
                 }
                 else{
-                    res.send({'success':false, 'message':'Timing Problem Miss match time'})
+                    res.send({'success':false, 'message':'Unable to check-in this seat. Please try again later'})
 
                 }
 
@@ -59,7 +64,7 @@ if(userDate.toLocaleDateString()==now.toLocaleDateString()){
             }
         });
 }else{
-    res.send({'success':false, 'message':'Timing Problem Miss match date'})
+    res.send({'success':false, 'message':'Unable to check-in this seat. Please try again later'})
 }
 
      

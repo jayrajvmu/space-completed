@@ -42,8 +42,13 @@ exports.register=(req,res)=>
     const email=req.body.email_id;
     const password=req.body.password;
     const cnfm_password=req.body.confirm_password;
+    const employee_name=req.body.employee_name
 
+if(employee_name=='')
+{
+    res.json({ 'success': false , 'message':'employee-name_missing','status':0});
 
+}
     if(employee=='')
     {
 
@@ -136,7 +141,7 @@ console.log('result.length',result.length)
 
 
             //inserting the values to user table 
-            db.query("insert into users set ?",{emp_id:employee,email_id:email,password:password,confirm_password:hashedpassword},(error,result)=>{
+            db.query("insert into users set ?",{emp_id:employee,email_id:email,password:password,confirm_password:hashedpassword,employee_name:employee_name},(error,result)=>{
                 if(error)
                 {
                  console.log(error);
@@ -149,7 +154,6 @@ console.log('result.length',result.length)
                     console.log('dirname'+__dirname)
                     res.json({ 'success': true , 'message':'Registration success','status':1,'create_status':true});
                   
-
                 }
             
             })
@@ -243,6 +247,9 @@ db.query("select * from users where email_id=?",[email],async (error,result)=>{
             httpOnly:true, //only works in http
 
             }  ;
+
+            const users_id=result[0].id;
+            console.log('users_id',users_id)
               //store the cookie by responce //reflect in console->application->sessions->cookie
             res.cookie("cook",token,cookies);
             
@@ -305,7 +312,7 @@ if(!results){
 }
 req.user=results[0];
 return next();//again to routing page.js
-
+        
 }); 
 }
 catch(error)
@@ -629,5 +636,7 @@ catch(error)
 
     // res.redirect('/login')
 };
+
+
 
 

@@ -363,7 +363,7 @@ Wing List
 }
 #warn-message{
     padding-top: 15px;
-
+    padding-left: 10px;
 }
 .modal-btn{
     display: grid;

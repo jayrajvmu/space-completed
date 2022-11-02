@@ -36,6 +36,7 @@ function creatingWing() {
             closeModal();
             let goOn = document.getElementById("go-on");
             goOn.removeAttribute("onclick");
+            getWings();
         })
 }
 
@@ -80,13 +81,13 @@ function openModal(message) {
     else if (getMessage == "we") {
         let goOn = document.getElementById("go-on");
         titleHeader.textContent = "Wing Name";
-        warmMessage.innerHTML = `<input type="text" placeholder="Rename Wing Name" class="input-form">`;
+        warmMessage.innerHTML = `<input type="text" placeholder="Rename Wing" class="input-form">`;
         goOn.setAttribute("onclick", "toUpdateWing()");
     }
     else if (getMessage == "editTable") {
         let goOn = document.getElementById("go-on");
         titleHeader.textContent = "Table Name";
-        warmMessage.innerHTML = `<input type="text" placeholder="Rename Table Name" class="table-input-form">`;
+        warmMessage.innerHTML = `<input type="text" placeholder="Rename Table" class="table-input-form">`;
         goOn.setAttribute("onclick", "toUpdateTableName()");
     }
     else if (getMessage == "seatEdit") {
@@ -220,25 +221,27 @@ function viewTableEdit(event) {
     console.log(wingId);
     axios.get(`http://localhost:5000/wings/${tableEvent}`).then((response) => {
         let tableList = response.data.tables;
-        console.log(tableList);
         let table_lists_body = document.getElementById("table-lists-body");
         table_lists_body.innerHTML = "";
-        for (let i = 0; i < tableList.length; i++) {
-            createTableList();
-            let table_list_sno = document.getElementsByClassName("table-list-sno");
-            let table_name = document.getElementsByClassName("table-name");
-            let table_seats = document.getElementsByClassName("table-seats");
-            let t_edit = document.getElementsByClassName("t-edit");
-            let t_del = document.getElementsByClassName("t-del");
-            let seatEdit = document.getElementsByClassName("seat-edit");
-            table_list_sno[i].textContent = i + 1;
-            table_name[i].textContent = `${tableList[i].name}`;
-            table_seats[i].textContent = `${tableList[i].seats.length}`;
-            t_edit[i].setAttribute("value", `${tableList[i].id}`);
-            t_del[i].setAttribute("value", `${tableList[i].id}`);
-            seatEdit[i].setAttribute("value", `${tableList[i].id}`);
-
+        if(tableList){
+            for (let i = 0; i < tableList.length; i++) {
+                createTableList();
+                let table_list_sno = document.getElementsByClassName("table-list-sno");
+                let table_name = document.getElementsByClassName("table-name");
+                let table_seats = document.getElementsByClassName("table-seats");
+                let t_edit = document.getElementsByClassName("t-edit");
+                let t_del = document.getElementsByClassName("t-del");
+                let seatEdit = document.getElementsByClassName("seat-edit");
+                table_list_sno[i].textContent = i + 1;
+                table_name[i].textContent = `${tableList[i].name}`;
+                table_seats[i].textContent = `${tableList[i].seats.length}`;
+                t_edit[i].setAttribute("value", `${tableList[i].id}`);
+                t_del[i].setAttribute("value", `${tableList[i].id}`);
+                seatEdit[i].setAttribute("value", `${tableList[i].id}`);
+    
+            }
         }
+        
 
 
     })
@@ -487,8 +490,10 @@ function deletingTable(event) {
     let deleteID = event.target.value;
     axios.delete(`http://localhost:5000/wings/deletetable/${wingId}/${deleteID}`).then((response) => {
         console.log(response.data);
+        setTimeout(()=>{alert(`${response.data.message}`)},500);
     })
     rearrangeTableList();
+    
 }
 function editingTable(event) {
     console.log(event.target.value);
@@ -513,6 +518,7 @@ function deletingWing() {
         closeModal();
         let goOn = document.getElementById("go-on");
         goOn.removeAttribute("onclick");
+        setTimeout(()=>{alert(`${response.data.message}`)},500);
     })
 }
 
