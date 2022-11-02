@@ -20,6 +20,16 @@ Agenda of this project is to avoid seats availability issues in office for all e
         + [Delete Seat](#wing-delete-seat-page)
   * [Seat-availability](#Seat-availability)
   * [Bookings](#seat-booking)
+    - [Booking Page](#Booking-Page)
+    - [My Booking Page](#My-Booking-Page)
+    - [Booking API](#Booking-API)
+    - [View Booking API](#View-Booking-API)
+    - [Cancel Booking Page](#Cancel-Booking-Page)
+    - [Get User Names API](#Get-User-Names-API)
+    - [Check-in API](#Check-in-API)
+
+
+    
 
 ## Modules ##
 The applications is split into the following modules.
