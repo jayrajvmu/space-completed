@@ -141,7 +141,7 @@
     background: #055e32;
     padding: 14px 40px 14px 5px;
     /* max-width: 420px; */
-    width: 228px;
+    width: 0;
     position: absolute;
     right: 0px;
     top: 10px;
@@ -193,7 +193,7 @@ cursor: pointer;
 
 
 .alert.show{
-
+    width: 228px;
     animation: show_slide 1s ease forwards;
 
 }
@@ -261,6 +261,10 @@ transform: translateX(-10%);
 transform: translateX(100%);
 }
 
+
+
+
+
 }
 
 
@@ -304,7 +308,7 @@ transform: translateX(100%);
 
     <div id="forminput">
 
-<input type="email" name="email" id="email" placeholder="Email or Employee ID" class="control"><br>
+<input type="email" name="email" id="email" placeholder="Email ID" class="control"><br>
 
 <span id="email_error" class="error"></span>
 <input type="password" name="password" id="password" placeholder="Password" class="control"><br>
