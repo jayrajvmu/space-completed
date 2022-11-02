@@ -28,8 +28,8 @@
 .seat-item.booked {
   background: var(--booked);
 }
-.modal-section,
-.modal-section-occupied {
+
+.modal-section {
   position: fixed;
   top: 3em;
   left: 50%;
@@ -38,20 +38,19 @@
   -webkit-transition: 200ms ease-in-out;
   transition: 200ms ease-in-out;
   border-radius: 10px;
+  padding: 1em 1em;
   z-index: 10;
   background-color: white;
   width: 400px;
   max-width: 80%;
-  max-height: 500px;
+  /* max-height: 500px; */
   overflow: auto;
 }
-.modal-section.show,
-.modal-section-occupied.show {
+.modal-section.show {
   -webkit-transform: translateX(-50%) scale(1);
   transform: translateX(-50%) scale(1);
 }
 .modal-header {
-  padding: 1em 1em 0.3em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -66,14 +65,14 @@
   position: sticky;
   top: 0;
   background: #fff;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
 }
 .modal-header .title {
   font-size: 1.5rem;
   font-weight: 600;
 }
-.modal-body {
-  padding: 15px 1rem 25px;
-}
+
 .overlay {
   position: fixed;
   opacity: 0;
@@ -162,14 +161,14 @@
 
 .message p {
   padding: 5px;
-  margin-top: 1em;
+  margin-top: 10px;
   font-size: 13px;
   font-weight: 500;
 }
-.message p.true {
+.message .true {
   border: 2px solid green;
 }
-.message p.false {
+.message .false {
   border: 2px solid red;
 }
 .form-input-radio-btns {

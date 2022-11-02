@@ -124,30 +124,27 @@
       <main class="content">
             <div class="booked-seats-section">
               <div id="signin-message"></div>
+              <div id="no-seat"></div>
               <div class="booked-seats_row"></div>      
             </div>
       </main>
     </div>
 
-    <!-- Cancellation popup starts -->
-    <div class="modal-section modal" id="modal-section-cancellation">
+    <!-- available popup starts -->
+    <div class="modal-section modal" id="modal-section">
       <div class="modal-container">
         <div class="modal-header">
-          <div class="title">Cancel the Seat</div>
-          <button id="close-btn-cancellation" class="close-btn">×</button>
+          <div class="title " id="modal-title"></div>
+          <button id="close-btn" class="close-btn">&times;</button>
         </div>
-        <div class="modal-body">
-          <p>Do you want to cancel the seat?</p>
-          <div class="form-submit confirmation-btns">
-            <button id="confirm-success">Yes</button>
-            <button id="confirm-failure">No</button>
-          </div>
-          <p id="cancelMessage" class="message"></p>
+        <div class="modal-body" id="modal-body">
         </div>
+        <div id="message" class="message"></div>
       </div>
     </div>
-    <div id="overlay-cancellation" class="overlay"></div>
-    <!-- Cancellation popup ends -->
+    <div id="overlay" class="overlay"></div>
+    <!-- available popup ends -->
+
     <script>
       const menuIconButton = document.querySelector("[data-menu-icon-btn]");
       const sidebar = document.querySelector("[data-sidebar]");

@@ -1,11 +1,16 @@
+// Cancellation module functionality
 let blogRow = document.querySelector(".booked-seats_row");
-let message = document.querySelector("#cancelMessage");
+let signInMessage = document.querySelector("#signin-message");
+let noSeatMessage = document.querySelector("#no-seat");
+
+// cancellation modal
+let cancellationModal = document.querySelector("#modal-section");
+let closeBtnCancellation = document.querySelector("#close-btn");
+let overlayCancellation = document.querySelector("#overlay");
+let message = document.querySelector("#message");
+
 const bookedSeatsUrl = "http://localhost:5000/booking/2";
 
-let cancellationModal = document.getElementById("modal-section-cancellation");
-let overlayCancellation = document.getElementById("overlay-cancellation");
-
-let signInMessage = document.querySelector("#signin-message");
 const bookedSeats = async () => {
   try {
     const response = await axios(bookedSeatsUrl, {
@@ -15,14 +20,11 @@ const bookedSeats = async () => {
     });
     console.log(response.data.data);
     let blogDatas = response.data.data;
-    let html;
     if (blogDatas.length === 0) {
-      blogRow.innerHTML = "<p class='no-booking'>No Seats Booking</p>";
+      noSeatMessage.innerHTML = "<p class='no-booking'>No Seats Booking</p>";
     } else {
-      html = blogDatas
-        .map((blog) => {
-          console.log(blog);
-          blogRow.innerHTML += `
+      blogDatas.map((blog) => {
+        blogRow.innerHTML += `
             <div class="booked-seats_col" id="blog-${blog.id}">
               <div class="booked-seats_container">
                 <div class="booked-seats_details">
@@ -52,10 +54,8 @@ const bookedSeats = async () => {
                   }','${blog.emp_id}')">Check-in</button>        
               </div>
             </div> `;
-        })
-        .join("");
+      });
     }
-    // blogRow.insertAdjacentHTML("afterbegin", html);
   } catch (error) {
     console.log(error);
   }
@@ -63,28 +63,41 @@ const bookedSeats = async () => {
 
 bookedSeats();
 
-let closeBtnCancellation = document.querySelector("#close-btn-cancellation");
-let cancellationSucessBtn = document.querySelector("#confirm-success");
-let cancellationFailureBtn = document.querySelector("#confirm-failure");
-
 function setCancellationModal(cancellationId, cancellationEmpId) {
-  // open the modal
+  /* modal title starts */
+  let modalTitle = document.querySelector("#modal-title");
+  modalTitle.textContent = "Cancel the Seat";
+  /* modal title ends */
+
+  /* modal body starts */
+  let modalBody = document.querySelector("#modal-body");
+  modalBody.innerHTML = `  
+    <p>Do you want to cancel the seat?</p>
+    <div class="form-submit confirmation-btns">
+      <button id="confirm-success">Yes</button>
+      <button id="confirm-failure">No</button>
+    </div>
+    `;
+
   cancellationModal.classList.add("show");
   overlayCancellation.classList.add("active");
+
+  let cancellationSucessBtn = document.querySelector("#confirm-success");
+  let cancellationFailureBtn = document.querySelector("#confirm-failure");
 
   cancellationSucessBtn.addEventListener("click", () => {
     cancelBookedSeat(cancellationId, cancellationEmpId);
   });
+
+  //close the modal
+  closeBtnCancellation.addEventListener("click", closeCancellationModal);
+  cancellationFailureBtn.addEventListener("click", closeCancellationModal);
 }
 
-//close the modal
-closeBtnCancellation.addEventListener("click", closeCancellationModal);
-cancellationFailureBtn.addEventListener("click", closeCancellationModal);
-
 function closeCancellationModal() {
-  message.innerHTML = "";
   cancellationModal.classList.remove("show");
   overlayCancellation.classList.remove("active");
+  message.innerHTML = "";
 }
 
 function cancelBookedSeat(id, empId) {
