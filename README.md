@@ -6,15 +6,15 @@ Agenda of this project is to avoid seats availability issues in office for all e
 - [Modules](#heading)
   * [Authentication](#Authentication)
   * [Wings](#Wings)
-        * [Wings](#Wings)
+        - [Wings](#wings-creation-page)
             + [Wing Create](#wings-creation-page)
             + [Wing Update](#wings-update-page)
             + [Wing Delete](#wing-delete-page)
-        * [Tables](#wing-add-tables-page)
+        - [Tables](#wing-add-tables-page)
             + [Add Tables](#wing-add-tables-page)
             + [Update Table](#wings-update-table-page)
             + [Delete Table](#wing-delete-tables-page)
-        * [Seats](#wing-add-seat-page)
+        - [Seats](#wing-add-seat-page)
             + [Add Seats](#wing-add-seat-page)
             + [Update Seat](#wings-update-seat-api)
             + [Delete Seat](#wing-delete-seat-page)
@@ -92,7 +92,7 @@ Request Body Content in JSON Format
 #### Failed JSON ####
     {
         "success": false,
-        "message": "Something Went Wrong"
+       "message":"Something Went Wrong. Try Again Later."
     }
 
 ### Wings Update Page ###
@@ -124,7 +124,7 @@ Request Body Content in JSON Format
 #### Failed Output JSON ####
     {
         "success": false,
-        "message": "Something Went Wrong"
+       "message":"Something Went Wrong. Try Again Later."
     }
 
 ### Wing Delete Page ###
@@ -152,7 +152,7 @@ Request Body Content in JSON Format
 #### Failed JSON ####
     {
         "success": false,
-        "message": "Something Went Wrong"
+       "message":"Something Went Wrong. Try Again Later."
     }
 
 
@@ -184,7 +184,7 @@ Request Body Content in JSON Format
 #### Failed JSON ####
     {
         "success": false,
-        "message": "Something Went Wrong"
+       "message":"Something Went Wrong. Try Again Later."
     }
 
 ### Wings Update Table Page ###
@@ -217,7 +217,7 @@ Request Body Content in JSON Format
 #### Failed Output JSON ####
     {
         "success": false,
-        "message": "Something Went Wrong"
+        "message":"Something Went Wrong. Try Again Later."
     }
 
 ### Wing Delete Tables Page ###
@@ -229,16 +229,13 @@ Delete Table form Consists of Following fields and constrains
 3. Total no of Table - Integer
 
 ### Wings Delete Tables API ###
-Request hit (http://localhost:5000/wings/deletetable)
+Request hit (http://localhost:5000/wings/deletetable/:wing_id/:table_id)
 
 Method - DELETE
 
-Request Body Content in JSON Format
-    {
-        "wing_id": 2,
-        "table_id": 7,
-        "created_by": 1
-    }
+Request URL Content (Example)
+    wing_id = 1
+    table_id = 1
 ### Response Output JSON Format ###
 #### Success JSON ####
     {
@@ -249,7 +246,7 @@ Request Body Content in JSON Format
 #### Failed JSON ####
     {
         "success": false,
-        "message": "Something Went Wrong"
+        "message":"Something Went Wrong. Try Again Later."
     }
 
 
@@ -263,7 +260,7 @@ Add Seats form Consists of Following fields and constrains
 ### Wings Add Seat API ###
 Request hit (http://localhost:5000/wings/addseat)
 
-Method - POST
+Method - PUT
 
 Request Body Content in JSON Format
     {
@@ -314,7 +311,7 @@ Request Body Content in JSON Format
 #### Failed Output JSON ####
     {
         "success": false,
-        "message": "Something Went Wrong"
+        "message":"Something Went Wrong. Try Again Later."
     }
 
 
@@ -382,7 +379,7 @@ Method - GET
 #### Failed JSON ####
     {
         "success": false,
-        "message": "Something Went Wrong"
+        "message":"Something Went Wrong. Try Again Later."
     }
 
 ## Seat Booking ##
