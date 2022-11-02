@@ -57,7 +57,7 @@ function display(nd, nid, nsd) {
           if (document.querySelector(`#table-${item.tableid}`)) {
             document.querySelector(
               `#table-${item.tableid}`
-            ).innerHTML += `<div class="chair" id=${seat.seatid} ></div>`;
+            ).innerHTML += `<div class="chair" id=${seat.seatid} >${seat.seatid}</div>`;
           }
           var list = document.getElementById(`${seat.seatid}`);
           if (seat.availability == "1") {

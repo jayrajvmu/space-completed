@@ -1,9 +1,10 @@
 .chair {
   width: 20%;
   height: 25px;
-  background-color: green;
   margin: 10px;
   border-radius: 5px;
+  border: 2px solid green;
+  text-align: center;
 }
 .dude {
   display: none;
@@ -15,7 +16,7 @@
 .table {
   width: 35%;
   height: 130px;
-  margin: 33px;
+  margin: 35px;
   box-sizing: border-box;
   display: grid;
   min-width: 20px;
@@ -23,6 +24,7 @@
   grid-template-columns: repeat(4, 1fr);
   position: relative;
   border: 2px solid #12d348;
+  background-color: rgba(0, 198, 195, 0.13);
 }
 .chair:nth-child(1) {
   position: absolute;
@@ -67,15 +69,12 @@
   transform: translateY(-100%);
 }
 .available {
-  background-color: green;
-  border: 2px solid #12d348;
+  border: 2px solid green;
 }
 .danger {
-  background-color: red;
   border: 2px solid red;
 }
 .booked {
-  background-color: orange;
   border: 2px solid orange;
 }
 a {
@@ -90,7 +89,7 @@ a {
   margin-top: 0%; 
 }*/
 .seat {
-  background-color: green;
+  border: 2px solid green;
   height: 26px;
   width: 32px;
   margin: 3px;
@@ -101,10 +100,10 @@ a {
   border-bottom-right-radius: 4px;
 }
 .seat.selected {
-  background-color: orange;
+  border: 2px solid orange;
 }
 .seat.sold {
-  background-color: rgb(250, 8, 8);
+  border: 2px solid red;
 }
 .showcase {
   margin: 40px;
@@ -132,7 +131,7 @@ a {
 }
 .Seat-container select {
   background-color: #fff;
-  border: 3px solid black;
+  border: 1px solid black;
   border-radius: 5px;
   font-size: 16px;
   margin-left: 10px;
@@ -160,7 +159,7 @@ a {
 }
 .date input {
   background-color: #fff;
-  border: 3px solid black;
+  border: 1px solid black;
   border-radius: 5px;
   font-size: 16px;
   margin-left: 10px;
@@ -179,10 +178,10 @@ a {
 }
 .Slot select {
   background-color: #fff;
-  border: 3px solid black;
+  border: 1px solid black;
   border-radius: 5px;
   font-size: 16px;
-  margin-left: 10px;
+  margin-left: 0px;
   padding: 5px 15px 5px 15px;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -221,7 +220,7 @@ a {
 }
 .Check {
   background-color: #fff;
-  border: 3px solid black;
+  border: 1px solid black;
   border-radius: 5px;
   font-size: 16px;
   margin-left: 10px;
@@ -229,8 +228,9 @@ a {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
+  background-color: #12d348;
 }
-
 .Check:hover {
-  color: blue;
+  color: white;
+  background-color: black;
 }
