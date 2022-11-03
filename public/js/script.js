@@ -12,6 +12,31 @@ let cButton = document.getElementById("check");
 let nd;
 let nid;
 let nsd;
+
+//Changing DropDown Dynamically
+function dropDown() {
+  axios.get("http://localhost:5000/wings").then((res) => {
+    let response = res.data.wing_name;
+    let length;
+    response.map((drop) => {
+      cwing.innerHTML += `<option value=${drop.id}>${drop.name}</option>`;
+    });
+  });
+}
+
+function dropShift() {
+  axios.get("http://localhost:5000/availability/shifts").then((res) => {
+    let response = res.data.shifts;
+    response.map((shift) => {
+      cshift.innerHTML += `<option value=${shift.id}>${shift.shiftname}</option>`;
+    });
+  });
+}
+
+//Function Calling
+dropDown();
+dropShift();
+
 //Event Function Methods
 cdate.addEventListener("change", (event) => {
   let dd = event.target.value;
@@ -31,6 +56,7 @@ cshift.addEventListener("change", (event) => {
 cButton.addEventListener("click", () => {
   display(nd, nid, nsd);
 });
+
 //Requesting response from the api and populating the UI
 function display(nd, nid, nsd) {
   axios
@@ -51,14 +77,15 @@ function display(nd, nid, nsd) {
           if (document.querySelector(`#table-${item.tableid}`)) {
             document.querySelector(
               `#table-${item.tableid}`
-            ).innerHTML += `<div class="chair" id=${seat.seatid} >${seat.seatid}</div>`;
+            ).innerHTML += `<div class="chair " id="${seat.seatid}" data-chair-id ="seat-${seat.seatid}" >${seat.seatid}</div>`;
           }
-          var list = document.getElementById(`${seat.seatid}`);
+          let list = document.getElementById(`${seat.seatid}`);
           if (seat.availability == "1") {
             list.classList.add("booked");
-          }
-          if (seat.availability == "2") {
-            list.classList.add("danger");
+          } else if (seat.availability == "2") {
+            list.classList.add("occupied");
+          } else {
+            list.classList.add("available");
           }
         });
       });
@@ -67,28 +94,3 @@ function display(nd, nid, nsd) {
       console.log(error);
     });
 }
-//Changing DropDown Dynamically
-function dropDown(){
-  axios.get("http://localhost:5000/wings")
-  .then(res =>{
-    let response = res.data.wing_name;
-    let length;
-     response.map(drop =>{
-      cwing.innerHTML +=
-      `<option value=${drop.id}>${drop.name}</option>`
-     })
-    })
-}
-function dropShift(){
-  axios.get("http://localhost:5000/availability/shifts")
-  .then(res =>{
-    let response = res.data.shifts;
-    response.map(shift =>{
-      cshift.innerHTML +=
-      `<option value=${shift.id}>${shift.shiftname}</option>`
-     })
-    })
-}
-//Function Calling
-dropDown();
-dropShift();

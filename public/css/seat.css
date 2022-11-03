@@ -21,9 +21,9 @@
   display: grid;
   min-width: 20px;
   border-radius: 20px;
-  grid-template-columns: repeat(4,1fr);
+  grid-template-columns: repeat(4, 1fr);
   position: relative;
-  border: 2px solid #12D348;
+  border: 2px solid #12d348;
   background-color: rgba(0, 198, 195, 0.13);
 }
 .chair:nth-child(1) {
@@ -75,7 +75,7 @@
   border: 2px solid red;
 }
 .booked {
- border: 2px solid orange;
+  border: 2px solid orange;
 }
 a {
   color: white;
@@ -228,7 +228,7 @@ a {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
- background-color: #12D348;
+  background-color: #12d348;
 }
 .Check:hover {
   color: white;
