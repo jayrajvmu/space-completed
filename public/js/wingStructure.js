@@ -15,7 +15,7 @@ function generatingWing() {
         openModal(message);
     }
     else {
-        alert(" Enter Correct Value")
+        openModal("Enter Correct Value");
     }
 }
 
@@ -57,9 +57,12 @@ function openModal(message) {
     let modalContainer = document.querySelector(".modal-container");
     let titleHeader = document.getElementById("title");
     let warmMessage = document.getElementById("warn-message");
+    let modalIconButton = document.querySelector(".modal-btn");
     let getMessage = message;
-
     modalContainer.style.display = "block";
+    modalIconButton.style.display="grid";
+
+    
     if (getMessage == "wc") {
         // creatingWing(contents);
         titleHeader.textContent = "Action Requied";
@@ -110,6 +113,22 @@ function openModal(message) {
         let goOn = document.getElementById("go-on");
         goOn.setAttribute("onclick", "tableDeleting()");
     }
+    else if (getMessage == "Enter Correct Value") {
+        titleHeader.textContent = "Action Requied";
+        warmMessage.innerHTML = getMessage;
+        modalIconButton.style.display="none";
+    }
+    else if (getMessage == "Enter atleast 4 Character") {
+        titleHeader.textContent = "Action Requied";
+        warmMessage.innerHTML = getMessage;
+        modalIconButton.style.display="none";
+    }
+    else if (getMessage == "Enter Value") {
+        titleHeader.textContent = "Action Requied";
+        warmMessage.innerHTML = getMessage;
+        modalIconButton.style.display="none";
+    }
+    //Enter atleast 4 Character
 
 }
 function addingTable() {
@@ -141,7 +160,7 @@ function updatingSeats() {
     rearrangeTableList();
 }
 function toUpdateTableName() {
-    console.log("vijay");
+    
     let renameTableName = document.querySelector(".table-input-form");
     let renameTable = {
         "wing_id": `${wingId}`,
@@ -178,11 +197,11 @@ function toUpdateWing() {
 
         }
         else {
-            alert("Enter atleast 4 Character")
+            openModal("Enter atleast 4 Character")
         }
     }
     else {
-        alert("Enter Value");
+        openModal("Enter Value");
     }
 
 }
@@ -316,33 +335,33 @@ function viewWingCreation() {
 // }
 
 /** */
-function updateTable() {
-    let tableId = document.getElementById("tableId");
-    let seatCount = document.getElementById("seatCount");
-    let adminCode = document.getElementById("adminCode");
-    let message = document.getElementById("message2");
+// function updateTable() {
+//     let tableId = document.getElementById("tableId");
+//     let seatCount = document.getElementById("seatCount");
+//     let adminCode = document.getElementById("adminCode");
+//     let message = document.getElementById("message2");
 
 
-    if (tableId.value) {
-        if (seatCount.value > 0) {
-            if (adminCode.value) {
-                let message = "ut"
-                openModal(message);
-            }
-            else {
-                alert("Enter Correct Pass Code")
-            }
-        }
-        else {
-            alert("Enter Number of Seats")
-        }
-    }
-    else {
-        alert(" Enter Valid Table ID")
-    }
+//     if (tableId.value) {
+//         if (seatCount.value > 0) {
+//             if (adminCode.value) {
+//                 let message = "ut"
+//                 openModal(message);
+//             }
+//             else {
+//                 alert("Enter Correct Pass Code")
+//             }
+//         }
+//         else {
+//             alert("Enter Number of Seats")
+//         }
+//     }
+//     else {
+//         alert(" Enter Valid Table ID")
+//     }
 
 
-}
+// }
 
 function toUpdateTable() {
     let updateWSTable = {
@@ -507,8 +526,8 @@ function tableDeleting() {
         let warmMessage = document.getElementById("warn-message");
         titleHeader.textContent = "Table Deleted";
         warmMessage.innerHTML = response.data.message;
-        let goOn = document.getElementById("go-on");
-        goOn.setAttribute("onclick", "closeModal()");
+        let modalIconButton = document.querySelector(".modal-btn");
+        modalIconButton.style.display="none";
     })
     rearrangeTableList();
 }
@@ -533,13 +552,13 @@ function deletingWing() {
         wing_delete_list_body.innerHTML = "";
         getWings();
         
-        let goOn = document.getElementById("go-on");
-        goOn.removeAttribute("onclick");
         let titleHeader = document.getElementById("title");
         let warmMessage = document.getElementById("warn-message");
         titleHeader.textContent = "Wing Deleted";
         warmMessage.innerHTML = response.data.message;
-        goOn.setAttribute("onclick", "closeModal()");
+        let modalIconButton = document.querySelector(".modal-btn");
+        modalIconButton.style.display="none";
+        
     })
 }
 
