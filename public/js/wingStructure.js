@@ -60,9 +60,9 @@ function openModal(message) {
     let modalIconButton = document.querySelector(".modal-btn");
     let getMessage = message;
     modalContainer.style.display = "block";
-    modalIconButton.style.display="grid";
+    modalIconButton.style.display = "grid";
 
-    
+
     if (getMessage == "wc") {
         // creatingWing(contents);
         titleHeader.textContent = "Action Requied";
@@ -116,17 +116,27 @@ function openModal(message) {
     else if (getMessage == "Enter Correct Value") {
         titleHeader.textContent = "Action Requied";
         warmMessage.innerHTML = getMessage;
-        modalIconButton.style.display="none";
+        modalIconButton.style.display = "none";
     }
     else if (getMessage == "Enter atleast 4 Character") {
         titleHeader.textContent = "Action Requied";
         warmMessage.innerHTML = getMessage;
-        modalIconButton.style.display="none";
+        modalIconButton.style.display = "none";
     }
     else if (getMessage == "Enter Value") {
         titleHeader.textContent = "Action Requied";
         warmMessage.innerHTML = getMessage;
-        modalIconButton.style.display="none";
+        modalIconButton.style.display = "none";
+    }
+    else if (getMessage == "Starts with Alphabet") {
+        titleHeader.textContent = "Action Requied";
+        warmMessage.innerHTML = getMessage;
+        modalIconButton.style.display = "none";
+    }
+    else if (getMessage == "Table name should not contain spaces") {
+        titleHeader.textContent = "Action Requied";
+        warmMessage.innerHTML = getMessage;
+        modalIconButton.style.display = "none";
     }
     //Enter atleast 4 Character
 
@@ -136,11 +146,11 @@ function addingTable() {
     let table = {
         "wing_id": `${wingId}`,
         "wing_total_table": `${newTable.value}`,
-        "created_by":1
+        "created_by": 1
     }
     console.log(table);
     closeModal();
-    axios.post("http://localhost:5000/wings/addtable",table).then((response)=>{
+    axios.post("http://localhost:5000/wings/addtable", table).then((response) => {
         console.log(response.data);
     })
     rearrangeTableList();
@@ -153,27 +163,54 @@ function updatingSeats() {
         "created_by": 1
     }
     console.log(updating);
-    axios.put("http://localhost:5000/wings/addseat",updating).then((response)=>{
+    axios.put("http://localhost:5000/wings/addseat", updating).then((response) => {
         console.log(response.data);
     })
     closeModal();
     rearrangeTableList();
 }
 function toUpdateTableName() {
-    
+
     let renameTableName = document.querySelector(".table-input-form");
-    let renameTable = {
-        "wing_id": `${wingId}`,
-        "table_id": `${tableId}`,
-        "table_name": `${renameTableName.value}`
+    if (renameTableName.value.trim().split(" ").length == 1) {
+        if (renameTableName.value.trim().length > 2) {
+            if (+renameTableName.value.split("")[0] == `${renameTableName.value.split("")[0]}`) {
+                openModal("Starts with Alphabet");
+            }
+            else {
+                let renameTable = {
+                    "wing_id": `${wingId}`,
+                    "table_id": `${tableId}`,
+                    "table_name": `${renameTableName.value.trim()}`
+                }
+                console.log(renameTable);
+                axios.put(`http://localhost:5000/wings/updateTable`, renameTable).then((response) => {
+                    console.log(renameTable);
+                    console.log(response.data);
+                    openModal();
+                    let titleHeader = document.getElementById("title");
+                    let warmMessage = document.getElementById("warn-message");
+                    titleHeader.textContent = "Table Updated";
+                    warmMessage.innerHTML = response.data.message;
+                    let modalIconButton = document.querySelector(".modal-btn");
+                    modalIconButton.style.display = "none";
+                })
+                closeModal();
+                rearrangeTableList();
+            }
+        }
+        else {
+            openModal("Enter atleast 4 Character");
+        }
+        
     }
-    console.log(renameTable);
-    axios.put(`http://localhost:5000/wings/updateTable`, renameTable).then((response) => {
-        console.log(renameTable);
-        console.log(response.data);
-    })
-    closeModal();
-    rearrangeTableList();
+
+    
+    else {
+        openModal("Table name should not contain spaces");
+    }
+
+
 
 }
 function toUpdateWing() {
@@ -191,6 +228,14 @@ function toUpdateWing() {
             axios.put(`http://localhost:5000/wings/updateWing`, renameWing).then((response) => {
                 console.log(renameWing);
                 console.log(response.data);
+                openModal();
+                let titleHeader = document.getElementById("title");
+                let warmMessage = document.getElementById("warn-message");
+                titleHeader.textContent = "Wing Updated";
+                warmMessage.innerHTML = response.data.message;
+                let modalIconButton = document.querySelector(".modal-btn");
+                modalIconButton.style.display = "none";
+
             })
             closeModal();
             getWings();
@@ -250,7 +295,7 @@ function viewTableEdit(event) {
         let tableList = response.data.tables;
         let table_lists_body = document.getElementById("table-lists-body");
         table_lists_body.innerHTML = "";
-        if(tableList){
+        if (tableList) {
             for (let i = 0; i < tableList.length; i++) {
                 createTableList();
                 let table_list_sno = document.getElementsByClassName("table-list-sno");
@@ -265,10 +310,10 @@ function viewTableEdit(event) {
                 t_edit[i].setAttribute("value", `${tableList[i].id}`);
                 t_del[i].setAttribute("value", `${tableList[i].id}`);
                 seatEdit[i].setAttribute("value", `${tableList[i].id}`);
-    
+
             }
         }
-        
+
 
 
     })
@@ -399,7 +444,7 @@ getWings();
 function getWings() {
     axios.get("http://localhost:5000/wings").then((response) => {
         let wing_delete_list_body = document.getElementById("wing-delete-list-body");
-        wing_delete_list_body.innerHTML="";
+        wing_delete_list_body.innerHTML = "";
         let wingList = response.data.wing_name;
         for (i = 0; i < wingList.length; i++) {
             createWingList();
@@ -418,7 +463,7 @@ function getWings() {
 
 }
 function createWingList() {
-    
+
     let wing_delete_list_body = document.getElementById("wing-delete-list-body");
 
     let a = document.createElement("div");
@@ -517,7 +562,7 @@ function deletingTable(event) {
     deleteTable = event.target.value;
     let message = "deleteTable";
     openModal(message)
-     
+
 }
 function tableDeleting() {
     axios.delete(`http://localhost:5000/wings/deletetable/${wingId}/${deleteTable}`).then((response) => {
@@ -527,7 +572,7 @@ function tableDeleting() {
         titleHeader.textContent = "Table Deleted";
         warmMessage.innerHTML = response.data.message;
         let modalIconButton = document.querySelector(".modal-btn");
-        modalIconButton.style.display="none";
+        modalIconButton.style.display = "none";
     })
     rearrangeTableList();
 }
@@ -551,14 +596,14 @@ function deletingWing() {
         let wing_delete_list_body = document.getElementById("wing-delete-list-body");
         wing_delete_list_body.innerHTML = "";
         getWings();
-        
+
         let titleHeader = document.getElementById("title");
         let warmMessage = document.getElementById("warn-message");
         titleHeader.textContent = "Wing Deleted";
         warmMessage.innerHTML = response.data.message;
         let modalIconButton = document.querySelector(".modal-btn");
-        modalIconButton.style.display="none";
-        
+        modalIconButton.style.display = "none";
+
     })
 }
 
@@ -566,13 +611,13 @@ function addNewTable() {
     openModal("addTable");
 }
 
-function rearrangeTableList(){
+function rearrangeTableList() {
     axios.get(`http://localhost:5000/wings/${wingId}`).then((response) => {
         let tableList = response.data.tables;
         console.log(tableList);
         let table_lists_body = document.getElementById("table-lists-body");
         table_lists_body.innerHTML = "";
-        if(tableList){
+        if (tableList) {
             for (let i = 0; i < tableList.length; i++) {
                 createTableList();
                 let table_list_sno = document.getElementsByClassName("table-list-sno");
@@ -587,10 +632,10 @@ function rearrangeTableList(){
                 t_edit[i].setAttribute("value", `${tableList[i].id}`);
                 t_del[i].setAttribute("value", `${tableList[i].id}`);
                 seatEdit[i].setAttribute("value", `${tableList[i].id}`);
-    
+
             }
         }
-        
+
 
 
     })
