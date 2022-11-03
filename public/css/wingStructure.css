@@ -367,8 +367,8 @@ Wing List
 }
 .modal-btn{
     display: grid;
-    grid-template-columns:20% 30% 10% 30%;
-    justify-content: end;
+    grid-template-columns:40% 40%;
+    justify-content: space-around;
     justify-items: center;
     align-content:center;
     position: absolute;
@@ -377,7 +377,6 @@ Wing List
     right:0;
     padding:20px;
     padding-bottom: 0;
-    /* border:1px solid red; */
 }
 .modal-btn button{
     margin-left: 20px;
