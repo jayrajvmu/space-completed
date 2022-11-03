@@ -415,3 +415,17 @@ Wing List
     margin:auto;
     text-align: center;
 }
+.edit-icon button{
+    background-color: #00C6C3;
+    border: #00C6C3;
+    color:white;
+    height:4vh;
+    width:60%;
+    border-radius: 3vh;
+}
+.w-del:hover{
+    background-color: red;
+}
+.t-del:hover{
+    background-color: red;
+}

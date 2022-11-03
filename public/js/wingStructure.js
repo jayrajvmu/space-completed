@@ -436,7 +436,7 @@ function createWingList() {
     k.setAttribute("class", "table-edit");
     k.setAttribute("onclick", "viewTableEdit(event)")
     a.appendChild(k);
-    let l = document.createTextNode("+");
+    let l = document.createTextNode("<>");
     k.appendChild(l);
 
 }
