@@ -36,11 +36,11 @@
     }
     
     .card{
-    padding:60px 40px 50px 40px;
+        display: table-caption;
+    padding: 29px 14px 60px 15px;
     background: rgb(0 0 0);
     border-radius: 10px;
-    
-    height: 352px;
+    height: 383px;
     
     
     }
@@ -89,15 +89,11 @@
     img{
         border-radius: 50%;
         position: absolute;
-        margin-left: 127px;
+        margin-left: 103px;
         margin-top: -39px;
         position:fixed;
     }
-    h2{
     
-        color: rgb(255, 255, 255);
-    
-    }
     p{
     
         color: rgb(255, 255, 255);
@@ -122,44 +118,210 @@
       font-size: smaller;
       font-family: unset;
     }
+    h2{
+            color: white;
+    }
+
+
+
+
+
+
+
+    *{
+    margin: 0;
+    padding: 0;
+    user-select: none;  
+    /* box-sizing: border-box; */
+    font-family: 'poppins',sans-serif;
+}
+
+.alert{
+    overflow: hidden;
+    background: #055e32;
+    padding: 14px 40px 14px 5px;
+    /* max-width: 420px; */
+    width: 0;
+    position: absolute;
+    right: 0px;
+    top: 10px;
+    border-radius: 4px;
+    border-left: 8px solid #262624;
+    opacity: 0;
+    pointer-events: none;
+
+}
+.alert.showAlert{
+
+    opacity: 1;
+    pointer-events: auto;
+}
+.alert .fa-thumbs-o-up{
+
+    color: #dbedda;
+    font-size: 15px;
+}
+.alert .msg{
+
+    padding: 0 20px;
+    font-size:13px;
+    color:#ffffff;
+
+}
+
+.alert .close-btn{
+cursor: pointer;
+    position: absolute;
+    right: 0px;
+    top: 50px;
+    transform: translate(-50%);
+    background: #ffd080;
+    padding :20px 18px;
+
+}
+
+.close-btn .fa-times{
+
+    color: #ce8500;
+    font-size:22px;
+    line-height: 40px;
+
+}  
+.close-btn:hover{
+    background: #ffc766;
+}
+
+
+.alert.show{
+    width: 228px;
+    animation: show_slide 1s ease forwards;
+
+}
+.alert.hide
+{
+
+    animation: hide_slide 1s ease forwards;
+}
+
+
+@keyframes show_slide{
+
+  
+
+    0%{
+
+transform: translateX(100%);
+}
+
+40%{
+
+transform: translateX(-10%);
+}
+
+80%{
+
+transform: translateX(0%);
+}
+
+100%{
+
+transform: translateX(10px);
+}
+
+}
+
+/* .alert.show{
+
+animation: hide _slide 1s ease forwards;
+
+} */
+
+
+@keyframes hide_slide{
+
+  
+
+0%{
+
+transform: translateX(10px);
+}
+
+40%{
+
+transform: translateX(0%);
+}
+
+80%{
+
+transform: translateX(-10%);
+}
+
+100%{
+
+transform: translateX(100%);
+}
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
     
     </style>
 </head>
 <body>
-  
+    <div class="alert">
+
+
+        <i class="fa fa-thumbs-o-up" style="font-size:36px"></i>
+        <span class="msg">Registered Successfully</span>
+        <span class="color-btn"></span>
+        <span class="fas fa-times"></span>
+    
+        
+      </div>
   
 <div class="container">
 
 
 <img src="https://media.glassdoor.com/sqll/806657/hogarth-worldwide-squarelogo-1424874040940.png" alt="" height="70" width="70">
 
-
-
-
   <div class="card">
-    <h2>Hogarth WorldWide
+    <h2>Hogarth WorldWide</h2>
+        
 
-
-<span id="err"></span>
-    </h2>
+<!-- <span id="err"></span> -->
+    
+    <span id="backend_error" class="error"></span><br>
 
     <!-- {{#if msg}}
 <p class="{{msg_type}}">{{msg}}</p>
 {{/if}} -->
 
-    <form action="auth/login" method="post" id="login_page">
+    <div id="forminput">
 
-<input type="email" name="email" id="email" placeholder="Email or Employee ID" class="control"><br>
+<input type="email" name="email" id="email" placeholder="Email ID" class="control"><br>
 
-
+<span id="email_error" class="error"></span>
 <input type="password" name="password" id="password" placeholder="Password" class="control"><br>
+
+<span id="pass_error" class="error"></span><br>
+
 <!-- 
 
 {{!-- forgot password link --}} -->
 <a href="/forgot_password">Forgot Password?</a><br>
 
-<button type="submit" id="submit">Login</button>
-</form>
+<button type="button" id="submit" class="submit">Login</button>
+</div>
 <div class="footer">
 
 <label class="labe">New for Hogarth?</label>  <a href="/register">Signup</a>
@@ -174,83 +336,15 @@
 
 
 
-<!-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script> -->
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script> 
+<script src="../js/loginpage.js"></script>
+<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
 <!-- <script src="sweetalert2.all.min.js"></script> -->
-
-
-  <script>
- 
-//  function valid() {
-//     let x = Document.getiid(email).value;
-//     let y = Document.getiid(email).value;
-
-//     let headersList = {
-// "Accept": "*/*",
-// "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-// "Content-Type": "application/json"
-// }
-
-
-
-// let bodyContent = JSON.stringify({
-//   "wing_name":x,
-//   "wing_total_table": y,
-//   "created_by": 1
-// } );
-
-
-
-// let reqOptions = {
-//   url: "http://localhost:5000/auth/login",
-//   method: "POST",
-//   headers: headersList,
-//   data: bodyContent,
-// }
-
-
-
-// let response = await axios.request(reqOptions);
-// console.log(response.data.success == true) {
-//     redirect(index/1.html);
-// };
-
-
-//  }
-   
-
-
-
-$(function() {
-   
-  //  $("#registration_page").validate({
-    $("form[id='login_page']").validate({ 
-       rules: {
-           
-        email:{
-               required:true,
-              
-           },
-           password: {
-               required: true,
-          
-           },
-        
-         
-       },
-       messages: {
-        email:{
-               required:"Enter Email Id",
-              
-           },
-           password: {
-            required: "Enter Password",
-        },
-         
-
-
-       }  
-   });
-});
-</script>

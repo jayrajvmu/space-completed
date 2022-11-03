@@ -1,5 +1,6 @@
 
 const mysql=require("mysql");  //creating  object for database
+
 const bcrypt=require("bcryptjs")  //initialize the bcrypt js for passwod hashing 
 const jwt=require('jsonwebtoken')  //initialize the jwt 
 const {promisify}=require('util') //decode the cookies  promisify is a util object
@@ -7,6 +8,7 @@ const mailler = require('nodemailer'); //mailler
 const { connected } = require("process");
 const path =require('path') //use this npm default package for maintaing the folder structure
 // const location =path.join(__dirname);  //join function used to join the 2 paths   
+const axios = require('axios');
 // app.use(express.static(location)); //
 
 
@@ -36,16 +38,33 @@ exports.register=(req,res)=>
     // res.send("form submitted")
     console.log(req.body)
 
-    const employee=req.body.employee;
-    const email=req.body.email;
+    const employee=req.body.employee_id;
+    const email=req.body.email_id;
     const password=req.body.password;
-    const cnfm_password=req.body.cnfm_password;
+    const cnfm_password=req.body.confirm_password;
+    const employee_name=req.body.employee_name
 
-        if(email=='')
+if(employee_name=='')
+{
+    res.json({ 'success': false , 'message':'employee-name_missing','status':0});
+
+}
+    if(employee=='')
+    {
+
+        // return res.render('register',{msg:'Please enter all field',msg_type:"error"})
+        // res.sendFile(path.join(__dirname,"../","views","register.html"));
+        res.json({ 'success': false , 'message':'employee-id_missing','status':0});
+        
+
+    }
+
+    if(email=='')
         {
 
             // return res.render('register',{msg:'Please enter all field',msg_type:"error"})
-            res.sendFile(path.join(__dirname,"../","views","register.html"));
+            // res.sendFile(path.join(__dirname,"../","views","register.html"));
+            res.json({ 'success': false , 'message':'email-id_missing','status':0});
             
 
         }
@@ -55,7 +74,8 @@ exports.register=(req,res)=>
             // return res.render('register',{msg:'Please enter all field',msg_type:"error"})
 
             console.log('Please enter all field')
-            res.sendFile(path.join(__dirname,"../","views","register.html"));
+            // res.sendFile(path.join(__dirname,"../","views","register.html"));
+            res.json({ 'success': false , 'message':'password_missing','status':0});
 
         }
         if(cnfm_password=='')
@@ -63,7 +83,8 @@ exports.register=(req,res)=>
 
             // return res.render('register',{msg:'Please enter all field',msg_type:"error"})
             console.log('Please enter all field')
-            res.sendFile(path.join(__dirname,"../","views","register.html"));
+            // res.sendFile(path.join(__dirname,"../","views","register.html"));
+            res.json({ 'success': false , 'message':'confirm-password_missing','status':0});
 
         }
 
@@ -78,7 +99,7 @@ exports.register=(req,res)=>
     // console.log('employee',employee)
     // console.log('email',email)
     // console.log('password',password)
-    // console.log('password',cnfm_password)
+    console.log('password',cnfm_password)
 
 //here we checking the getting data are available in bd or not for before inserting
 //? is used to prevent sql enjection 
@@ -98,23 +119,29 @@ console.log('result.length',result.length)
                 // return res.render('register',{msg:'Email id already exits',msg_type:"error"})
 
                 console.log('Email id already exits')
-                res.sendFile(path.join(__dirname,"../","views","register.html"));
+                // res.sendFile(path.join(__dirname,"../","views","register.html"));
+                res.json({ 'success': false , 'message':'Email id already exits','status':0,'create_status':false});
                 
             }
             else if(password!==cnfm_password)
             {
                 // return res.render('register',{msg:'password missmatch',msg_type:"error"})
                 console.log('password missmatch')
-                res.sendFile(path.join(__dirname,"../","views","register.html"));
+                // res.sendFile(path.join(__dirname,"../","views","register.html"));
+                res.json({ 'success': false , 'message':'password missmatched','status':0,'create_status':false});
 
             }
+           else if(result.length==0)
+            {
 
+                
+            
             let  hashedpassword= await bcrypt.hash(password,8);  //converting the hash password
             console.log('hashedpassword',hashedpassword)  //hashedpassword $2a$08$8wLTUVEsESSKu3G7nlGwI.8d/D5Auz8RpviTAdVohX24TCQH0e0Ti
 
 
             //inserting the values to user table 
-            db.query("insert into users set ?",{emp_id:employee,email_id:email,password:password,confirm_password:hashedpassword},(error,result)=>{
+            db.query("insert into users set ?",{emp_id:employee,email_id:email,password:password,confirm_password:hashedpassword,employee_name:employee_name},(error,result)=>{
                 if(error)
                 {
                  console.log(error);
@@ -125,21 +152,14 @@ console.log('result.length',result.length)
 
                     console.log('Registration success')
                     console.log('dirname'+__dirname)
-                    res.sendFile(path.join(__dirname,"../","views","heropage.html"));
-                    // res.sendFile(__dirname,"../../","views","heropage.html");
-
-                    // Swal({
-                    //       position: 'top-end',
-                    //       icon: 'success',
-                    //       title: 'Registered Successfully',
-                    //       showConfirmButton: false,
-                    //       timer: 2500
-                    //     })
-                    
-
+                    res.json({ 'success': true , 'message':'Registration success','status':1,'create_status':true});
+                  
                 }
             
             })
+                
+            }
+
 
         }
     )
@@ -150,11 +170,14 @@ console.log('result.length',result.length)
 
 exports.login=async (req,res)=>
 {
+
+    console.log('reqbody',req.body.email_id)
 try {
 // const {email ,password}=req.body;
-const email=req.body.email;
+const email=req.body.email_id;
 const password=req.body.password;
 console.log('emails',email)
+console.log('password',password)
 if(!email || !password)
 { 
     // if(email=='' ||password=='') {
@@ -167,8 +190,11 @@ if(!email || !password)
     // return res.status(400).render("heropage",{msg:"Please enter your email and password",msg_type :"error"})
 
 
-    console.log('Please enter your email and password')
-    res.sendFile(path.join(__dirname,"../","views","heropage.html"));
+    // console.log('Please enter your email and password')
+
+    res.json({ 'success': false, 'message':'Please send Email and password'});
+   
+    // res.sendFile(path.join(__dirname,"../","views","heropage.html"));
   
 }
 
@@ -183,8 +209,9 @@ db.query("select * from users where email_id=?",[email],async (error,result)=>{
         //     msg_type:"error",});
 
 
-        console.log('please enter your email and password')
-        res.sendFile(path.join(__dirname,"../","views","heropage.html"));
+        console.log('user not registered')
+        // res.sendFile(path.join(__dirname,"../","views","heropage.html"));
+        res.json({ 'success': false, 'message':error,'status': 'invalid_Email-id'});
 
 
     }
@@ -199,8 +226,9 @@ db.query("select * from users where email_id=?",[email],async (error,result)=>{
             //     msg_type:"error",});
 
 
-            console.log('please enter your email and password')
-            res.sendFile(path.join(__dirname,"../","views","heropage.html"));
+            console.log('password not matched')
+            // res.sendFile(path.join(__dirname,"../","views","heropage.html"));
+            res.json({ 'success': false, 'message':error,'status': 'password not matched'});
 
         }
 
@@ -219,15 +247,20 @@ db.query("select * from users where email_id=?",[email],async (error,result)=>{
             httpOnly:true, //only works in http
 
             }  ;
+
+            const users_id=result[0].id;
+            console.log('users_id',users_id)
               //store the cookie by responce //reflect in console->application->sessions->cookie
             res.cookie("cook",token,cookies);
+            
+            console.log('the token',token)
+            res.json({ 'success': true, 'message':'valid user','token':token,'cookies':cookies});
 
             // http 200 means responce is perfect
-            res.status(200).redirect("/home");
+            // res.status(200).redirect("/home");
 
 
 
-console.log('the token',token)
 
         }
     }
@@ -279,7 +312,7 @@ if(!results){
 }
 req.user=results[0];
 return next();//again to routing page.js
-
+        
 }); 
 }
 catch(error)
@@ -322,9 +355,9 @@ exports.passwordlink = async function(req,res)
 {
 
     // getting form inputs
-console.log('req',req.body.email)
+console.log('req',req.body.email_id)
 
-const user_credencial = req.body.email; //it can be either user id or email id
+const user_credencial = req.body.email_id; //it can be either user id or email id
 
 //first we need to check the form email is available in our our table
 
@@ -333,7 +366,10 @@ db.query('select * from users where email_id=?',[user_credencial],(err,results )
     console.log('resultss',results[0])
 
 //if any data is not available in table for user given emailid ,it will be undefined
+if(results[0]== undefined){
 
+    res.json({ 'success': false, 'error':err,'status': 0,'message':'Email not Registered'});
+}
     if(results[0]!== undefined){
         console.log('present')
 
@@ -389,13 +425,13 @@ db.query('select * from users where email_id=?',[user_credencial],(err,results )
             }
            
         });
-        console.log('sender',sender)
+        console.log('sender',sender.options.auth)
 
 //composing message 
         const composemail = {
             
 
-            from :'code.ghoster@gmail.com' ,
+            from :'  code.ghoster@gmail.com' ,
             to : user_credencial , 
             subject:'Recover Password With Hogarth Portal',
             // html: '<h1>click the link</h1><a href="' + link + '">click</a>'  
@@ -421,17 +457,13 @@ db.query('select * from users where email_id=?',[user_credencial],(err,results )
         // return res.render('info_about_resetpass')
 
         console.log('info_about_resetpass')
-        res.sendFile(path.join(__dirname,"../","views","info_about_resetpass.html"));
+        // res.sendFile(path.join(__dirname,"../","views","info_about_resetpass.html"));
+        res.json({ 'success': true, 'error':err,'status': 1,'message':'Reset link  Sent to user_mailID','mail-from':sender.options.auth.user,'mail-to':user_credencial});
 
 
     }
 
-else
-{
 
-    // res.send('user is not registered')
-    res.sendFile(path.join(__dirname,"../","views","usernotfound.html"));
-}
 
 })
 
@@ -474,12 +506,15 @@ db.query('select * from users where id=?',[user_id],(err,results ) =>{
         console.log('perfect')
         
         // return res.render('forgotpassword',)
-        return res.render('forgotpassword',{id:user_id,token:user_token,email:db_email})
+        // return res.render('forgotpassword',{id:user_id,token:user_token,email:db_email})
+        // window.location.href = `http://localhost:5000/reset-password/${user_id}/${user_token}`
+        // res.json({ 'success': true, 'error':err,'status': 1,'msg':'user verified','id':user_id,'token':token,'email':db_email});
+        res.sendFile(path.join(__dirname,"../","views","forgotpassword.html"));
 
     }
     catch(error){
 
-            console.log(error,message);
+            // console.log(error,message);
              res.send('page loading error');
 
     }
@@ -504,11 +539,11 @@ exports.updateuser_pass = async function(req,res)
 {
 
 
-    console.log('hereworking',req.body.password)
+    console.log('hereworking',req)
 
     const pass =req.body.password;
-    const cnfm_pass =req.body.cnfm_password;
-    const email =req.body.email;
+    const cnfm_pass =req.body.confirm_password;
+    // const email =req.body.email;
 
 
     
@@ -544,7 +579,7 @@ db.query('select * from users where id=?',[user_id],async (err,results ) =>{
         if(pass!==cnfm_pass)
         {
             // return res.render('forgotpassword',{errors: 'Password missmatch'})
-            
+            res.json({ 'success': false, 'error':err,'status': 0,'message':'password missmatch'});
 
         }
 
@@ -557,7 +592,7 @@ db.query('select * from users where id=?',[user_id],async (err,results ) =>{
 
 
          //inserting the values to user table 
-         db.query("UPDATE users SET password = ? ,confirm_password=?,is_status=?  WHERE id = ? and email_id=?",[hashedpassword,hashedpassword,1,user_id,email],(error,result)=>{
+         db.query("UPDATE users SET password = ? ,confirm_password=?,is_status=?  WHERE id = ?",[hashedpassword,hashedpassword,1,user_id],(error,result)=>{
             if(error){
                 console.log(error);
                 res.send('error')
@@ -566,8 +601,9 @@ db.query('select * from users where id=?',[user_id],async (err,results ) =>{
                 console.log(result);
                 // return res.render('heropage',{msg:'password changed successfully',msg_type:'good'})
                 console.log('password changed successfully')
-                res.sendFile(path.join(__dirname,"../","views","heropage.html"));
-
+                // res.sendFile(path.join(__dirname,"../","views","heropage.html"));
+                
+                res.json({ 'success': true, 'error':err,'status': 1,'message':'password updated'});
             }
         
         })
@@ -600,5 +636,7 @@ catch(error)
 
     // res.redirect('/login')
 };
+
+
 
 

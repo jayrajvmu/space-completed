@@ -1,10 +1,10 @@
 const { application } = require("express");
 const express = require("express");
-const app = express();
 const router = express.Router(); //for mentioning express route module
 //use the controller to manage the routes and middleware
 const userController = require("../../controllers/users");
-
+// const cors = require('cors');
+//  const axios = require('axios');
 const path = require("path");
 
 //initial landing page
@@ -48,7 +48,7 @@ router.get("/home", userController.isLoggedIn, (req, res) => {
     //check the user value is vailable or not
     //if available render the home
     // res.render('home',{user :req.user});
-    res.sendFile(path.join(__dirname, "../../", "views", "home.html"));
+    res.sendFile(path.join(__dirname, "../../", "views", "wing.html"));
   } else {
     //if not available redirect again loign  page
     res.redirect("/login");
@@ -77,9 +77,27 @@ router.get("/forgot_password", (req, res) => {
 router.post("/reset-password_link", userController.passwordlink, (req, res) => {
   console.log("routeded");
   // res.render('info_about_resetpass')
+  // res.sendFile(path.join(__dirname,"../../","views","info_about_resetpass.html"));
+});
+
+router.get("/info_about_resetpass", (req, res) => {
+  console.log("info_about_resetpass");
+  // res.render('info_about_resetpass')
   res.sendFile(
     path.join(__dirname, "../../", "views", "info_about_resetpass.html")
   );
+});
+
+router.get("/invalid_user", (req, res) => {
+  console.log("invalid_user");
+  // res.render('info_about_resetpass')
+  res.sendFile(path.join(__dirname, "../../", "views", "usernotfound.html"));
+});
+
+router.get("/forgotpassword_page", (req, res) => {
+  console.log("forgotpassword_page");
+  // res.render('info_about_resetpass')
+  res.sendFile(path.join(__dirname, "../../", "views", "forgotpassword.html"));
 });
 
 router.get(
@@ -92,13 +110,10 @@ router.get(
     console.log("user_tokencheck", user_token);
 
     // res.render('forgotpassword')
-    res.sendFile(
-      path.join(__dirname, "../../", "views", "forgotpassword.html")
-    );
   }
 );
 
-router.post(
+router.put(
   "/reset-password/:id/:token",
   userController.updateuser_pass,
   (req, res) => {
@@ -107,25 +122,31 @@ router.post(
     //     const user_token=req.params.token;
     // console.log("user_id",req)
     // console.log("user_token",user_token)
-
-    res.redirect("/login");
+    // res.redirect('/login')
   }
 );
-
-router.get("/booking", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../", "views", "booking.html"));
-});
 
 router.get("/seat", (req, res) => {
   res.sendFile(path.join(__dirname, "../../", "views", "seat.html"));
 });
 
-router.get("/seat-two", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../", "views", "seat-two.html"));
+router.get("/booking", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../", "views", "booking.html"));
 });
 
-router.get("/test", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../", "views", "test.html"));
+router.get("/userBooking", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../", "views", "userBooking.html"));
+});
+
+router.get("/booking", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../", "views", "booking.html"));
+});
+router.get("/wingStructure", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../", "views", "wingStructure.html"));
+});
+
+router.get("/my-booking", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../", "views", "cancel.html"));
 });
 
 module.exports = router; //export the module

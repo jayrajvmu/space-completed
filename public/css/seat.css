@@ -1,123 +1,14 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
-}
-*:is(::after, ::before) {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
-}
-body {
-  font-family: "Open Sans", sans-serif;
-}
-#userBooking_header {
-  background-color: #28293e;
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-}
-#logo {
-  color: white;
-  font-size: 20px;
-  font-weight: 700;
-  display: grid;
-  justify-content: start;
-  justify-items: center;
-  align-items: center;
-}
-#logo > div {
-  padding: 20px;
-}
-header nav {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  align-items: center;
-  justify-items: center;
-  justify-content: end;
-  font-weight: bold;
-}
-header nav a {
-  text-decoration: none;
-  color: white;
-  font-size: 16px;
-  padding: 20px;
-}
-#container {
-  display: grid;
-  grid-template-columns: 20vw 75vw;
-  justify-content: space-between;
-  height: 100vh;
-  margin: 15px;
-}
-#container_left {
-  border-radius: 2vw;
-  background-color: #28293e;
-  opacity: 1;
-  font-weight: bold;
-}
-#profile_view {
-  display: grid;
-  justify-items: center;
-  align-items: center;
-  margin-top: 15px;
-  height: 30vh;
-  border-bottom: 1px solid white;
-}
-#profile_pht {
-  height: 100px;
-  width: 100px;
-  border-radius: 50%;
-  background-color: aliceblue;
-}
-#profile_name {
-  color: white;
-  font-weight: bold;
-}
-#side_bar {
-  margin-top: 10px;
-  display: grid;
-  justify-items: center;
-}
-#side_bar a {
-  text-decoration: none;
-  color: white;
-  /* border: 1px solid red;   */
-  padding: 7px 0px 7px 0px;
-  width: 90%;
-  text-align: center;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-#container_right {
-  border-radius: 2vw;
-  /* background-color: beige; */
-}
-#side_bar a:hover {
-  background-color: aliceblue;
-  color: #28293e;
-  border-radius: 2vh;
-}
-
-/* For mobile phones: */
 .chair {
   width: 20%;
   height: 25px;
-  background-color: green;
   margin: 10px;
-  position: relative;
-  top: -36px;
-  left: 70px;
-  flex-wrap: wrap;
   border-radius: 5px;
-  align-self: stretch;
-  border: 2px solid black;
+  border: 2px solid green;
+  text-align: center;
 }
 .dude {
   display: none;
 }
-
 .chair:hover + .dude {
   display: block;
   color: red;
@@ -125,49 +16,80 @@ header nav a {
 .table {
   width: 35%;
   height: 130px;
-  background: rgba(159, 244, 249, 0.904);
-  margin: 20px;
+  margin: 40px;
   box-sizing: border-box;
-  display: flex;
-  /* justify-content: flex-start; */
+  display: grid;
   min-width: 20px;
   border-radius: 20px;
-  /* justify-content: space-evenly; */
-  border: 1px solid black;
-}
-
-.chair:nth-child(3) {
+  grid-template-columns: repeat(4, 1fr);
   position: relative;
-  left: -80px;
-  top: 120px;
+  border: 2px solid #12d348;
+  background-color: rgba(0, 198, 195, 0.13);
+}
+.chair:nth-child(1) {
+  position: absolute;
+  left: 31px;
+  top: -13px;
+  transform: translateY(-100%);
+}
+.chair:nth-child(2) {
+  position: absolute;
+  right: 37px;
+  top: -13px;
+  transform: translateY(-100%);
+}
+.chair:nth-child(3) {
+  position: absolute;
+  left: 32px;
+  bottom: -63px;
+  transform: translateY(-100%);
 }
 .chair:nth-child(4) {
-  position: relative;
-  top: 120px;
-  left: -80px;
+  position: absolute;
+  right: 37px;
+  bottom: -63px;
+  transform: translateY(-100%);
 }
-
+.chair:nth-child(5) {
+  position: absolute;
+  right: 111px;
+  bottom: -63px;
+  transform: translateY(-100%);
+}
+.chair:nth-child(6) {
+  position: absolute;
+  right: 112px;
+  bottom: 94px;
+  transform: translateY(-100%);
+}
+.chair:nth-child(7) {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  transform: translateY(-100%);
+}
 .available {
-  background-color: green;
+  border: 2px solid green;
 }
 .danger {
-  background-color: red;
+  border: 2px solid red;
 }
-
 .booked {
-  background-color: orange;
+  border: 2px solid orange;
 }
-
-body a {
+a {
   color: white;
+}
+/*body a {
+   color: white;
   text-decoration: none;
   align-self: stretch;
   padding: 0px;
   font-weight: 1000;
-  margin-top: 0%;
-}
+  margin-top: 0%; 
+}*/
 .seat {
-  background-color: green;
+  border: 2px solid green;
   height: 26px;
   width: 32px;
   margin: 3px;
@@ -177,15 +99,12 @@ body a {
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
 }
-
 .seat.selected {
-  background-color: orange;
+  border: 2px solid orange;
 }
-
 .seat.sold {
-  background-color: rgb(250, 8, 8);
+  border: 2px solid red;
 }
-
 .showcase {
   margin: 40px;
   margin-right: auto;
@@ -196,8 +115,8 @@ body a {
   display: flex;
   justify-content: right;
   align-self: flex-end;
+  font-weight: bold;
 }
-
 .showcase li {
   display: flex;
   align-items: center;
@@ -207,14 +126,12 @@ body a {
 .showcase li small {
   margin-left: 2px;
 }
-
 .Seat-container {
   margin: 0 0;
 }
-
 .Seat-container select {
   background-color: #fff;
-  border: 3px solid black;
+  border: 1px solid black;
   border-radius: 5px;
   font-size: 16px;
   margin-left: 10px;
@@ -223,7 +140,6 @@ body a {
   -webkit-appearance: none;
   appearance: none;
 }
-
 .opt {
   display: flex;
   /* width: 900px; */
@@ -231,9 +147,10 @@ body a {
   align-self: flex-start;
   justify-content: center;
   justify-content: space-evenly;
+  margin: 30px;
+  gap: 60px;
 }
 .container {
-  background-color: rgb(252, 254, 254);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -242,7 +159,7 @@ body a {
 }
 .date input {
   background-color: #fff;
-  border: 3px solid black;
+  border: 1px solid black;
   border-radius: 5px;
   font-size: 16px;
   margin-left: 10px;
@@ -256,23 +173,20 @@ body a {
   justify-content: center;
   align-items: center;
 }
-
 .Slot {
   margin: 0 0;
 }
-
 .Slot select {
   background-color: #fff;
-  border: 3px solid black;
+  border: 1px solid black;
   border-radius: 5px;
   font-size: 16px;
-  margin-left: 10px;
+  margin-left: 0px;
   padding: 5px 15px 5px 15px;
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
 }
-
 .popuptext {
   visibility: visible;
   position: relative;
@@ -296,7 +210,6 @@ body a {
     opacity: 1;
   }
 }
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -305,10 +218,9 @@ body a {
     opacity: 1;
   }
 }
-
 .Check {
   background-color: #fff;
-  border: 3px solid black;
+  border: 1px solid black;
   border-radius: 5px;
   font-size: 16px;
   margin-left: 10px;
@@ -316,8 +228,9 @@ body a {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
+  background-color: #12d348;
 }
-
 .Check:hover {
-  color: red;
+  color: white;
+  background-color: black;
 }

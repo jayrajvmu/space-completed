@@ -6,43 +6,56 @@ const db = require('../../db/mysql');
 
 router.put('/:id', (req, res) => {
 
-//     res.send(`checkin successful ${req.params.id}`);
-// console.log(req.body);
+
     let slectSqlfromBooking = `SELECT * FROM booking WHERE emp_id='${req.body.emp_id}' AND status='1' AND id='${req.params.id}';`;
     db.query(slectSqlfromBooking, (errbook, resultbook) => {
         if (errbook) {
             throw errbook;
         }
 let now=new Date();
+let userDate=new Date(resultbook[0].date);
+
+console.log(userDate.toLocaleDateString());
+console.log(now.toLocaleDateString());
 
 
-console.log();
-if(resultbook[0].date.toLocaleDateString()==now.toLocaleDateString()){
+if(userDate.toLocaleDateString()==now.toLocaleDateString()){
 
         let slectSqlfromShift = `SELECT * FROM shift WHERE id='${resultbook[0].shift_id}';`;
         db.query(slectSqlfromShift, (err, result) => {
             if (err) {
                 throw err;
             }
+            let shift_start_time = result[0].start_time.split(":");
 
-            if(result[0].start_time<=now.getHours()){
 
+            if(shift_start_time[0]<=now.getHours()){
+                console.log('hi');
                 let shiftStartTime = new Date(`${resultbook[0].date}`);
-                shiftStartTime.setHours(`${result[0].start_time}`);
+                shiftStartTime.setHours(`${shift_start_time[0]}`);
                 shiftStartTime.setMinutes(0);
 
                 let GraceTime = new Date(`${resultbook[0].date}`);
-                GraceTime.setHours(`${result[0].start_time}`);
+                GraceTime.setHours(`${shift_start_time[0]}`);
                 GraceTime.setMinutes(30);
-console.log(GraceTime.toLocaleDateString());
+
                 if(GraceTime>now){
    let updateSqlfromBooking = `UPDATE booking SET status = '2' WHERE id = '${req.params.id}' AND emp_id='${req.body.emp_id}' AND status='1'`;
         db.query(updateSqlfromBooking, (errupdate, resultupdate) => {
             if (errupdate) {
                 throw errupdate;
             }
-            res.json({ 'sucess': true, 'message': 'Check in successfully'});
+            if(resultupdate.affectedRows!=0){
+                res.json({ 'sucess': true, 'message': `Booking Id #${req.params.id}, check-in successfully`});
+    
+            }else{
+                res.json({ 'success': false, 'message': 'No Booking Available' });
+            }
         });
+                }
+                else{
+                    res.send({'success':false, 'message':'Unable to check-in this seat. Please try again later'})
+
                 }
 
 
@@ -51,7 +64,7 @@ console.log(GraceTime.toLocaleDateString());
             }
         });
 }else{
-    res.send({'success':false, 'message':'Timing Problem'})
+    res.send({'success':false, 'message':'Unable to check-in this seat. Please try again later'})
 }
 
      

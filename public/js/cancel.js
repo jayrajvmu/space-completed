@@ -1,6 +1,15 @@
+// Cancellation module functionality
 let blogRow = document.querySelector(".booked-seats_row");
+let signInMessage = document.querySelector("#signin-message");
+let noSeatMessage = document.querySelector("#no-seat");
+
+// cancellation modal
+let cancellationModal = document.querySelector("#modal-section");
+let closeBtnCancellation = document.querySelector("#close-btn");
+let overlayCancellation = document.querySelector("#overlay");
 let message = document.querySelector("#message");
-const bookedSeatsUrl = "http://localhost:5000/booking/1";
+
+const bookedSeatsUrl = "http://localhost:5000/booking/2";
 
 const bookedSeats = async () => {
   try {
@@ -10,88 +19,126 @@ const bookedSeats = async () => {
       },
     });
     console.log(response.data.data);
-    let html;
+    let blogDatas = response.data.data;
     if (blogDatas.length === 0) {
-     html = 'No data available'
- } 
- else{
- 
-   html = blogDatas
-      .map((blog) => {
-        console.log(blog);
-        
-        return `
-        <div class="booked-seats_col">
-        <div class="booked-seats_container">
-          <div class="booked-seats_details">
-            <div class="booked-seats_input">Desk Id :</div>
-            <div class="booked-seats_value">${blog.seat_id}</div>
-          </div>
-          <div class="booked-seats_details">
-            <div class="booked-seats_input">Employee Id :</div>
-            <div class="booked-seats_value">${blog.emp_id}</div>  
-          </div>
-          <div class="booked-seats_details">
-            <div class="booked-seats_input">Booked Date :</div>
-            <div class="booked-seats_value">${new Date(blog.date).toISOString().split('T')[0]}</div>
-          </div>
-          <div class="booked-seats_details">
-            <div class="booked-seats_input">Shift :</div>
-            <div class="booked-seats_value">${blog.shift_id}</div>
-          </div>
-          <div class="form-submit">
-            <button type="submit" class="button123" onclick="cancelBookedSeat('${blog.id}')">Cancel Seat</button>
-            <button type="submit" class="button1234"  onclick="checkinUser('${blog.id}')">Check-in</button>
-          </div>
-        </div>
-      </div>
-        `;
-      })
-      .join("");
-    blogRow.insertAdjacentHTML("afterbegin", html);
-
-    //cancellation module starts//
-    let cancelItems = document.querySelectorAll(".button123");
-    let modalContainer = document.querySelector("#modal-section");
-    let closeBtn = document.querySelector("#close-btn");
-
-    cancelItems.forEach((item) => {
-      item.addEventListener("click", () => setModal());
-    });
-
-    function setModal() {
-      modalContainer.classList.add("show");
-      overlay.classList.add("active");
+      noSeatMessage.innerHTML = "<p class='no-booking'>No Seats Booking</p>";
+    } else {
+      blogDatas.map((blog) => {
+        blogRow.innerHTML += `
+            <div class="booked-seats_col" id="blog-${blog.id}">
+              <div class="booked-seats_container">
+                <div class="booked-seats_details">
+                  <div class="booked-seats_input">Desk Id </div>
+                  <div class="booked-seats_value">: ${blog.seat_id}</div>
+                </div>
+                <div class="booked-seats_details">
+                  <div class="booked-seats_input">Employee Id  </div>
+                  <div class="booked-seats_value">: ${blog.emp_id}</div>  
+                </div>
+                <div class="booked-seats_details">
+                  <div class="booked-seats_input">Booked Date  </div>
+                  <div class="booked-seats_value">: ${
+                    new Date(blog.date).toISOString().split("T")[0]
+                  }</div>
+                </div>
+                <div class="booked-seats_details">
+                  <div class="booked-seats_input">Shift  </div>
+                  <div class="booked-seats_value">: ${blog.shift_id}</div>
+                </div>
+                <div class="form-submit cancellation-btns">         
+                  <button  class="confirmCancel" onclick="setCancellationModal('${
+                    blog.id
+                  }','${blog.emp_id}')">Cancel Seat</button>
+                  <button  class="checkInBtn"  onclick="checkinUser('${
+                    blog.id
+                  }','${blog.emp_id}')">Check-in</button>        
+              </div>
+            </div> `;
+      });
     }
-
-
-    //close the modal
-    closeBtn.addEventListener("click", closeModal);
-    function closeModal() {
-      modalContainer.classList.remove("show");
-      overlay.classList.remove("active");
-
-    }
-    //cancellation module ends //
-
-
   } catch (error) {
     console.log(error);
   }
 };
+
 bookedSeats();
 
-function checkinUser(id){
-  axios.put(`http://localhost:5000/checkin/${id}`, {'emp_id':1})
-    .then((response) =>{
-        console.log(response.data);
-        alert(response.data.message)
-    } );
-  }
+function setCancellationModal(cancellationId, cancellationEmpId) {
+  /* modal title starts */
+  let modalTitle = document.querySelector("#modal-title");
+  modalTitle.textContent = "Cancel the Seat";
+  /* modal title ends */
 
-  function cancelBookedSeat(id) {
-    axios.put(`http://localhost:5000/booking/${id}`, {'emp_id':1})
-        .then((response) =>{
-            console.log(response.data);
-        } );
-    }
+  /* modal body starts */
+  let modalBody = document.querySelector("#modal-body");
+  modalBody.innerHTML = `  
+    <p>Do you want to cancel the seat?</p>
+    <div class="form-submit confirmation-btns">
+      <button id="confirm-success">Yes</button>
+      <button id="confirm-failure">No</button>
+    </div>
+    `;
+
+  cancellationModal.classList.add("show");
+  overlayCancellation.classList.add("active");
+
+  let cancellationSucessBtn = document.querySelector("#confirm-success");
+  let cancellationFailureBtn = document.querySelector("#confirm-failure");
+
+  cancellationSucessBtn.addEventListener("click", () => {
+    cancelBookedSeat(cancellationId, cancellationEmpId);
+  });
+
+  //close the modal
+  closeBtnCancellation.addEventListener("click", closeCancellationModal);
+  cancellationFailureBtn.addEventListener("click", closeCancellationModal);
+}
+
+function closeCancellationModal() {
+  cancellationModal.classList.remove("show");
+  overlayCancellation.classList.remove("active");
+  message.innerHTML = "";
+}
+
+function cancelBookedSeat(id, empId) {
+  let userId = +id;
+  let userEmpId = +empId;
+
+  axios
+    .put(`http://localhost:5000/booking/${userId}`, { emp_id: userEmpId })
+    .then((response) => {
+      console.log(response.data);
+      if (response.status === 200) {
+        message.innerHTML = `<p class='${response.data.success}'>${response.data.message}</p>`;
+        if (response.data.success) {
+          setTimeout(() => {
+            closeCancellationModal();
+          }, 1500);
+          let blogId = document.querySelector(`#blog-${userId}`);
+          blogId.remove();
+        }
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+function checkinUser(id, empId) {
+  let userId = +id;
+  let userEmpId = +empId;
+
+  axios
+    .put(`http://localhost:5000/checkin/${userId}`, { emp_id: userEmpId })
+    .then((response) => {
+      console.log(response.data);
+      if (response.status === 200) {
+        signInMessage.innerHTML = `<p class='signIn-success'>${response.data.message}</p>`;
+      } else {
+        signInMessage.innerHTML = `<p class='signIn-success'>${response.data.message}</p>`;
+      }
+    })
+    .catch((error) => {
+      signInMessage.innerHTML = `<p class='signIn-success'>${error}</p>`;
+    });
+}
