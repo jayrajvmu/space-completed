@@ -148,29 +148,10 @@
     <div id="overlay" class="overlay"></div>
     <!-- available popup ends -->
 
-    <script>
-      const menuIconButton = document.querySelector("[data-menu-icon-btn]");
-      const sidebar = document.querySelector("[data-sidebar]");
-  
-      menuIconButton.addEventListener("click", () => {
-        sidebar.classList.toggle("open");
-      });
-    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- <script src="../js/wing.js"></script> -->
+    <script src="../js/nav.js"></script>
     <script src="../js/cancel.js"></script>
-    <script>
-      let dropDownListItems = document.querySelectorAll(".dropdown-list-item");
-      let dropDownMenuItems = document.querySelectorAll(".dropdown-menu-list-item");
-      
-      dropDownListItems.forEach(dropDownListItem=>{
-        dropDownListItem.addEventListener("click",()=>{
-          let menuItem = dropDownListItem.querySelector(".dropdown-menu-list-item");
-          menuItem.classList.toggle("active");
-        })
-      })
-        
-      
-        </script>
+    <!-- <script src="../js/wing.js"></script> -->
   </body>
 </html>
