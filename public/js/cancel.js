@@ -29,7 +29,7 @@ const bookedSeats = async () => {
               <div class="booked-seats_container">
                 <div class="booked-seats_details">
                   <div class="booked-seats_input">Desk Id </div>
-                  <div class="booked-seats_value">: ${blog.seat_id}</div>
+                  <div class="booked-seats_value">: ${blog.seat_name}</div>
                 </div>
                 <div class="booked-seats_details">
                   <div class="booked-seats_input">Employee Id  </div>
@@ -43,15 +43,15 @@ const bookedSeats = async () => {
                 </div>
                 <div class="booked-seats_details">
                   <div class="booked-seats_input">Shift  </div>
-                  <div class="booked-seats_value">: ${blog.shift_id}</div>
+                  <div class="booked-seats_value">: ${blog.shift_name}</div>
                 </div>
                 <div class="form-submit cancellation-btns">         
                   <button  class="confirmCancel" onclick="setCancellationModal('${
                     blog.id
-                  }','${blog.emp_id}')">Cancel Seat</button>
+                  }','${blog.emp_id_primary}')">Cancel Seat</button>
                   <button  class="checkInBtn"  onclick="checkinUser('${
                     blog.id
-                  }','${blog.emp_id}')">Check-in</button>        
+                  }','${blog.emp_id_primary}')">Check-in</button>        
               </div>
             </div> `;
       });
