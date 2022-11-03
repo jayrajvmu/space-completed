@@ -261,4 +261,33 @@ router.get("/dates", (request, response) => {
   });
 });
 
+router.get('/wings', (req, res) => {
+  //fetching a wings tables data from database
+    let slectSqlfromWings = `SELECT * FROM wings`;
+    connection.query(slectSqlfromWings, (err, resultWing) => {
+        if (err) {
+            res.json({ 'success': false, 'message': `${err}` });
+        }
+        let wingsArray = []; // store the all response data in this array.
+        resultWing.forEach((element) => {
+            wingsArray.push({ id: `${element.id}`, wingname: `${element.name}` });
+        });
+        res.json({success: true, message:"Get a wings data successfully" , "wings" : wingsArray});
+    });
+});
+// Get all shift data
+router.get('/shifts', (req, res) => {
+    //fetching a shift tables data from database
+    let slectSqlfromShift = `SELECT * FROM shift`;
+    connection.query(slectSqlfromShift, (err, resultShift) => {
+        if (err) {
+            res.json({ 'success': false, 'message': `${err}` });
+        }
+        let shiftArray = []; // store the all response data in this array.
+        resultShift.forEach((element) => {
+                shiftArray.push({ id: `${element.id}`, shiftname: `${element.shift_name}` });
+        });
+        res.json({success: true, message:"Get a shift data successfully" , "shifts" : shiftArray});
+    });
+});
 module.exports = router;
