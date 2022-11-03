@@ -114,7 +114,39 @@ router.post('/addtable',(req,res) => {
 	let wing_id = req.body.wing_id;
 	let created_by = req.body.created_by;
 
-	tableCreate(wing_total_table,wing_id,created_by);
+	var check_value = 0;
+	let check_sql = `SELECT id FROM tables`;
+	let check_query = db.query(check_sql, (err, result, fields) => {
+		if(result.length == 0) {
+			check_value = 1;
+		}
+		else {
+			check_value = result.length;
+			check_value = check_value + 1;
+		}
+
+		for(let i = 1;i<=wing_total_table;i++) {
+			let wings_tables = {
+			name : "WS" + check_value,
+			wing_id: wing_id,
+			created_by:created_by,
+			created_at:created_at,
+			is_active:is_active,
+		};
+		check_value = check_value + 1;
+		let sql = 'INSERT INTO tables SET ?';
+		let query = db.query(sql, wings_tables, (err, result, fields) => {
+			if (err) {
+				res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
+			}
+			var names = wings_tables.name;
+			seatCreate(result.insertId,wings_tables.created_by,names);
+		});
+		}
+});
+
+
+	//tableCreate(wing_total_table,wing_id,created_by);
 	res.send({"success":true,"message":"Tables were successfully added."});
 });
 
@@ -318,25 +350,38 @@ async function seatCreate(table_id,created_by) {
 async function tableCreate(table_number,wing_id,created_by) {
 	const is_active = 0;
 	const created_at =  moment().format('YYYY/MM/DD h:mm:ss a');
-	
+	var check_value = 0;
+	let check_sql = `SELECT id FROM tables`;
+	let check_query = db.query(check_sql, (err, result, fields) => {
+		if(result.length == 0) {
+			check_value = 1;
+		}
+		else {
+			check_value = result.length;
+			check_value = check_value + 1;
+		}
+
 	for(let i = 1;i<=table_number;i++) {
-		
 		let wings_tables = {
-			name : "WS"+i,
-			wing_id: wing_id,
-			created_by:created_by,
-			created_at:created_at,
-			is_active:is_active,
-		};
-		let sql = 'INSERT INTO tables SET ?';
-		let query = db.query(sql, wings_tables, (err, result, fields) => {
-			if (err) {
-				res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
-			}
-			var names = wings_tables.name;
-			seatCreate(result.insertId,wings_tables.created_by,names);
-		});
-	}
+		name : "WS" + check_value,
+		wing_id: wing_id,
+		created_by:created_by,
+		created_at:created_at,
+		is_active:is_active,
+	};
+	check_value = check_value + 1;
+	let sql = 'INSERT INTO tables SET ?';
+	let query = db.query(sql, wings_tables, (err, result, fields) => {
+		if (err) {
+			res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
+		}
+		var names = wings_tables.name;
+		seatCreate(result.insertId,wings_tables.created_by,names);
+	});
+}
+	
+});
+	
 }; 
 
 //Add Rows to the table
