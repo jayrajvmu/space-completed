@@ -7,7 +7,11 @@ const db = require('../../db/mysql')
 
 router.post('/', (req, res) => {
     //fetch data from shift table
-    if ((req.body.emp_id) && (req.body.desk_id) && (req.body.date) && (req.body.shift) && (req.body.booked_by)) {
+    console.log('emp'+req.body.emp_id);
+    if(!(req.body.emp_id)){
+        res.json({ "success": false, "message": "Please Enter a Valid Employee ID" });
+    }
+    else if ((req.body.desk_id) && (req.body.date) && (req.body.shift) && (req.body.booked_by)) {
 
         let slectSqlfromShift = `SELECT * FROM shift WHERE id='${req.body.shift}';`;
         db.query(slectSqlfromShift, (err, result) => {
