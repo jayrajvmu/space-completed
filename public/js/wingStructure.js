@@ -3,6 +3,8 @@ let wing_to_delete;
 let edit_wing_name;
 let wingId;
 let tableId;
+let deleteTable;
+
 
 function generatingWing() {
     let tableGeneration = document.getElementById("tableGeneration");
@@ -101,6 +103,12 @@ function openModal(message) {
         titleHeader.textContent = "Add Table";
         warmMessage.innerHTML = `<input type="number" placeholder="No of Table" class="table-input-form">`;
         goOn.setAttribute("onclick", "addingTable()");
+    }
+    else if (getMessage == "deleteTable") {
+        titleHeader.textContent = "Action Requied";
+        warmMessage.innerHTML = "Are you Sure";
+        let goOn = document.getElementById("go-on");
+        goOn.setAttribute("onclick", "tableDeleting()");
     }
 
 }
@@ -487,13 +495,18 @@ function createTableList() {
 }
 function deletingTable(event) {
     console.log(event.target.value);
-    let deleteID = event.target.value;
-    axios.delete(`http://localhost:5000/wings/deletetable/${wingId}/${deleteID}`).then((response) => {
+    deleteTable = event.target.value;
+    let message = "deleteTable";
+    openModal(message)
+     
+}
+function tableDeleting() {
+    axios.delete(`http://localhost:5000/wings/deletetable/${wingId}/${deleteTable}`).then((response) => {
         console.log(response.data);
         setTimeout(()=>{alert(`${response.data.message}`)},500);
     })
+    closeModal();
     rearrangeTableList();
-    
 }
 function editingTable(event) {
     console.log(event.target.value);
