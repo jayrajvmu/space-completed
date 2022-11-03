@@ -18,9 +18,9 @@ Agenda of this project is to avoid seats availability issues in office for all e
       - [Update Table](#wings-update-table-page)
       - [Delete Table](#wing-delete-tables-page)
     - [Seats](#wing-add-seat-page)
-        + [Add Seats](#wing-add-seat-page)
-        + [Update Seat](#wings-update-seat-api)
-        + [Delete Seat](#wing-delete-seat-page)
+      - [Add Seats](#wing-add-seat-page)
+      - [Update Seat](#wings-update-seat-api)
+      - [Delete Seat](#wing-delete-seat-page)
   * [Seat-availability](#Seat-availability)
   * [Bookings](#seat-booking)
     - [Booking Page](#Booking-Page)
@@ -448,50 +448,50 @@ Method - GET
 
 ## Seat Booking
 
-This is main module to book seats, in this module have two type bookings.
+This is the main module for Seat Booking, this module have two types of Bookings.
 
-We add lot of logic for this module.
+We added below lists of logic for this module.
 
-1.User can not book more than one seat for the day.
-2.User can not book more than one shift for the day.
+1.User cannot Book more than one seat for the day.
+2.User cannot Book more than one shift for the day.
 
 1. Regular Booking.
 2. Advance Booking.
 
-#### Regular Booking ####
-1.User can book seats before 48 hours and before 6 hours of actual shift.
-2.User can book seats for next two days.
+#### Regular Booking
 
-#### Advance Booking ####
+1.User can Book Seats before 48 hours and before 6 hours of actual shift.
+2.User can Book seats for next Two days.
 
-1.User can only 3 seats for a week, week will be calculate form the current date.
+#### Advance Booking
+
+1.User can Book only 3 Seats for a Week, Week will be calculate from the current date.
 
 ### Booking Page
 
-Request hit (http://localhost:5500/booking.html)
+Request hit (http://localhost:5000/booking)
 
-User can select wing, date and particular shift, we will show the available seat in the particular wing, user click the green color available seat and fill the employee id and book the seat.
+User can select wing, date and particular shift, we will show the available seat in the particular wing, user can click the green color available seats and fill the employee id and Book the seat.
 
 ### My Booking Page
 
-Request hit (http://localhost:5500/cancel.html)
+Request hit (http://localhost:5000/my-booking)
 
-in this page user will see the all booked seats for the user.
+In this page User will see all the Seats Booked by the him.
 
-every booked card will contain two button below mentioned.
+Every booked Seats will contain two buttons mentioned below.
 
 1.Cancel Seat.
 2.Check-in.
 
 #### Cancel Seat
 
-User click the button one warning pop-up will be shown "you really want to cancel the seat" after click the ok button seat will be cancelled.
-
-in this button no other logic added.
+When User clicks the Cancel button confirmation pop-up will be shown "Do you really want to cancel the seat" after clicking the Ok button seat will be cancelled.
 
 #### Check-in
 
-in this button we add some logic, user can check in the seat after the shift start time and maximum 30 minutes otherwise we show error timing problem you can not check-in the particular seat.
+When User clicks the CheckIn button it will check whether the User check in the
+Seat after the Shift start time and maximum 30 minutes, otherwise it throws error like Unable to check-in this seat.
 
 ### Booking API
 
@@ -528,7 +528,7 @@ Method - POST
 
 Request hit (http://localhost:5000/booking/:id)
 
-ID- Employee ID
+ID - Employee ID
 Method - GET
 
 #### Success Response
@@ -550,7 +550,7 @@ Method - GET
 
 Request hit (http://localhost:5000/booking/:id)
 
-ID- Booking ID
+ID - Booking ID
 Method - PUT
 
 #### Success Response
@@ -592,7 +592,7 @@ Method - GET
 
 Request hit (http://localhost:5000/checkin/:id)
 
-ID- Booking ID
+ID - Booking ID
 Method - PUT
 
 #### Request
