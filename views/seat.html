@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Seat Availability</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/seat.css" />
     <link rel="stylesheet" href="../css/booking.css" />
     <link rel="stylesheet" href="../css/nav.css" />
@@ -61,7 +62,7 @@
         </div>
         <div class="middle-sidebar">
           <ul class="sidebar-list">
-            <li class="sidebar-list-item active">
+            <li class="sidebar-list-item ">
               <a href="./home" class="sidebar-link">
                 <svg class="sidebar-icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
                   <g>
@@ -84,7 +85,7 @@
               </a>
             </li>
             <li class="sidebar-list-item">
-              <a href="./seat" class="sidebar-link">
+              <a href="./seat" class="sidebar-link active">
                 <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="sidebar-icon">
                   <g>
                     <path
@@ -95,8 +96,8 @@
                 <div class="hidden-sidebar">Seat Availability</div>
               </a>
             </li>
-            <li class="sidebar-list-item">
-              <a href="./booking" class="sidebar-link">
+            <li class="sidebar-list-item dropdown-list-item ">
+              <div class="sidebar-link ">
                 <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="sidebar-icon">
                   <g>
                     <path
@@ -104,20 +105,22 @@
                     </path>
                   </g>
                 </svg>
-                <div class="hidden-sidebar">New Booking</div>
-              </a>
-            </li>
-            <li class="sidebar-list-item">
-              <a href="./my-booking" class="sidebar-link">
-                <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="sidebar-icon">
-                  <g>
-                    <path
-                      d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 12h4v2H4v-2zm10 6H4v-2h10v2zm6 0h-4v-2h4v2zm0-4H10v-2h10v2z">
-                    </path>
-                  </g>
-                </svg>
-                <div class="hidden-sidebar">My Booking</div>
-              </a>
+                <div class="hidden-sidebar dropdown-hidden-sidebar ">  Booking  </div>
+              </div>
+              <ul class="sidebar-list dropdown-menu-list-item">
+                <li class="sidebar-list-item " >
+                  <a href="./booking" class="sidebar-link dropdown-sidebar-link">
+                    <i class="fa-sharp fa-solid fa-angle-right"></i>
+                    <div class="hidden-sidebar ">New Booking</div>
+                  </a>
+                </li>
+                <li class="sidebar-list-item ">
+                  <a href="./my-booking" class="sidebar-link dropdown-sidebar-link">
+                    <i class="fa-sharp fa-solid fa-angle-right"></i>
+                    <div class="hidden-sidebar ">My Booking</div>
+                  </a>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -126,12 +129,9 @@
         <div id="container_right">
           <div class="opt">
             <div class="Seat-container">
-              <label> Select a WING:</label>
+              <label> Select a Wing </label>
               <select id="wing" placeholder="Select">
                 <option value="" disabled selected>Select</option>
-                <option value="1">Creative</option>
-                <option value="2">Digital</option>
-                <option value="3">print</option>
               </select>
             </div>
             <div class="date">
@@ -139,12 +139,9 @@
               <input type="date" id="date" required />
             </div>
             <div class="Slot">
-              <label for="select">Select Slot :</label>
+              <label for="select">Select Slot </label>
               <select id="shift" placeholder="Select">
                 <option value="" disabled selected>Select</option>
-                <option value="1">APAC</option>
-                <option value="2">EMEA</option>
-                <option value="3">US</option>
               </select>
             </div>
             <div class="but">
@@ -171,18 +168,10 @@
         </div>
       </main>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-      const menuIconButton = document.querySelector("[data-menu-icon-btn]");
-      const sidebar = document.querySelector("[data-sidebar]");
-  
-      menuIconButton.addEventListener("click", () => {
-        sidebar.classList.toggle("open");
-      });
-    </script>
+      <script src="../js/nav.js"></script>
     <script src="../js/script.js"></script>
     <!-- <script src="../js/wing.js"></script> -->
   </body>
-</html>
+  </html>

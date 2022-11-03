@@ -70,6 +70,7 @@
     background-color: #00C6C3;
     font-weight: bold;
     border-radius: 2vh;
+    cursor: pointer;
 }
 #wing_title{
     display: grid;
@@ -83,4 +84,7 @@
     padding-bottom: 2vh;
     border-bottom: 3px solid #28293E;
     font-style: italic;
+}
+.sidebar-list>li:nth-child(3){
+    transform: translateX(10px);
 }

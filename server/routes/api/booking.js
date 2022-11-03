@@ -7,7 +7,10 @@ const db = require('../../db/mysql')
 
 router.post('/', (req, res) => {
     //fetch data from shift table
-    if ((req.body.emp_id) && (req.body.desk_id) && (req.body.date) && (req.body.shift) && (req.body.booked_by)) {
+    if(!(req.body.desk_id)){
+        res.json({ "success": false, "message": "Please Enter a Valid Employee ID" });
+    }
+    else if ((req.body.desk_id) && (req.body.date) && (req.body.shift) && (req.body.booked_by)) {
 
         let slectSqlfromShift = `SELECT * FROM shift WHERE id='${req.body.shift}';`;
         db.query(slectSqlfromShift, (err, result) => {
@@ -77,8 +80,8 @@ router.post('/', (req, res) => {
 
                             //check user apply only 3 days in a week this is for advace booking
                             else {
-
-                                let userData = { emp_id: `${req.body.emp_id}`, seat_id: `${req.body.desk_id}`, date: `${req.body.date}`, shift_id: `${1}`, status: `1`, booked_by: `${1}`, booking_type:`${req.body.booking_type}` };
+console.log();
+                                let userData = { emp_id: `${req.body.emp_id}`, seat_id: `${req.body.desk_id}`, date: `${req.body.date}`, shift_id: `${req.body.shift}`, status: `1`, booked_by: `${1}`, booking_type:`${req.body.booking_type}` };
                                 let sql = 'INSERT INTO booking SET ?';
                                 db.query(sql, userData, (errinsert, resultinsert, fields) => {
                                     if (errinsert) {
@@ -193,13 +196,22 @@ router.post('/', (req, res) => {
 
 //fetch data from booking table for booked status view
 router.get('/:id', (req, res) => {
-    let slectSqlfromBooking = `SELECT * FROM booking WHERE emp_id='${req.params.id}'AND status='1'`;
-    db.query(slectSqlfromBooking, (errfetch, resultfetch) => {
+
+console.log(req.params.id); 
+
+let slectSqlfromTable = `SELECT booking.id, users.emp_id AS emp_id, booking.emp_id AS emp_id_primary, seat_id, date, shift_id, shift_name, seats.name AS seat_name, booking.status FROM booking
+INNER JOIN shift ON shift.id=booking.shift_id
+INNER JOIN seats ON seats.id=booking.seat_id 
+INNER JOIN users ON users.id=booking.emp_id WHERE booking.emp_id='${req.params.id}'AND booking.status='1'`;
+
+// res.send()
+    // let slectSqlfromBooking = `SELECT * FROM booking WHERE emp_id='${req.params.id}'AND status='1'`;
+    db.query(slectSqlfromTable, (errfetch, resultfetch) => {
         if (errfetch) {
             res.json({ 'success': false, 'message': `${errfetch}` });
         }
 
-        res.json({ 'success': true, 'message': 'fetched successfully', 'data': resultfetch });
+        res.json({ 'success': true, 'message': 'Booking data fetched successfully', 'data': resultfetch });
     });
 });
 

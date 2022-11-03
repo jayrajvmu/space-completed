@@ -123,11 +123,171 @@
     }
 
 
+
+
+
+
+
+    *{
+    margin: 0;
+    padding: 0;
+    user-select: none;  
+    /* box-sizing: border-box; */
+    font-family: 'poppins',sans-serif;
+}
+
+.alert{
+    overflow: hidden;
+    background: #055e32;
+    padding: 14px 40px 14px 5px;
+    /* max-width: 420px; */
+    width: 0;
+    position: absolute;
+    right: 0px;
+    top: 10px;
+    border-radius: 4px;
+    border-left: 8px solid #262624;
+    opacity: 0;
+    pointer-events: none;
+
+}
+.alert.showAlert{
+
+    opacity: 1;
+    pointer-events: auto;
+}
+.alert .fa-thumbs-o-up{
+
+    color: #dbedda;
+    font-size: 15px;
+}
+.alert .msg{
+
+    padding: 0 20px;
+    font-size:13px;
+    color:#ffffff;
+
+}
+
+.alert .close-btn{
+cursor: pointer;
+    position: absolute;
+    right: 0px;
+    top: 50px;
+    transform: translate(-50%);
+    background: #ffd080;
+    padding :20px 18px;
+
+}
+
+.close-btn .fa-times{
+
+    color: #ce8500;
+    font-size:22px;
+    line-height: 40px;
+
+}  
+.close-btn:hover{
+    background: #ffc766;
+}
+
+
+.alert.show{
+    width: 228px;
+    animation: show_slide 1s ease forwards;
+
+}
+.alert.hide
+{
+
+    animation: hide_slide 1s ease forwards;
+}
+
+
+@keyframes show_slide{
+
+  
+
+    0%{
+
+transform: translateX(100%);
+}
+
+40%{
+
+transform: translateX(-10%);
+}
+
+80%{
+
+transform: translateX(0%);
+}
+
+100%{
+
+transform: translateX(10px);
+}
+
+}
+
+/* .alert.show{
+
+animation: hide _slide 1s ease forwards;
+
+} */
+
+
+@keyframes hide_slide{
+
+  
+
+0%{
+
+transform: translateX(10px);
+}
+
+40%{
+
+transform: translateX(0%);
+}
+
+80%{
+
+transform: translateX(-10%);
+}
+
+100%{
+
+transform: translateX(100%);
+}
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
     
     </style>
 </head>
 <body>
-  
+    <div class="alert">
+
+
+        <i class="fa fa-thumbs-o-up" style="font-size:36px"></i>
+        <span class="msg">Registered Successfully</span>
+        <span class="color-btn"></span>
+        <span class="fas fa-times"></span>
+    
+        
+      </div>
   
 <div class="container">
 
@@ -148,7 +308,7 @@
 
     <div id="forminput">
 
-<input type="email" name="email" id="email" placeholder="Email or Employee ID" class="control"><br>
+<input type="email" name="email" id="email" placeholder="Email ID" class="control"><br>
 
 <span id="email_error" class="error"></span>
 <input type="password" name="password" id="password" placeholder="Password" class="control"><br>
@@ -184,8 +344,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script> 
 <script src="../js/loginpage.js"></script>
 <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
 <!-- <script src="sweetalert2.all.min.js"></script> -->
-

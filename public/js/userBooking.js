@@ -26,7 +26,7 @@ let seat = document.getElementsByClassName("seat");
             wingCreation();
             let wings = document.getElementById("wings");
             let wing_name = document.getElementsByClassName("wing_name");
-            let wingName = document.getElementsByClassName("wingName")   
+            let wingName = document.getElementsByClassName("wingName");   
             wing_name[i].textContent= wingData[i].name;
             wingName[i].setAttribute("value",`${wingData[i].id}`);
             wing_name[i].setAttribute("value",`${wingData[i].id}`);
@@ -48,8 +48,15 @@ let seat = document.getElementsByClassName("seat");
             createTable = response.data;
             creatingTable();
             let wing_title = document.getElementById("wing_title");
-            wing_title.innerHTML=`<h1>${createTable.name}</h1>`;
-            wings.innerHTML="";
+            if(createTable.name == undefined){
+                wing_title.innerHTML=`<h1>No Tables Available</h1>`;
+                wings.innerHTML="";
+            }
+            else{
+                wing_title.innerHTML=`<h1>${createTable.name}</h1>`;
+                wings.innerHTML="";
+            }
+            
         } )
     }
        

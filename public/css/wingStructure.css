@@ -363,12 +363,12 @@ Wing List
 }
 #warn-message{
     padding-top: 15px;
-
+    padding-left: 10px;
 }
 .modal-btn{
     display: grid;
-    grid-template-columns:20% 30% 10% 30%;
-    justify-content: end;
+    grid-template-columns:40% 40%;
+    justify-content: space-around;
     justify-items: center;
     align-content:center;
     position: absolute;
@@ -377,7 +377,6 @@ Wing List
     right:0;
     padding:20px;
     padding-bottom: 0;
-    /* border:1px solid red; */
 }
 .modal-btn button{
     margin-left: 20px;
@@ -414,4 +413,21 @@ Wing List
     right:0;
     margin:auto;
     text-align: center;
+}
+.edit-icon button{
+    background-color: #00C6C3;
+    border: #00C6C3;
+    color:white;
+    height:4vh;
+    width:60%;
+    border-radius: 3vh;
+}
+.w-del:hover{
+    background-color: red;
+}
+.t-del:hover{
+    background-color: red;
+}
+.sidebar-list>li:nth-child(3){
+    transform: translateX(10px);
 }

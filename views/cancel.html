@@ -4,6 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/nav.css" />
     <link rel="stylesheet" href="../css/booking.css" />
     <link rel="stylesheet" href="../css/cancel.css" />
@@ -60,7 +61,7 @@
         </div>
         <div class="middle-sidebar">
           <ul class="sidebar-list">
-            <li class="sidebar-list-item active">
+            <li class="sidebar-list-item ">
               <a href="./home" class="sidebar-link">
                 <svg class="sidebar-icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
                   <g>
@@ -94,8 +95,8 @@
                 <div class="hidden-sidebar">Seat Availability</div>
               </a>
             </li>
-            <li class="sidebar-list-item">
-              <a href="./booking" class="sidebar-link">
+            <li class="sidebar-list-item dropdown-list-item ">
+              <div class="sidebar-link active">
                 <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="sidebar-icon">
                   <g>
                     <path
@@ -103,20 +104,22 @@
                     </path>
                   </g>
                 </svg>
-                <div class="hidden-sidebar">New Booking</div>
-              </a>
-            </li>
-            <li class="sidebar-list-item">
-              <a href="./my-booking" class="sidebar-link">
-                <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="sidebar-icon">
-                  <g>
-                    <path
-                      d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 12h4v2H4v-2zm10 6H4v-2h10v2zm6 0h-4v-2h4v2zm0-4H10v-2h10v2z">
-                    </path>
-                  </g>
-                </svg>
-                <div class="hidden-sidebar">My Booking</div>
-              </a>
+                <div class="hidden-sidebar dropdown-hidden-sidebar ">  Booking  </div>
+              </div>
+              <ul class="sidebar-list dropdown-menu-list-item">
+                <li class="sidebar-list-item active" >
+                  <a href="./booking" class="sidebar-link dropdown-sidebar-link">
+                    <i class="fa-sharp fa-solid fa-angle-right"></i>
+                    <div class="hidden-sidebar ">New Booking</div>
+                  </a>
+                </li>
+                <li class="sidebar-list-item ">
+                  <a href="./my-booking" class="sidebar-link dropdown-sidebar-link">
+                    <i class="fa-sharp fa-solid fa-angle-right"></i>
+                    <div class="hidden-sidebar ">My Booking</div>
+                  </a>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -124,40 +127,31 @@
       <main class="content">
             <div class="booked-seats-section">
               <div id="signin-message"></div>
+              <div id="no-seat"></div>
               <div class="booked-seats_row"></div>      
             </div>
       </main>
     </div>
 
-    <!-- Cancellation popup starts -->
-    <div class="modal-section modal" id="modal-section-cancellation">
+    <!-- available popup starts -->
+    <div class="modal-section modal" id="modal-section">
       <div class="modal-container">
         <div class="modal-header">
-          <div class="title">Cancel the Seat</div>
-          <button id="close-btn-cancellation" class="close-btn">×</button>
+          <div class="title " id="modal-title"></div>
+          <button id="close-btn" class="close-btn">&times;</button>
         </div>
-        <div class="modal-body">
-          <p>Do you want to cancel the seat?</p>
-          <div class="form-submit confirmation-btns">
-            <button id="confirm-success">Yes</button>
-            <button id="confirm-failure">No</button>
-          </div>
-          <p id="cancelMessage" class="message"></p>
+        <div class="modal-body" id="modal-body">
         </div>
+        <div id="message" class="message"></div>
       </div>
     </div>
-    <div id="overlay-cancellation" class="overlay"></div>
-    <!-- Cancellation popup ends -->
-    <script>
-      const menuIconButton = document.querySelector("[data-menu-icon-btn]");
-      const sidebar = document.querySelector("[data-sidebar]");
-  
-      menuIconButton.addEventListener("click", () => {
-        sidebar.classList.toggle("open");
-      });
-    </script>
+    <div id="overlay" class="overlay"></div>
+    <!-- available popup ends -->
+
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- <script src="../js/wing.js"></script> -->
+    <script src="../js/nav.js"></script>
     <script src="../js/cancel.js"></script>
+    <!-- <script src="../js/wing.js"></script> -->
   </body>
 </html>
