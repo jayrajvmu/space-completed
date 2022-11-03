@@ -1,3 +1,37 @@
+var date = new Date();
+var currentDate = date.toISOString().slice(0, 10);
+document.getElementById("date").value;
+let ename = document.getElementById("emp");
+let show = document.getElementById("cont");
+let cdate = document.getElementById("date");
+let cwing = document.getElementById("wing");
+let cshift = document.getElementById("shift");
+let cButton = document.getElementById("check");
+let nd;
+let nid;
+let nsd;
+let shiftText;
+
+//Changing DropDown Dynamically
+function dropDown() {
+  axios.get("http://localhost:5000/wings").then((res) => {
+    let response = res.data.wing_name;
+    let length;
+    response.map((drop) => {
+      cwing.innerHTML += `<option value=${drop.id}>${drop.name}</option>`;
+    });
+  });
+}
+
+function dropShift() {
+  axios.get("http://localhost:5000/availability/shifts").then((res) => {
+    let response = res.data.shifts;
+    response.map((shift) => {
+      cshift.innerHTML += `<option value=${shift.id} data-shift-name="${shift.shiftname}">${shift.shiftname}</option>`;
+    });
+  });
+}
+
 /* list of userName */
 let userDetails;
 function userName() {
@@ -12,21 +46,10 @@ function userName() {
     });
 }
 
+//Function Calling
+dropDown();
+dropShift();
 userName();
-
-var date = new Date();
-var currentDate = date.toISOString().slice(0, 10);
-document.getElementById("date").value;
-let ename = document.getElementById("emp");
-let show = document.getElementById("cont");
-
-let cdate = document.getElementById("date");
-let cwing = document.getElementById("wing");
-let cshift = document.getElementById("shift");
-let cButton = document.getElementById("check");
-let nd;
-let nid;
-let nsd;
 
 cdate.addEventListener("change", (event) => {
   let dd = event.target.value;
@@ -44,17 +67,15 @@ cshift.addEventListener("change", (event) => {
   let sd = event.target.value;
   nsd = sd;
   console.log(nsd);
-  // let shiftValue = cshift.value;
-  // let shiftText = cshift.options[cshift.selectedIndex].text;
-  // popupShift.value = shiftText;
-  // console.log(shiftValue);
-  // console.log(shiftText);
+  shiftText = cshift.options[cshift.selectedIndex].dataset.shiftName;
+  console.log(shiftText);
 });
 
 cButton.addEventListener("click", () => {
   display(nd, nid, nsd);
 });
 
+//Requesting response from the api and populating the UI
 function display(nd, nid, nsd) {
   axios
     .post(`http://localhost:5000/availability/`, {
@@ -127,7 +148,7 @@ function setAvailableModal(seatItem) {
   let deskName;
   let deskId = seatItem.getAttribute("id");
   let deskSlotId = nsd;
-  let deskSlotText;
+  let deskSlotName = shiftText;
   let deskDate = nd;
   // console.log(deskId, deskSlotId, deskDate);
 
@@ -170,7 +191,7 @@ function setAvailableModal(seatItem) {
   </div>
   <div class="form-input">
     <label for="time"> Shift </label>
-    <input type="text" id="time"  readonly  value ="${deskSlotId}"/>
+    <input type="text" id="time"  readonly  value = "${deskSlotName}" />
   </div>
   <div class="form-submit">
     <button type="button" id="submit-btn" onclick ='postData("${deskId}","${deskDate}","${deskSlotId}")'>Book Now</button>
