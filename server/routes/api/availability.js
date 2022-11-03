@@ -10,7 +10,7 @@ router.post("/", (req, res) => {
   tables.name AS tableName, wing_id, seats.name AS seatName, seats.table_id AS tseats
   FROM wings
   INNER JOIN tables ON wings.id=tables.wing_id
-  INNER JOIN seats ON tables.id=seats.table_id WHERE wing_id='${req.body.wing}'`;
+  INNER JOIN seats ON tables.id=seats.table_id WHERE wing_id='${req.body.wing}' AND tables.is_active=0 AND seats.is_active=0`;
 
   connection.query(slectSqlfromTable, (errtable, resulttable) => {
     if (errtable) {
