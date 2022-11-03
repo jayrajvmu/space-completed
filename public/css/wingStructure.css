@@ -428,6 +428,3 @@ Wing List
 .t-del:hover{
     background-color: red;
 }
-.sidebar-list>li:nth-child(3){
-    transform: translateX(10px);
-}
