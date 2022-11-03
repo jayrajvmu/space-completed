@@ -63,20 +63,20 @@ function openModal(message) {
     if (getMessage == "wc") {
         // creatingWing(contents);
         titleHeader.textContent = "Action Requied";
-        warmMessage.innerHTML = "Are you Sure";
+        warmMessage.innerHTML = "Are you Sure ?";
         let goOn = document.getElementById("go-on");
         goOn.setAttribute("onclick", "creatingWing()");
 
     }
     else if (getMessage == "wd") {
         titleHeader.textContent = "Action Requied";
-        warmMessage.innerHTML = "Are you Sure";
+        warmMessage.innerHTML = "Are you Sure ?";
         let goOn = document.getElementById("go-on");
         goOn.setAttribute("onclick", "deletingWing()");
     }
     else if (getMessage == "ut") {
         titleHeader.textContent = "Action Requied";
-        warmMessage.innerHTML = "Are you Sure";
+        warmMessage.innerHTML = "Are you Sure ?";
         let goOn = document.getElementById("go-on");
         goOn.setAttribute("onclick", "toUpdateTable()");
     }
@@ -94,7 +94,7 @@ function openModal(message) {
     }
     else if (getMessage == "seatEdit") {
         let goOn = document.getElementById("go-on");
-        titleHeader.textContent = "Total Seats";
+        titleHeader.textContent = "Add Seats";
         warmMessage.innerHTML = `<input type="number" placeholder="No. of Seats" class="table-input-form">`;
         goOn.setAttribute("onclick", "updatingSeats()");
     }
@@ -106,7 +106,7 @@ function openModal(message) {
     }
     else if (getMessage == "deleteTable") {
         titleHeader.textContent = "Action Requied";
-        warmMessage.innerHTML = "Are you Sure";
+        warmMessage.innerHTML = "Are you Sure ?";
         let goOn = document.getElementById("go-on");
         goOn.setAttribute("onclick", "tableDeleting()");
     }
