@@ -450,18 +450,18 @@ Method - GET
 
 This is the main module for Seat Booking, this module have two types of Bookings.
 
-We added below lists of logic for this module.
+Below lists of logics are added for this module.
 
-1.User cannot Book more than one seat for the day.
-2.User cannot Book more than one shift for the day.
+1. User cannot Book more than one seat for the day.
+2. User cannot Book more than one shift for the day.
 
-1. Regular Booking.
-2. Advance Booking.
+- Regular Booking.
+- Advance Booking.
 
 #### Regular Booking
 
-1.User can Book Seats before 48 hours and before 6 hours of actual shift.
-2.User can Book seats for next Two days.
+1. User can Book Seats before 48 hours and before 6 hours of actual shift.
+2. User can Book seats for next Two days.
 
 #### Advance Booking
 
@@ -481,8 +481,8 @@ In this page User will see all the Seats Booked by the him.
 
 Every booked Seats will contain two buttons mentioned below.
 
-1.Cancel Seat.
-2.Check-in.
+1. Cancel Seat.
+2. Check-in.
 
 #### Cancel Seat
 
@@ -528,8 +528,8 @@ Method - POST
 
 Request hit (http://localhost:5000/booking/:id)
 
-ID - Employee ID
-Method - GET
+- ID - Employee ID
+- Method - GET
 
 #### Success Response
 
@@ -550,8 +550,8 @@ Method - GET
 
 Request hit (http://localhost:5000/booking/:id)
 
-ID - Booking ID
-Method - PUT
+- ID - Booking ID
+- Method - PUT
 
 #### Success Response
 
@@ -571,7 +571,7 @@ Method - PUT
 
 Request hit (http://localhost:5000/booking/user/name)
 
-Method - GET
+- Method - GET
 
 #### Success Response
 
@@ -592,8 +592,8 @@ Method - GET
 
 Request hit (http://localhost:5000/checkin/:id)
 
-ID - Booking ID
-Method - PUT
+- ID - Booking ID
+- Method - PUT
 
 #### Request
 
