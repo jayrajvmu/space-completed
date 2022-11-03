@@ -3,6 +3,8 @@ let wing_to_delete;
 let edit_wing_name;
 let wingId;
 let tableId;
+let deleteTable;
+
 
 function generatingWing() {
     let tableGeneration = document.getElementById("tableGeneration");
@@ -101,6 +103,12 @@ function openModal(message) {
         titleHeader.textContent = "Add Table";
         warmMessage.innerHTML = `<input type="number" placeholder="No of Table" class="table-input-form">`;
         goOn.setAttribute("onclick", "addingTable()");
+    }
+    else if (getMessage == "deleteTable") {
+        titleHeader.textContent = "Action Requied";
+        warmMessage.innerHTML = "Are you Sure";
+        let goOn = document.getElementById("go-on");
+        goOn.setAttribute("onclick", "tableDeleting()");
     }
 
 }
@@ -487,13 +495,22 @@ function createTableList() {
 }
 function deletingTable(event) {
     console.log(event.target.value);
-    let deleteID = event.target.value;
-    axios.delete(`http://localhost:5000/wings/deletetable/${wingId}/${deleteID}`).then((response) => {
+    deleteTable = event.target.value;
+    let message = "deleteTable";
+    openModal(message)
+     
+}
+function tableDeleting() {
+    axios.delete(`http://localhost:5000/wings/deletetable/${wingId}/${deleteTable}`).then((response) => {
         console.log(response.data);
-        setTimeout(()=>{alert(`${response.data.message}`)},500);
+        let titleHeader = document.getElementById("title");
+        let warmMessage = document.getElementById("warn-message");
+        titleHeader.textContent = "Table Deleted";
+        warmMessage.innerHTML = response.data.message;
+        let goOn = document.getElementById("go-on");
+        goOn.setAttribute("onclick", "closeModal()");
     })
     rearrangeTableList();
-    
 }
 function editingTable(event) {
     console.log(event.target.value);
@@ -515,10 +532,14 @@ function deletingWing() {
         let wing_delete_list_body = document.getElementById("wing-delete-list-body");
         wing_delete_list_body.innerHTML = "";
         getWings();
-        closeModal();
+        
         let goOn = document.getElementById("go-on");
         goOn.removeAttribute("onclick");
-        setTimeout(()=>{alert(`${response.data.message}`)},500);
+        let titleHeader = document.getElementById("title");
+        let warmMessage = document.getElementById("warn-message");
+        titleHeader.textContent = "Wing Deleted";
+        warmMessage.innerHTML = response.data.message;
+        goOn.setAttribute("onclick", "closeModal()");
     })
 }
 
