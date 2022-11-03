@@ -503,9 +503,13 @@ function deletingTable(event) {
 function tableDeleting() {
     axios.delete(`http://localhost:5000/wings/deletetable/${wingId}/${deleteTable}`).then((response) => {
         console.log(response.data);
-        setTimeout(()=>{alert(`${response.data.message}`)},500);
+        let titleHeader = document.getElementById("title");
+        let warmMessage = document.getElementById("warn-message");
+        titleHeader.textContent = "Table Deleted";
+        warmMessage.innerHTML = response.data.message;
+        let goOn = document.getElementById("go-on");
+        goOn.setAttribute("onclick", "closeModal()");
     })
-    closeModal();
     rearrangeTableList();
 }
 function editingTable(event) {
@@ -528,10 +532,14 @@ function deletingWing() {
         let wing_delete_list_body = document.getElementById("wing-delete-list-body");
         wing_delete_list_body.innerHTML = "";
         getWings();
-        closeModal();
+        
         let goOn = document.getElementById("go-on");
         goOn.removeAttribute("onclick");
-        setTimeout(()=>{alert(`${response.data.message}`)},500);
+        let titleHeader = document.getElementById("title");
+        let warmMessage = document.getElementById("warn-message");
+        titleHeader.textContent = "Wing Deleted";
+        warmMessage.innerHTML = response.data.message;
+        goOn.setAttribute("onclick", "closeModal()");
     })
 }
 
