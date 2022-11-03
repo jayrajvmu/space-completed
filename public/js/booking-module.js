@@ -225,6 +225,7 @@ function setAvailableModal(seatItem) {
   dataListInput.addEventListener("change", () => {
     const selectedOption = getSelecteOptionLocation();
     if (selectedOption == undefined) {
+      dataListInput.dataset.empRefId = 0;
       console.log("option not included in the datalist");
     } else {
       let dataListEmpId = selectedOption.getAttribute("employeeId");
