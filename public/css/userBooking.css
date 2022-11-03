@@ -85,3 +85,6 @@
     border-bottom: 3px solid #28293E;
     font-style: italic;
 }
+.sidebar-list>li:nth-child(3){
+    transform: translateX(10px);
+}
