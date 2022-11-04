@@ -44,6 +44,10 @@ exports.register=(req,res)=>
     const cnfm_password=req.body.confirm_password;
     const employee_name=req.body.employee_name
 
+    console.log('employee_name',employee_name)
+    console.log('employee',employee)
+
+
 if(employee_name=='')
 {
     res.json({ 'success': false , 'message':'employee-name_missing','status':0});

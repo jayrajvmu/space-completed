@@ -137,22 +137,22 @@ return;
      {
          window.location.href = "/login?isredirect=true";
  
-      $('.alert').removeClass("hide")
+//       $('.alert').removeClass("hide")
      
-      $('.alert').addClass("show")
-      $('.alert').addClass("showAlert")
- setTimeout(function(){
+//       $('.alert').addClass("show")
+//       $('.alert').addClass("showAlert")
+//  setTimeout(function(){
  
-   $('.alert').addClass("hide")
-   $('.alert').removeClass("showAlert")
-   $('.alert').removeClass("show")
+//    $('.alert').addClass("hide")
+//    $('.alert').removeClass("showAlert")
+//    $('.alert').removeClass("show")
  
  
- },5000);
-alert('sd')
+//  },5000);
+// // alert('sd')
 
- $('.alert').removeClass("hide")
- $('.alert').removeClass("showAlert")
+//  $('.alert').removeClass("hide")
+//  $('.alert').removeClass("showAlert")
       
      }
    
