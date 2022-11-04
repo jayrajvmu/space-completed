@@ -230,7 +230,7 @@ Wing List
 }
 .wing-name-list-edit{
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto;
 }
 .wing-edit{
     display: grid;
@@ -272,7 +272,7 @@ Wing List
 }
 #table-list-head{
     display: grid;
-    grid-template-columns: 10% 30% 20% 20% 10%;
+    grid-template-columns: 10% 30% 24% 20% 10%;
     font-size: 1.2rem;
     border-bottom: 2px solid #28293E;
     padding-top :11px ;
@@ -294,6 +294,12 @@ Wing List
 .table-list-edits{
     display: grid;
     grid-template-columns: auto auto;
+}
+#table-list-sno{
+    text-align: center;
+}
+.table-list-sno{
+    text-align: center;
 }
 
 #add-table{
