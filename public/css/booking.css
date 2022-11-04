@@ -2,6 +2,7 @@
   --booked: lawngreen;
   --available: #17a0c3;
 }
+
 .seat-container {
   display: -ms-grid;
   display: grid;
