@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wings</title>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  
   <link rel="stylesheet" href="../css/nav.css" />
   <link rel="stylesheet" href="../css/wing.css">
 </head>
@@ -118,7 +119,15 @@
       
     </main>
   </div>
-  
+  <script>
+    const menuIconButton = document.querySelector("[data-menu-icon-btn]");
+    const sidebar = document.querySelector("[data-sidebar]");
+
+    menuIconButton.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+    });
+  </script>
+ 
   <script src="../js/wing.js"></script>
 </body>
 

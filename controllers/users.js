@@ -141,7 +141,7 @@ console.log('result.length',result.length)
 
 
             //inserting the values to user table 
-            db.query("insert into users set ?",{emp_id:employee,email_id:email,password:password,confirm_password:hashedpassword,employee_name:employee_name},(error,result)=>{
+            db.query("insert into users set ?",{emp_id:employee,email_id:email,password:password,confirm_password:hashedpassword,employee_name:employee_name,is_status:1},(error,result)=>{
                 if(error)
                 {
                  console.log(error);
@@ -175,6 +175,7 @@ exports.login=async (req,res)=>
 try {
 // const {email ,password}=req.body;
 const email=req.body.email_id;
+const employee_id=req.body.email_id;
 const password=req.body.password;
 console.log('emails',email)
 console.log('password',password)
@@ -200,7 +201,7 @@ if(!email || !password)
 
 
 //authendicatinf the user name  and password
-db.query("select * from users where email_id=?",[email],async (error,result)=>{
+db.query("select * from users where email_id=? OR emp_id=? ",[email,employee_id],async (error,result)=>{
     console.log(result)
     if(result<=0){
 
@@ -214,8 +215,15 @@ db.query("select * from users where email_id=?",[email],async (error,result)=>{
         res.json({ 'success': false, 'message':error,'status': 'invalid_Email-id'});
 
 
+
+
+
     }
     else{
+
+        
+
+
         if(!(await bcrypt.compare(password,result[0].confirm_password)))
 
         {
@@ -237,7 +245,7 @@ db.query("select * from users where email_id=?",[email],async (error,result)=>{
             // res.send("good")
             const id=result[0].id; //getting the responce data ,like id from user table
             //generting the token  for session setup
-             const token =jwt.sign({id :id},process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRES_IN,});
+             const token =jwt.sign({id :id},process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRES_IN});
              //use the cookies to expire date for the  user name and password
             const  cookies={
 
@@ -245,22 +253,36 @@ db.query("select * from users where email_id=?",[email],async (error,result)=>{
                 Date.now()+process.env.JWT_COOKIE_EXPIRES *24*60*60*1000//h-m-s-mil
             ) ,
             httpOnly:true, //only works in http
+            loginuser_id:result[0].id,
+        
 
             }  ;
+
+            console.log('token',token)
+            console.log('cookies',cookies)
+            const usercookie={
+'token':token,
+'cookies':cookies
+
+            }
 
             const users_id=result[0].id;
             console.log('users_id',users_id)
               //store the cookie by responce //reflect in console->application->sessions->cookie
             res.cookie("cook",token,cookies);
-            
-            console.log('the token',token)
-            res.json({ 'success': true, 'message':'valid user','token':token,'cookies':cookies});
+
+            // return res
+            // .cookie("access_token",token)
+            // .status(200)
+            // .json({ 'success': true, 'message':'valid user','token':token,'cookies':cookies,});
+
+            // res.cookie('cookies', token, { usercookie: cookies, httpOnly: true });
+            // document.cookie = "username=John Doe";
+            // console.log('the token',token,cool)
+            res.json({ 'success': true, 'message':'valid user','token':token,'cookies':cookies,});
 
             // http 200 means responce is perfect
             // res.status(200).redirect("/home");
-
-
-
 
         }
     }
@@ -302,6 +324,9 @@ const decode=await promisify(jwt.verify)(
 ); //decodes the jwt token and return the user values and login to homepage
 
 console.log("decode",decode.id)
+
+res.cookie("uservalue",decode.id);
+
 //decodes the jwt token and return the user values and login to homepage after verifycation while user login into our app
 
 db.query('select * from users where id=?',[decode.id],(err,results ) =>{
@@ -342,6 +367,7 @@ exports.logout = async function(req,res)
 //     httpOnly:true,
 // });
 res.clearCookie('cook'); //clears the cookie and the cookie name is cook
+res.clearCookie('uservalue');
 // hbs engine
 // res.status(200).redirect("/logout")
 res.redirect("/login")
@@ -531,6 +557,33 @@ db.query('select * from users where id=?',[user_id],(err,results ) =>{
 
 };
 
+
+
+
+
+
+exports.profile = async function(req,res)
+{
+
+
+    console.log("routeded",req);
+    const user_id=req.cookies.uservalue;
+    
+    
+    
+    db.query('select * from users where id=?',[user_id],async (err,results ) =>{
+    
+      console.log('resultsss',results)
+    
+      const db_user_id=results[0].id;
+      const  db_employee_id=results[0].emp_id;
+      const  db_employee_name=results[0].employee_name;
+      const  is_status=results[0].is_status;
+      res.json({ 'success': true,'valid_user':true,'user_id':db_user_id,'employee_id':db_employee_id,'employee_name':db_employee_name,'is_status':is_status})
+
+    });
+
+}
 
 
 

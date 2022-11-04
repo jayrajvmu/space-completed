@@ -13,4 +13,6 @@ router.post('/forgot_password',userController.passwordlink); //route by post fro
 router.post('/reset-password',userController.updateuser_pass)
 
 router.get('/reset-password/',userController.identifyuser); //route by post from any req hit from /logout 
+// router.get('/profile/',userController.profile); 
+
 module.exports=router;  //exporting the route variable 
