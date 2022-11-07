@@ -611,72 +611,56 @@ Request hit (http://localhost:5000/checkin/:id)
 #### Failed Response
 
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     "success": false,
     "message": "Timing Problem",
     }
 
 Method - GET
 
-#### Sucess Response ####
+#### Sucess Response
+
     {
     "success": true,
     "message": "User Cancelled successfully",
     "data":[]
     }
 
-#### Failed Response ####
+#### Failed Response
+
     {
     "success": false,
     "message": "Error Connection",
     }
 
-### Check-in API ###
-Request hit (http://localhost:5000/checkin/:id) 
+### Check-in API
+
+Request hit (http://localhost:5000/checkin/:id)
 
 ID- Booking ID
 Method - PUT
 
-#### Request ####
+#### Request
+
     {
     "emp_id": 1,
     }
-#### Sucess Response ####
+
+#### Sucess Response
+
     {
     "success": true,
     "message": "Chek-in successfully",
     }
 
-#### Failed Response ####
+#### Failed Response
+
     {
     "success": false,
     "message": "Timing Problem",
-    }    
-
-## Seat Availability ##
- This module deal with see all seat available and based on each booking an seats.
-
-### Seat Availabilities Page ###
- In this page users can see, how many seats are available and used to booking a seats.
- Users can see the all available seats belong to wings, date and shift.
-  1. Select a valuable wing
-  2. Select a booking date
-  3. Select a valuable shift
-### Seat Availability API ###
-Get all wings name 
-    {http://localhost:5000/availability/wings}
-    Method : GET
-### Response output ###  
-#### Sucess output JSON ####
-``` 
-=======
-        "success": false,
-        "message": "Unable to check-in this seat. Please try again later",
     }
 
-
-    ## Seat Availability ##
+## Seat Availability
 
 This module deal with see all seat available and based on each booking an seats.
 
@@ -700,33 +684,20 @@ Method : GET
 #### Sucess output JSON
 
 ```
->>>>>>> 479f1a061c1ae12d402ba4daff1ac898b2312d59
 {
   "success": true,
   "message": "Successfully get seats availability data"
 }
 ```
-<<<<<<< HEAD
-#### Failed output JSON ####
-=======
 
 #### Failed output JSON
 
->>>>>>> 479f1a061c1ae12d402ba4daff1ac898b2312d59
 ```
 {
   "success": false,
   "message": "No data available"
 }
 ```
-<<<<<<< HEAD
-Get all wings name 
-    {http://localhost:5000/availability/shifts}
-    Method : GET
-### Response output ###  
-#### Sucess output JSON ####
-``` 
-=======
 
 Get all wings name
 {http://localhost:5000/availability/shifts}
@@ -737,19 +708,14 @@ Method : GET
 #### Sucess output JSON
 
 ```
->>>>>>> 479f1a061c1ae12d402ba4daff1ac898b2312d59
 {
   "success": true,
   "message": "Successfully get seats availability data"
 }
 ```
-<<<<<<< HEAD
-#### Failed output JSON ####
-=======
 
 #### Failed output JSON
 
->>>>>>> 479f1a061c1ae12d402ba4daff1ac898b2312d59
 ```
 {
   "success": false,
@@ -758,21 +724,6 @@ Method : GET
 ```
 
 Request on seats availability based on wing, date and shift.
-<<<<<<< HEAD
-   {http://localhost:5000/availability/} 
-   Method : POST
-   Resquest body content 
-   ```
-   {
-    "wing": 1,
-    "date": "2022-10-30",
-    "shift": "APAC"
-   }
-   ```
-### Response output ###     
-#### Sucess output JSON ####
-``` 
-=======
 {http://localhost:5000/availability/}
 Method : POST
 Resquest body content
@@ -790,19 +741,14 @@ Resquest body content
 #### Sucess output JSON
 
 ```
->>>>>>> 479f1a061c1ae12d402ba4daff1ac898b2312d59
 {
   "success": true,
   "message": "Successfully get seats availability data"
 }
 ```
-<<<<<<< HEAD
-#### Failed output JSON ####
-=======
 
 #### Failed output JSON
 
->>>>>>> 479f1a061c1ae12d402ba4daff1ac898b2312d59
 ```
 {
   "success": false,

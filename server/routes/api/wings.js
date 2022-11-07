@@ -79,7 +79,8 @@ router.put('/updateTable', (req,res) => {
 router.put('/updateSeat', (req,res) => {
 	let check_values = [];
 	let table_id = req.body.table_id;
-	let seat_name = req.body.seat_name;
+	//let seat_name = req.body.seat_name;
+	let seat_type = req.body.type
 	let seat_id = req.body.seat_id;
 	let updated_at =  moment().format('YYYY/MM/DD h:mm:ss a');
 	let updated_by =  1;
@@ -89,22 +90,14 @@ router.put('/updateSeat', (req,res) => {
 		if (err) {
 			res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 		 }
-		 
-		 for( x=0; x<result.length; x++) {
-			 check_values.push(result[x].name);
-		 }
-		 if(check_values.includes(req.body.table_name.toLowerCase()) == false) {
-			var sql = `UPDATE seats SET name = '${seat_name}' WHERE id = ${seat_id} AND table_id = ${table_id}`;		
-			let query = db.query(sql, (err, result, fields) => {
-					if (err) {
-						res.send({"Success": false,"message":"Something Went Wrong. Try Again Later."});
-					}
-					res.send({"Success": true,"message":"The Seat is updated successfully."});
-				});
-		}
-		else {
-			res.send({"Success": false,"message":"Seat Name Already Exist Try New Name."});
-		}
+		 var sql = `UPDATE seats SET type = '${seat_type}' WHERE id = ${seat_id} AND table_id = ${table_id}`;		
+		 let query = db.query(sql, (err, result, fields) => {
+			if (err) {
+				res.send({"Success": false,"message":"Something Went Wrong. Try Again Later."});
+			}
+			res.send({"Success": true,"message":"The Seat is updated successfully."});
+		});
+
 	});
 });
 
@@ -365,6 +358,7 @@ router.get('/:id',(req,res) => {
 			var sql1 = `SELECT  ALL
 						id AS Seat_id,
 						name	 AS Seat_name,
+						type	 AS type,
 						table_id AS Table_id
 						FROM
 						seats
@@ -379,7 +373,7 @@ router.get('/:id',(req,res) => {
 				for(i = 0;i<result.length;i++) {
 					for(k=0;k<result1.length;k++) {
 						if(result[i].table_ID == result1[k].Table_id) {
-							seats.push({"id":result1[k].Seat_id,"name":result1[k].Seat_name,"table_id":result1[k].Table_id});
+							seats.push({"id":result1[k].Seat_id,"name":result1[k].Seat_name,"table_id":result1[k].Table_id,"type":result1[k].type});
 						}
 					}
 					tables.push({"id":result[i].table_ID,"name":result[i].table_name,"seats":seats});
