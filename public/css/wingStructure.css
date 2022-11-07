@@ -256,6 +256,10 @@ Wing List
     color: white;
     border-radius:20px ;
     cursor: pointer;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
 }
 .seat-edit{
     background-color: #00C6C3;
@@ -263,7 +267,10 @@ Wing List
     color: white;
     border-radius:20px ;
     cursor: pointer;
-    text-align: center;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
 }
 
 /*Table List*/
