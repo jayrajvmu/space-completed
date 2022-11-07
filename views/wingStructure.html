@@ -7,7 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WingStructure</title>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="../css/nav.css" />
   <link rel="stylesheet" href="../css/wingStructure.css">
 </head>
@@ -64,106 +66,104 @@
       </div>
       <div class="middle-sidebar">
         <ul class="sidebar-list">
-            <li class="sidebar-list-item">
-              <a href="./home" class="sidebar-link">
-                <svg class="sidebar-icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
-                  <g>
-                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path>
-                  </g>
-                </svg>
-                <div class="hidden-sidebar">Dashboard</div>
-              </a>
-            </li>
-            <li class="sidebar-list-item dropdown-list-item ">
-              
-              <div class="sidebar-link ">
-                <svg viewBox="0 0 24 24" class="sidebar-icon" preserveAspectRatio="xMidYMid meet" focusable="false">
-                  <a href="./userBooking">
+          <li class="sidebar-list-item">
+            <a href="./home" class="sidebar-link">
+              <svg class="sidebar-icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
+                <g>
+                  <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path>
+                </g>
+              </svg>
+              <div class="hidden-sidebar">Dashboard</div>
+            </a>
+          </li>
+          <li class="sidebar-list-item dropdown-list-item ">
+
+            <div class="sidebar-link ">
+              <svg viewBox="0 0 24 24" class="sidebar-icon" preserveAspectRatio="xMidYMid meet" focusable="false">
+                <a href="./userBooking">
                   <g>
                     <path
                       d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z">
                     </path>
                   </g>
                 </a>
-                </svg>
-                
-                <div class="hidden-sidebar dropdown-hidden-sidebar "><a href="./userBooking">Wings </a> </div>
-              </div>
-              <ul class="sidebar-list dropdown-menu-list-item active">
-                <li class="sidebar-list-item ">
-                  <a href="./wingStructure" class="sidebar-link dropdown-sidebar-link">
-                    <i class="fa-sharp fa-solid fa-angle-right"></i>
-                    <div class="hidden-sidebar ">Wing Operations</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            
-            <li class="sidebar-list-item">
-                <a href="./seat" class="sidebar-link">
-                  <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="sidebar-icon">
-                    <g>
-                      <path
-                        d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 12h4v2H4v-2zm10 6H4v-2h10v2zm6 0h-4v-2h4v2zm0-4H10v-2h10v2z">
-                      </path>
-                    </g>
-                  </svg>
-                  <div class="hidden-sidebar">Seat Availability</div>
+              </svg>
+
+              <div class="hidden-sidebar dropdown-hidden-sidebar "><a href="./userBooking">Wings </a> </div>
+            </div>
+            <ul class="sidebar-list dropdown-menu-list-item active">
+              <li class="sidebar-list-item ">
+                <a href="./wingStructure" class="sidebar-link dropdown-sidebar-link">
+                  <i class="fa-sharp fa-solid fa-angle-right"></i>
+                  <div class="hidden-sidebar ">Wing Operations</div>
                 </a>
-              </li>  
-              <li class="sidebar-list-item">
-                <a href="./booking" class="sidebar-link">
-                  <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="sidebar-icon">
-                    <g>
-                      <path
-                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z">
-                      </path>
-                    </g>
-                  </svg>
-                  <div class="hidden-sidebar">Booking</div>
-                </a>
-              </li> 
-            
-          </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li class="sidebar-list-item">
+            <a href="./seat" class="sidebar-link">
+              <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="sidebar-icon">
+                <g>
+                  <path
+                    d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 12h4v2H4v-2zm10 6H4v-2h10v2zm6 0h-4v-2h4v2zm0-4H10v-2h10v2z">
+                  </path>
+                </g>
+              </svg>
+              <div class="hidden-sidebar">Seat Availability</div>
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="./booking" class="sidebar-link">
+              <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="sidebar-icon">
+                <g>
+                  <path
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z">
+                  </path>
+                </g>
+              </svg>
+              <div class="hidden-sidebar">Booking</div>
+            </a>
+          </li>
+
+        </ul>
       </div>
     </aside>
     <main class="content">
       <div class="wing-container-master">
         <div id="wingContainerM">
-            <a href="#" onclick="viewWingCreation()">
-                <div id="wingCreationM"> Create Wing </div>
-            </a>
-            <a href="#" onclick="viewwingEditModule()">
-                <div id="wingEdit"> Edit Wing </div>
-            </a>
-            <!-- <a href="#" onclick="viewTableEdit()">
+          <a href="#" onclick="viewWingCreation()">
+            <div id="wingCreationM"> Create Wing </div>
+          </a>
+          <a href="#" onclick="viewwingEditModule()">
+            <div id="wingEdit"> Edit Wing </div>
+          </a>
+          <!-- <a href="#" onclick="viewTableEdit()">
                 <div id="tableEdit"> Table Edit</div>
             </a> -->
         </div>
 
         <div id="viewModule">
-            <div id="wingCreationModule">
-                <div id="wingContainer">
-                    <div id="wingCreation">
-                        <div><label for="wingGeneration">Wing Name</label>
+          <div id="wingCreationModule">
+            <div id="wingContainer">
+              <div id="wingCreation">
+                <div><label for="wingGeneration">Wing Name</label>
 
-                            <input type="text" name="wingGeneration" id="wingGeneration" placeholder="Ex. Digital"
-                                required>
-                        </div>
-                        <div>
-                            <label for="tableGeneration">No of Tables</label>
-                            <input type="number" name="tableGeneration" id="tableGeneration" placeholder="Ex. 4"
-                                required>
-                        </div>
-                        <button onclick="generatingWing()">Generate</button>
-                    </div>
-                    <div id="message1">
-
-                    </div>
+                  <input type="text" name="wingGeneration" id="wingGeneration" placeholder="Ex. Digital" required>
                 </div>
+                <div>
+                  <label for="tableGeneration">No of Tables</label>
+                  <input type="number" name="tableGeneration" id="tableGeneration" placeholder="Ex. 4" required>
+                </div>
+                <button onclick="generatingWing()">Generate</button>
+              </div>
+              <div id="message1">
+
+              </div>
             </div>
-            <div id="wingEditModule">
-                <!-- <div id="wingButton">
+          </div>
+          <div id="wingEditModule">
+            <!-- <div id="wingButton">
                     <div id="deleteWing" onclick="openingWingDelete()">
                         <div onclick="openingWingDelete()">
                             Wing Delete
@@ -182,21 +182,21 @@
                         <div>Add Table</div>
                     </div>
                 </div> -->
-                <div id="wing-delete-list">
-                    <div id="wing-delete-list-head">
-                        <div class="wing-delete-list-sno">S.No</div>
-                        <div class="wing-name-list-head">
-                            Wings
-                        </div>
-                        <div class="wing-name-list-edit">
-                            <!-- <div class="edit-icon">Edit</div>
+            <div id="wing-delete-list">
+              <div id="wing-delete-list-head">
+                <div class="wing-delete-list-sno">S.No</div>
+                <div class="wing-name-list-head">
+                  Wings
+                </div>
+                <div class="wing-name-list-edit">
+                  <!-- <div class="edit-icon">Edit</div>
                             <div class="delete-icon">Delete</div> -->
-                            Actions
-                        </div>
+                  Actions
+                </div>
 
-                    </div>
-                    <div id="wing-delete-list-body">
-                        <!-- <div class="wing-delete-list-names">
+              </div>
+              <div id="wing-delete-list-body">
+                <!-- <div class="wing-delete-list-names">
                             <div class="sno">1</div>
                             <div class="wing-name">
                                 Wings
@@ -207,35 +207,35 @@
                             </div>
                         </div> -->
 
-                    </div>
-                    <script>
+              </div>
+              <script>
 
 
-                    </script>
+              </script>
 
-                </div>
             </div>
-            <div id="tableEditModule">
-                <div id="table-list">
-                    <div id="table-list-head">
-                        <div id="table-list-sno">S.No</div>
-                        <div class="table-name-list-head">
-                            Tables
-                        </div>
-                        <div id="total-seat">
-                            Seats
-                        </div>
-                        <div id="table-list-edit">
-                            <!-- <div class="edit-icon">Edit</div>
-                            <div class="delete-icon">Delete</div> -->
-                            Actions
-                        </div>
-
-                    </div>
+          </div>
+          <div id="tableEditModule">
+            <div id="table-list">
+              <div id="table-list-head">
+                <div id="table-list-sno">S.No</div>
+                <div class="table-name-list-head">
+                  Tables
                 </div>
-                <div id="table-lists">
-                    <div id="table-lists-body">
-                        <!-- <div class="table-list-names">
+                <div id="total-seat">
+                  Seats
+                </div>
+                <div id="table-list-edit">
+                  <!-- <div class="edit-icon">Edit</div>
+                            <div class="delete-icon">Delete</div> -->
+                  Actions
+                </div>
+
+              </div>
+            </div>
+            <div id="table-lists">
+              <div id="table-lists-body">
+                <!-- <div class="table-list-names">
                             <div class="table-list-sno">1</div>
                             <div class="table-name">table1</div>
                             <div class="table-seats">5</div>
@@ -245,46 +245,66 @@
                             </div>
 
                         </div> -->
-                    </div>
-                    <div id="add-table">
-                        <div class="add-table-icon" onclick="addNewTable()">+</div>
-                    </div>
-                </div>
-                <!-- <div id="wingEditContainer">
-                    <div>
-                        <label for="tableId" name="tableId">Table ID :</label>
-                        <input type="text" name="" id="tableId" placeholder="Ex. WS-1" required>
-                    </div>
-                    <div> <label for="seatCount" name="seatCount">Seat Count :</label>
-                        <input type="text" name="" id="seatCount" placeholder="Ex. 4" required>
-                    </div>
-                    <div> <label for="adminCode" name="adminCode">Admin Code :</label>
-                        <input type="text" name="" id="adminCode" placeholder="" required>
-                    </div>
-                    <input type="submit" value="Submit" onclick="updateTable()">
-                </div>
-                <div id="message2"></div> -->
-
-
+              </div>
+              <div id="add-table">
+                <div class="add-table-icon" onclick="addNewTable()">+</div>
+              </div>
             </div>
-            <div class="modal-container">
-                <div class="modal-head">
-                    <div id="title">Action Required</div>
-                    <button class="modal-cls" onclick="closeModal()">x</button>
+
+
+          </div>
+          <div id="seatEditModule">
+            <div id="seat-list">
+              <div id="seat-list-head">
+                <div id="seat-list-sno">S.No</div>
+                <div class="seat-name-list-head">
+                  Seats
                 </div>
-                <div class="modal-body">
-                    <p id="warn-message">
-                        Are you Sure ?
-                    </p>
+                <div id="seat-contain">
+                  Type
                 </div>
-                <div class="modal-btn">
-                    
-                    <button id="cancel" onclick="closeModal()">Cancel</button>
-                    
-                    <button id="go-on">Ok</button>
+                <div id="seat-list-edit">
+                  Actions
                 </div>
 
+              </div>
             </div>
+            <div id="seat-lists">
+              <div id="seat-lists-body">
+                <!-- <div class="seat-list-names">
+                  <div class="seat-list-sno">1</div>
+                  <div class="seat-name">Seat1</div>
+                  <div class="seat-contain">Window</div>
+                  <div class="seat-list-edits">
+                    <div class="edit-icon"><button class="s-edit">EDIT</button></div>
+                    <div class="edit-icon"><button class="s-del">DEL</button></div>
+                  </div>
+
+                </div> -->
+              </div>
+              <div id="add-seat">
+                <div class="add-seat-icon" onclick="">+</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-container">
+            <div class="modal-head">
+              <div id="title">Action Required</div>
+              <button class="modal-cls" onclick="closeModal()">x</button>
+            </div>
+            <div class="modal-body">
+              <p id="warn-message">
+                Are you Sure ?
+              </p>
+            </div>
+            <div class="modal-btn">
+
+              <button id="cancel" onclick="closeModal()">Cancel</button>
+
+              <button id="go-on">Ok</button>
+            </div>
+
+          </div>
 
         </div>
       </div>

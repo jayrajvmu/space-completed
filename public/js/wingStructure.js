@@ -51,7 +51,7 @@ function closeModal() {
 function seatEditing(event) {
     console.log(event.target.attributes.value.value);
     tableId = event.target.attributes.value.value
-    openModal("seatEdit")
+    openModal("seatEdit");
 }
 function openModal(message) {
     let modalContainer = document.querySelector(".modal-container");
@@ -351,6 +351,21 @@ function viewWingCreation() {
         wingCreationModule.style.display = "none";
     }
 }
+function viewseatList() {
+    let tableEditModule = document.getElementById("tableEditModule");
+    let wingCreationModule = document.getElementById("wingCreationModule");
+    let wingEditModule = document.getElementById("wingEditModule");
+    let styling = window.getComputedStyle(wingCreationModule, null);
+    let displaying = styling.getPropertyValue("display");
+    if (displaying === "none") {
+        wingEditModule.style.display = "none";
+        wingCreationModule.style.display = "block";
+        tableEditModule.style.display = "none";
+    }
+    else {
+        wingCreationModule.style.display = "none";
+    }
+}
 // function getUpdatedWing(){
 //     axios.get("http://localhost:5000/wings").then((response)=>{
 //         let wingDelete = response.data
@@ -544,7 +559,7 @@ function createTableList() {
     a.appendChild(l);
     l.setAttribute("class", "seat-edit");
     l.setAttribute("onclick", "seatEditing(event)")
-    let m = document.createTextNode("+");
+    let m = document.createTextNode("<>");
     l.appendChild(m)
     //     <div class="table-list-names">
     //     <div class="table-list-sno">1</div>
@@ -557,6 +572,43 @@ function createTableList() {
 
     // </div>
 }
+function createSeatList(){
+    let seat_list_body = document.getElementById("seat-lists-body");
+    let a = document.createElement("div");
+    seat_list_body.appendChild(a);
+    a.setAttribute("class", "seat-list-names");
+    let b = document.createElement("div");
+    a.appendChild(b);
+    b.setAttribute("class", "seat-list-sno");
+    let c = document.createElement("div");
+    a.appendChild(c);
+    c.setAttribute("class", "seat-name");
+    let d = document.createElement("div");
+    a.appendChild(d);
+    d.setAttribute("class", "seat-contain");
+    let e = document.createElement("div");
+    a.appendChild(e);
+    e.setAttribute("class", "seat-list-edits");
+    let f = document.createElement("div");
+    e.appendChild(f);
+    f.setAttribute("class", "edit-icon")
+    let g = document.createElement("button");
+    f.appendChild(g);
+    g.setAttribute("class", "s-edit");
+    g.setAttribute("onclick", "editingSeat(event)");
+    let h = document.createElement("div");
+    e.appendChild(h);
+    h.setAttribute("class", "edit-icon");
+    let i = document.createElement("button");
+    h.appendChild(i);
+    i.setAttribute("class", "s-del");
+    i.setAttribute("onclick", "deletingSeat(event)");
+    let j = document.createTextNode("DEL");
+    i.appendChild(j);
+    let k = document.createTextNode("EDIT");
+    g.appendChild(k);
+}
+
 function deletingTable(event) {
     console.log(event.target.value);
     deleteTable = event.target.value;
