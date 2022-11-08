@@ -74,7 +74,7 @@ router.post('/', (req, res) => {
                             //check user apply only 3 days in a week this is for advace booking
                             else {
                                 console.log();
-                                let userData = { emp_id: `${req.body.emp_id}`, seat_id: `${req.body.desk_id}`, date: `${req.body.date}`, shift_id: `${req.body.shift}`, status: `1`, booked_by: `${1}`, booking_type: `${req.body.booking_type}` };
+                                let userData = { emp_id: `${req.body.emp_id}`, seat_id: `${req.body.desk_id}`, date: `${req.body.date}`, shift_id: `${req.body.shift}`, status: `1`, booked_by: `${req.body.booked_by}`, booking_type: `${req.body.booking_type}` };
                                 let sql = 'INSERT INTO booking SET ?';
                                 db.query(sql, userData, (errinsert, resultinsert, fields) => {
                                     if (errinsert) {
@@ -156,7 +156,7 @@ router.post('/', (req, res) => {
                                 //check user apply only 3 days in a week this is for advace booking
 
                                 if (bookingcount < resultRules[0].maximum_slot) {
-                                    let userData = { emp_id: `${req.body.emp_id}`, seat_id: `${req.body.desk_id}`, date: `${req.body.date}`, shift_id: `${1}`, status: `1`, booked_by: `${1}`, booking_type: `${req.body.booking_type}` };
+                                    let userData = { emp_id: `${req.body.emp_id}`, seat_id: `${req.body.desk_id}`, date: `${req.body.date}`, shift_id: `${1}`, status: `1`, booked_by: `${req.body.booked_by}`, booking_type: `${req.body.booking_type}` };
                                     let sql = 'INSERT INTO booking SET ?';
                                     db.query(sql, userData, (errinsert, resultinsert, fields) => {
                                         if (errinsert) {
