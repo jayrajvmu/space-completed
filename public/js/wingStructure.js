@@ -710,6 +710,7 @@ function deletingSeat(event) {
     axios.delete(`http://localhost:5000/wings/deleteSeat/${seatId}`).then(
         (response) => {
             console.log(response.data.message);
+            getSeatList();
         }
     )
 }
