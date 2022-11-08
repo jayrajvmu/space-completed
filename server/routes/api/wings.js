@@ -102,7 +102,7 @@ router.put('/updateSeat', (req,res) => {
 });
 
 //Add Seat For Table
-router.put('/addseat',(req,res) => {
+router.post('/addseat',(req,res) => {
 	let incre = 1;
 	const is_active = 0;
 	const created_at =  moment().format('YYYY/MM/DD h:mm:ss a');
@@ -130,17 +130,17 @@ router.put('/addseat',(req,res) => {
 });
 
 //Delete Seat From Table
-router.delete('/deleteSeat',(req,res) => {
+router.delete('/deleteSeat/:id',(req,res) => {
 
-	let table_id= req.body.table_id ;
-	let seat_id = req.body.seat_id;
-	let created_by = req.body.created_by;
+	//let table_id= req.body.table_id ;
+	let seat_id = req.params.seat_id;
+	//let created_by = req.body.created_by;
 
-	var delete_seats_name = `SELECT name FROM seats WHERE id = ${seat_id} AND table_id = ${table_id}`;
+	var delete_seats_name = `SELECT name FROM seats WHERE id = ${seat_id}`;
 	
 	var delete_seats = `UPDATE seats 
 						SET is_active = 1
-						WHERE id = ${seat_id} AND table_id = ${table_id}`;
+						WHERE id = ${seat_id}`;
 
 		let query_seat = db.query(delete_seats, (err, result_seat, fields) => {
 			if (err) {
