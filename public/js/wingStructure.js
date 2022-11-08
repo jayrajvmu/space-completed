@@ -4,6 +4,7 @@ let wingId;
 let tableId;
 let seatId;
 let deleteTable;
+let seatType = ["Empty", "Windows", "Mac"]
 
 
 function generatingWing() {
@@ -55,10 +56,10 @@ function seatEditing(event) {
     viewseatList();
     getSeatList();
 }
-function getSeatList(){
-    axios.get(`http://localhost:5000/wings/${wingId}`).then((response)=>{
+function getSeatList() {
+    axios.get(`http://localhost:5000/wings/${wingId}`).then((response) => {
         console.log(response.data.tables);
-        for(i=0;i<response.data.tables.length;i++){
+        for (i = 0; i < response.data.tables.length; i++) {
             if (response.data.tables[i].id == tableId) {
                 console.log(response.data.tables[i].seats);
                 createSeatingList(response.data.tables[i].seats)
@@ -66,23 +67,23 @@ function getSeatList(){
         }
     })
 }
-function createSeatingList(seatData){
+function createSeatingList(seatData) {
     console.log(seatData.length);
     let seat_lists_body = document.getElementById("seat-lists-body");
-    seat_lists_body.innerHTML="";
-    for(i=0;i<seatData.length;i++){
+    seat_lists_body.innerHTML = "";
+    for (i = 0; i < seatData.length; i++) {
         createSeatList();
         let seat_list_sno = document.getElementsByClassName("seat-list-sno");
-                let seat_name = document.getElementsByClassName("seat-name");
-                let seat_contain = document.getElementsByClassName("seat-contain");
-                let s_edit = document.getElementsByClassName("s-edit");
-                let s_del = document.getElementsByClassName("s-del");
-                
-                seat_list_sno[i].textContent = i + 1;
-                seat_name[i].textContent = `${seatData[i].name}`;
-                seat_contain[i].textContent = `${seatData[i].type}`;
-                s_edit[i].setAttribute("value", `${seatData[i].id}`);
-                s_del[i].setAttribute("value", `${seatData[i].id}`);
+        let seat_name = document.getElementsByClassName("seat-name");
+        let seat_contain = document.getElementsByClassName("seat-contain");
+        let s_edit = document.getElementsByClassName("s-edit");
+        let s_del = document.getElementsByClassName("s-del");
+
+        seat_list_sno[i].textContent = i + 1;
+        seat_name[i].textContent = `${seatData[i].name}`;
+        seat_contain[i].textContent = `${seatType[seatData[i].type]}`;
+        s_edit[i].setAttribute("value", `${seatData[i].id}`);
+        s_del[i].setAttribute("value", `${seatData[i].id}`);
     }
 }
 function openModal(message) {
@@ -170,8 +171,59 @@ function openModal(message) {
         warmMessage.innerHTML = getMessage;
         modalIconButton.style.display = "none";
     }
+    else if (getMessage == "addSeat") {
+        let goOn = document.getElementById("go-on");
+        titleHeader.textContent = "Add Seat";
+        warmMessage.innerHTML = `<input type="number" placeholder="No of Seats" class="table-input-form">`;
+        goOn.setAttribute("onclick", "addingSeat()");
+    }
+    else if (getMessage == "editSeat") {
+        let goOn = document.getElementById("go-on");
+        titleHeader.textContent = "Edit Seat";
+        warmMessage.innerHTML = `<select class="table-input-form">
+        <option value="0">Empty</option>
+        <option value="1">Window</option>
+        <option value="2">Mac</option>
+      </select>`;
+        goOn.setAttribute("onclick", "addingSeatType()");
+    }
     //Enter atleast 4 Character
 
+}
+function addingSeatType(){
+    let newType = document.querySelector(".table-input-form");
+
+    let seat = {
+        "table_id": `${tableId}`,
+        "seat_id":`${seatId}`,
+        "type": `${newType.value}`
+      }
+    console.log(seat);
+    closeModal();
+    axios.put("http://localhost:5000/wings/updateSeat", seat).then((response) => {
+        console.log(response.data);
+    })
+    getSeatList();
+}
+
+function addingSeat() {
+    let newSeat = document.querySelector(".table-input-form");
+
+    let seat = {
+        "table_id": `${tableId}`,
+        "total_no_seats": `${newSeat.value}`,
+        "created_by": 1
+    }
+    console.log(seat);
+    closeModal();
+    axios.post("http://localhost:5000/wings/addseat", seat).then((response) => {
+        console.log(response.data);
+    })
+    getSeatList();
+}
+
+function addingNewSeats() {
+    openModal("addSeat")
 }
 function addingTable() {
     let newTable = document.querySelector(".table-input-form");
@@ -234,10 +286,10 @@ function toUpdateTableName() {
         else {
             openModal("Enter atleast 4 Character");
         }
-        
+
     }
 
-    
+
     else {
         openModal("Table name should not contain spaces");
     }
@@ -612,7 +664,7 @@ function createTableList() {
 
     // </div>
 }
-function createSeatList(){
+function createSeatList() {
     let seat_list_body = document.getElementById("seat-lists-body");
     let a = document.createElement("div");
     seat_list_body.appendChild(a);
@@ -649,14 +701,14 @@ function createSeatList(){
     g.appendChild(k);
 }
 
-function editingSeat(event){
+function editingSeat(event) {
     seatId = event.target.value;
-    console.log(seatId);
+    openModal("editSeat");
 }
-function deletingSeat(event){
+function deletingSeat(event) {
     seatId = event.target.value;
     axios.delete(`http://localhost:5000/wings/deleteSeat/${seatId}`).then(
-        (response) =>{
+        (response) => {
             console.log(response.data.message);
         }
     )
