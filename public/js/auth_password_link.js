@@ -21,6 +21,9 @@ document.getElementById("submit").onclick = function()
  
         document.getElementById("email_error").innerHTML='Enter valid Email id';
         return;
+
+
+         
     }
     
 
