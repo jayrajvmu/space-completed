@@ -56,7 +56,7 @@ function seatEditing(event) {
     getSeatList();
 }
 function getSeatList(){
-    axios.get(`http://localhost:5001/wings/${wingId}`).then((response)=>{
+    axios.get(`http://localhost:5000/wings/${wingId}`).then((response)=>{
         console.log(response.data.tables);
         for(i=0;i<response.data.tables.length;i++){
             if (response.data.tables[i].id == tableId) {
