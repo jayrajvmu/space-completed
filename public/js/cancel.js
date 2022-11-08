@@ -3,16 +3,29 @@ let blogRow = document.querySelector(".booked-seats_row");
 let signInMessage = document.querySelector("#signin-message");
 let noSeatMessage = document.querySelector("#no-seat");
 
-// cancellation modal
 let cancellationModal = document.querySelector("#modal-section");
 let closeBtnCancellation = document.querySelector("#close-btn");
 let overlayCancellation = document.querySelector("#overlay");
 let message = document.querySelector("#message");
 
-const bookedSeatsUrl = "http://localhost:5000/booking/2";
+// cancellation modal
+let employeeId;
+let userId;
 
-const bookedSeats = async () => {
+const userDetail = async () => {
+  await axios.get("http://localhost:5000/profileNames/").then((response) => {
+    console.log(response.data);
+    let data = response.data;
+    employeeId = data.employee_id;
+    userId = data.user_id;
+    bookedSeats(userId, employeeId);
+  });
+};
+
+const bookedSeats = async (userId, empId) => {
   try {
+    console.log(employeeId, userId);
+    const bookedSeatsUrl = `http://localhost:5000/booking/${userId}`;
     const response = await axios(bookedSeatsUrl, {
       headers: {
         Accept: "application/json",
@@ -61,9 +74,9 @@ const bookedSeats = async () => {
   }
 };
 
-bookedSeats();
+userDetail();
 
-function setCancellationModal(cancellationId, cancellationEmpId) {
+const setCancellationModal = (cancellationId, cancellationEmpId) => {
   /* modal title starts */
   let modalTitle = document.querySelector("#modal-title");
   modalTitle.textContent = "Cancel the Seat";
@@ -92,7 +105,7 @@ function setCancellationModal(cancellationId, cancellationEmpId) {
   //close the modal
   closeBtnCancellation.addEventListener("click", closeCancellationModal);
   cancellationFailureBtn.addEventListener("click", closeCancellationModal);
-}
+};
 
 function closeCancellationModal() {
   cancellationModal.classList.remove("show");

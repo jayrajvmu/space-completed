@@ -1,3 +1,6 @@
+let employeeId;
+let userId;
+
 //Id Selection
 let ename = document.getElementById("emp");
 let show = document.getElementById("cont");
@@ -64,6 +67,7 @@ const initialLoad = async () => {
 initialLoad();
 
 let shiftText;
+
 /* list of userName */
 let userDetails;
 const userName = async () => {
@@ -271,7 +275,17 @@ function setAvailableModal(seatItem) {
   });
 }
 
-function postData(desk_id, desk_date, desk_slot) {
+async function postData(desk_id, desk_date, desk_slot) {
+  await axios.get("http://localhost:5000/profileNames/").then((response) => {
+    console.log(response.data);
+    let userData = response.data;
+    let profileName = userData.employee_name;
+    employeeId = userData.employee_id;
+    userId = userData.user_id;
+  });
+
+  console.log(userId);
+  console.log(employeeId);
   //post endpoint
   const postUrl = "http://localhost:5000/booking";
   let emp_id = document.getElementById("emp-id").dataset.empRefId;
@@ -284,7 +298,7 @@ function postData(desk_id, desk_date, desk_slot) {
     emp_id: +`${emp_id}`,
     date: `${desk_date}`,
     shift: +`${desk_slot}`,
-    booked_by: 1,
+    booked_by: +`${userId}`,
     booking_type: +`${bookingType}`,
   };
 
