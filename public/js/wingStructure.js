@@ -1,8 +1,8 @@
-
 let wing_to_delete;
 let edit_wing_name;
 let wingId;
 let tableId;
+let seatId;
 let deleteTable;
 
 
@@ -51,7 +51,39 @@ function closeModal() {
 function seatEditing(event) {
     console.log(event.target.attributes.value.value);
     tableId = event.target.attributes.value.value
-    openModal("seatEdit");
+    // openModal("seatEdit");
+    viewseatList();
+    getSeatList();
+}
+function getSeatList(){
+    axios.get(`http://localhost:5001/wings/${wingId}`).then((response)=>{
+        console.log(response.data.tables);
+        for(i=0;i<response.data.tables.length;i++){
+            if (response.data.tables[i].id == tableId) {
+                console.log(response.data.tables[i].seats);
+                createSeatingList(response.data.tables[i].seats)
+            }
+        }
+    })
+}
+function createSeatingList(seatData){
+    console.log(seatData.length);
+    let seat_lists_body = document.getElementById("seat-lists-body");
+    seat_lists_body.innerHTML="";
+    for(i=0;i<seatData.length;i++){
+        createSeatList();
+        let seat_list_sno = document.getElementsByClassName("seat-list-sno");
+                let seat_name = document.getElementsByClassName("seat-name");
+                let seat_contain = document.getElementsByClassName("seat-contain");
+                let s_edit = document.getElementsByClassName("s-edit");
+                let s_del = document.getElementsByClassName("s-del");
+                
+                seat_list_sno[i].textContent = i + 1;
+                seat_name[i].textContent = `${seatData[i].name}`;
+                seat_contain[i].textContent = `${seatData[i].type}`;
+                s_edit[i].setAttribute("value", `${seatData[i].id}`);
+                s_del[i].setAttribute("value", `${seatData[i].id}`);
+    }
 }
 function openModal(message) {
     let modalContainer = document.querySelector(".modal-container");
@@ -276,12 +308,14 @@ function viewTableEdit(event) {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingEditModule = document.getElementById("wingEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
+    let seatEditModule = document.getElementById("seatEditModule");
     let styling = window.getComputedStyle(tableEditModule, null);
     let displaying = styling.getPropertyValue("display");
     if (displaying === "none") {
         tableEditModule.style.display = "block";
         wingEditModule.style.display = "none";
         wingCreationModule.style.display = "none";
+        seatEditModule.style.display = "none";
     }
     else {
         tableEditModule.style.display = "none";
@@ -324,12 +358,14 @@ function viewwingEditModule() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
     let wingEditModule = document.getElementById("wingEditModule");
+    let seatEditModule = document.getElementById("seatEditModule");
     let styling = window.getComputedStyle(wingEditModule, null);
     let displaying = styling.getPropertyValue("display");
     if (displaying === "none") {
         wingEditModule.style.display = "block";
         wingCreationModule.style.display = "none";
         tableEditModule.style.display = "none";
+        seatEditModule.style.display = "none";
     }
     else {
         wingEditModule.style.display = "none";
@@ -340,12 +376,14 @@ function viewWingCreation() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
     let wingEditModule = document.getElementById("wingEditModule");
+    let seatEditModule = document.getElementById("seatEditModule");
     let styling = window.getComputedStyle(wingCreationModule, null);
     let displaying = styling.getPropertyValue("display");
     if (displaying === "none") {
         wingEditModule.style.display = "none";
         wingCreationModule.style.display = "block";
         tableEditModule.style.display = "none";
+        seatEditModule.style.display = "none";
     }
     else {
         wingCreationModule.style.display = "none";
@@ -355,15 +393,17 @@ function viewseatList() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
     let wingEditModule = document.getElementById("wingEditModule");
+    let seatEditModule = document.getElementById("seatEditModule");
     let styling = window.getComputedStyle(wingCreationModule, null);
     let displaying = styling.getPropertyValue("display");
     if (displaying === "none") {
         wingEditModule.style.display = "none";
-        wingCreationModule.style.display = "block";
+        wingCreationModule.style.display = "none";
         tableEditModule.style.display = "none";
+        seatEditModule.style.display = "block";
     }
     else {
-        wingCreationModule.style.display = "none";
+        seatEditModule.style.display = "none";
     }
 }
 // function getUpdatedWing(){
@@ -607,6 +647,19 @@ function createSeatList(){
     i.appendChild(j);
     let k = document.createTextNode("EDIT");
     g.appendChild(k);
+}
+
+function editingSeat(event){
+    seatId = event.target.value;
+    console.log(seatId);
+}
+function deletingSeat(event){
+    seatId = event.target.value;
+    axios.delete(`http://localhost:5000/wings/deleteSeat/${seatId}`).then(
+        (response) =>{
+            console.log(response.data.message);
+        }
+    )
 }
 
 function deletingTable(event) {

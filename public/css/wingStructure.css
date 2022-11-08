@@ -329,6 +329,10 @@ Wing List
     padding-left: 2vw;
 }
 
+#seatEditModule{
+    display: none;
+}
+
 
 /*Wing Modal*/
 .modal-container{
