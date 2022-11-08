@@ -130,11 +130,12 @@ router.post('/addseat',(req,res) => {
 });
 
 //Delete Seat From Table
-router.delete('/deleteSeat/:id',(req,res) => {
+router.delete('/deleteSeat/:seat_id',(req,res) => {
 
 	//let table_id= req.body.table_id ;
 	let seat_id = req.params.seat_id;
 	//let created_by = req.body.created_by;
+	console.log(seat_id);
 
 	var delete_seats_name = `SELECT name FROM seats WHERE id = ${seat_id}`;
 	
@@ -145,11 +146,13 @@ router.delete('/deleteSeat/:id',(req,res) => {
 		let query_seat = db.query(delete_seats, (err, result_seat, fields) => {
 			if (err) {
 				//throw err;
+				console.log(err);
 				res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 			}
 
 			let delete_seat = db.query(delete_seats_name, (err, result_seat, fields) => {
 				if (err) {
+					console.log(err);
 					res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 				}
 			res.send({"success":true,"message":`${result_seat[0].name} was deleted successfully.`});
