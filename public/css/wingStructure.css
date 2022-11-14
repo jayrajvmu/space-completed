@@ -13,7 +13,6 @@ body{
     height:15vh;
     margin:5vh;
     grid-template-columns: 45% 45%;
-    /* border: 1px solid red; */
     
 }
 #wingContainerM>a{
@@ -445,4 +444,16 @@ Wing List
 }
 .t-del:hover{
     background-color: red;
+}
+#title-edit-header{
+    text-align: center;
+    font-size: 2rem;
+    /* letter-spacing: 5px; */
+    font-weight: bold;
+    text-transform: capitalize;
+    /* border-top: #28293E 3px solid; */
+    /* background-color: #00C6C3;
+    border-radius: 10vw;
+    color: white;
+    margin-bottom: 3px; */
 }

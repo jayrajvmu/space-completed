@@ -7,7 +7,7 @@ const connection = require("../../db/mysql");
 router.post("/", (req, res) => {
   // fetching a data from wings, tables and seats in database use joins to get the data
   let slectSqlfromTable = `SELECT seats.id, wings.name AS wingName, tables.id AS tableID, 
-  tables.name AS tableName, wing_id, seats.name AS seatName, seats.table_id AS tseats
+  tables.name AS tableName, wing_id, seats.name AS seatName, seats.table_id AS tseats, seats.type AS type
   FROM wings
   INNER JOIN tables ON wings.id=tables.wing_id
   INNER JOIN seats ON tables.id=seats.table_id WHERE wing_id='${req.body.wing}' AND tables.is_active=0 AND seats.is_active=0`;
@@ -55,7 +55,7 @@ router.post("/", (req, res) => {
               table_data.push({ TableID: `${element.tableID}` });
               seat_data.push({seatid: `${element.id}`, seatable: `${element.tseats}`, Availablity: `${elementbook.status}`, SeatName: `${element.seatName}`,
                               Date: `${req.body.date}`, ShiftID: `${req.body.shift}`, ShiftName: `${shiftName}`,
-                              EmpId: `${elementbook.EmpId}`, Empname: `${elementbook.EmpEmail}`});
+                              EmpId: `${elementbook.EmpId}`, Empname: `${elementbook.EmpEmail}`, seatType: element.type });
               
               wings.push({id: `${element.id}`, TableName: `${element.tableName}`, TableID: `${element.tableID}`, Availablity: `${elementbook.status}`,
                           SeatName: `${element.seatName}`,Date: `${req.body.date}`, ShiftID: `${req.body.shift}`,
@@ -68,7 +68,7 @@ router.post("/", (req, res) => {
                         Date: `${req.body.date}`, ShiftID: `${req.body.shift}`, ShiftName: `${shiftName}`});
             table_data.push({ TableID: `${element.tableID}` });
             seat_data.push({seatid: `${element.id}`, seatable: `${element.tseats}`, Availablity: 0, SeatName: `${element.seatName}`, Date: `${req.body.date}`,
-              ShiftID: `${req.body.shift}`, ShiftName: `${shiftName}`, EmpId: '', Empname: ''});
+              ShiftID: `${req.body.shift}`, ShiftName: `${shiftName}`, EmpId: '', Empname: '', seatType: element.type});
           }
           checkData = 0;
         }
@@ -85,7 +85,8 @@ router.post("/", (req, res) => {
         for (j = 0; j < seat_data.length; j++) {
           if (tableid[i] == seat_data[j].seatable) {
             seats.push({seatid: seat_data[j].seatid, seatname: seat_data[j].SeatName, availability: seat_data[j].Availablity, date: seat_data[j].Date,
-              shiftID: seat_data[j].shiftID, shiftname: seat_data[j].ShiftName, EmpId: seat_data[j].EmpId, Empname: seat_data[j]. Empname,});
+              shiftID: seat_data[j].shiftID, shiftname: seat_data[j].ShiftName, EmpId: seat_data[j].EmpId, Empname: seat_data[j]. Empname,
+              seatType: seat_data[j].seatType});
           }
         }
         tables.push({ tableid: tableid[i], seats: seats });
