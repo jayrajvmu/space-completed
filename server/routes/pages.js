@@ -161,10 +161,9 @@ router.get("/my-booking", (req, res) => {
 });
 
 router.get("/admin-booking", (req, res) => {
-  // res.sendFile(
-  //   path.join(__dirname, "../../", "views", "admin-seat-availability.ejs")
-  // );
-  res.render("admin-seat-availability.ejs");
+  res.sendFile(
+    path.join(__dirname, "../../", "views", "admin-seat-availability.ejs")
+  );
 });
 
 module.exports = router; //export the module
