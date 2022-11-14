@@ -1,9 +1,10 @@
-
 let wing_to_delete;
 let edit_wing_name;
 let wingId;
 let tableId;
+let seatId;
 let deleteTable;
+let seatType = ["Empty", "Windows", "Mac"]
 
 
 function generatingWing() {
@@ -51,7 +52,39 @@ function closeModal() {
 function seatEditing(event) {
     console.log(event.target.attributes.value.value);
     tableId = event.target.attributes.value.value
-    openModal("seatEdit")
+    // openModal("seatEdit");
+    viewseatList();
+    getSeatList();
+}
+function getSeatList() {
+    axios.get(`http://localhost:5000/wings/${wingId}`).then((response) => {
+        console.log(response.data.tables);
+        for (i = 0; i < response.data.tables.length; i++) {
+            if (response.data.tables[i].id == tableId) {
+                console.log(response.data.tables[i].seats);
+                createSeatingList(response.data.tables[i].seats)
+            }
+        }
+    })
+}
+function createSeatingList(seatData) {
+    console.log(seatData.length);
+    let seat_lists_body = document.getElementById("seat-lists-body");
+    seat_lists_body.innerHTML = "";
+    for (i = 0; i < seatData.length; i++) {
+        createSeatList();
+        let seat_list_sno = document.getElementsByClassName("seat-list-sno");
+        let seat_name = document.getElementsByClassName("seat-name");
+        let seat_contain = document.getElementsByClassName("seat-contain");
+        let s_edit = document.getElementsByClassName("s-edit");
+        let s_del = document.getElementsByClassName("s-del");
+
+        seat_list_sno[i].textContent = i + 1;
+        seat_name[i].textContent = `${seatData[i].name}`;
+        seat_contain[i].textContent = `${seatType[seatData[i].type]}`;
+        s_edit[i].setAttribute("value", `${seatData[i].id}`);
+        s_del[i].setAttribute("value", `${seatData[i].id}`);
+    }
 }
 function openModal(message) {
     let modalContainer = document.querySelector(".modal-container");
@@ -138,8 +171,59 @@ function openModal(message) {
         warmMessage.innerHTML = getMessage;
         modalIconButton.style.display = "none";
     }
+    else if (getMessage == "addSeat") {
+        let goOn = document.getElementById("go-on");
+        titleHeader.textContent = "Add Seat";
+        warmMessage.innerHTML = `<input type="number" placeholder="No of Seats" class="table-input-form">`;
+        goOn.setAttribute("onclick", "addingSeat()");
+    }
+    else if (getMessage == "editSeat") {
+        let goOn = document.getElementById("go-on");
+        titleHeader.textContent = "Edit Seat";
+        warmMessage.innerHTML = `<select class="table-input-form">
+        <option value="0">Empty</option>
+        <option value="1">Window</option>
+        <option value="2">Mac</option>
+      </select>`;
+        goOn.setAttribute("onclick", "addingSeatType()");
+    }
     //Enter atleast 4 Character
 
+}
+function addingSeatType(){
+    let newType = document.querySelector(".table-input-form");
+
+    let seat = {
+        "table_id": `${tableId}`,
+        "seat_id":`${seatId}`,
+        "type": `${newType.value}`
+      }
+    console.log(seat);
+    closeModal();
+    axios.put("http://localhost:5000/wings/updateSeat", seat).then((response) => {
+        console.log(response.data);
+    })
+    getSeatList();
+}
+
+function addingSeat() {
+    let newSeat = document.querySelector(".table-input-form");
+
+    let seat = {
+        "table_id": `${tableId}`,
+        "total_no_seats": `${newSeat.value}`,
+        "created_by": 1
+    }
+    console.log(seat);
+    closeModal();
+    axios.post("http://localhost:5000/wings/addseat", seat).then((response) => {
+        console.log(response.data);
+    })
+    getSeatList();
+}
+
+function addingNewSeats() {
+    openModal("addSeat")
 }
 function addingTable() {
     let newTable = document.querySelector(".table-input-form");
@@ -202,10 +286,10 @@ function toUpdateTableName() {
         else {
             openModal("Enter atleast 4 Character");
         }
-        
+
     }
 
-    
+
     else {
         openModal("Table name should not contain spaces");
     }
@@ -276,12 +360,14 @@ function viewTableEdit(event) {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingEditModule = document.getElementById("wingEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
+    let seatEditModule = document.getElementById("seatEditModule");
     let styling = window.getComputedStyle(tableEditModule, null);
     let displaying = styling.getPropertyValue("display");
     if (displaying === "none") {
         tableEditModule.style.display = "block";
         wingEditModule.style.display = "none";
         wingCreationModule.style.display = "none";
+        seatEditModule.style.display = "none";
     }
     else {
         tableEditModule.style.display = "none";
@@ -324,12 +410,14 @@ function viewwingEditModule() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
     let wingEditModule = document.getElementById("wingEditModule");
+    let seatEditModule = document.getElementById("seatEditModule");
     let styling = window.getComputedStyle(wingEditModule, null);
     let displaying = styling.getPropertyValue("display");
     if (displaying === "none") {
         wingEditModule.style.display = "block";
         wingCreationModule.style.display = "none";
         tableEditModule.style.display = "none";
+        seatEditModule.style.display = "none";
     }
     else {
         wingEditModule.style.display = "none";
@@ -340,15 +428,34 @@ function viewWingCreation() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
     let wingEditModule = document.getElementById("wingEditModule");
+    let seatEditModule = document.getElementById("seatEditModule");
     let styling = window.getComputedStyle(wingCreationModule, null);
     let displaying = styling.getPropertyValue("display");
     if (displaying === "none") {
         wingEditModule.style.display = "none";
         wingCreationModule.style.display = "block";
         tableEditModule.style.display = "none";
+        seatEditModule.style.display = "none";
     }
     else {
         wingCreationModule.style.display = "none";
+    }
+}
+function viewseatList() {
+    let tableEditModule = document.getElementById("tableEditModule");
+    let wingCreationModule = document.getElementById("wingCreationModule");
+    let wingEditModule = document.getElementById("wingEditModule");
+    let seatEditModule = document.getElementById("seatEditModule");
+    let styling = window.getComputedStyle(wingCreationModule, null);
+    let displaying = styling.getPropertyValue("display");
+    if (displaying === "none") {
+        wingEditModule.style.display = "none";
+        wingCreationModule.style.display = "none";
+        tableEditModule.style.display = "none";
+        seatEditModule.style.display = "block";
+    }
+    else {
+        seatEditModule.style.display = "none";
     }
 }
 // function getUpdatedWing(){
@@ -544,7 +651,7 @@ function createTableList() {
     a.appendChild(l);
     l.setAttribute("class", "seat-edit");
     l.setAttribute("onclick", "seatEditing(event)")
-    let m = document.createTextNode("+");
+    let m = document.createTextNode("<>");
     l.appendChild(m)
     //     <div class="table-list-names">
     //     <div class="table-list-sno">1</div>
@@ -557,6 +664,57 @@ function createTableList() {
 
     // </div>
 }
+function createSeatList() {
+    let seat_list_body = document.getElementById("seat-lists-body");
+    let a = document.createElement("div");
+    seat_list_body.appendChild(a);
+    a.setAttribute("class", "seat-list-names");
+    let b = document.createElement("div");
+    a.appendChild(b);
+    b.setAttribute("class", "seat-list-sno");
+    let c = document.createElement("div");
+    a.appendChild(c);
+    c.setAttribute("class", "seat-name");
+    let d = document.createElement("div");
+    a.appendChild(d);
+    d.setAttribute("class", "seat-contain");
+    let e = document.createElement("div");
+    a.appendChild(e);
+    e.setAttribute("class", "seat-list-edits");
+    let f = document.createElement("div");
+    e.appendChild(f);
+    f.setAttribute("class", "edit-icon")
+    let g = document.createElement("button");
+    f.appendChild(g);
+    g.setAttribute("class", "s-edit");
+    g.setAttribute("onclick", "editingSeat(event)");
+    let h = document.createElement("div");
+    e.appendChild(h);
+    h.setAttribute("class", "edit-icon");
+    let i = document.createElement("button");
+    h.appendChild(i);
+    i.setAttribute("class", "s-del");
+    i.setAttribute("onclick", "deletingSeat(event)");
+    let j = document.createTextNode("DEL");
+    i.appendChild(j);
+    let k = document.createTextNode("EDIT");
+    g.appendChild(k);
+}
+
+function editingSeat(event) {
+    seatId = event.target.value;
+    openModal("editSeat");
+}
+function deletingSeat(event) {
+    seatId = event.target.value;
+    axios.delete(`http://localhost:5000/wings/deleteSeat/${seatId}`).then(
+        (response) => {
+            console.log(response.data.message);
+            getSeatList();
+        }
+    )
+}
+
 function deletingTable(event) {
     console.log(event.target.value);
     deleteTable = event.target.value;
@@ -640,3 +798,4 @@ function rearrangeTableList() {
 
     })
 }
+

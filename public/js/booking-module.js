@@ -1,41 +1,77 @@
-var date = new Date();
-var currentDate = date.toISOString().slice(0, 10);
-document.getElementById("date").value;
+let employeeId;
+let userId;
+
+//Id Selection
 let ename = document.getElementById("emp");
 let show = document.getElementById("cont");
 let cdate = document.getElementById("date");
 let cwing = document.getElementById("wing");
 let cshift = document.getElementById("shift");
 let cButton = document.getElementById("check");
-let nd;
+
+//inserting current date
+let date = new Date();
+let currentDate = date.toISOString().slice(0, 10);
+cdate.value = currentDate;
+
+//Global Variable Declaration
 let nid;
 let nsd;
-let shiftText;
+let nd = cdate.value;
 
 //Changing DropDown Dynamically
-function dropDown() {
-  axios.get("http://localhost:5000/wings").then((res) => {
-    let response = res.data.wing_name;
-    let length;
-    response.map((drop) => {
-      cwing.innerHTML += `<option value=${drop.id}>${drop.name}</option>`;
+const initialLoad = async () => {
+  await axios
+    .get("http://localhost:5000/wings")
+    .then((res) => {
+      if (res.status === 200) {
+        let response = res.data.wing_name;
+        let length;
+        response.map((drop) => {
+          cwing.innerHTML += `<option value=${drop.id}>${drop.name}</option>`;
+        });
+        let wingDefaultOption = cwing.querySelector("option:nth-child(2)");
+        wingDefaultOption.setAttribute("selected", "selected");
+        nid = cwing.value;
+      } else {
+        throw Error;
+      }
+    })
+    .catch((error) => {
+      return error;
     });
-  });
-}
 
-function dropShift() {
-  axios.get("http://localhost:5000/availability/shifts").then((res) => {
-    let response = res.data.shifts;
-    response.map((shift) => {
-      cshift.innerHTML += `<option value=${shift.id} data-shift-name="${shift.shiftname}">${shift.shiftname}</option>`;
+  await axios
+    .get("http://localhost:5000/availability/shifts")
+    .then((res) => {
+      if (res.status === 200) {
+        let response = res.data.shifts;
+        response.map((shift) => {
+          cshift.innerHTML += `<option value=${shift.id} data-shift-name="${shift.shiftname}">${shift.shiftname}</option>`;
+        });
+        let shfitDefaultOption = cshift.querySelector("option:nth-child(2)");
+        shfitDefaultOption.setAttribute("selected", "selected");
+        nsd = cshift.value;
+      } else {
+        throw Error;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
     });
-  });
-}
+
+  //console.log(dateValue, wingValue, shiftValue);
+  display(nd, nid, nsd);
+};
+
+initialLoad();
+
+let shiftText;
 
 /* list of userName */
 let userDetails;
-function userName() {
-  axios
+const userName = async () => {
+  await axios
     .get(`http://localhost:5000/booking/user/name`)
     .then((response) => {
       let userLists = response.data.data;
@@ -44,11 +80,9 @@ function userName() {
     .catch((error) => {
       return error;
     });
-}
+};
 
 //Function Calling
-dropDown();
-dropShift();
 userName();
 
 cdate.addEventListener("change", (event) => {
@@ -198,6 +232,13 @@ function setAvailableModal(seatItem) {
   </div>
 </div>`;
 
+  // defalut date value for popup form
+  let popupDate = document.querySelector("#popupDate");
+  popupDate.value = cdate.value;
+
+  let popupShift = document.querySelector("#time");
+  popupShift.value = cshift.options[cshift.selectedIndex].dataset.shiftName;
+
   /* inserting emp id using api */
   let employeeIds = document.querySelector("#empIds");
   userDetails.map((user) => {
@@ -234,7 +275,17 @@ function setAvailableModal(seatItem) {
   });
 }
 
-function postData(desk_id, desk_date, desk_slot) {
+async function postData(desk_id, desk_date, desk_slot) {
+  await axios.get("http://localhost:5000/profileNames/").then((response) => {
+    console.log(response.data);
+    let userData = response.data;
+    let profileName = userData.employee_name;
+    employeeId = userData.employee_id;
+    userId = userData.user_id;
+  });
+
+  console.log(userId);
+  console.log(employeeId);
   //post endpoint
   const postUrl = "http://localhost:5000/booking";
   let emp_id = document.getElementById("emp-id").dataset.empRefId;
@@ -247,7 +298,7 @@ function postData(desk_id, desk_date, desk_slot) {
     emp_id: +`${emp_id}`,
     date: `${desk_date}`,
     shift: +`${desk_slot}`,
-    booked_by: 1,
+    booked_by: +`${userId}`,
     booking_type: +`${bookingType}`,
   };
 

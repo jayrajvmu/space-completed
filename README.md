@@ -8,6 +8,14 @@ Agenda of this project is to avoid seats availability issues in office for all e
 
 - [Modules](#heading)
   - [Authentication](#Authentication)
+    - [Login Page -FE](#login-page)
+    - [Login page-BE](#login-api)
+    - [Registration Page-FE](#registration-page)
+    - [Registration API-BE](#registration-api)
+    - [Forgot Password link sending Page-FE](#forgot-password-link-sending-page)
+    - [Forgot Password link sending  API-BE](#forgot-password-link-sending-api)
+    - [Reset password page-FE](#reset-password-page)
+    - [Reset password API-BE](#reset-password-api)
   - [Wings](#Wings)
     - [Wings](#wings-creation-page)
       - [Wing Create](#wings-creation-page)
@@ -44,23 +52,241 @@ The applications is split into the following modules.
 
 This module deals with User/Admin Authentication process to access the web application further with user Active Directory Details
 
-### Login Page
+### Login Page 
 
 In this Page Existing User can able to login using there Credentials like Username and Password
 Page Form Consist of following fields and constrains.
 
-1. Username - Varchar
-2. Password - Varchar
+1. User Id or User Email-id- Varchar field
+2. Password - Varchar field
 
-### Forgot Password Page
-
-### Registration Page
 
 ### Login API
 
-### Forgot Password API
+While Form submission Hit the Below API 
+
+Request hit (http://localhost:5000/auth/login)
+
+Method - POST(axios)
+
+
+
+Request Body Content in JSON Format
+ {
+   "email_id": "sekar.saravanan@hogarth.com",
+  "password": "password",
+"valid_user":"true or false"
+}
+
+ Response Output JSON Format
+
+valid users
+{
+  "success": true,
+  "message": "valid user",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY3ODAxMDE2LCJleHAiOjE2NzU1NzcwMTZ9.RaN943bfHEKCOg5X0xOpy_k2uyyOT4M6CSGaBiiGu-o",
+  "cookies": {
+    "expires": "2023-02-05T06:03:36.558Z",
+    "httpOnly": true,
+    "loginuser_id": 1
+  }
+}
+
+
+
+
+Invalid users
+
+ {
+  "success": "ture" // "false",
+  "message": null,
+  "status": "password not matched"//"invalid_Email-id"
+}
+
+### Registration Page
+
+A registration form is a list of fields that a user will input data into and submit to a company or individual. Company use registration forms to sign up Users for hogarth seat booking credientials or services, or other programs or plans.
+
+user input fiels 
+
+1. Employee_name
+2. Employee Id
+3. Employee Email-id
+4. Password 
+5. Confirm Password
+
 
 ### Registration API
+
+While Form submission Hit the Below API 
+
+Request hit (http://localhost:5000/auth/register)
+
+Method - POST(axios)
+
+Request Body Content in JSON Format
+ {
+      "employee_name":"bhargav",
+   "employee_id":"1233" ,
+   "email_id": "bhargav@hogarth.com",
+   "password": "bhargav@hogarth.com",
+   "confirm_password": "bhargav@hogarth.com",
+   "create_status":"true or false",
+   "status":""
+}
+
+ Response Output JSON Format
+
+valid users
+
+{
+  "success": true,
+  "message": "Registration success",
+  "status": 1,
+  "create_status": true
+}
+
+Invalid Users
+    
+   Email id already exits
+{
+  "success": false,
+  "message": "Email id already exits",
+  "status": 0,
+  "create_status": false
+}
+
+ Password missmatched
+{
+  "success": false,
+  "message": "password missmatched",
+  "status": 0,
+  "create_status": false
+}
+
+
+### Forgot Password link sending Page
+Most websites that require a user to log in provide a link titled forgot password or another similar phrase feature. This link allows users who have forgotten their password to unlock, retrieve, or reset it, usually by answering account security questions or sending them an E-mail.
+
+User input fiels 
+1. Employee E-mail address
+
+### Forgot Password link sending  API
+
+While Form submission Hit the Below API 
+
+Request hit (http://localhost:5000/reset-password_link)
+
+Method - POST(axios)
+
+Request Body Content in JSON Format
+ {
+"email_id": "sekar.saravanan@gmail.com"
+}
+
+
+
+ Response Output JSON Format
+
+
+ 
+  In jWT(Json web token) it decypet  the token and user id and link expire code in a single api hit.
+
+decrypttt {
+  email: 'sekar.saravanan@hogarth.com',
+  user: 1,
+  iat: 1667812025,
+  exp: 1667812625
+}
+
+
+valid users
+
+{
+  "success": true,
+  "error": null,
+  "status": 1,
+  "message": "Reset link  Sent to user_mailID",
+  "mail-from": "code.ghoster@gmail.com",
+  "mail-to": "sekar.saravanan@hogarth.com"
+}
+
+Invalid Users
+{
+  "success": false,
+  "error": null,
+  "status": 0,
+  "message": "Email not Registered"
+}
+
+
+### Reset password page
+The Password Reset Page provides your applications' users with a way to change their passwords if they cannot log in.
+
+
+User input field
+
+1. password
+2. Confirm Password
+
+### Reset password API
+
+
+
+While Form submission Hit the Below API 
+
+Request hit (`http://localhost:5000/reset-password/${user_id}/${token}`)
+
+Method - PUT(axios)
+
+Request Body Content in JSON Format
+<!-- encrypted request -->
+
+{
+      "password": "password123" ,
+     "confirm_password":"passwor23",
+      "userid": "1",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNla2FyLnNhcmF2YW5hbkBob2dhcnRoLmNvbSIsInVzZXIiOjEsImlhdCI6MTY2NzgxMDQ0NiwiZXhwIjoxNjY3ODExMDQ2fQ.4hapEoHp192vWMg5fFL4d6wj9XGxEQDXv6G-gudlm9g"
+}
+  
+
+Responce Json
+
+    valid user and success responece
+
+{
+ 'success': true,
+ 'error':err,
+ 'status': 1,
+ 'message':'password updated'
+ }
+
+
+    Invalid User 
+
+{
+  "success": false,
+  "error": null,
+  "status": 0,
+  "message": "Email not Registered"
+}
+
+    Password missmatch
+
+
+{
+     'success': false,
+ 'error':err,
+ 'status': 0,
+ 'message':
+ 'password missmatch'
+ }
+
+
+
+
+
+ 
 
 ## Wings
 
@@ -611,72 +837,56 @@ Request hit (http://localhost:5000/checkin/:id)
 #### Failed Response
 
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     "success": false,
     "message": "Timing Problem",
     }
 
 Method - GET
 
-#### Sucess Response ####
+#### Sucess Response
+
     {
     "success": true,
     "message": "User Cancelled successfully",
     "data":[]
     }
 
-#### Failed Response ####
+#### Failed Response
+
     {
     "success": false,
     "message": "Error Connection",
     }
 
-### Check-in API ###
-Request hit (http://localhost:5000/checkin/:id) 
+### Check-in API
+
+Request hit (http://localhost:5000/checkin/:id)
 
 ID- Booking ID
 Method - PUT
 
-#### Request ####
+#### Request
+
     {
     "emp_id": 1,
     }
-#### Sucess Response ####
+
+#### Sucess Response
+
     {
     "success": true,
     "message": "Chek-in successfully",
     }
 
-#### Failed Response ####
+#### Failed Response
+
     {
     "success": false,
     "message": "Timing Problem",
-    }    
-
-## Seat Availability ##
- This module deal with see all seat available and based on each booking an seats.
-
-### Seat Availabilities Page ###
- In this page users can see, how many seats are available and used to booking a seats.
- Users can see the all available seats belong to wings, date and shift.
-  1. Select a valuable wing
-  2. Select a booking date
-  3. Select a valuable shift
-### Seat Availability API ###
-Get all wings name 
-    {http://localhost:5000/availability/wings}
-    Method : GET
-### Response output ###  
-#### Sucess output JSON ####
-``` 
-=======
-        "success": false,
-        "message": "Unable to check-in this seat. Please try again later",
     }
 
-
-    ## Seat Availability ##
+## Seat Availability
 
 This module deal with see all seat available and based on each booking an seats.
 
@@ -700,33 +910,20 @@ Method : GET
 #### Sucess output JSON
 
 ```
->>>>>>> 479f1a061c1ae12d402ba4daff1ac898b2312d59
 {
   "success": true,
   "message": "Successfully get seats availability data"
 }
 ```
-<<<<<<< HEAD
-#### Failed output JSON ####
-=======
 
 #### Failed output JSON
 
->>>>>>> 479f1a061c1ae12d402ba4daff1ac898b2312d59
 ```
 {
   "success": false,
   "message": "No data available"
 }
 ```
-<<<<<<< HEAD
-Get all wings name 
-    {http://localhost:5000/availability/shifts}
-    Method : GET
-### Response output ###  
-#### Sucess output JSON ####
-``` 
-=======
 
 Get all wings name
 {http://localhost:5000/availability/shifts}
@@ -737,19 +934,14 @@ Method : GET
 #### Sucess output JSON
 
 ```
->>>>>>> 479f1a061c1ae12d402ba4daff1ac898b2312d59
 {
   "success": true,
   "message": "Successfully get seats availability data"
 }
 ```
-<<<<<<< HEAD
-#### Failed output JSON ####
-=======
 
 #### Failed output JSON
 
->>>>>>> 479f1a061c1ae12d402ba4daff1ac898b2312d59
 ```
 {
   "success": false,
@@ -758,21 +950,6 @@ Method : GET
 ```
 
 Request on seats availability based on wing, date and shift.
-<<<<<<< HEAD
-   {http://localhost:5000/availability/} 
-   Method : POST
-   Resquest body content 
-   ```
-   {
-    "wing": 1,
-    "date": "2022-10-30",
-    "shift": "APAC"
-   }
-   ```
-### Response output ###     
-#### Sucess output JSON ####
-``` 
-=======
 {http://localhost:5000/availability/}
 Method : POST
 Resquest body content
@@ -790,19 +967,14 @@ Resquest body content
 #### Sucess output JSON
 
 ```
->>>>>>> 479f1a061c1ae12d402ba4daff1ac898b2312d59
 {
   "success": true,
   "message": "Successfully get seats availability data"
 }
 ```
-<<<<<<< HEAD
-#### Failed output JSON ####
-=======
 
 #### Failed output JSON
 
->>>>>>> 479f1a061c1ae12d402ba4daff1ac898b2312d59
 ```
 {
   "success": false,

@@ -14,3 +14,12 @@ const sidebar = document.querySelector("[data-sidebar]");
 menuIconButton.addEventListener("click", () => {
   sidebar.classList.toggle("open");
 });
+
+axios.get("http://localhost:5000/profileNames/").then((response)=>{
+    console.log(response.data)
+    let data = response.data;
+    let profileName = document.querySelector(".your-profile");
+    let empId = document.querySelector(".profile-name");
+    profileName.textContent=data.employee_name;
+    empId.textContent=data.employee_id;
+})

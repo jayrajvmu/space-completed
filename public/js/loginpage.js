@@ -5,7 +5,7 @@
 
 // console.log(email,password)
 
-$('.alert').addClass("hide")
+// $('.alert').addClass("hide")
 let output={}
     if(window.location.search){
       let queryParams = new URLSearchParams(window.location.search);
@@ -14,7 +14,7 @@ let output={}
    
        if(isredirect){
 
-        $('.alert').removeClass("hide")
+        // $('.alert').removeClass("hide")
     
         $('.alert').addClass("show")
         $('.alert').addClass("showAlert")
@@ -22,14 +22,21 @@ let output={}
    
      $('.alert').addClass("hide")
      $('.alert').removeClass("show")
+    //  $('.alert').removeClass("showAlert")
    
    
-   },5000);
+   },5000
+   
+   );
   
+
+  //  $('.alert').removeClass("hide")
+  //  $('.alert').removeClass("showAlert")
+
        }
      
 
-
+      
      
     }
 
@@ -41,22 +48,32 @@ document.getElementById("submit").onclick = function()
     var email = document.getElementById("email").value;
     var pwd = document.getElementById("password").value;
     var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(email=='' && pwd=='')
+    {
+        document.getElementById("email_error").innerHTML='Enter Email Id or Employee Id';
+        document.getElementById("pass_error").innerHTML='Enter the Password';
+        document.getElementById("backend_error").innerHTML='';
+        return;
+    }
+
     if(email=='')
     {
-        document.getElementById("email_error").innerHTML='Please enter email id';
+        document.getElementById("email_error").innerHTML='Enter Email Id or Employee Id';
+        document.getElementById("backend_error").innerHTML='';
         return;
     }
-    else if(!filter.test(email))
-    {
+    // else if(!filter.test(email))
+    // {
  
-        document.getElementById("email_error").innerHTML='Enter valid email id';
-        return;
-    }
+    //     document.getElementById("email_error").innerHTML='Enter valid email id';
+    //     return;
+    // }
     else if(pwd=='')
     {
         document.getElementById("email_error").remove()
         
-        document.getElementById("pass_error").innerHTML='Enter the password';
+        document.getElementById("pass_error").innerHTML='Enter the Password';
+        document.getElementById("backend_error").innerHTML='';
         return;
     }
  
@@ -101,6 +118,7 @@ axios.post(postUrl, input)
     console.log(response);
     if(response.data.success == true)
     {
+      console.log('asd')
         window.location.href = "/home";
     }
     if(response.data.success == false && response.data.status == 'invalid_Email-id')
@@ -112,22 +130,23 @@ axios.post(postUrl, input)
 
         document.getElementById("email_error").innerHTML=''
         
-        document.getElementById("pass_error").innerHTML='';
+        document.getElementById("pass_error").innerHTML = "";
     }
     if(response.data.success == false && response.data.status == 'password not matched')
     {
         
-        document.getElementById("backend_error").innerHTML='Password not matched';
+        document.getElementById("backend_error").innerHTML='Password Not Matched';
         document.getElementById("email").value="";
         document.getElementById("password").value="";
 
         document.getElementById("email_error").innerHTML=''
         
-        document.getElementById("pass_error").innerHTML='';
+        document.getElementById("pass_error").innerHTML=''
+      //  let passworderr= document.getElementById("pass_error")
+
+      //  passworderr.innerHTML=''
     }
   
-
-    
   })
   .catch(error => {
     console.log(error);

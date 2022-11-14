@@ -230,7 +230,7 @@ Wing List
 }
 .wing-name-list-edit{
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto;
 }
 .wing-edit{
     display: grid;
@@ -256,6 +256,10 @@ Wing List
     color: white;
     border-radius:20px ;
     cursor: pointer;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
 }
 .seat-edit{
     background-color: #00C6C3;
@@ -263,44 +267,53 @@ Wing List
     color: white;
     border-radius:20px ;
     cursor: pointer;
-    text-align: center;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
 }
 
 /*Table List*/
-#table-list{
+#table-list,#seat-list{
     display: grid;
 }
-#table-list-head{
+#table-list-head,#seat-list-head{
     display: grid;
-    grid-template-columns: 10% 30% 20% 20% 10%;
+    grid-template-columns: 10% 30% 24% 20% 10%;
     font-size: 1.2rem;
     border-bottom: 2px solid #28293E;
     padding-top :11px ;
     padding-bottom :11px ;
     text-align: left;
 }
-#table-list-edit{
+#table-list-edit,#seat-list-edit{
     display: grid;
     grid-template-columns: auto auto;
 }
 
-.table-list-names{
+.table-list-names,.seat-list-names{
     display: grid;
     grid-template-columns: 10% 30% 20% 20% 10%;
     border-bottom:.1px solid #28293E;
     padding-top: 10px;
     padding-bottom: 7px;
 }
-.table-list-edits{
+.table-list-edits,.seat-list-edits{
     display: grid;
     grid-template-columns: auto auto;
 }
+#table-list-sno,#seat-list-sno{
+    text-align: center;
+}
+.table-list-sno,.seat-list-sno{
+    text-align: center;
+}
 
-#add-table{
+#add-table,#add-seat{
     display: grid;
     cursor: pointer;
 }
-.add-table-icon{
+.add-table-icon,.add-seat-icon{
     font-size: 50px;
     position: fixed;
     right: 30px;
@@ -315,6 +328,11 @@ Wing List
 .table-seats{
     padding-left: 2vw;
 }
+
+#seatEditModule{
+    display: none;
+}
+
 
 /*Wing Modal*/
 .modal-container{

@@ -20,10 +20,13 @@
         min-height: 100vh;
         font-family: 'Jost', sans-serif;
     
-        background-image: url("https://img.freepik.com/free-photo/flat-lay-office-desk-assortment-with-empty-screen-tablet_23-2148707960.jpg?w=2000") ;
+        /* background-image: url("https://img.freepik.com/free-photo/flat-lay-office-desk-assortment-with-empty-screen-tablet_23-2148707960.jpg?w=2000") ; */
+        background-image: url("https://media.bizj.us/view/img/12218001/web150dpi-20190308-wework-330-north-wabash-common-areas-wide-3*1200xx2996-1685-0-158.jpg");
+        
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
+        overflow-x: hidden;
     }
     
     .container{
@@ -37,10 +40,10 @@
     
     .card{
         display: table-caption;
-    padding: 29px 14px 60px 15px;
-    background: rgb(0 0 0);
+    padding: 29px 14px 6px 15px;
+    background:  rgb(50,50,50);
     border-radius: 10px;
-    height: 383px;
+    height: 383px
     
     
     }
@@ -120,6 +123,7 @@
     }
     h2{
             color: white;
+            text-align: center;
     }
 
 
@@ -206,8 +210,6 @@ cursor: pointer;
 
 @keyframes show_slide{
 
-  
-
     0%{
 
 transform: translateX(100%);
@@ -238,9 +240,6 @@ animation: hide _slide 1s ease forwards;
 
 
 @keyframes hide_slide{
-
-  
-
 0%{
 
 transform: translateX(10px);
@@ -253,18 +252,13 @@ transform: translateX(0%);
 
 80%{
 
-transform: translateX(-10%);
+transform: translateX(0%);
 }
 
 100%{
 
 transform: translateX(100%);
 }
-
-
-
-
-
 }
 
 
@@ -308,7 +302,7 @@ transform: translateX(100%);
 
     <div id="forminput">
 
-<input type="email" name="email" id="email" placeholder="Email ID" class="control"><br>
+<input type="text" name="email" id="email" placeholder="Email ID" class="control"><br>
 
 <span id="email_error" class="error"></span>
 <input type="password" name="password" id="password" placeholder="Password" class="control"><br>

@@ -15,11 +15,9 @@ router.put('/:id', (req, res) => {
 let now=new Date();
 let userDate=new Date(resultbook[0].date);
 
-console.log(userDate.toLocaleDateString());
-console.log(now.toLocaleDateString());
 
 
-if(userDate.toLocaleDateString()==now.toLocaleDateString()){
+if((userDate.getFullYear()==now.getFullYear())&&(userDate.getMonth()==now.getMonth())&&(userDate.getDate()==now.getDate())){
 
         let slectSqlfromShift = `SELECT * FROM shift WHERE id='${resultbook[0].shift_id}';`;
         db.query(slectSqlfromShift, (err, result) => {
@@ -30,16 +28,16 @@ if(userDate.toLocaleDateString()==now.toLocaleDateString()){
 
 
             if(shift_start_time[0]<=now.getHours()){
-                console.log('hi');
+              
                 let shiftStartTime = new Date(`${resultbook[0].date}`);
                 shiftStartTime.setHours(`${shift_start_time[0]}`);
                 shiftStartTime.setMinutes(0);
 
-                let GraceTime = new Date(`${resultbook[0].date}`);
-                GraceTime.setHours(`${shift_start_time[0]}`);
-                GraceTime.setMinutes(30);
-
-                if(GraceTime>now){
+                let graceTime = new Date(`${resultbook[0].date}`);
+                graceTime.setHours(`${shift_start_time[0]}`);
+                let graceTimeMinute= +shift_start_time[1]+30;
+                graceTime.setMinutes(graceTimeMinute);
+                if(graceTime>now){
    let updateSqlfromBooking = `UPDATE booking SET status = '2' WHERE id = '${req.params.id}' AND emp_id='${req.body.emp_id}' AND status='1'`;
         db.query(updateSqlfromBooking, (errupdate, resultupdate) => {
             if (errupdate) {
@@ -57,7 +55,6 @@ if(userDate.toLocaleDateString()==now.toLocaleDateString()){
                     res.send({'success':false, 'message':'Unable to check-in this seat. Please try again later'})
 
                 }
-
 
                 // res.send({'actual shift start':shiftStartTime.toLocaleString(), 'Grace':GraceTime.toLocaleString(), 'data':(GraceTime>now)})
 

@@ -13,6 +13,10 @@ router.get(`^/login(.html)?`, (req, res) => {
   res.sendFile(path.join(__dirname, "../../", "views", "heropage.html"));
 });
 
+router.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../", "views", "heropage.html"));
+});
+
 //route for render the register page
 router.get("/register", (req, res) => {
   // hbs engine
@@ -125,6 +129,20 @@ router.put(
     // res.redirect('/login')
   }
 );
+
+
+
+router.get("/profileNames",userController.profile, (req, res) => {
+  console.log("routeded",req);
+
+
+  // res.render('info_about_resetpass')
+  // res.sendFile(path.join(__dirname,"../../","views","info_about_resetpass.html"));
+});
+
+
+
+
 
 router.get("/seat", (req, res) => {
   res.sendFile(path.join(__dirname, "../../", "views", "seat.html"));

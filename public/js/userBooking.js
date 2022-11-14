@@ -118,3 +118,5 @@ let seat = document.getElementsByClassName("seat");
         let tables = document.getElementsByClassName("tableName");
         tables[i].textContent+=createTable.tables[i].name;
        }
+
+       
