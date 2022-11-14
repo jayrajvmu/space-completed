@@ -2,7 +2,7 @@
 
 This Project Deals with the web applications for employee and admin can book and pre-book seat for the day/shift job timing basics work in office.
 
-Agenda of this project is to avoid seats availability issues in office for all employee's
+Agenda of this project is to avoid seats availability issues in office for all employee's.
 
 ## Table of Content
 
