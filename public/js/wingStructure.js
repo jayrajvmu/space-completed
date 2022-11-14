@@ -58,10 +58,11 @@ function seatEditing(event) {
 }
 function getSeatList() {
     axios.get(`http://localhost:5000/wings/${wingId}`).then((response) => {
-        console.log(response.data.tables);
+        console.log(response.data.tables);        
         for (i = 0; i < response.data.tables.length; i++) {
             if (response.data.tables[i].id == tableId) {
-                console.log(response.data.tables[i].seats);
+                let title_edit_header = document.getElementById("title-edit-header");
+                title_edit_header.textContent=response.data.tables[i].name;
                 createSeatingList(response.data.tables[i].seats)
             }
         }
@@ -378,6 +379,9 @@ function viewTableEdit(event) {
     wingId = event.target.attributes.value.value;
     console.log(wingId);
     axios.get(`http://localhost:5000/wings/${tableEvent}`).then((response) => {
+        let title_edit_header = document.getElementById("title-edit-header");
+        title_edit_header.textContent=response.data.name;
+        
         let tableList = response.data.tables;
         let table_lists_body = document.getElementById("table-lists-body");
         table_lists_body.innerHTML = "";
