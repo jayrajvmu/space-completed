@@ -181,3 +181,27 @@
 .form-radio-btn input {
   margin-right: 2px;
 }
+
+.booking-days {
+  display: flex;
+  gap: 1em;
+  margin-top: 5px;
+  height: 0;
+  opacity: 0;
+}
+.booking-days span {
+  background: #00c6c3;
+  font-size: 0.7rem;
+  border-radius: 5px;
+  padding: 2px 5px;
+  color: white;
+}
+.seatbooking-form label,
+.seatbooking-form input {
+  cursor: pointer;
+}
+.booking-days.active {
+  height: auto;
+  opacity: 1;
+  margin-bottom: 10px;
+}
