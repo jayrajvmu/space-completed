@@ -415,6 +415,7 @@ function viewwingEditModule() {
     let wingCreationModule = document.getElementById("wingCreationModule");
     let wingEditModule = document.getElementById("wingEditModule");
     let seatEditModule = document.getElementById("seatEditModule");
+    let title_edit_header=document.getElementById("title-edit-header");
     let styling = window.getComputedStyle(wingEditModule, null);
     let displaying = styling.getPropertyValue("display");
     if (displaying === "none") {
@@ -422,6 +423,7 @@ function viewwingEditModule() {
         wingCreationModule.style.display = "none";
         tableEditModule.style.display = "none";
         seatEditModule.style.display = "none";
+        title_edit_header.textContent= "";
     }
     else {
         wingEditModule.style.display = "none";
