@@ -4,6 +4,8 @@ let wingId;
 let tableId;
 let seatId;
 let deleteTable;
+let tableName;
+let wingName;
 let seatType = ["Empty", "Windows", "Mac"]
 
 
@@ -63,6 +65,7 @@ function getSeatList() {
             if (response.data.tables[i].id == tableId) {
                 let title_edit_header = document.getElementById("title-edit-header");
                 title_edit_header.textContent=response.data.tables[i].name;
+                tableName=response.data.tables[i].name;
                 createSeatingList(response.data.tables[i].seats)
             }
         }
@@ -362,6 +365,7 @@ function viewTableEdit(event) {
     let wingEditModule = document.getElementById("wingEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
     let seatEditModule = document.getElementById("seatEditModule");
+    let backIcon = document.getElementById("backIcon");
     let styling = window.getComputedStyle(tableEditModule, null);
     let displaying = styling.getPropertyValue("display");
     if (displaying === "none") {
@@ -375,12 +379,14 @@ function viewTableEdit(event) {
 
     }
     // console.dir(event.target.attributes.value.value);
+    backIcon.style.display="flex";
     let tableEvent = event.target.attributes.value.value;
     wingId = event.target.attributes.value.value;
     console.log(wingId);
     axios.get(`http://localhost:5000/wings/${tableEvent}`).then((response) => {
         let title_edit_header = document.getElementById("title-edit-header");
         title_edit_header.textContent=response.data.name;
+        wingName=response.data.name;
         
         let tableList = response.data.tables;
         let table_lists_body = document.getElementById("table-lists-body");
@@ -414,8 +420,8 @@ function viewwingEditModule() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
     let wingEditModule = document.getElementById("wingEditModule");
+    let backIcon = document.getElementById("backIcon");
     let seatEditModule = document.getElementById("seatEditModule");
-    let title_edit_header=document.getElementById("title-edit-header");
     let styling = window.getComputedStyle(wingEditModule, null);
     let displaying = styling.getPropertyValue("display");
     if (displaying === "none") {
@@ -423,7 +429,7 @@ function viewwingEditModule() {
         wingCreationModule.style.display = "none";
         tableEditModule.style.display = "none";
         seatEditModule.style.display = "none";
-        title_edit_header.textContent= "";
+        backIcon.style.display="none";
     }
     else {
         wingEditModule.style.display = "none";
@@ -805,3 +811,22 @@ function rearrangeTableList() {
     })
 }
 
+function goBackward(value){
+    let backward = document.querySelector("#backIcon>i");
+    let title_edit_header = document.getElementById("title-edit-header");
+    if(value == "seatList"){
+        backward.onclick="goBackTable()";
+        title_edit_header=tableName;
+    }
+    if(value == "tableList"){
+        backward.onclick="goBackWing()";
+        title_edit_header=wingName;
+    }
+
+}
+function goBackTable(){
+    
+}
+function goBackWing(){
+
+}

@@ -446,14 +446,22 @@ Wing List
     background-color: red;
 }
 #title-edit-header{
-    text-align: center;
     font-size: 2rem;
-    /* letter-spacing: 5px; */
     font-weight: bold;
     text-transform: capitalize;
-    /* border-top: #28293E 3px solid; */
-    /* background-color: #00C6C3;
-    border-radius: 10vw;
-    color: white;
-    margin-bottom: 3px; */
+    padding-left: 2vw;
+    width: 100%;
+    text-align: center;
+}
+#backIcon{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 3vw;
+    display: none;
+}
+#backIcon>i{
+    font-size: 2rem;
+    color: #00C6C3;
+    align-self: center;
+
 }
