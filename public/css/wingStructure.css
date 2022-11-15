@@ -329,8 +329,28 @@ Wing List
     height:65px;
     width: 65px;
 }
+.add-table-icon img{
+    height: 30px;
+    width:38px;
+}
+.add-table-icon::before{
+    content: 'Add Table';
+    color: #28293E;
+    font-size: small;
+    position: absolute;
+    bottom:-20px;
+    width:70px
+}
 .add-seat-icon i{
     font-size: 20px;
+}
+.add-seat-icon:hover::before{
+    content: 'Add Seat';
+    color: #28293E;
+    font-size: small;
+    position: absolute;
+    bottom:-20px;
+    width:70px
 }
 .table-seats{
     padding-left: 2vw;
