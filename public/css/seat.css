@@ -6,6 +6,9 @@
   border: 2px solid #12d348;
   text-align: center;
 }
+body {
+  overflow-x: hidden;
+}
 .dude {
   display: none;
 }
@@ -25,6 +28,7 @@
   position: relative;
   border: 2px solid #12d348;
   background-color: rgba(0, 198, 195, 0.13);
+  text-align: center;
 }
 .chair:nth-child(1) {
   position: absolute;
@@ -171,6 +175,7 @@ a {
   flex-flow: wrap;
   margin: -13px;
   gap: 37px;
+  overflow: hidden;
 }
 .date input {
   background-color: #fff;
@@ -246,10 +251,109 @@ a {
   font-weight: bolder;
   color: black;
 }
+.Check:active {
+  border: 2px red solid;
+}
 .Check:hover {
   color: white;
   background-color: black;
 }
 .content {
   width: 100%;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  border: 1px solid black;
+  padding: 10px;
+  margin: 0%;
+  width: fit-content;
+  /* display: none; */
+}
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 1px solid black;
+  border-top-right-radius: 10px;
+  z-index: 10;
+  background-color: white;
+  width: 500px;
+  max-width: 80%;
+}
+
+.modal.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.modal-header .title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-header .close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #00c6c3;
+  color: #fff;
+  padding: 0px 5px;
+}
+
+.modal-body {
+  padding: 10px 15px;
+  display: grid;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal .form-input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+#modal.show {
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
+  /* position: relative; */
 }

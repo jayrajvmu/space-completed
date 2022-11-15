@@ -1,6 +1,5 @@
 let employeeId;
 let userId;
-
 //Id Selection
 let ename = document.getElementById("emp");
 let show = document.getElementById("cont");
@@ -8,17 +7,14 @@ let cdate = document.getElementById("date");
 let cwing = document.getElementById("wing");
 let cshift = document.getElementById("shift");
 let cButton = document.getElementById("check");
-
 //inserting current date
 let date = new Date();
 let currentDate = date.toISOString().slice(0, 10);
 cdate.value = currentDate;
-
 //Global Variable Declaration
 let nid;
 let nsd;
 let nd = cdate.value;
-
 //Changing DropDown Dynamically
 const initialLoad = async () => {
   await axios
@@ -40,7 +36,6 @@ const initialLoad = async () => {
     .catch((error) => {
       return error;
     });
-
   await axios
     .get("http://localhost:5000/availability/shifts")
     .then((res) => {
@@ -59,15 +54,11 @@ const initialLoad = async () => {
     .catch((error) => {
       console.log(error);
     });
-
   //console.log(dateValue, wingValue, shiftValue);
   display(nd, nid, nsd);
 };
-
 initialLoad();
-
 let shiftText;
-
 /* list of userName */
 let userDetails;
 const userName = async () => {
@@ -81,22 +72,18 @@ const userName = async () => {
       return error;
     });
 };
-
 //Function Calling
 userName();
-
 cdate.addEventListener("change", (event) => {
   let dd = event.target.value;
   nd = dd;
   console.log(nd);
 });
-
 cwing.addEventListener("change", (event) => {
   let id = event.target.value;
   nid = id;
   console.log(nid);
 });
-
 cshift.addEventListener("change", (event) => {
   let sd = event.target.value;
   nsd = sd;
@@ -104,11 +91,9 @@ cshift.addEventListener("change", (event) => {
   shiftText = cshift.options[cshift.selectedIndex].dataset.shiftName;
   console.log(shiftText);
 });
-
 cButton.addEventListener("click", () => {
   display(nd, nid, nsd);
 });
-
 //Requesting response from the api and populating the UI
 function display(nd, nid, nsd) {
   axios
@@ -148,13 +133,11 @@ function display(nd, nid, nsd) {
       console.log(error);
     });
 }
-
 // booking module functionality
 let availableModal = document.querySelector("#modal-section");
 let closeBtnAvailable = document.querySelector("#close-btn");
 let overlayAvailable = document.querySelector("#overlay");
 let message = document.querySelector("#message");
-
 function bookingModule() {
   /* available chairs starts*/
   let availableSeatItems = document.querySelectorAll(".chair.available");
@@ -162,14 +145,12 @@ function bookingModule() {
     item.onclick = () => setAvailableModal(item);
   });
   /* available chairs ends*/
-
   /* booked chairs starts*/
   let bookedSeatItems = document.querySelectorAll(".chair.booked");
   bookedSeatItems.forEach((item) => {
     item.onclick = () => setAvailableModal(item);
   });
   /* booked chairs ends*/
-
   /* occupied chairs starts*/
   let occupiedSeatItems = document.querySelectorAll(".chair.occupied");
   occupiedSeatItems.forEach((item) => {
@@ -177,7 +158,6 @@ function bookingModule() {
   });
   /* occupied chairs ends*/
 }
-
 function setAvailableModal(seatItem) {
   let deskName;
   let deskId = seatItem.getAttribute("id");
@@ -185,12 +165,10 @@ function setAvailableModal(seatItem) {
   let deskSlotName = shiftText;
   let deskDate = nd;
   // console.log(deskId, deskSlotId, deskDate);
-
   /* modal title starts */
   let modalTitle = document.querySelector("#modal-title");
   modalTitle.textContent = "Book the Seat";
   /* modal title ends */
-
   /* modal body starts */
   let modalBody = document.querySelector("#modal-body");
   modalBody.innerHTML = `
@@ -198,15 +176,24 @@ function setAvailableModal(seatItem) {
   <div class="form-input">
     <div class="form-input-radio-btns">
       <div class="form-radio-btn">
-        <input type="radio" name="bookingType" value="0" checked />
-        Normal
+        <input type="radio" id="bookingType-normal" name="bookingType" value="0" checked />
+       <label for="bookingType-normal">Normal</label> 
       </div>
       <div class="form-radio-btn">
-        <input type="radio" name="bookingType" value="1" />
-        Advanced
+        <input type="radio" id="bookingType-advance" name="bookingType" value="1" />
+        <label for="bookingType-advance">Advance</label> 
       </div>
     </div>
-  </div>
+    <div class="form-input-radio-btns booking-days">
+      <div class="form-radio-btn">
+        <input type="radio" id="threeDays" name="bookingDays" value="3"  checked/>
+        <label for ="threeDays">Next 3 Days</label>
+      </div>
+      <div class="form-radio-btn">
+        <input type="radio"  id="twoDays" name="bookingDays" value="2"/>
+        <label for="twoDays">Next 2 Days</label>
+      </div>
+    </div>
   <div class="form-input">
     <label for="desk-id"> Desk Id </label>
     <input type="text" id="desk-id"  readonly value="${deskId}"/>
@@ -216,12 +203,11 @@ function setAvailableModal(seatItem) {
     <input type="text" list="empIds"  id="emp-id" placeholder="HS12042"
       data-emp-ref-id />
     <datalist id="empIds">
-
     </datalist>
   </div>
   <div class="form-input">
     <label for="date"> Date  </label>
-    <input type="text" id="popupDate" readonly value="${deskDate}"/>
+    <input type="date" id="popupDate"  readonly value="${deskDate}" />
   </div>
   <div class="form-input">
     <label for="time"> Shift </label>
@@ -231,14 +217,25 @@ function setAvailableModal(seatItem) {
     <button type="button" id="submit-btn" onclick ='postData("${deskId}","${deskDate}","${deskSlotId}")'>Book Now</button>
   </div>
 </div>`;
-
+  let bookingDaysInput = document.querySelector(".booking-days");
+  let bookingTypeInputs = document.querySelectorAll(
+    "input[name='bookingType']"
+  );
+  bookingTypeInputs.forEach((element) => {
+    console.log(element.value);
+    element.addEventListener("click", () => {
+      if (element.value == 1) {
+        bookingDaysInput.classList.add("active");
+      } else {
+        bookingDaysInput.classList.remove("active");
+      }
+    });
+  });
   // defalut date value for popup form
   let popupDate = document.querySelector("#popupDate");
   popupDate.value = cdate.value;
-
   let popupShift = document.querySelector("#time");
   popupShift.value = cshift.options[cshift.selectedIndex].dataset.shiftName;
-
   /* inserting emp id using api */
   let employeeIds = document.querySelector("#empIds");
   userDetails.map((user) => {
@@ -246,15 +243,12 @@ function setAvailableModal(seatItem) {
   <option value = ${user.emp_id} employeeId = ${user.id}></option>
   `;
   });
-
   // opening modal
   availableModal.classList.add("show");
   overlayAvailable.classList.add("active");
-
   /* getting empId using datalist starts */
   const dataList = document.querySelector("#empIds");
   const dataListInput = document.querySelector("#emp-id");
-
   const getSelecteOptionLocation = () => {
     for (let i = 0; i < dataList.options.length; i++) {
       if (dataList.options[i].value === dataListInput.value) {
@@ -262,7 +256,6 @@ function setAvailableModal(seatItem) {
       }
     }
   };
-
   dataListInput.addEventListener("change", () => {
     const selectedOption = getSelecteOptionLocation();
     if (selectedOption == undefined) {
@@ -274,7 +267,6 @@ function setAvailableModal(seatItem) {
     }
   });
 }
-
 async function postData(desk_id, desk_date, desk_slot) {
   await axios.get("http://localhost:5000/profileNames/").then((response) => {
     console.log(response.data);
@@ -283,7 +275,6 @@ async function postData(desk_id, desk_date, desk_slot) {
     employeeId = userData.employee_id;
     userId = userData.user_id;
   });
-
   console.log(userId);
   console.log(employeeId);
   //post endpoint
@@ -292,7 +283,15 @@ async function postData(desk_id, desk_date, desk_slot) {
   let bookingType = document.querySelector(
     'input[name="bookingType"]:checked'
   ).value;
-
+  let bookingDays;
+  if (bookingType == 1) {
+    bookingDays = document.querySelector(
+      'input[name="bookingDays"]:checked'
+    ).value;
+  } else {
+    bookingDays = 1;
+  }
+  console.log(bookingDays);
   const payload = {
     desk_id: +`${desk_id}`,
     emp_id: +`${emp_id}`,
@@ -300,11 +299,9 @@ async function postData(desk_id, desk_date, desk_slot) {
     shift: +`${desk_slot}`,
     booked_by: +`${userId}`,
     booking_type: +`${bookingType}`,
-    booking_dates:+`${3}`,
+    booking_dates: +`${bookingDays}`,
   };
-
   console.log(payload);
-
   axios
     .post(postUrl, payload)
     .then((response) => {
@@ -322,7 +319,6 @@ async function postData(desk_id, desk_date, desk_slot) {
       console.log(error);
     });
 }
-
 //close the modal
 closeBtnAvailable.addEventListener("click", closeAvailableModal);
 function closeAvailableModal() {
@@ -331,7 +327,6 @@ function closeAvailableModal() {
   //reset the input values
   message.innerHTML = "";
 }
-
 // close the modal when the response is sent
 function seatBooking(seatId) {
   availableModal.classList.remove("show");
@@ -340,20 +335,17 @@ function seatBooking(seatId) {
   let seatItems = document.querySelector(`[data-chair-id="seat-${seatId}"]`);
   seatItems.classList.add("booked");
 }
-
 /* occupied modal*/
 function setOccupiedModal() {
   /* modal title starts */
   let modalTitle = document.querySelector("#modal-title");
   modalTitle.textContent = "Book the Seat";
   /* modal title ends */
-
   /* modal body starts */
   let modalBody = document.querySelector("#modal-body");
   modalBody.innerHTML = `
    <p>This seat is already occupied</p>
    `;
-
   // opening modal
   availableModal.classList.add("show");
   overlayAvailable.classList.add("active");
