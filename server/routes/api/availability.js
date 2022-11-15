@@ -26,7 +26,6 @@ router.post("/", (req, res) => {
       for (i = 0; i < resultshift.length; i++) {
         shiftName = resultshift[i].shift_name;
       }
-      console.log(shiftName);
     });
     
     // fetching a data from booking tabels and users tables.
@@ -50,7 +49,6 @@ router.post("/", (req, res) => {
         table_id.push(element.tableID);
         if (element.tableID == element.tseats) {
           resultbook.forEach((elementbook) => {
-            console.log(elementbook.EmpId);
             if (elementbook.seat_id == element.id) {
               table_data.push({ TableID: `${element.tableID}` });
               seat_data.push({seatid: `${element.id}`, seatable: `${element.tseats}`, Availablity: `${elementbook.status}`, SeatName: `${element.seatName}`,
@@ -79,8 +77,7 @@ router.post("/", (req, res) => {
       tabledata = table_data.filter(
         (item, index) => table_data.indexOf(item) === index
       );
-      console.log(tabledata);
-      console.log(tableid);
+
       for (i = 0; i < tableid.length; i++) {
         for (j = 0; j < seat_data.length; j++) {
           if (tableid[i] == seat_data[j].seatable) {

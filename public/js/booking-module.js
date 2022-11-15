@@ -300,6 +300,7 @@ async function postData(desk_id, desk_date, desk_slot) {
     shift: +`${desk_slot}`,
     booked_by: +`${userId}`,
     booking_type: +`${bookingType}`,
+    booking_dates:+`${3}`,
   };
 
   console.log(payload);
@@ -307,6 +308,7 @@ async function postData(desk_id, desk_date, desk_slot) {
   axios
     .post(postUrl, payload)
     .then((response) => {
+      console.log(response.data);
       if (response.status === 200) {
         message.innerHTML = `<p class='${response.data.success}'>${response.data.message}</p>`;
         if (response.data.success) {

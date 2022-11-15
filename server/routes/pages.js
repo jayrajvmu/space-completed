@@ -110,8 +110,8 @@ router.get(
   (req, res) => {
     const user_id = req.params.id;
     const user_token = req.params.token;
-    console.log("user_idcheck", user_id);
-    console.log("user_tokencheck", user_token);
+    // console.log("user_idcheck", user_id);
+    // console.log("user_tokencheck", user_token);
 
     // res.render('forgotpassword')
   }
@@ -133,7 +133,7 @@ router.put(
 
 
 router.get("/profileNames",userController.profile, (req, res) => {
-  console.log("routeded",req);
+  // console.log("routeded",req);
 
 
   // res.render('info_about_resetpass')
