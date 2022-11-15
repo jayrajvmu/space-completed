@@ -1,14 +1,17 @@
-let wing_to_delete;
-let edit_wing_name;
-let wingId;
-let tableId;
-let seatId;
+let wing_to_delete; // id of wing to delete
+let edit_wing_name; // id of wing to edit
+let wingId; // id of wing
+let tableId;// id of table viewing or editing
+let seatId;// id of seat
 let deleteTable;
-let tableName;
-let wingName;
+let tableName;//name of table viewing
+let wingName;//name of Wing Viewing;
+
+// in seating Module -> types are listed below
 let seatType = ["Empty", "Windows", "Mac"]
 
-
+//validating user input for creating wing;
+//checks of no empty values, not starts with number,not limited to 4characters
 function generatingWing() {
     let tableGeneration = document.getElementById("tableGeneration");
     let wingGeneration = document.getElementById("wingGeneration");
@@ -45,7 +48,7 @@ function creatingWing() {
         })
 }
 
-
+//common close modal: (X)->button function in open modal function
 function closeModal() {
     let modalContainer = document.querySelector(".modal-container");
     let message = title;
@@ -258,6 +261,9 @@ function updatingSeats() {
     closeModal();
     rearrangeTableList();
 }
+
+
+//to Rename Table - getting User Input
 function toUpdateTableName() {
 
     let renameTableName = document.querySelector(".table-input-form");
@@ -302,6 +308,7 @@ function toUpdateTableName() {
 
 
 }
+//to update wing
 function toUpdateWing() {
     let renameWingName = document.querySelector(".input-form");
     if (renameWingName.value.trim() != "") {
@@ -339,27 +346,15 @@ function toUpdateWing() {
     }
 
 }
-// openModal();
+// to rename wing
 function wingEditing(event) {
     let message = "we";
     edit_wing_name = event.target.value;
     openModal(message);
 }
 
-/***/
 
-
-function openingWingDelete() {
-    let wingDeleting = document.getElementById("wingDeleting");
-    let styling = window.getComputedStyle(wingDeleting, null);
-    let displaying = styling.getPropertyValue("display");
-    if (displaying === "none") {
-        wingDeleting.style.display = "block";
-    }
-    else {
-        wingDeleting.style.display = "none";
-    }
-}
+//geting event to get seats in particular table selected;
 
 function viewTables(event){
     viewTableEdit();
@@ -373,6 +368,7 @@ function viewTables(event){
         rearrangeTableList();
     })
 }
+//opening table listing and blocking other viewable modules
 function viewTableEdit() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingEditModule = document.getElementById("wingEditModule");
@@ -394,6 +390,8 @@ function viewTableEdit() {
     backIcon.style.display="flex";
     goBackward("tableList");
 }
+
+//opening wing listing and blocking other viewable modules
 function viewwingEditModule() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
@@ -414,6 +412,7 @@ function viewwingEditModule() {
     }
 
 }
+//opening Wing Creation and blocking other viewable modules
 function viewWingCreation() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
@@ -431,6 +430,8 @@ function viewWingCreation() {
         wingCreationModule.style.display = "none";
     }
 }
+
+//opening seat listing and blocking other viewable modules
 function viewseatList() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
@@ -448,63 +449,8 @@ function viewseatList() {
         seatEditModule.style.display = "none";
     }
 }
-// function getUpdatedWing(){
-//     axios.get("http://localhost:5000/wings").then((response)=>{
-//         let wingDelete = response.data
-//         let wingDeleting = wingDelete.wing_name;
-//         for(i=0;i<wingDelete.wing_name.length;i++){
-//            // console.log(wingDelete.wing_name[i].name);
-//            wing_name_delete.innerHTML+=`<option value="${wingDeleting[i].id}">${wingDelete.wing_name[i].name}</option>`
-//         }
-//        })
-// }
-// getUpdatedWing();
 
-// function wingDelete(){
-//     let wing_name_delete = document.getElementById("wing_name_delete");
-//     console.log(wing_name_delete.value);   
-//     if(wing_name_delete.value>0){
-//         axios.delete(`http://localhost:5000/wings/${wing_name_delete.value}`).then((response)=>{
-//         console.log(response.data);
-//         wing_name_delete.innerHTML=`<option value="0">Select Wing</option>`;
-//         getUpdatedWing();
-//     })
-//     }
-//     else{
-//         alert("Select The Wing")
-//     }
-
-// }
-
-/** */
-// function updateTable() {
-//     let tableId = document.getElementById("tableId");
-//     let seatCount = document.getElementById("seatCount");
-//     let adminCode = document.getElementById("adminCode");
-//     let message = document.getElementById("message2");
-
-
-//     if (tableId.value) {
-//         if (seatCount.value > 0) {
-//             if (adminCode.value) {
-//                 let message = "ut"
-//                 openModal(message);
-//             }
-//             else {
-//                 alert("Enter Correct Pass Code")
-//             }
-//         }
-//         else {
-//             alert("Enter Number of Seats")
-//         }
-//     }
-//     else {
-//         alert(" Enter Valid Table ID")
-//     }
-
-
-// }
-
+//sending data to backend for updating table
 function toUpdateTable() {
     let updateWSTable = {
         tValue: `${tableId.value}`,
@@ -533,10 +479,7 @@ function toUpdateTable() {
     goOn.removeAttribute("onclick");
 }
 
-
-/** 
- * New Work
-*/
+// getting wing List (pre load)
 getWings();
 function getWings() {
     axios.get("http://localhost:5000/wings").then((response) => {
@@ -559,6 +502,8 @@ function getWings() {
     })
 
 }
+
+//wing list template
 function createWingList() {
 
     let wing_delete_list_body = document.getElementById("wing-delete-list-body");
@@ -601,6 +546,7 @@ function createWingList() {
     k.appendChild(l);
 
 }
+//Table list Template
 function createTableList() {
 
     let table_list_body = document.getElementById("table-lists-body");
@@ -654,6 +600,10 @@ function createTableList() {
 
     // </div>
 }
+
+
+//seat list Template
+
 function createSeatList() {
     let seat_list_body = document.getElementById("seat-lists-body");
     let a = document.createElement("div");
@@ -690,11 +640,13 @@ function createSeatList() {
     let k = document.createTextNode("EDIT");
     g.appendChild(k);
 }
-
+//call to edit seat for editing type of seat
 function editingSeat(event) {
     seatId = event.target.value;
     openModal("editSeat");
 }
+
+//delete seating-> proceeding to delete
 function deletingSeat(event) {
     seatId = event.target.value;
     axios.delete(`http://localhost:5000/wings/deleteSeat/${seatId}`).then(
@@ -704,7 +656,7 @@ function deletingSeat(event) {
         }
     )
 }
-
+//request for delete table
 function deletingTable(event) {
     console.log(event.target.value);
     deleteTable = event.target.value;
@@ -712,6 +664,7 @@ function deletingTable(event) {
     openModal(message)
 
 }
+//Table delete -> after confirm proceeding to delete
 function tableDeleting() {
     axios.delete(`http://localhost:5000/wings/deletetable/${wingId}/${deleteTable}`).then((response) => {
         console.log(response.data);
@@ -724,19 +677,20 @@ function tableDeleting() {
     })
     rearrangeTableList();
 }
+//proceeding to edit table
 function editingTable(event) {
     console.log(event.target.value);
     tableId = event.target.value;
     let message = "editTable"
     openModal(message);
 }
-
+//requesting to proceed delete wing
 function wingDeleting(event) {
     let message = "wd";
     wing_to_delete = event.target.value;
     openModal(message);
 }
-
+//delete wing -> proceeding to delete
 function deletingWing() {
     console.log(wing_to_delete);
     axios.delete(`http://localhost:5000/wings/${wing_to_delete}`).then((response) => {
@@ -754,11 +708,11 @@ function deletingWing() {
 
     })
 }
-
+//add table icon function => opening modal to get input
 function addNewTable() {
     openModal("addTable");
 }
-
+// get table list
 function rearrangeTableList() {
     axios.get(`http://localhost:5000/wings/${wingId}`).then((response) => {
         let tableList = response.data.tables;
@@ -788,7 +742,7 @@ function rearrangeTableList() {
 
     })
 }
-
+//back icon button
 function goBackward(value){
     let backward = document.querySelector("#backIcon>i");
     let title_edit_header = document.getElementById("title-edit-header");
