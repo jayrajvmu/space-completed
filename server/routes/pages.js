@@ -160,9 +160,9 @@ router.get("/my-booking", (req, res) => {
   res.sendFile(path.join(__dirname, "../../", "views", "cancel.html"));
 });
 
-router.get("/admin-booking", (req, res) => {
+router.get("/admin-availability", (req, res) => {
   res.sendFile(
-    path.join(__dirname, "../../", "views", "admin-seat-availability.ejs")
+    path.join(__dirname, "../../", "views", "admin-availability.html")
   );
 });
 
