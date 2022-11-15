@@ -55,6 +55,7 @@ function seatEditing(event) {
     console.log(event.target.attributes.value.value);
     tableId = event.target.attributes.value.value
     // openModal("seatEdit");
+    goBackward("seatList")
     viewseatList();
     getSeatList();
 }
@@ -380,6 +381,7 @@ function viewTableEdit(event) {
     }
     // console.dir(event.target.attributes.value.value);
     backIcon.style.display="flex";
+    goBackward("tableList");
     let tableEvent = event.target.attributes.value.value;
     wingId = event.target.attributes.value.value;
     console.log(wingId);
@@ -815,18 +817,13 @@ function goBackward(value){
     let backward = document.querySelector("#backIcon>i");
     let title_edit_header = document.getElementById("title-edit-header");
     if(value == "seatList"){
-        backward.onclick="goBackTable()";
-        title_edit_header=tableName;
+        backward.setAttribute("onclick","viewTableEdit()");
     }
     if(value == "tableList"){
-        backward.onclick="goBackWing()";
-        title_edit_header=wingName;
+        backward.setAttribute("onclick","viewwingEditModule()");
+        title_edit_header.textContent=wingName;
+        
     }
 
 }
-function goBackTable(){
-    
-}
-function goBackWing(){
 
-}
