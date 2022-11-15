@@ -334,7 +334,7 @@ async function postData(desk_id, desk_date, desk_slot) {
     shift: +`${desk_slot}`,
     booked_by: +`${userId}`,
     booking_type: +`${bookingType}`,
-    booking_days: +`${bookingDays}`,
+    booking_dates: +`${bookingDays}`,
   };
 
   console.log(payload);
