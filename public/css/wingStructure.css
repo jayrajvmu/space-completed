@@ -438,6 +438,7 @@ Wing List
     height:4vh;
     width:60%;
     border-radius: 3vh;
+    cursor: pointer;
 }
 .w-del:hover{
     background-color: red;
@@ -463,5 +464,12 @@ Wing List
     font-size: 2rem;
     color: #00C6C3;
     align-self: center;
+    cursor: pointer;
 
+}
+#backIcon>i:hover{
+    color: #28293E;
+}
+.s-del:hover{
+    background-color: red;
 }
