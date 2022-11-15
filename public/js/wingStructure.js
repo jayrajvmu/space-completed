@@ -361,7 +361,19 @@ function openingWingDelete() {
     }
 }
 
-function viewTableEdit(event) {
+function viewTables(event){
+    viewTableEdit();
+    let tableEvent = event.target.attributes.value.value;
+    wingId = event.target.attributes.value.value;
+    console.log(wingId);
+    axios.get(`http://localhost:5000/wings/${tableEvent}`).then((response) => {
+        let title_edit_header = document.getElementById("title-edit-header");
+        title_edit_header.textContent=response.data.name;
+        wingName=response.data.name;
+        rearrangeTableList();
+    })
+}
+function viewTableEdit() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingEditModule = document.getElementById("wingEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
@@ -379,44 +391,8 @@ function viewTableEdit(event) {
         tableEditModule.style.display = "none";
 
     }
-    // console.dir(event.target.attributes.value.value);
     backIcon.style.display="flex";
     goBackward("tableList");
-    let tableEvent = event.target.attributes.value.value;
-    wingId = event.target.attributes.value.value;
-    console.log(wingId);
-    axios.get(`http://localhost:5000/wings/${tableEvent}`).then((response) => {
-        let title_edit_header = document.getElementById("title-edit-header");
-        title_edit_header.textContent=response.data.name;
-        wingName=response.data.name;
-        
-        let tableList = response.data.tables;
-        let table_lists_body = document.getElementById("table-lists-body");
-        table_lists_body.innerHTML = "";
-        if (tableList) {
-            for (let i = 0; i < tableList.length; i++) {
-                createTableList();
-                let table_list_sno = document.getElementsByClassName("table-list-sno");
-                let table_name = document.getElementsByClassName("table-name");
-                let table_seats = document.getElementsByClassName("table-seats");
-                let t_edit = document.getElementsByClassName("t-edit");
-                let t_del = document.getElementsByClassName("t-del");
-                let seatEdit = document.getElementsByClassName("seat-edit");
-                table_list_sno[i].textContent = i + 1;
-                table_name[i].textContent = `${tableList[i].name}`;
-                table_seats[i].textContent = `${tableList[i].seats.length}`;
-                t_edit[i].setAttribute("value", `${tableList[i].id}`);
-                t_del[i].setAttribute("value", `${tableList[i].id}`);
-                seatEdit[i].setAttribute("value", `${tableList[i].id}`);
-
-            }
-        }
-
-
-
-    })
-
-
 }
 function viewwingEditModule() {
     let tableEditModule = document.getElementById("tableEditModule");
@@ -619,7 +595,7 @@ function createWingList() {
     i.appendChild(j);
     let k = document.createElement("div");
     k.setAttribute("class", "table-edit");
-    k.setAttribute("onclick", "viewTableEdit(event)")
+    k.setAttribute("onclick", "viewTables(event)")
     a.appendChild(k);
     let l = document.createTextNode("<>");
     k.appendChild(l);
