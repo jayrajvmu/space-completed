@@ -108,17 +108,35 @@ router.post('/', (req, res) => {
 
                
                     if (req.body.booking_dates == 3) {
-                        nextDate.setDate(nextDate.getDate() + 1);
-                        nextDateTwo.setDate(nextDateTwo.getDate() + 2);
+
+                        if(userBookingDate.getDay()==5){
+                            nextDate.setDate(nextDate.getDate() + 3);
+                            nextDateTwo.setDate(nextDateTwo.getDate() + 4);  
+                        }else if(userBookingDate.getDay()==4){
+                            nextDate.setDate(nextDate.getDate() + 1);
+                            nextDateTwo.setDate(nextDateTwo.getDate() + 4);
+                        }
+                        else{
+                            nextDate.setDate(nextDate.getDate() + 1);
+                            nextDateTwo.setDate(nextDateTwo.getDate() + 2);
+                        }
+                        
                         dateArray.push(userBookingDate);
                         dateArray.push(nextDate);
                         dateArray.push(nextDateTwo);
 
                     }
+                    console.log("nextDate"+nextDate.getDay());
                     if (req.body.booking_dates == 2) {
-                        nextDate.setDate(nextDate.getDate() + 1);
-                        dateArray.push(userBookingDate);
 
+                        if(userBookingDate.getDay()==5){
+                            nextDate.setDate(nextDate.getDate() + 3);
+                        } 
+                        else{
+                            nextDate.setDate(nextDate.getDate() + 1);
+
+                        }
+                        dateArray.push(userBookingDate);
                         dateArray.push(nextDate);
                         console.log(nextDate);
                         console.log(userBookingDate);
@@ -146,8 +164,9 @@ router.post('/', (req, res) => {
                     //check booking time is not less than 6 and more than 48 hrs.
            
 console.log(advanceBookngDate);
-                    if ((startadvanceBookngDate > minimumtimetobookadvance) && (advanceBookngDate < maximumtimetobookadvance)) {
+                    // if ((startadvanceBookngDate > minimumtimetobookadvance) && (advanceBookngDate < maximumtimetobookadvance)) {
 
+                        if (startadvanceBookngDate) {
 
                         let slectSqlfromBooking = `SELECT * FROM booking WHERE  status='1';`;
                         db.query(slectSqlfromBooking, (errbook, resultbook) => {
