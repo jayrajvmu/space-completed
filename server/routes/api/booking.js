@@ -1,3 +1,4 @@
+const { json } = require('express');
 const express = require('express');
 const router = express.Router();
 const db = require('../../db/mysql')
@@ -73,7 +74,6 @@ router.post('/', (req, res) => {
 
                             //check user apply only 3 days in a week this is for advace booking
                             else {
-                                console.log();
                                 let userData = { emp_id: `${req.body.emp_id}`, seat_id: `${req.body.desk_id}`, date: `${req.body.date}`, shift_id: `${req.body.shift}`, status: `1`, booked_by: `${req.body.booked_by}`, booking_type: `${req.body.booking_type}` };
                                 let sql = 'INSERT INTO booking SET ?';
                                 db.query(sql, userData, (errinsert, resultinsert, fields) => {
@@ -98,8 +98,40 @@ router.post('/', (req, res) => {
                     if (errRules) {
                         res.json({ 'success': false, 'message': `${errRules}` });
                     }
+
+                    let userBookingDate = new Date(`${req.body.date}`);
+                    let nextDate = new Date(userBookingDate);
+                    let nextDateTwo = new Date(userBookingDate);
+                    let dateArray = [];
+                    let getUserDate=[];
+                    let getUserSlot=[];
+
+               
+                    if (req.body.booking_dates == 3) {
+                        nextDate.setDate(nextDate.getDate() + 1);
+                        nextDateTwo.setDate(nextDateTwo.getDate() + 2);
+                        dateArray.push(userBookingDate);
+                        dateArray.push(nextDate);
+                        dateArray.push(nextDateTwo);
+
+                    }
+                    if (req.body.booking_dates == 2) {
+                        nextDate.setDate(nextDate.getDate() + 1);
+                        dateArray.push(userBookingDate);
+
+                        dateArray.push(nextDate);
+                        console.log(nextDate);
+                        console.log(userBookingDate);
+
+
+                    }
+                    if(req.body.booking_dates == 1){
+                        dateArray.push(userBookingDate);
+
+                    }
                     let minimumtimetobookadvance = new Date();
-                    let advanceBookngDate = new Date(`${req.body.date}`);
+                    let startadvanceBookngDate = new Date(`${dateArray[0]}`);
+                    let advanceBookngDate = new Date(`${dateArray[dateArray.length-1]}`);
                     minimumtimetobookadvance.setHours(resultRules[0].minimum_booking_time);
                     minimumtimetobookadvance.setMinutes(0);
                     minimumtimetobookadvance.setSeconds(0);
@@ -112,8 +144,9 @@ router.post('/', (req, res) => {
 
                     // res.json({ 'userDate': advanceBookngDate.toLocaleString(), 'maximum': maximumtimetobookadvance.toLocaleString(), 'minimum': minimumtimetobookadvance.toLocaleString() });
                     //check booking time is not less than 6 and more than 48 hrs.
-
-                    if ((advanceBookngDate > minimumtimetobookadvance) && (advanceBookngDate < maximumtimetobookadvance)) {
+           
+console.log(advanceBookngDate);
+                    if ((startadvanceBookngDate > minimumtimetobookadvance) && (advanceBookngDate < maximumtimetobookadvance)) {
 
 
                         let slectSqlfromBooking = `SELECT * FROM booking WHERE  status='1';`;
@@ -126,46 +159,113 @@ router.post('/', (req, res) => {
                             let sameSlot = 0
 
                             //check each already booked date is inside a week
+console.log(dateArray);
                             resultbook.forEach((element) => {
 
                                 let userBookedDate = new Date(`${element.date}`);
-                                let userBookingDate = new Date(`${req.body.date}`);
-                                if (userBookingDate.toLocaleDateString() == userBookedDate.toLocaleDateString()) {
-                                    if (req.body.emp_id == element.emp_id) {
-                                        userDataisSame = 1;
-                                    }
-                                    else if ((req.body.desk_id == element.seat_id)) {
-                                        if (req.body.shift == element.shift_id) {
-                                            sameSlot = 1
+                                dateArray.forEach((dateElement, index)=>{
+                                    if (dateElement.toLocaleDateString() == userBookedDate.toLocaleDateString()) {
+
+                                        if (req.body.emp_id == element.emp_id) {
+                                            userDataisSame++;
+                                            getUserDate.push(index)
+
+                                        }
+                                        else if ((req.body.desk_id == element.seat_id)) {
+                                            if (req.body.shift == element.shift_id) {
+                                                sameSlot ++;
+                                                getUserSlot.push(index);
+                                            }
                                         }
                                     }
-                                }
+                                })
+
+                                console.log("serDate"+userDataisSame);
+
+                                console.log("sameSlot"+sameSlot);
+                                console.log(getUserSlot);
+
+
                                 if (element.booking_type == 1) {
                                     bookingcount++
 
                                 }
                             });
                             //check user apply seat for same day
-                            if (userDataisSame === 1) {
-                                res.json({ 'success': false, 'message': 'You already booked for the day' });
+                            if (userDataisSame >= 1) {
+                                if(getUserDate.length==2){
+                                    res.json({ 'success': false, 'message': `You already booked for ${dateArray[getUserDate[0]].toLocaleDateString()}, ${dateArray[getUserDate[1]].toLocaleDateString()} these days` });
+                                }
+                                else if(getUserDate.length==1){
+                                    res.json({ 'success': false, 'message': `You already booked for ${dateArray[getUserDate[0]].toLocaleDateString()} this day` });
+                                }
                             }
-                            else if (sameSlot === 1) {
-                                res.json({ 'success': false, 'message': `Unable to make booking for #${req.body.desk_id} Slot, Please try a different slot` });
+                            else if (sameSlot >=1) {
+                                if(getUserSlot.length==2){
+                                    res.json({ 'success': false, 'message': `This slot already booked for ${dateArray[getUserSlot[0]].toLocaleDateString()}, ${dateArray[getUserSlot[1]].toLocaleDateString()} these days` });
+                                }
+                                else if(getUserSlot.length==1){
+                                    res.json({ 'success': false, 'message': `This slot already booked for ${dateArray[getUserSlot[0]].toLocaleDateString()} this day` });
+                                }
+                                // res.json({ 'success': false, 'message': `Unable to make booking for #${req.body.desk_id} Slot, Please try a different slot` });
                             }
                             else {
                                 //check user apply only 3 days in a week this is for advace booking
-
+                                let insertResult=[];
                                 if (bookingcount < resultRules[0].maximum_slot) {
-                                    let userData = { emp_id: `${req.body.emp_id}`, seat_id: `${req.body.desk_id}`, date: `${req.body.date}`, shift_id: `${1}`, status: `1`, booked_by: `${req.body.booked_by}`, booking_type: `${req.body.booking_type}` };
-                                    let sql = 'INSERT INTO booking SET ?';
-                                    db.query(sql, userData, (errinsert, resultinsert, fields) => {
-                                        if (errinsert) {
-                                            res.json({ 'success': false, 'message': `${errinsert}` });
-                                        }
-                                        res.json({ 'success': true, 'message': `Seat #${req.body.desk_id} Booked Successfully` });
+
+                                    let userData = [];
+                                    dateArray.forEach((date) => {
+                                        userData.push({ emp_id: `${req.body.emp_id}`, seat_id: `${req.body.desk_id}`, date: `${date.toISOString()}`, shift_id: `${1}`, status: '1', booked_by: `${req.body.booked_by}`, booking_type: `${req.body.booking_type}` })
+
                                     });
+                                    // console.log(userData);
+                              
+                                    // let userData = { emp_id: `${req.body.emp_id}`, seat_id: `${req.body.desk_id}`, date: `${req.body.date}`, shift_id: `${1}`, status: `1`, booked_by: `${req.body.booked_by}`, booking_type: `${req.body.booking_type}` };
+                                    let sql = 'INSERT INTO booking SET ?';
 
+                                   let insertError=[];
+                                   let resultStatus=0;
+                                   let errorStatus=0;
+                                    userData.forEach((userValues, index)=>{
+                                        db.query(sql, userValues, (errinsert, resultinsert) => {
+                                            insertError.push(errinsert);
+                                            insertResult.push(resultinsert);
+                                            if((userData.length-1)==index){
 
+                                                // if(insertError.length !=0){
+                                                //     res.json({ 'success': false, 'message': `Something went wrong.`, 'message': `${insertError}` });
+                                                // } 
+                                                insertError.forEach((insertErrorElement, index)=>{
+                                                    if(insertErrorElement!=null){
+                                                        errorStatus++;
+                                                    }
+                                                    if((insertError.length-1)==index){
+                                                        if(insertError.length==errorStatus){
+                                                            res.json({ 'success': false, 'message': `Somethig went wrong`, 'data':insertError });
+    
+                                                        }
+                                                    }
+                                                })
+                                               
+                                                insertResult.forEach((element, resultindex)=>{
+                                                    if(element.affectedRows==1){
+                                                        resultStatus++;
+                                                    }
+
+                                                if((insertResult.length-1)==resultindex){
+                                                    if(insertResult.length==resultStatus){
+                                                        res.json({ 'success': true, 'message': `Successfuly Booked Seats for ${resultStatus} Days` });
+
+                                                    }
+                                                }
+                                                })
+
+                                            }
+
+                                        });
+
+                                    })  
 
                                 } else {
                                     res.json({ 'success': false, 'message': 'Unable to make booking, Only 3 bookings in a week' });
@@ -192,7 +292,6 @@ router.post('/', (req, res) => {
 //fetch data from booking table for booked status view
 router.get('/:id', (req, res) => {
 
-    console.log(req.params.id);
 
     let slectSqlfromTable = `SELECT booking.id, users.emp_id AS emp_id, booking.emp_id AS emp_id_primary, seat_id, date, shift_id, shift_name, seats.name AS seat_name, booking.status FROM booking
 INNER JOIN shift ON shift.id=booking.shift_id
