@@ -26,11 +26,11 @@ router.post("/", (req, res) => {
       for (i = 0; i < resultshift.length; i++) {
         shiftName = resultshift[i].shift_name;
       }
-      console.log(shiftName);
+      // console.log(shiftName);
     });
     
     // fetching a data from booking tabels and users tables.
-    let slectSqlfromBooking = `SELECT *, users.emp_id AS EmpId, users.email_id AS EmpEmail 
+    let slectSqlfromBooking = `SELECT *, users.emp_id AS EmpId, users.employee_name AS Empname 
     FROM booking LEFT JOIN users ON users.id=booking.emp_id
     WHERE date='${req.body.date}' AND shift_id='${req.body.shift}' AND (status=1 OR status=2)`;
     connection.query(slectSqlfromBooking, (errbook, resultbook) => {
@@ -55,7 +55,7 @@ router.post("/", (req, res) => {
               table_data.push({ TableID: `${element.tableID}` });
               seat_data.push({seatid: `${element.id}`, seatable: `${element.tseats}`, Availablity: `${elementbook.status}`, SeatName: `${element.seatName}`,
                               Date: `${req.body.date}`, ShiftID: `${req.body.shift}`, ShiftName: `${shiftName}`,
-                              EmpId: `${elementbook.EmpId}`, Empname: `${elementbook.EmpEmail}`, seatType: element.type });
+                              EmpId: `${elementbook.EmpId}`, Empname: `${elementbook.Empname}`, seatType: element.type });
               
               wings.push({id: `${element.id}`, TableName: `${element.tableName}`, TableID: `${element.tableID}`, Availablity: `${elementbook.status}`,
                           SeatName: `${element.seatName}`,Date: `${req.body.date}`, ShiftID: `${req.body.shift}`,

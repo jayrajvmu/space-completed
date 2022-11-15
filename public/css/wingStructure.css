@@ -323,6 +323,34 @@ Wing List
     border-radius: 50%;
     color:white;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:65px;
+    width: 65px;
+}
+.add-table-icon img{
+    height: 25px;
+    width:30px;
+}
+.add-table-icon:hover::before{
+    content: 'Add Table';
+    color: #28293E;
+    font-size: small;
+    position: absolute;
+    bottom:-20px;
+    width:70px
+}
+.add-seat-icon i{
+    font-size: 20px;
+}
+.add-seat-icon:hover::before{
+    content: 'Add Seat';
+    color: #28293E;
+    font-size: small;
+    position: absolute;
+    bottom:-20px;
+    width:70px
 }
 .table-seats{
     padding-left: 2vw;
@@ -438,6 +466,7 @@ Wing List
     height:4vh;
     width:60%;
     border-radius: 3vh;
+    cursor: pointer;
 }
 .w-del:hover{
     background-color: red;
@@ -446,14 +475,29 @@ Wing List
     background-color: red;
 }
 #title-edit-header{
-    text-align: center;
     font-size: 2rem;
-    /* letter-spacing: 5px; */
     font-weight: bold;
     text-transform: capitalize;
-    /* border-top: #28293E 3px solid; */
-    /* background-color: #00C6C3;
-    border-radius: 10vw;
-    color: white;
-    margin-bottom: 3px; */
+    padding-left: 2vw;
+    width: 100%;
+    text-align: center;
+}
+#backIcon{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 3vw;
+    display: none;
+}
+#backIcon>i{
+    font-size: 2rem;
+    color: #00C6C3;
+    align-self: center;
+    cursor: pointer;
+
+}
+#backIcon>i:hover{
+    color: #28293E;
+}
+.s-del:hover{
+    background-color: red;
 }

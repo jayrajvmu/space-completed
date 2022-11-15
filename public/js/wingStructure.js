@@ -1,12 +1,17 @@
-let wing_to_delete;
-let edit_wing_name;
-let wingId;
-let tableId;
-let seatId;
+let wing_to_delete; // id of wing to delete
+let edit_wing_name; // id of wing to edit
+let wingId; // id of wing
+let tableId;// id of table viewing or editing
+let seatId;// id of seat
 let deleteTable;
+let tableName;//name of table viewing
+let wingName;//name of Wing Viewing;
+
+// in seating Module -> types are listed below
 let seatType = ["Empty", "Windows", "Mac"]
 
-
+//validating user input for creating wing;
+//checks of no empty values, not starts with number,not limited to 4characters
 function generatingWing() {
     let tableGeneration = document.getElementById("tableGeneration");
     let wingGeneration = document.getElementById("wingGeneration");
@@ -43,7 +48,7 @@ function creatingWing() {
         })
 }
 
-
+//common close modal: (X)->button function in open modal function
 function closeModal() {
     let modalContainer = document.querySelector(".modal-container");
     let message = title;
@@ -53,6 +58,7 @@ function seatEditing(event) {
     console.log(event.target.attributes.value.value);
     tableId = event.target.attributes.value.value
     // openModal("seatEdit");
+    goBackward("seatList")
     viewseatList();
     getSeatList();
 }
@@ -63,6 +69,7 @@ function getSeatList() {
             if (response.data.tables[i].id == tableId) {
                 let title_edit_header = document.getElementById("title-edit-header");
                 title_edit_header.textContent=response.data.tables[i].name;
+                tableName=response.data.tables[i].name;
                 createSeatingList(response.data.tables[i].seats)
             }
         }
@@ -254,6 +261,9 @@ function updatingSeats() {
     closeModal();
     rearrangeTableList();
 }
+
+
+//to Rename Table - getting User Input
 function toUpdateTableName() {
 
     let renameTableName = document.querySelector(".table-input-form");
@@ -298,6 +308,7 @@ function toUpdateTableName() {
 
 
 }
+//to update wing
 function toUpdateWing() {
     let renameWingName = document.querySelector(".input-form");
     if (renameWingName.value.trim() != "") {
@@ -335,33 +346,35 @@ function toUpdateWing() {
     }
 
 }
-// openModal();
+// to rename wing
 function wingEditing(event) {
     let message = "we";
     edit_wing_name = event.target.value;
     openModal(message);
 }
 
-/***/
 
+//geting event to get seats in particular table selected;
 
-function openingWingDelete() {
-    let wingDeleting = document.getElementById("wingDeleting");
-    let styling = window.getComputedStyle(wingDeleting, null);
-    let displaying = styling.getPropertyValue("display");
-    if (displaying === "none") {
-        wingDeleting.style.display = "block";
-    }
-    else {
-        wingDeleting.style.display = "none";
-    }
+function viewTables(event){
+    viewTableEdit();
+    let tableEvent = event.target.attributes.value.value;
+    wingId = event.target.attributes.value.value;
+    console.log(wingId);
+    axios.get(`http://localhost:5000/wings/${tableEvent}`).then((response) => {
+        let title_edit_header = document.getElementById("title-edit-header");
+        title_edit_header.textContent=response.data.name;
+        wingName=response.data.name;
+        rearrangeTableList();
+    })
 }
-
-function viewTableEdit(event) {
+//opening table listing and blocking other viewable modules
+function viewTableEdit() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingEditModule = document.getElementById("wingEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
     let seatEditModule = document.getElementById("seatEditModule");
+    let backIcon = document.getElementById("backIcon");
     let styling = window.getComputedStyle(tableEditModule, null);
     let displaying = styling.getPropertyValue("display");
     if (displaying === "none") {
@@ -374,48 +387,17 @@ function viewTableEdit(event) {
         tableEditModule.style.display = "none";
 
     }
-    // console.dir(event.target.attributes.value.value);
-    let tableEvent = event.target.attributes.value.value;
-    wingId = event.target.attributes.value.value;
-    console.log(wingId);
-    axios.get(`http://localhost:5000/wings/${tableEvent}`).then((response) => {
-        let title_edit_header = document.getElementById("title-edit-header");
-        title_edit_header.textContent=response.data.name;
-        
-        let tableList = response.data.tables;
-        let table_lists_body = document.getElementById("table-lists-body");
-        table_lists_body.innerHTML = "";
-        if (tableList) {
-            for (let i = 0; i < tableList.length; i++) {
-                createTableList();
-                let table_list_sno = document.getElementsByClassName("table-list-sno");
-                let table_name = document.getElementsByClassName("table-name");
-                let table_seats = document.getElementsByClassName("table-seats");
-                let t_edit = document.getElementsByClassName("t-edit");
-                let t_del = document.getElementsByClassName("t-del");
-                let seatEdit = document.getElementsByClassName("seat-edit");
-                table_list_sno[i].textContent = i + 1;
-                table_name[i].textContent = `${tableList[i].name}`;
-                table_seats[i].textContent = `${tableList[i].seats.length}`;
-                t_edit[i].setAttribute("value", `${tableList[i].id}`);
-                t_del[i].setAttribute("value", `${tableList[i].id}`);
-                seatEdit[i].setAttribute("value", `${tableList[i].id}`);
-
-            }
-        }
-
-
-
-    })
-
-
+    backIcon.style.display="flex";
+    goBackward("tableList");
 }
+
+//opening wing listing and blocking other viewable modules
 function viewwingEditModule() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
     let wingEditModule = document.getElementById("wingEditModule");
+    let backIcon = document.getElementById("backIcon");
     let seatEditModule = document.getElementById("seatEditModule");
-    let title_edit_header=document.getElementById("title-edit-header");
     let styling = window.getComputedStyle(wingEditModule, null);
     let displaying = styling.getPropertyValue("display");
     if (displaying === "none") {
@@ -423,13 +405,14 @@ function viewwingEditModule() {
         wingCreationModule.style.display = "none";
         tableEditModule.style.display = "none";
         seatEditModule.style.display = "none";
-        title_edit_header.textContent= "";
+        backIcon.style.display="none";
     }
     else {
         wingEditModule.style.display = "none";
     }
 
 }
+//opening Wing Creation and blocking other viewable modules
 function viewWingCreation() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
@@ -447,6 +430,8 @@ function viewWingCreation() {
         wingCreationModule.style.display = "none";
     }
 }
+
+//opening seat listing and blocking other viewable modules
 function viewseatList() {
     let tableEditModule = document.getElementById("tableEditModule");
     let wingCreationModule = document.getElementById("wingCreationModule");
@@ -464,63 +449,8 @@ function viewseatList() {
         seatEditModule.style.display = "none";
     }
 }
-// function getUpdatedWing(){
-//     axios.get("http://localhost:5000/wings").then((response)=>{
-//         let wingDelete = response.data
-//         let wingDeleting = wingDelete.wing_name;
-//         for(i=0;i<wingDelete.wing_name.length;i++){
-//            // console.log(wingDelete.wing_name[i].name);
-//            wing_name_delete.innerHTML+=`<option value="${wingDeleting[i].id}">${wingDelete.wing_name[i].name}</option>`
-//         }
-//        })
-// }
-// getUpdatedWing();
 
-// function wingDelete(){
-//     let wing_name_delete = document.getElementById("wing_name_delete");
-//     console.log(wing_name_delete.value);   
-//     if(wing_name_delete.value>0){
-//         axios.delete(`http://localhost:5000/wings/${wing_name_delete.value}`).then((response)=>{
-//         console.log(response.data);
-//         wing_name_delete.innerHTML=`<option value="0">Select Wing</option>`;
-//         getUpdatedWing();
-//     })
-//     }
-//     else{
-//         alert("Select The Wing")
-//     }
-
-// }
-
-/** */
-// function updateTable() {
-//     let tableId = document.getElementById("tableId");
-//     let seatCount = document.getElementById("seatCount");
-//     let adminCode = document.getElementById("adminCode");
-//     let message = document.getElementById("message2");
-
-
-//     if (tableId.value) {
-//         if (seatCount.value > 0) {
-//             if (adminCode.value) {
-//                 let message = "ut"
-//                 openModal(message);
-//             }
-//             else {
-//                 alert("Enter Correct Pass Code")
-//             }
-//         }
-//         else {
-//             alert("Enter Number of Seats")
-//         }
-//     }
-//     else {
-//         alert(" Enter Valid Table ID")
-//     }
-
-
-// }
-
+//sending data to backend for updating table
 function toUpdateTable() {
     let updateWSTable = {
         tValue: `${tableId.value}`,
@@ -549,10 +479,7 @@ function toUpdateTable() {
     goOn.removeAttribute("onclick");
 }
 
-
-/** 
- * New Work
-*/
+// getting wing List (pre load)
 getWings();
 function getWings() {
     axios.get("http://localhost:5000/wings").then((response) => {
@@ -575,6 +502,8 @@ function getWings() {
     })
 
 }
+
+//wing list template
 function createWingList() {
 
     let wing_delete_list_body = document.getElementById("wing-delete-list-body");
@@ -611,12 +540,13 @@ function createWingList() {
     i.appendChild(j);
     let k = document.createElement("div");
     k.setAttribute("class", "table-edit");
-    k.setAttribute("onclick", "viewTableEdit(event)")
+    k.setAttribute("onclick", "viewTables(event)")
     a.appendChild(k);
     let l = document.createTextNode("<>");
     k.appendChild(l);
 
 }
+//Table list Template
 function createTableList() {
 
     let table_list_body = document.getElementById("table-lists-body");
@@ -670,6 +600,10 @@ function createTableList() {
 
     // </div>
 }
+
+
+//seat list Template
+
 function createSeatList() {
     let seat_list_body = document.getElementById("seat-lists-body");
     let a = document.createElement("div");
@@ -706,11 +640,13 @@ function createSeatList() {
     let k = document.createTextNode("EDIT");
     g.appendChild(k);
 }
-
+//call to edit seat for editing type of seat
 function editingSeat(event) {
     seatId = event.target.value;
     openModal("editSeat");
 }
+
+//delete seating-> proceeding to delete
 function deletingSeat(event) {
     seatId = event.target.value;
     axios.delete(`http://localhost:5000/wings/deleteSeat/${seatId}`).then(
@@ -720,7 +656,7 @@ function deletingSeat(event) {
         }
     )
 }
-
+//request for delete table
 function deletingTable(event) {
     console.log(event.target.value);
     deleteTable = event.target.value;
@@ -728,6 +664,7 @@ function deletingTable(event) {
     openModal(message)
 
 }
+//Table delete -> after confirm proceeding to delete
 function tableDeleting() {
     axios.delete(`http://localhost:5000/wings/deletetable/${wingId}/${deleteTable}`).then((response) => {
         console.log(response.data);
@@ -740,19 +677,20 @@ function tableDeleting() {
     })
     rearrangeTableList();
 }
+//proceeding to edit table
 function editingTable(event) {
     console.log(event.target.value);
     tableId = event.target.value;
     let message = "editTable"
     openModal(message);
 }
-
+//requesting to proceed delete wing
 function wingDeleting(event) {
     let message = "wd";
     wing_to_delete = event.target.value;
     openModal(message);
 }
-
+//delete wing -> proceeding to delete
 function deletingWing() {
     console.log(wing_to_delete);
     axios.delete(`http://localhost:5000/wings/${wing_to_delete}`).then((response) => {
@@ -770,11 +708,11 @@ function deletingWing() {
 
     })
 }
-
+//add table icon function => opening modal to get input
 function addNewTable() {
     openModal("addTable");
 }
-
+// get table list
 function rearrangeTableList() {
     axios.get(`http://localhost:5000/wings/${wingId}`).then((response) => {
         let tableList = response.data.tables;
@@ -803,5 +741,19 @@ function rearrangeTableList() {
 
 
     })
+}
+//back icon button
+function goBackward(value){
+    let backward = document.querySelector("#backIcon>i");
+    let title_edit_header = document.getElementById("title-edit-header");
+    if(value == "seatList"){
+        backward.setAttribute("onclick","viewTableEdit()");
+    }
+    if(value == "tableList"){
+        backward.setAttribute("onclick","viewwingEditModule()");
+        title_edit_header.textContent=wingName;
+        
+    }
+
 }
 

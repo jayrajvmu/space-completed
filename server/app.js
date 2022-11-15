@@ -33,7 +33,7 @@ var db = mysql.createConnection({
 //   checking connection or verifying  connection
 db.connect((err) => {
   if (err) {
-    console.log(err);
+    // console.log(err);
   } else {
     console.log("sql connected");
   }
@@ -41,7 +41,7 @@ db.connect((err) => {
 //
 app.use(cookieparser());
 app.use(express.urlencoded({ extended: false })); //for getting input from post method with req.body
-console.log(__dirname); //shows the cufrrent directory name by using the path pkg
+ //shows the cufrrent directory name by using the path pkg
 // const location =path.join(__dirname,"./public");  //join function used to join the 2 paths
 // app.use(express.static(location)); // here we giving permission to use this folders as here freedomly,we can get any photos files from this path
 //app.set("view engine","hbs") //here i am telling use the view engine for view templates from hbs

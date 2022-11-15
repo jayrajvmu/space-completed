@@ -16,7 +16,6 @@ menuIconButton.addEventListener("click", () => {
 });
 
 axios.get("http://localhost:5000/profileNames/").then((response)=>{
-    console.log(response.data)
     let data = response.data;
     let profileName = document.querySelector(".your-profile");
     let empId = document.querySelector(".profile-name");
