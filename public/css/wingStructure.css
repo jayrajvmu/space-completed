@@ -333,7 +333,7 @@ Wing List
     height: 30px;
     width:38px;
 }
-.add-table-icon::before{
+.add-table-icon:hover::before{
     content: 'Add Table';
     color: #28293E;
     font-size: small;
