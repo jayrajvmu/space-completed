@@ -248,6 +248,7 @@ Wing List
 }
 .wing-name{
     text-align: left;
+    text-transform: capitalize;
 }
 .table-edit{
     background-color: #00C6C3;
