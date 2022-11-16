@@ -231,7 +231,14 @@ console.log(dateArray);
                             else {
                                 //check user apply only 3 days in a week this is for advace booking
                                 let insertResult=[];
-                                if (bookingcount < resultRules[0].maximum_slot) {
+                                // if (bookingcount < resultRules[0].maximum_slot) {
+                                    console.log("bookingcount"+bookingcount);
+
+                                    console.log("arraylength"+dateArray.length);
+
+                               if ((bookingcount+dateArray.length) <= resultRules[0].maximum_slot) {
+
+                                    console.log(bookingcount);
 
                                     let userData = [];
                                     dateArray.forEach((date) => {
