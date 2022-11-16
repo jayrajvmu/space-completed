@@ -319,7 +319,7 @@ router.get('/',(req,res) => {
 		if (err) {
 			res.send({"success":false,"message":"Something Went Wrong. Try Again Later."});
 		} 
-		if(result != '') {
+		else {
 			res.send({"wing_name":result});
 		}
 	});	

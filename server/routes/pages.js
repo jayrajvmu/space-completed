@@ -32,6 +32,7 @@ router.get("/dash", userController.isLoggedIn, (req, res) => {
   if (req.user) {
     //check the user value is vailable or not
     // res.render("dashboard")
+    
     res.sendFile(path.join(__dirname, "../../", "views", "dashboard.html"));
   } else {
     // alert('sd')
