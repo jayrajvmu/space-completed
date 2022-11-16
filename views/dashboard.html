@@ -14,9 +14,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
-.card {
-    margin:10px auto;
-}
 
 </style>
 <body>
@@ -145,10 +142,10 @@
                         <div class="card-body p-5">
                             <span style="float: right;"><i class="fa fa-solid fa-chair fa-2xl p-4"></i></span>
                           <h5 class="card-title">Total Seats</h5>
-                          <p class="card-text"> Count : 250</p>
+                          <p class="card-text"> Count : <span id="total_seat_count"></span></p>
                           <div class="mt-2 mb-0 text-sm">
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">                                 <span class="badge badge-pill bg-soft-success text-success me-2">75%</span></div>
+                                    <div id="total_seat_percent"  class="progress-bar progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><span class="badge badge-pill bg-soft-success text-success me-2" id="total_precent_value"></span></div>
                                 </div>
                             </div>                    
                         </div>
@@ -160,10 +157,10 @@
                         <div class="card-body p-5">
                           <span style="float: right;"><i class="fa-solid fa-check fa-2xl p-4"></i></span>
                           <h5 class="card-title">Booked Seat</h5>
-                          <p class="card-text"> Count : 250</p>
+                          <p class="card-text"> Count : <span id="booked_seat_count"></span></p>
                           <div class="mt-2 mb-0 text-sm">
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar bg-info" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">                                 <span class="badge badge-pill bg-soft-success text-success me-2">75%</span></div>
+                                    <div id="booked_seat_percent" class="progress-bar progress-bar bg-info" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span class="badge badge-pill bg-soft-success text-success me-2" id="booked_precent_value"></span></div>
                                 </div>
                             </div>                    
                         </div>
@@ -175,55 +172,22 @@
                         <div class="card-body p-5">
                             <span style="float: right;"><i class="fa-solid fa-check-double fa-2xl p-4"></i></span>
                           <h5 class="card-title">Available seat</h5>
-                          <p class="card-text"> Count : 250</p>
+                          <p class="card-text"> Count : <span id="vaccent_seat_count"></span></p>
                           <div class="mt-2 mb-0 text-sm">
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="badge">75%</span></div>
+                                    <div id="vaccent_seat_percent" class="progress-bar progress-bar bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="badge"><span id="vaccent_precent_value"></span></div>
                                 </div>
                             </div>                    
                         </div>
                     </div>
                 </div>
             </div>
-
-
-            <!-- Card stats -->
-            
-            <!-- <div class="row g-6 mb-6">
-                <div class="col-xl-4 col-sm-6 col-12">
-                    <div class="card shadow border-0">
-                        <div class="card-body" style="height:230px;">
-                            <div class="row">
-                                <div class="col">
-                                    <br>
-                                    <span class="h6 font-semibold text-muted text-sm d-block mb-4">Booked Seats</span>
-                                    <span class="h3 font-bold mb-4">Count : &nbsp; 250</span>
-                                </div>
-                                <div class="col-auto">
-                                    <br>
-                                    <div class="p-3">
-                                        <i class="fa fa-light fa-pen-ruler fa-2xl"></i>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="mt-2 mb-0 text-sm">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">                                 <span class="badge badge-pill bg-soft-success text-success me-2">75%</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-                
         
-            <div class="row">
-
+            <div class="row p-4">
                 <div class="col-md-6" >
                     <div class="card shadow border-0">
                         <div class="card-body w-5">
-                            <canvas id="myChart_graph" width="590px" height="400px"></canvas>
+                            <canvas id="myChart_graph" width="600px" height="400px"></canvas>
                         </div>
                     </div>
                 </div>
@@ -231,7 +195,7 @@
                 <div class="col-sm-6" >
                     <div class="card shadow border-0">
                         <div class="card-body w-5">
-                            <canvas id="myChart" width="600px" height="415px"></canvas>            
+                            <canvas id="myChart" width="600px" height="400px"></canvas>            
                         </div>
                     </div>
                 </div>
@@ -245,10 +209,8 @@
 
 </html>
 
-
-
 <script>
-var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+var xValues = ["Chennai", "Dubai", "London", "USA", "UK"];
 var yValues = [55, 49, 44, 24, 15];
 var barColors = [
   "rgb(255, 159, 64)',",
@@ -267,9 +229,11 @@ new Chart("myChart", {
     }]
   },
   options: {
+    responsive: true,
+
     title: {
       display: true,
-      text: "World Wide Wine Production 2018"
+      text: "World Wide Hogarth 2022"
     }
   }
 });
@@ -280,10 +244,9 @@ var ctx = document.getElementById("myChart_graph");
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["2015-01", "2015-02", "2015-03", "2015-04", "2015-05", "2015-06", "2015-07", "2015-08", "2015-09", "2015-10", "2015-11", "2015-12"],
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [{
-      label: '# of Tomatoes',
-      data: [12, 19, 3, 5, 2, 3, 20, 3, 5, 6, 2, 1],
+      data: [12, 19, 3, 5, 2, 3, 17, 3, 5, 6, 2, 1],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -316,7 +279,14 @@ var myChart = new Chart(ctx, {
     }]
   },
   options: {
-    responsive: false,
+    legend: {
+         display: false //This will do the task
+      },
+    responsive: true,
+    title: {
+      display: true,
+      text: "No of New Joiners"
+    },
     scales: {
       xAxes: [{
         ticks: {
@@ -327,16 +297,7 @@ var myChart = new Chart(ctx, {
           offsetGridLines: false // à rajouter
         }
       },
-      {
-        position: "top",
-        ticks: {
-          maxRotation: 90,
-          minRotation: 80
-        },
-        gridLines: {
-          offsetGridLines: false // et matcher pareil ici
-        }
-      }],
+      ],
       yAxes: [{
         ticks: {
           beginAtZero: true
@@ -345,4 +306,20 @@ var myChart = new Chart(ctx, {
     }
   }
 });
+</script>
+
+<script>
+    var set_count = document.getElementById("total_seat_count").innerHTML = 50;
+    var set_total_precent_value = document.getElementById("total_precent_value").innerHTML = set_count+"%";
+    document.getElementById("total_seat_percent").style.width = set_count+"%";
+
+   
+    var set_booked_seat_count = document. getElementById("booked_seat_count").innerHTML = 60;
+    var set_booked_precent_value = document.getElementById("booked_precent_value").innerHTML = set_booked_seat_count+"%";
+    document.getElementById("booked_seat_percent").style.width = set_count+"%";
+
+    var set_vaccent_seat_count = document. getElementById("vaccent_seat_count").innerHTML = 20;
+    var set_vaccent_precent_value = document. getElementById("vaccent_precent_value").innerHTML = set_vaccent_seat_count+"%";
+    document.getElementById("vaccent_seat_percent").style.width = set_vaccent_seat_count+"%";
+
 </script>
