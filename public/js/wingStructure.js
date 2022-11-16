@@ -12,6 +12,8 @@ let seatType = ["Empty", "Windows", "Mac"]
 
 //validating user input for creating wing;
 //checks of no empty values, not starts with number,not limited to 4characters
+
+viewwingEditModule();
 function generatingWing() {
     let tableGeneration = document.getElementById("tableGeneration");
     let wingGeneration = document.getElementById("wingGeneration");
