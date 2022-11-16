@@ -477,6 +477,7 @@ function toUpdateTable() {
     closeModal();
     let goOn = document.getElementById("go-on");
     goOn.removeAttribute("onclick");
+    rearrangeTableList();
 }
 
 // getting wing List (pre load)

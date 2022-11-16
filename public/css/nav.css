@@ -131,8 +131,20 @@ a {
   align-items: center;
 }
 
+.profile-logo{
+  display: grid;
+  place-items: center;
+  color: var(--light-gray);
+  font-size: 18px;
+  font-weight: bold;
+}
+.open .profile-logo{
+  font-size: 40px;
+
+}
+  
 .sidebar .profile-logo {
-  display: block;
+  /* display: block; */
   width: 30px;
   height: 30px;
   background: #f2f3f8;
@@ -144,6 +156,8 @@ a {
   width: 90px;
   height: 90px;
 }
+
+
 
 .sidebar .profile-logo > img {
   width: 100%;
