@@ -186,12 +186,16 @@ function setAvailableModal(seatItem) {
     </div>
     <div class="form-input-radio-btns booking-days">
       <div class="form-radio-btn">
-        <input type="radio" id="threeDays" name="bookingDays" value="3"  checked/>
+        <input type="radio" id="threeDays" name="bookingDays" value="3"  />
         <label for ="threeDays">Next 3 Days</label>
       </div>
       <div class="form-radio-btn">
         <input type="radio"  id="twoDays" name="bookingDays" value="2"/>
         <label for="twoDays">Next 2 Days</label>
+      </div>
+      <div class="form-radio-btn hide-radio-btn">
+        <input type="radio" id="oneDays" name="bookingDays" value="1" checked />
+        <label for ="oneDays">Next  Days</label>
       </div>
     </div>
   <div class="form-input">

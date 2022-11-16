@@ -158,7 +158,6 @@
 }
 .message p {
   padding: 5px;
-  margin-top: 10px;
   font-size: 13px;
   font-weight: 500;
 }
@@ -198,4 +197,10 @@
   height: auto;
   opacity: 1;
   margin-bottom: 10px;
+}
+.hide-radio-btn {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
 }
