@@ -26,8 +26,10 @@ if((userDate.getFullYear()==now.getFullYear())&&(userDate.getMonth()==now.getMon
             }
             let shift_start_time = result[0].start_time.split(":");
 
+console.log(shift_start_time[1]);
+console.log(now.getMinutes());
 
-            if(shift_start_time[0]<=now.getHours()){
+            if((shift_start_time[0]==now.getHours())&&(shift_start_time[1]>=now.getMinutes())){
               
                 let shiftStartTime = new Date(`${resultbook[0].date}`);
                 shiftStartTime.setHours(`${shift_start_time[0]}`);
@@ -37,13 +39,15 @@ if((userDate.getFullYear()==now.getFullYear())&&(userDate.getMonth()==now.getMon
                 graceTime.setHours(`${shift_start_time[0]}`);
                 let graceTimeMinute= +shift_start_time[1]+30;
                 graceTime.setMinutes(graceTimeMinute);
+                console.log(graceTime.toLocaleTimeString());
+                console.log(now.toLocaleTimeString());
                 if(graceTime>now){
    let updateSqlfromBooking = `UPDATE booking SET status = '2' WHERE id = '${req.params.id}' AND emp_id='${req.body.emp_id}' AND status='1'`;
         db.query(updateSqlfromBooking, (errupdate, resultupdate) => {
             if (errupdate) {
                 throw errupdate;
             }
-            if(resultupdate.affectedRows!=0){
+           if(resultupdate.affectedRows!=0){
                 res.json({ 'sucess': true, 'message': `Booking Id #${req.params.id}, check-in successfully`});
     
             }else{
@@ -52,11 +56,14 @@ if((userDate.getFullYear()==now.getFullYear())&&(userDate.getMonth()==now.getMon
         });
                 }
                 else{
-                    res.send({'success':false, 'message':'Unable to check-in this seat. Please try again later'})
+                    res.send({'success':false, 'message':'Unable to check-in this seat minimum time. Please try again later'})
 
                 }
 
                 // res.send({'actual shift start':shiftStartTime.toLocaleString(), 'Grace':GraceTime.toLocaleString(), 'data':(GraceTime>now)})
+
+            }else{
+                res.send({'success':false, 'message':'Unable to check-in this seat Time. Please try again later'})
 
             }
         });
