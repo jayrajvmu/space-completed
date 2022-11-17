@@ -398,4 +398,37 @@ router.get('/user/name', (req, res) => {
     });
 
 });
+
+
+
+router.get('/user/name/admin', (req, res) => {
+
+    let slectSqlfromRules = `SELECT * FROM users`;
+    db.query(slectSqlfromRules, (errUser, resultUser) => {
+        if (errUser) {
+            res.json({ 'success': false, 'message': `${errUser}` });
+        }
+        let userCount=[];
+        resultUser.forEach((element, index)=>{
+            if(userCount[element.created_at.split("-")[1]-1]){
+               userCount[element.created_at.split("-")[1]-1]+=1;
+
+            }else{
+                userCount[element.created_at.split("-")[1]-1]=1;
+            }
+            
+
+        });
+      for(i=0;i<=11;i++){
+        if(!userCount[i]){
+            userCount[i]=0; 
+        }
+      }
+        console.log(userCount);
+    
+        res.json({ 'success': true, 'message': `User data fetched successfuly`, 'data': userCount });
+
+    });
+
+});
 module.exports = router;
