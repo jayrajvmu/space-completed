@@ -164,4 +164,10 @@ router.get("/admin-booking", (req, res) => {
   res.sendFile(path.join(__dirname, "../../", "views", "admin-booking.html"));
 });
 
+router.get("/admin-cancellation", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../../", "views", "admin-cancellation.html")
+  );
+});
+
 module.exports = router; //export the module

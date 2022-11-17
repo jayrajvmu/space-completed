@@ -42,6 +42,14 @@ const bookedSeats = async (userId, empId) => {
             <div class="booked-seats_col" id="blog-${blog.id}">
               <div class="booked-seats_container">
                 <div class="booked-seats_details">
+                  <div class="booked-seats_input">Wing Name </div>
+                  <div class="booked-seats_value">: ${blog.wing_name}</div>
+                </div>
+                <div class="booked-seats_details">
+                  <div class="booked-seats_input">Table Name </div>
+                  <div class="booked-seats_value">: ${blog.table_name}</div>
+                </div>
+                <div class="booked-seats_details">
                   <div class="booked-seats_input">Desk Id </div>
                   <div class="booked-seats_value">: ${blog.seat_id}</div>
                 </div>

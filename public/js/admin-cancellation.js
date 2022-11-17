@@ -128,8 +128,6 @@ function display(nd, nid, nsd) {
             `;
         });
       });
-      // calling the booking module function
-      //bookingModule();
     })
     .catch((error) => {
       console.log(error);
