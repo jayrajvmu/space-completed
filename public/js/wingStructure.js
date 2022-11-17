@@ -396,21 +396,30 @@ function viewTableEdit() {
 //opening wing listing and blocking other viewable modules
 function viewwingEditModule() {
     let tableEditModule = document.getElementById("tableEditModule");
+    let wingContainerM = document.getElementById("wingContainerM")
     let wingCreationModule = document.getElementById("wingCreationModule");
     let wingEditModule = document.getElementById("wingEditModule");
     let backIcon = document.getElementById("backIcon");
+    let backward = document.querySelector("#backIcon>i");
     let seatEditModule = document.getElementById("seatEditModule");
+    let title_edit_header = document.getElementById("title-edit-header");
+
     let styling = window.getComputedStyle(wingEditModule, null);
     let displaying = styling.getPropertyValue("display");
+
     if (displaying === "none") {
         wingEditModule.style.display = "block";
         wingCreationModule.style.display = "none";
         tableEditModule.style.display = "none";
         seatEditModule.style.display = "none";
-        backIcon.style.display="none";
+        wingContainerM.style.display="none";
+        backIcon.style.display="flex";
+        title_edit_header.textContent="Wing List";
+        backward.style.display="none";
     }
     else {
         wingEditModule.style.display = "none";
+
     }
 
 }
@@ -485,6 +494,7 @@ function toUpdateTable() {
 // getting wing List (pre load)
 getWings();
 function getWings() {
+    goBackward("wingList");
     axios.get("http://localhost:5000/wings").then((response) => {
         let wing_delete_list_body = document.getElementById("wing-delete-list-body");
         wing_delete_list_body.innerHTML = "";
@@ -747,16 +757,22 @@ function rearrangeTableList() {
 }
 //back icon button
 function goBackward(value){
+    let backIcon = document.getElementById("backIcon");
     let backward = document.querySelector("#backIcon>i");
     let title_edit_header = document.getElementById("title-edit-header");
     if(value == "seatList"){
         backward.setAttribute("onclick","viewTableEdit()");
-        // title_edit_header.textContent=tableName;
+        backward.style.display="block";
+        // title_edit_header.textContent=wingName + ">" +tableName;
     }
     if(value == "tableList"){
         backward.setAttribute("onclick","viewwingEditModule()");
+        backward.style.display="block";
         title_edit_header.textContent=wingName;
-        
+    }
+    if(value == "wingList"){
+        title_edit_header.textContent="Wing List";
+        backward.style.display="none";
     }
 
 }

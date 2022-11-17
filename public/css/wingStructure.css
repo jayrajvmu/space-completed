@@ -481,7 +481,7 @@ Wing List
     text-transform: capitalize;
     padding-left: 2vw;
     width: 100%;
-    text-align: center;
+    /* text-align: center; */
 }
 #backIcon{
     display: flex;
