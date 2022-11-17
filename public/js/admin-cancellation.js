@@ -120,14 +120,22 @@ function display(nd, nid, nsd) {
           tableBody.innerHTML += `
             <tr class="table-no-${item.tableid}">
             <td class="table-data"> ${++serialNo} </td>
+            <td class="table-data"> ${seat.wing_name} </td>
+            <td class="table-data"> ${seat.table_name} </td>
             <td class="table-data"> ${seat.seatname} </td>
-            <td class="table-data"> ${seat.seatid} </td>
+            <td class="table-data"> ${seat.booked_by} </td>
+            <td class="table-data"> ${seat.booked_to} </td>
+            <td class="table-data"> ${seat.booked_date} </td>
             <td class="table-data"> ${seat.availability} </td>
-            <td class="table-data"> <i class="fa-solid fa-pen-to-square"></i> </td>
+            <td class="table-data"> 
+            <i class="fa-solid fa-pen-to-square"></i>
+             </td>
             </tr>
             `;
         });
       });
+      // calling the booking module function
+      //bookingModule();
     })
     .catch((error) => {
       console.log(error);
