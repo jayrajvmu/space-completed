@@ -2,7 +2,6 @@
   --booked: lawngreen;
   --available: #17a0c3;
 }
-
 .seat-container {
   display: -ms-grid;
   display: grid;
@@ -204,28 +203,4 @@
   width: 0;
   height: 0;
   pointer-events: none;
-}
-
-.booking-days {
-  display: flex;
-  gap: 1em;
-  margin-top: 5px;
-  height: 0;
-  opacity: 0;
-}
-.booking-days span {
-  background: #00c6c3;
-  font-size: 0.7rem;
-  border-radius: 5px;
-  padding: 2px 5px;
-  color: white;
-}
-.seatbooking-form label,
-.seatbooking-form input {
-  cursor: pointer;
-}
-.booking-days.active {
-  height: auto;
-  opacity: 1;
-  margin-bottom: 10px;
 }
