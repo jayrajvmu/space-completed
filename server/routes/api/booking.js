@@ -338,7 +338,29 @@ else{
 }
     });
 });
+//fetch data from booking table for booked status view
+router.get('/view/admin', (req, res) => {
 
+
+    let slectSqlfromTable = `SELECT booking.id, users.emp_id AS emp_id, booking.emp_id AS emp_id_primary, seat_id, date, shift_id, shift_name, seats.name AS seat_name, booking.status, wings.name AS wing_name, tables.id AS table_id, tables.name AS table_name FROM booking
+INNER JOIN shift ON shift.id=booking.shift_id
+INNER JOIN seats ON seats.id=booking.seat_id 
+INNER JOIN tables ON tables.id=seats.table_id 
+INNER JOIN wings ON wings.id=tables.wing_id 
+INNER JOIN users ON users.id=booking.emp_id WHERE booking.status='1'`;
+
+    // res.send()
+    // let slectSqlfromBooking = `SELECT * FROM booking WHERE emp_id='${req.params.id}'AND status='1'`;
+    db.query(slectSqlfromTable, (errfetch, resultfetch) => {
+        if (errfetch) {
+            res.json({ 'success': false, 'message': `${errfetch}` });
+        }
+else{
+    res.json({ 'success': true, 'message': 'Booking data fetched successfully', 'data': resultfetch });
+
+}
+    });
+});
 
 //cancel booking
 
