@@ -119,11 +119,11 @@ const display = async (nd, nid, nsd) => {
         let tableCol =
           (show.innerHTML += `<div class ="table" id="table-${item.tableid}"></div>`);
 
-        seatDetails = item.seats.map((seat) => {
+        seatDetails = item.seats.map((seat,row) => {
           if (document.querySelector(`#table-${item.tableid}`)) {
             document.querySelector(
               `#table-${item.tableid}`
-            ).innerHTML += `<div class="chair " id="${seat.seatid}" data-chair-id ="seat-${seat.seatid}" >${seat.seatid}</div>`;
+            ).innerHTML += `<div class="chair " id="${seat.seatid}" data-chair-id ="seat-${seat.seatid}">${++row}</div>`;
           }
           let list = document.getElementById(`${seat.seatid}`);
           if (seat.availability == "1") {
