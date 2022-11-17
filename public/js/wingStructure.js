@@ -66,15 +66,18 @@ function seatEditing(event) {
 }
 function getSeatList() {
     axios.get(`http://localhost:5000/wings/${wingId}`).then((response) => {
-        console.log(response.data.tables);        
-        for (i = 0; i < response.data.tables.length; i++) {
-            if (response.data.tables[i].id == tableId) {
+        console.log(response.data.tables);    
+        let get_seat_list = response.data.tables;
+        get_seat_list.forEach(element => {
+            if (element.id == tableId) {
                 let title_edit_header = document.getElementById("title-edit-header");
-                title_edit_header.textContent=wingName +" > "+response.data.tables[i].name;
-                tableName=response.data.tables[i].name;
-                createSeatingList(response.data.tables[i].seats)
+                title_edit_header.textContent=wingName +" > "+element.name;
+                tableName=element.name;
+                createSeatingList(element.seats);
+                // console.log(element.seats);
             }
-        }
+        });
+        
     })
 }
 function createSeatingList(seatData) {
@@ -668,6 +671,7 @@ function deletingSeat(event) {
             getSeatList();
         }
     )
+    rearrangeTableList();
 }
 //request for delete table
 function deletingTable(event) {
@@ -769,6 +773,7 @@ function goBackward(value){
         backward.setAttribute("onclick","viewwingEditModule()");
         backward.style.display="block";
         title_edit_header.textContent=wingName;
+        // rearrangeTableList();
     }
     if(value == "wingList"){
         title_edit_header.textContent="Wing List";
