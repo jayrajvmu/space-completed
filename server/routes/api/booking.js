@@ -424,7 +424,6 @@ router.get('/user/name/admin', (req, res) => {
             userCount[i]=0; 
         }
       }
-        console.log(userCount);
     
         res.json({ 'success': true, 'message': `User data fetched successfuly`, 'data': userCount });
 
