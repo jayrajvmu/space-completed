@@ -6,7 +6,14 @@ let seat = document.getElementsByClassName("seat");
         axios.get("http://localhost:5000/wings").then((response)=>{
             let wingNameData =response.data;
             let wingData = wingNameData.wing_name;
-            wingGenerating(wingData)
+            if(wingNameData.wing_name.length==0){
+                let wing_title = document.getElementById("wing_title");
+                wing_title.innerHTML=`<h1>No Wing Available</h1>`;
+            }
+            else{
+                wingGenerating(wingData);
+            }
+            
         })
 
         function wingCreation(){ 

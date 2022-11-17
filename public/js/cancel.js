@@ -31,6 +31,7 @@ const bookedSeats = async (userId, empId) => {
         Accept: "application/json",
       },
     });
+    console.log(response);
     console.log(response.data.data);
     let blogDatas = response.data.data;
     if (blogDatas.length === 0) {
@@ -42,7 +43,7 @@ const bookedSeats = async (userId, empId) => {
               <div class="booked-seats_container">
                 <div class="booked-seats_details">
                   <div class="booked-seats_input">Desk Id </div>
-                  <div class="booked-seats_value">: ${blog.seat_name}</div>
+                  <div class="booked-seats_value">: ${blog.seat_id}</div>
                 </div>
                 <div class="booked-seats_details">
                   <div class="booked-seats_input">Employee Id  </div>

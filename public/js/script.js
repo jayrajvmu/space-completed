@@ -5,6 +5,13 @@ let cdate = document.getElementById("date");
 let cwing = document.getElementById("wing");
 let cshift = document.getElementById("shift");
 let cButton = document.getElementById("check");
+let closeBtnAvailable = document.querySelector(".close-button");
+let modShow = document.getElementById("modal");
+let overlayAvailable = document.querySelector("#overlay");
+let bookDetails = document.querySelector("#book");
+let deskDetails = document.querySelector("#did");
+let empDetails = document.querySelector("#eid");
+let machineType = document.querySelector("#mt");
 
 //inserting current date
 let date = new Date();
@@ -15,6 +22,14 @@ cdate.value = currentDate;
 let nid;
 let nsd;
 let nd = cdate.value;
+let seatDetails;
+let colTable;
+let EmployeeName;
+let EmployeeId;
+let seatId;
+let machine;
+
+// let popup;
 
 //Changing DropDown Dynamically
 const initialLoad = async () => {
@@ -87,8 +102,8 @@ cButton.addEventListener("click", () => {
 });
 
 //Requesting response from the api and populating the UI
-function display(nd, nid, nsd) {
-  axios
+const display = async (nd, nid, nsd) => {
+  await axios
     .post(`http://localhost:5000/availability/`, {
       wing: nid,
       date: nd,
@@ -97,16 +112,18 @@ function display(nd, nid, nsd) {
     .then((res) => {
       // console.log(res);
       $("#cont").empty();
-      let colTable = res.data.wings;
-      console.log(colTable);
+      let result = res.data.wings;
+      colTable = result;
+      // console.log(colTable);
       colTable.map((item) => {
         let tableCol =
           (show.innerHTML += `<div class ="table" id="table-${item.tableid}"></div>`);
-        item.seats.map((seat) => {
+
+        seatDetails = item.seats.map((seat,row) => {
           if (document.querySelector(`#table-${item.tableid}`)) {
             document.querySelector(
               `#table-${item.tableid}`
-            ).innerHTML += `<div class="chair " id="${seat.seatid}" data-chair-id ="seat-${seat.seatid}" >${seat.seatid}</div>`;
+            ).innerHTML += `<div class="chair " id="${seat.seatid}" data-chair-id ="seat-${seat.seatid}">${++row}</div>`;
           }
           let list = document.getElementById(`${seat.seatid}`);
           if (seat.availability == "1") {
@@ -118,8 +135,72 @@ function display(nd, nid, nsd) {
           }
         });
       });
+      calling(colTable);
     })
     .catch((error) => {
       console.log(error);
     });
+};
+
+const calling = async (colTable) => {
+  let available = document.querySelectorAll(".chair.available");
+  available.forEach((item) => {
+    item.onmouseover = () => modifyPopup(colTable);
+  });
+
+  let booked = document.querySelectorAll(".chair.booked");
+  booked.forEach((item) => {
+    item.onmouseover = () => popup(colTable);
+  });
+  let occupied = document.querySelectorAll(".chair.occupied");
+  occupied.forEach((item) => {
+    item.onmouseover = () => popup(colTable);
+  });
+};
+function popup(colTable) {
+  let result = colTable.map((item) => {
+    item.seats.map((seat) => {
+      let chair = document
+        .getElementById(`${seat.seatid}`)
+        .addEventListener("click", () => {
+          bookDetails.value = `${seat.Empname}`;
+          empDetails.value = `${seat.EmpId}`;
+          deskDetails.value = `${seat.seatid}`;
+          if (seat.seatType == 0) {
+            seat.seatType = "Laptop";
+          } else if (seat.seatType == 1) {
+            seat.seatType = "Window";
+          } else if (seat.seatType == 2) {
+            seat.seatType = "Mac";
+          }
+          machineType.value = `${seat.seatType}`;
+          modShow.classList.add("show");
+          overlayAvailable.classList.add("active");
+        });
+    });
+  });
+}
+
+function modifyPopup(colTable) {
+  let result = colTable.map((item) => {
+    item.seats.map((seat) => {
+      let chair = document
+        .getElementById(`${seat.seatid}`)
+        .addEventListener("click", () => {
+          bookDetails.value = `Desk is Available`;
+          empDetails.value = "Desk is Available";
+          deskDetails.value = `${seat.seatid}`;
+          machineType.value = "Windows";
+          modShow.classList.add("show");
+          overlayAvailable.classList.add("active");
+        });
+    });
+  });
+}
+
+closeBtnAvailable.onclick = () => remove();
+
+function remove() {
+  modShow.classList.remove("show");
+  overlayAvailable.classList.remove("active");
 }

@@ -32,6 +32,7 @@ router.get("/dash", userController.isLoggedIn, (req, res) => {
   if (req.user) {
     //check the user value is vailable or not
     // res.render("dashboard")
+
     res.sendFile(path.join(__dirname, "../../", "views", "dashboard.html"));
   } else {
     // alert('sd')
@@ -159,10 +160,8 @@ router.get("/my-booking", (req, res) => {
   res.sendFile(path.join(__dirname, "../../", "views", "cancel.html"));
 });
 
-router.get("/admin-availability", (req, res) => {
-  res.sendFile(
-    path.join(__dirname, "../../", "views", "admin-availability.html")
-  );
+router.get("/admin-booking", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../", "views", "admin-booking.html"));
 });
 
 module.exports = router; //export the module

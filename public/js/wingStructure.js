@@ -12,6 +12,8 @@ let seatType = ["Empty", "Windows", "Mac"]
 
 //validating user input for creating wing;
 //checks of no empty values, not starts with number,not limited to 4characters
+
+
 function generatingWing() {
     let tableGeneration = document.getElementById("tableGeneration");
     let wingGeneration = document.getElementById("wingGeneration");
@@ -68,7 +70,7 @@ function getSeatList() {
         for (i = 0; i < response.data.tables.length; i++) {
             if (response.data.tables[i].id == tableId) {
                 let title_edit_header = document.getElementById("title-edit-header");
-                title_edit_header.textContent=response.data.tables[i].name;
+                title_edit_header.textContent=wingName +" > "+response.data.tables[i].name;
                 tableName=response.data.tables[i].name;
                 createSeatingList(response.data.tables[i].seats)
             }
@@ -477,6 +479,7 @@ function toUpdateTable() {
     closeModal();
     let goOn = document.getElementById("go-on");
     goOn.removeAttribute("onclick");
+    rearrangeTableList();
 }
 
 // getting wing List (pre load)
@@ -748,6 +751,7 @@ function goBackward(value){
     let title_edit_header = document.getElementById("title-edit-header");
     if(value == "seatList"){
         backward.setAttribute("onclick","viewTableEdit()");
+        // title_edit_header.textContent=tableName;
     }
     if(value == "tableList"){
         backward.setAttribute("onclick","viewwingEditModule()");

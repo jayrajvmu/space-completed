@@ -18,7 +18,10 @@ menuIconButton.addEventListener("click", () => {
 axios.get("http://localhost:5000/profileNames/").then((response)=>{
     let data = response.data;
     let profileName = document.querySelector(".your-profile");
+    let profilePic= document.querySelector(".profile-logo");
     let empId = document.querySelector(".profile-name");
     profileName.textContent=data.employee_name;
     empId.textContent=data.employee_id;
+    profilePic.innerHTML=`${data.employee_name.split("")[0]}`;
+    //can be delete after, adding image tale;
 })

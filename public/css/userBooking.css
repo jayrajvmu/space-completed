@@ -58,7 +58,7 @@
 #wings{
     display: grid;
     grid-template-columns: repeat(4,auto);
-    
+    text-transform: capitalize;
 }
 .wingName{
     margin:20px;
@@ -84,4 +84,5 @@
     padding-bottom: 2vh;
     border-bottom: 3px solid #28293E;
     font-style: italic;
+    text-transform: capitalize;
 }
