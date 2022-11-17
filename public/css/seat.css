@@ -161,7 +161,7 @@ a {
 .opt {
   display: flex;
   /* width: 900px; */
-  height: 30px;
+  /* height: 30px; */
   align-self: flex-start;
   justify-content: center;
   justify-content: space-evenly;

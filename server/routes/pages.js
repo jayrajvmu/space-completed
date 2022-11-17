@@ -131,19 +131,11 @@ router.put(
   }
 );
 
-
-
-router.get("/profileNames",userController.profile, (req, res) => {
+router.get("/profileNames", userController.profile, (req, res) => {
   // console.log("routeded",req);
-
-
   // res.render('info_about_resetpass')
   // res.sendFile(path.join(__dirname,"../../","views","info_about_resetpass.html"));
 });
-
-
-
-
 
 router.get("/seat", (req, res) => {
   res.sendFile(path.join(__dirname, "../../", "views", "seat.html"));
@@ -166,6 +158,12 @@ router.get("/wingStructure", (req, res) => {
 
 router.get("/my-booking", (req, res) => {
   res.sendFile(path.join(__dirname, "../../", "views", "cancel.html"));
+});
+
+router.get("/admin-availability", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../../", "views", "admin-availability.html")
+  );
 });
 
 module.exports = router; //export the module

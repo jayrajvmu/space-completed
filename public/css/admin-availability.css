@@ -1,0 +1,30 @@
+.availability-table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 3em 2em;
+}
+
+.availability-table thead {
+  background-color: #00c6c3;
+  padding: 5px 0;
+}
+
+.availability-table tr {
+  display: flex;
+}
+
+.availability-table thead th {
+  color: #fff;
+}
+
+.availability-table tbody tr {
+  padding: 10px 0;
+  border-bottom: 1px solid #d3d3d3;
+}
+
+.availability-table th,
+.availability-table td {
+  flex: 1;
+  text-align: center;
+}
