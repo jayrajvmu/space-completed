@@ -31,6 +31,7 @@ const bookedSeats = async (userId, empId) => {
         Accept: "application/json",
       },
     });
+    console.log(response);
     console.log(response.data.data);
     let blogDatas = response.data.data;
     if (blogDatas.length === 0) {
